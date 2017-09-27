@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.wisdom</groupId>
+	<artifactId>wisdom</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>wisdom</name>
+	<description>wisdom</description>
+
+	<modules>
+		<!--架构单元-->
+		<module>arch/monitoring</module>
+		<module>arch/registry</module>
+		<module>arch/common</module>
+		<module>arch/config</module>
+
+		<!--业务单元-->
+		<!--<module>service/system-service</module>-->
+		<!--<module>service/notification-service</module>-->
+
+		<!--项目单元-->
+		<!--<module>/project/medical-project</module>-->
+
+	</modules>
+
+</project>

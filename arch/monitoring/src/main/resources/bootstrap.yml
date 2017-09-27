@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: monitoring
+  cloud:
+    com.wisdom.common.config:
+      uri: http://com.wisdom.common.config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
