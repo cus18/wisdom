@@ -27,6 +27,9 @@
 		<module>arch/config</module>
 
 		<module>service/user-service</module>
+		<module>service/health-service</module>
+
+		<module>project/medical-project</module>
 	</modules>
 
 	<dependencyManagement>

@@ -1,8 +1,7 @@
 package com.wisdom.user.interceptor;
 
+import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.ResponseDTO;
-import com.wisdom.user.constant.ConfigConstant;
-import com.wisdom.user.constant.StatusConstant;
 import com.wisdom.user.service.RedisService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -68,8 +67,8 @@ public class LoginRequiredInterceptor {
                         } catch (Exception e) {
                             e.printStackTrace();
                             ResponseDTO<String> responseDto=new ResponseDTO<String>();
-                            //responseDto.setResult(StatusConstant.INSTANCE.FAILURE);
-                            //responseDto.setErrorInfo(StatusConstant.INSTANCE.TOKEN_ERROR);
+                            responseDto.setResult(StatusConstant.FAILURE);
+                            responseDto.setErrorInfo(StatusConstant.TOKEN_ERROR);
                             return responseDto;
                         }
                     }
@@ -80,8 +79,8 @@ public class LoginRequiredInterceptor {
                     if(userInfo==null)
                     {
                         ResponseDTO<String> responseDto=new ResponseDTO<String>();
-                        //responseDto.setResult(StatusConstant.INSTANCE.FAILURE);
-                       // responseDto.setErrorInfo(StatusConstant.INSTANCE.TOKEN_ERROR);
+                        responseDto.setResult(StatusConstant.FAILURE);
+                        responseDto.setErrorInfo(StatusConstant.TOKEN_ERROR);
                         return responseDto;
                     }
                     redisService.set(token,userInfo);

@@ -1,12 +1,11 @@
 package com.wisdom.user.controller;
 
+import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.ElderInfoDTO;
 import com.wisdom.common.dto.ResponseDTO;
 import com.wisdom.common.dto.RelativeElderDTO;
 import com.wisdom.common.dto.UserInfoDTO;
-//import com.wisdom.user.client.HealthServiceClient;
-import com.wisdom.user.constant.ConfigConstant;
-import com.wisdom.user.constant.StatusConstant;
+import com.wisdom.user.client.HealthServiceClient;
 import com.wisdom.user.dto.PractitionerUserDTO;
 import com.wisdom.user.dto.SurveyDTO;
 import com.wisdom.user.interceptor.LoginRequired;
@@ -15,7 +14,6 @@ import com.wisdom.user.service.RedisService;
 import com.wisdom.user.service.SurveyService;
 import com.wisdom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -23,14 +21,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static com.wisdom.user.constant.StatusConstant.*;
 
 @RestController
 public class UserInfoController {
 
 
-//	@Autowired
-//	HealthServiceClient healthServiceClient;
+	@Autowired
+	HealthServiceClient healthServiceClient;
 
 	@Autowired
 	SurveyService surveyService;
@@ -47,8 +44,6 @@ public class UserInfoController {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	@Value("${status.LOGIN_ERROR}") String error ;
-
 	/**
 	 * 获取用户所有的亲友圈中亲友的信息
 	 * @return
@@ -59,11 +54,8 @@ public class UserInfoController {
 	@ResponseBody
 	ResponseDTO<List<RelativeElderDTO>> relativeElderInfo(HttpServletRequest request) {
 
-		ConfigConstant configConstant = new ConfigConstant();
-		System.out.println(StatusConstant.INSTANCE.LOGIN_ERROR);
-		System.out.println(error);
+		System.out.println(StatusConstant.LOGIN_ERROR);
 
-		System.out.println(configConstant.getLoginTokenPeriod());
 		ResponseDTO<List<RelativeElderDTO>> responseDTO = new ResponseDTO<List<RelativeElderDTO>>();
 
 		/**
@@ -74,7 +66,7 @@ public class UserInfoController {
 		//responseDTO.setResult(StatusConstant.SUCCESS);
 
 //		List<RelativeElderDTO> elderInfoList = new ArrayList<RelativeElderDTO>();
-//		String test = healthServiceClient.healthServiceTest();
+		String test = healthServiceClient.healthServiceTest();
 		surveyService.createData();
 		surveyService.findData();
 //

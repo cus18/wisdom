@@ -8,18 +8,29 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
         <module name="config" />
+        <module name="health-service" />
+        <module name="medical-project" />
         <module name="registry" />
         <module name="registry-center" />
         <module name="user-service" />
+      </profile>
+      <profile name="Annotation profile for wisdom" enabled="true">
+        <sourceOutputDir name="../user-service/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../user-service/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="user-service (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.8" />
       <module name="config" target="1.8" />
+      <module name="health-service" target="1.8" />
+      <module name="medical-project" target="1.8" />
       <module name="monitoring" target="1.8" />
       <module name="registry" target="1.8" />
       <module name="registry-center" target="1.8" />
       <module name="user-service" target="1.8" />
+      <module name="user-service (1)" target="1.8" />
       <module name="wisdom" target="1.8" />
     </bytecodeTargetLevel>
   </component>
