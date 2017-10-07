@@ -47,10 +47,8 @@ public class LoginRequiredInterceptor {
 
         Object[] args = pjp.getArgs();
         for(Object arg : args){
-            //logger.debug("arg: {}", arg);
             if (arg instanceof Map<?, ?>) {
                 //提取方法中的MAP参数，用于记录进日志中
-                @SuppressWarnings("unchecked")
                 Map<String, Object> map = (Map<String, Object>) arg;
                 allParams.add(map);
             }else if(arg instanceof HttpServletRequest){

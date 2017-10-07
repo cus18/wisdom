@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping(value = "medical/")
 public class RouteController {
 
 	/*
@@ -30,6 +29,17 @@ public class RouteController {
 		return "angular/elderIonicIndex";
 	}
 
+	/***
+	 * *原生登陆页
+	***/
+	@RequestMapping(value ="login",method = {RequestMethod.POST, RequestMethod.GET})
+	public String elderLogin(HttpServletResponse response) {
+		response.addHeader("Pragma","no-cache");
+		response.setHeader("Cache-Control","no-cache");
+		response.setHeader("Expires","0");
+		return "native/login";
+	}
+
 	/*
 	  elder ionic框架
 	*/
@@ -40,5 +50,7 @@ public class RouteController {
 		response.setHeader("Expires","0");
 		return "native/surveyLogin";
 	}
+
+
 
 }

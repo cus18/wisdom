@@ -49,7 +49,7 @@ public class UserInfoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/relativeElderInfo", method = {RequestMethod.POST, RequestMethod.GET})
-//	@LoginRequired
+	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<RelativeElderDTO>> relativeElderInfo(HttpServletRequest request) {

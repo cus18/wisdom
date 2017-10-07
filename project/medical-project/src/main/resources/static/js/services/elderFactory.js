@@ -2,7 +2,7 @@ var healthService = 'health/healthService/';
 var healthArchive = 'health/healthArchive/';
 var detectionDiagnose = 'health/detectionDiagnose/';
 var interventionGuidance = 'health/';
-var common = 'system/';
+var common = 'user/';
 
 define(['appElder'], function (app) {
     app

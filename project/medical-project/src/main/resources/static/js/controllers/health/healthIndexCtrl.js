@@ -5,7 +5,9 @@ angular.module('controllers',[]).controller('healthIndexCtrl',
                   GetOnGoingHealthServicePackageList,ElderUtil,GetOnlineCourseList) {
 
             GetRelativeElderInfo.save({},function(data){
+
                 console.log(data);
+
                 ElderUtil.checkResponseData(data);
                 $scope.relativeElderList = data.responseData;
 
