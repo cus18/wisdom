@@ -14,6 +14,7 @@ import com.wisdom.user.service.RedisService;
 import com.wisdom.user.service.SurveyService;
 import com.wisdom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -44,6 +45,9 @@ public class UserInfoController {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
+	@Value("${test.value}")
+	String value;
+
 	/**
 	 * 获取用户所有的亲友圈中亲友的信息
 	 * @return
@@ -55,6 +59,7 @@ public class UserInfoController {
 	ResponseDTO<List<RelativeElderDTO>> relativeElderInfo(HttpServletRequest request) {
 
 		System.out.println(StatusConstant.LOGIN_ERROR);
+		System.out.println(value);
 
 		ResponseDTO<List<RelativeElderDTO>> responseDTO = new ResponseDTO<List<RelativeElderDTO>>();
 
