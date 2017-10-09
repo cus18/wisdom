@@ -1,12 +1,11 @@
 package com.wisdom.user.service;
 
 import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.mapper.DaHanTricomMessageMapper;
 import com.wisdom.common.util.DaHanTricomSMSMessageUtil;
+import com.wisdom.user.mapper.DaHanTricomMessageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 @Transactional(readOnly = false)

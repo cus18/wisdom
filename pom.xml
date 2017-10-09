@@ -13,6 +13,14 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<repositories>
+		<repository>
+			<id>LY</id>
+			<name>private maven</name>
+			<url>http://101.201.209.61:8081/nexus/content/repositories</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.8</jdk.version>
@@ -79,8 +87,6 @@
 				<version>${spring.cloud.version}</version>
 			</dependency>
 
-
-
 		</dependencies>
 	</dependencyManagement>
 
@@ -96,5 +102,14 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<pluginRepositories>
+		<!--私有Maven-->
+		<pluginRepository>
+			<id>LY</id>
+			<name>private maven</name>
+			<url>http://101.201.209.61:8081/nexus/content/repositories/HLJK</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>

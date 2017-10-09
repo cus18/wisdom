@@ -11,7 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @EnableFeignClients
-@MapperScan(basePackages = "com.wisdom.user.mapper")
+@MapperScan(basePackages = {"com.wisdom.user.mapper"})
 public class UserApplication {
 
 	public static void main(String[] args) {

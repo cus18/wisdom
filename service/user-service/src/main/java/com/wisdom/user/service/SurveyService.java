@@ -48,7 +48,6 @@ public class SurveyService {
 
     public List<AnswerDTO> findData() {
         AnswerDTO answerDTO = new AnswerDTO();
-        //answerDTO.setId("008e91f1-40e8-4881-9d26-78ecc59d31ee");
         answerDTO.setWorker_name("李丛蓉");
         List<AnswerDTO> answerDTOList = surveyMapper.findSurveyAnswer(answerDTO);
         return answerDTOList;

@@ -1,5 +1,6 @@
 package com.wisdom.user.controller;
 
+import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.ElderInfoDTO;
 import com.wisdom.common.dto.ResponseDTO;
@@ -9,10 +10,7 @@ import com.wisdom.user.client.HealthServiceClient;
 import com.wisdom.user.dto.PractitionerUserDTO;
 import com.wisdom.user.dto.SurveyDTO;
 import com.wisdom.user.interceptor.LoginRequired;
-import com.wisdom.user.service.PractitionerUserService;
-import com.wisdom.user.service.RedisService;
-import com.wisdom.user.service.SurveyService;
-import com.wisdom.user.service.UserService;
+import com.wisdom.user.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -45,6 +43,9 @@ public class UserInfoController {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
+	@Autowired
+	private LoginService loginService;
+
 	@Value("${test.value}")
 	String value;
 
@@ -53,15 +54,24 @@ public class UserInfoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/relativeElderInfo", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
+//	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO<List<RelativeElderDTO>> relativeElderInfo(HttpServletRequest request) {
+	ResponseDTO<List<RelativeElderDTO>> relativeElderInfo(HttpServletRequest request,
+														  @RequestBody UserInfoDTO userInfoDTO) {
 
 		System.out.println(StatusConstant.LOGIN_ERROR);
 		System.out.println(value);
 
-		ResponseDTO<List<RelativeElderDTO>> responseDTO = new ResponseDTO<List<RelativeElderDTO>>();
+		System.out.println(ConfigConstant.instance.loginTokenPeriod);
+
+		ResponseDTO<List<RelativeElderDTO>> responseDTO = new ResponseDTO<>();
+
+		loginService.sendMessage(userInfoDTO.getPhone());
+
+
+		responseDTO.setResult(StatusConstant.instance.SUCCESS);
+		return responseDTO;
 
 		/**
 		 * 获取用户所有的亲友圈中亲友的信息，将用户的亲友圈的亲友信息放入RelativeElderDTO中
@@ -71,21 +81,19 @@ public class UserInfoController {
 		//responseDTO.setResult(StatusConstant.SUCCESS);
 
 //		List<RelativeElderDTO> elderInfoList = new ArrayList<RelativeElderDTO>();
-		String test = healthServiceClient.healthServiceTest();
-		surveyService.createData();
-		surveyService.findData();
+//		String test = healthServiceClient.healthServiceTest();
+//		surveyService.createData();
+//		surveyService.findData();
 //
+//		Query query = new Query().with(new Sort(Sort.Direction.ASC, "questionId"));
+//		List<SurveyDTO> surveyDTOList = this.mongoTemplate.find(query, SurveyDTO.class,"surveys");
 //
-		Query query = new Query().with(new Sort(Sort.Direction.ASC, "questionId"));
-		List<SurveyDTO> surveyDTOList = this.mongoTemplate.find(query, SurveyDTO.class,"surveys");
+//		boolean isOk = redisService.set("name", "陈佳科");
+//		String name = redisService.get("name");
+//		redisService.expire("name",1);
+//		name = redisService.get("name");
 //
-//
-		boolean isOk = redisService.set("name", "陈佳科");
-		String name = redisService.get("name");
-		redisService.expire("name",1);
-		name = redisService.get("name");
-
-		return responseDTO;
+//		return responseDTO;
 	}
 
 	/**

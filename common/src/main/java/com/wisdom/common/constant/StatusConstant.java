@@ -1,25 +1,29 @@
 package com.wisdom.common.constant;
 
-public class StatusConstant {
+import com.wisdom.common.config.Global;
 
-	public static final String LOGIN_ERROR="0x00000";
+public enum StatusConstant {
 
-	public static final String SUCCESS = "0x00001";
+	instance;
 
-	public static final String FAILURE = "0x00002";
+	public static final String LOGIN_ERROR = Global.getConfig("LOGIN_ERROR");
 
-	public static final String ONLINE = "0x00003";
+	public static final String SUCCESS = Global.getConfig("SUCCESS");
 
-	public static final String OFFLINE = "0x00004";
+	public static final String FAILURE = Global.getConfig("FAILURE");
 
-	public static final String LOGIN_OUT = "0x00005";
+	public static final String ONLINE = Global.getConfig("ONLINE");
 
-	public static final String TOKEN_ERROR = "0x00006";
+	public static final String OFFLINE = Global.getConfig("OFFLINE");
 
-	public static final String PARAM_ERROR = "0x00007";
+	public static final String LOGIN_OUT = Global.getConfig("LOGIN_OUT");
 
-	public static final String Medication_ERROR="0x00008";
+	public static final String TOKEN_ERROR = Global.getConfig("TOKEN_ERROR");
 
-	public static final String Diet_ERROR="0x00009";
+	public static final String PARAM_ERROR = Global.getConfig("PARAM_ERROR");
+
+	public static final String MEDICATION_ERROR = Global.getConfig("MEDICATION_ERROR");
+
+	public static final String DIET_ERROR = Global.getConfig("DIET_ERROR");
 
 }

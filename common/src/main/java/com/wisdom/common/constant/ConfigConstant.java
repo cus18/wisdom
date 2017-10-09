@@ -1,16 +1,21 @@
 package com.wisdom.common.constant;
 
-public class ConfigConstant {
+import com.wisdom.common.config.Global;
 
-	//redis中存储的登陆后的token的有效期，目前是30天
-	public static final int loginTokenPeriod = 60*60*24*30;
+public enum ConfigConstant {
 
-	public static final String practitionerDomain = "101.201.209.61";
+	instance;
 
-	public static final String elderVersion = "1.0.1";
+	public static final int loginTokenPeriod = Integer.parseInt(Global.getConfig("loginTokenPeriod"));//60*60*24*30;
 
-	public static final String practitionerVersion = "1.0.1";
+	public static final String practitionerDomain = Global.getConfig("practitionerDomain");
 
-	public static final String hospitalVersion = "1.0.1";
+	public static final String elderVersion = Global.getConfig("elderVersion");
+
+	public static final String practitionerVersion = Global.getConfig("practitionerVersion");
+
+	public static final String hospitalVersion = Global.getConfig("hospitalVersion");
+
+
 
 }
