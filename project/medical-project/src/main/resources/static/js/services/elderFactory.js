@@ -203,29 +203,4 @@ define(['appElder'], function (app) {
         }])
 
 
-        //获取问卷所有的题目
-        .factory('GetTotalQuestion',['$resource',function ($resource){
-            return $resource('survey/list')
-        }])
-        //获取某道题目的答案
-        .factory('GetQuestionAnswer',['$resource',function ($resource){
-            return $resource('survey/getAnswer')
-        }])
-        //提交某道题目的答案
-        .factory('SaveQuestionAnswer',['$resource',function ($resource){
-            return $resource('survey/answer')
-        }])
-        //获取省数据列表
-        .factory('GetProvinceData',['$resource',function ($resource){
-            return $resource('survey/province')
-        }])
-        //获取城市数据列表
-        .factory('GetAreaData',['$resource',function ($resource){
-            return $resource('survey/area')
-        }])
-        .factory('GetQRCodeURL',['$resource',function ($resource){
-            return $resource(common + 'getUserQRCode')
-        }])
-
-
 })

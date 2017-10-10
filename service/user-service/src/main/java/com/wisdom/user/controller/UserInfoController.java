@@ -46,9 +46,6 @@ public class UserInfoController {
 	@Autowired
 	private LoginService loginService;
 
-	@Value("${test.value}")
-	String value;
-
 	/**
 	 * 获取用户所有的亲友圈中亲友的信息
 	 * @return
@@ -61,7 +58,6 @@ public class UserInfoController {
 														  @RequestBody UserInfoDTO userInfoDTO) {
 
 		System.out.println(StatusConstant.LOGIN_ERROR);
-		System.out.println(value);
 
 		System.out.println(ConfigConstant.instance.loginTokenPeriod);
 
