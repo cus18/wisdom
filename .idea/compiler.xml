@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
+        <module name="community-project" />
         <module name="config" />
+        <module name="elder-project" />
         <module name="health-service" />
-        <module name="medical-project" />
         <module name="registry" />
         <module name="registry-center" />
+        <module name="registry-service" />
         <module name="user-service" />
       </profile>
       <profile name="Annotation profile for wisdom" enabled="true">
@@ -23,12 +25,16 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.8" />
+      <module name="community-project" target="1.8" />
       <module name="config" target="1.8" />
+      <module name="elder-project" target="1.8" />
       <module name="health-service" target="1.8" />
+      <module name="living-project" target="1.8" />
       <module name="medical-project" target="1.8" />
       <module name="monitoring" target="1.8" />
       <module name="registry" target="1.8" />
       <module name="registry-center" target="1.8" />
+      <module name="registry-service" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="user-service (1)" target="1.8" />
       <module name="wisdom" target="1.8" />

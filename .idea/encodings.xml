@@ -2,10 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/arch/config" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/arch/registry-center" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/project/elder-project" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/project/living-project" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/project/medical-project" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/registry-center" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service/health-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service/user-service" charset="UTF-8" />
   </component>

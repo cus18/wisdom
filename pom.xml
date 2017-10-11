@@ -29,15 +29,16 @@
 	</properties>
 
 	<modules>
-		<module>common</module>
 
-		<module>arch/registry-center</module>
-		<module>arch/config</module>
+		<module>common</module>
+		<module>config</module>
+		<module>registry-center</module>
 
 		<module>service/user-service</module>
 		<module>service/health-service</module>
 
-		<module>project/medical-project</module>
+		<module>project/elder-project</module>
+
 	</modules>
 
 	<dependencyManagement>
