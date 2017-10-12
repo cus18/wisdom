@@ -19,29 +19,32 @@ angular.module('controllers',[]).controller('healthServiceCtrl',
             }
 
             $scope.newPhysicalExamination = function () {
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler(
-                        'createPhysicalExamination','',function(responseData) {
-                        });
-                });
 
-                connectWebViewJavascriptBridge(function(bridge) {
-                    bridge.registerHandler("createPhysicalExaminationDown", function(data, responseCallback) {
-                        if(data == Global.SUCCESS)
-                        {
-                            $timeout(function() {
-                                GetHealthArchivePhysicalExaminationList.save({pageNo:"1", pageSize:"5",
-                                    orderType:"1",orderBy:"0",
-                                    requestData:{elderId:$scope.elderId}},function(data){
-                                    $scope.loadingStatus = false;
-                                    ElderUtil.checkResponseData(data);
-                                    $scope.healthArchivePhysicalExaminationList = data.responseData;
-                                });
-                            }, 6000);
-                        }
-                        responseCallback(responseData);
-                    });
-                });
+                //创建检测报告
+
+                // connectWebViewJavascriptBridge(function() {
+                //     window.WebViewJavascriptBridge.callHandler(
+                //         'createPhysicalExamination','',function(responseData) {
+                //         });
+                // });
+                //
+                // connectWebViewJavascriptBridge(function(bridge) {
+                //     bridge.registerHandler("createPhysicalExaminationDown", function(data, responseCallback) {
+                //         if(data == Global.SUCCESS)
+                //         {
+                //             $timeout(function() {
+                //                 GetHealthArchivePhysicalExaminationList.save({pageNo:"1", pageSize:"5",
+                //                     orderType:"1",orderBy:"0",
+                //                     requestData:{elderId:$scope.elderId}},function(data){
+                //                     $scope.loadingStatus = false;
+                //                     ElderUtil.checkResponseData(data);
+                //                     $scope.healthArchivePhysicalExaminationList = data.responseData;
+                //                 });
+                //             }, 6000);
+                //         }
+                //         responseCallback(responseData);
+                //     });
+                // });
             }
 
             $scope.firstMenu = $stateParams.firstMenu;

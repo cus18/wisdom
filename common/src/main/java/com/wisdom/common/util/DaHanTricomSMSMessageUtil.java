@@ -61,7 +61,6 @@ public class DaHanTricomSMSMessageUtil {
             String sendhRes = jsonHttpClient.sendSms(account, password, phoneNum, content, sign, subcode,msgid);
             DaHanTricomMessageDTO dtmb = JSON.parseObject(sendhRes,DaHanTricomMessageDTO.class);
             if(dtmb.getResult().equals("0")){
-
                 LogUtils.saveLog("验证码短信发送成功",phoneNum+"-"+content+"-"+sendhRes);//定时器短信
                 return num;
             }else{

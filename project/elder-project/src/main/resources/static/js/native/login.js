@@ -18,9 +18,20 @@ document.write('<scr'+'ipt src="js/libs/tool/calendar.js?ver=1.0.7"></scr'+'ipt>
 document.write('<scr'+'ipt src="js/libs/tool/gcal.js?ver=1.0.7"></scr'+'ipt>');
 document.write('<scr'+'ipt src="js/libs/tool/ui-bootstrap-tpls-0.9.0.js?ver=1.0.7"></scr'+'ipt>');
 
+var getQueryString = function(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
 
 var loginPageInit = function(){
+
     $("body").css("visibility","visible");
+
+    console.log(getQueryString('redirectParam'));
 
     /*
      *获取验证码
@@ -31,12 +42,16 @@ var loginPageInit = function(){
         if(codeOnOff){
             if(/^1(3|4|5|7|8)\d{9}$/.test(phone)) {
 
-                var param = '{"phoneNum":' + phone  + '}';
+                var param = '{"mobile":' + phone  + '}';
                 $.ajaxSetup({
                     contentType : 'application/json'
                 });
-                $.post('account/sendIdentifying',param,
+
+                $.post('user/sendIdentifying',param,
                     function(data) {
+
+                    console.log(data);
+
                     }, 'json');
 
                 var second = 59;
@@ -75,22 +90,15 @@ var loginPageInit = function(){
             $.ajaxSetup({
                 contentType : 'application/json'
             });
-            $.post('account/login',param,
+            $.post('user/login',param,
                 function(data) {
                     if(data!=null ){
                         if(data.result == '0x00001')
                         {
-                            window.WebViewJavascriptBridge.callHandler(
-                                'loginUserInfo',
-                                data.responseData,
-                                function(responseData) {
-                                    if(responseData=='0x00008')
-                                    {
-                                        // $rootScope.loginToken = data.responseData.loginToken;
-                                        // $state.go("healthService", {firstMenu: 'healthServicePackage', secondMenu: ''});
-                                    }
-                                }
-                            );
+                            //登录成功后，跳转到之前页面，将token信息放入缓存中
+                            window.localStorage.setItem("loginToken",data.responseData.loginToken);
+                            var redirectParam = getQueryString('redirectParam');
+                            window.location.href = "elder#/" + redirectParam;
                         }
                         else if(data.result == '0x00002')
                         {
@@ -103,5 +111,6 @@ var loginPageInit = function(){
     })
 
 }
+
 
 

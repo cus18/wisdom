@@ -3,8 +3,7 @@
  */
 package com.wisdom.user.mapper;
 
-import com.wisdom.common.dto.UserInfoDTO;
-
+import com.wisdom.common.dto.userService.UserInfoDTO;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  * @author ThinkGem
  * @version 2014-05-16
  */
-public interface UserMapper {
+public interface UserMapper extends CrudMapper<UserInfoDTO>{
 
 	UserInfoDTO getByLoginName(UserInfoDTO user);
 

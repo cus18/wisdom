@@ -64,7 +64,6 @@ require.config({
             deps: ['highcharts'],   //依赖什么模块
         },
         'elderGlobal': ['angular'],
-        'surveyGlobal': ['angular'],
         'app':['ocLazyLoad'],
     }
 });
@@ -72,7 +71,7 @@ require.config({
 require(['angular','angular-resource','angular-sanitize','angular-ui-router','angular-locale_zh-cn',
         'ocLazyLoad', 'jquery', 'highcharts','highcharts-ng','ng-infinite-scroll',
         'moment','fullCalendar', 'calendar', 'gcal',
-        'uiBootstrapTpls','elderFactory', 'elderGlobal','surveyGlobal',
+        'uiBootstrapTpls','elderFactory', 'elderGlobal',
         'elderDirective', 'elderRoute','appElder'],
     function (angular){
         angular.bootstrap(document,["elderApp"]);

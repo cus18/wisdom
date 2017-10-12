@@ -13,7 +13,7 @@
 	<artifactId>registry-center</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>user-service</name>
+	<name>registry-center</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

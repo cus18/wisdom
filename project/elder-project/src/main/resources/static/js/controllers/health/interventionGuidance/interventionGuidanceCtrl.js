@@ -58,30 +58,35 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('interve
             }
 
             $scope.createMealRecord = function(){
-                window.WebViewJavascriptBridge.callHandler(
-                    'createMealRecord',
-                    function(responseData) {
-                    }
-                );
 
-                connectWebViewJavascriptBridge(function(bridge) {
+                //创建饮食记录
 
-                    bridge.registerHandler("createMealRecordDown", function(data, responseCallback) {
-                        if(data == Global.SUCCESS)
-                        {
-                            $window.location.reload();
-                        }
-                        responseCallback(responseData);
-                    });
-                });
+                // window.WebViewJavascriptBridge.callHandler(
+                //     'createMealRecord',
+                //     function(responseData) {
+                //     }
+                // );
+                //
+                // connectWebViewJavascriptBridge(function(bridge) {
+                //
+                //     bridge.registerHandler("createMealRecordDown", function(data, responseCallback) {
+                //         if(data == Global.SUCCESS)
+                //         {
+                //             $window.location.reload();
+                //         }
+                //         responseCallback(responseData);
+                //     });
+                // });
             }
 
             $scope.goMenu = function(firstMenuParam,secondMenuParam){
                 $state.go('interventionGuidance',{firstMenu:firstMenuParam,secondMenu:secondMenuParam})
             };
+
             $scope.goMedicationPlan = function(pageType,editable,listId){
                 $state.go('medicationPlan',{pageType:pageType,editable:editable,listId:listId})
             };
+
             $scope.goMealRecord = function(date,time){
                 $state.go('mealRecordResult',{date:date,time:time})
             };

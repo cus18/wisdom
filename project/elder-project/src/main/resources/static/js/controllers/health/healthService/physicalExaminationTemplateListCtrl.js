@@ -6,14 +6,8 @@ angular.module('controllers',[]).controller('physicalExaminationTemplateListCtrl
 
             $scope.loadingStatus = true;
 
-            connectWebViewJavascriptBridge(function() {
-                window.WebViewJavascriptBridge.callHandler(
-                    'getElderInfo','',function(responseData) {
-                        var dataValue = JSON.parse(responseData);
-                        $scope.elderId = dataValue.elderId;
-                        $scope.elderName = dataValue.elderName;
-                    })
-            })
+            $scope.elderId = $rootScope.elderId;
+            $scope.elderName = $rootScope.elderName;
 
             // 当前页数
             $scope.pageNo = 1;

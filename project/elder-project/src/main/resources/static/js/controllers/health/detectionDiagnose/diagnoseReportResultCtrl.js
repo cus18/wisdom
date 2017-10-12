@@ -7,7 +7,10 @@ angular.module('controllers',[]).controller('diagnoseReportResultCtrl',
             $scope.loadingStatus = true;
 
             $scope.enterGroupTalk = function(){
-                window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
+
+                //进入健康群聊圈
+
+                //window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
             }
 
             $scope.elderId = $rootScope.rootElderId;

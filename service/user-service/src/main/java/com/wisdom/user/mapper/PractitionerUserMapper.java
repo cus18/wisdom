@@ -3,7 +3,7 @@
  */
 package com.wisdom.user.mapper;
 
-import com.wisdom.user.dto.PractitionerUserDTO;
+import com.wisdom.common.dto.userService.PractitionerUserDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 

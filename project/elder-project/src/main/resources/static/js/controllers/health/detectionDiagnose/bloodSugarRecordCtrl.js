@@ -12,7 +12,10 @@ angular.module('controllers',[]).controller('bloodSugarRecordCtrl',
             }
 
             $scope.enterGroupTalk = function(){
-                window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
+
+                //进入健康群聊
+
+                //window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
             }
 
             $scope.bloodSugar = {};

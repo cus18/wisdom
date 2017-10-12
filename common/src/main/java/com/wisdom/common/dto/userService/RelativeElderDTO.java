@@ -1,4 +1,4 @@
-package com.wisdom.common.dto;
+package com.wisdom.common.dto.userService;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

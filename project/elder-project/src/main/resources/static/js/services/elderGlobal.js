@@ -13,11 +13,12 @@ angular.module('elderGlobal',[])
     .factory('ElderUtil', ['Global','$ionicPopup',
         function(Global,$ionicPopup) {
             return {
-                checkResponseData: function(data) {
+                checkResponseData: function(data,redirectParam) {
                     if(data.result==Global.FAILURE)
                     {
                         if(data.errorInfo==Global.TOKEN_ERROR){
-                            window.location.href = "login";
+                            //如果登录token发生了问题，跳转到登录页面，且在登录成功后，跳转到之前页面去
+                            window.location.href = "login?redirectParam="+redirectParam;
                         }
                     }
                 },

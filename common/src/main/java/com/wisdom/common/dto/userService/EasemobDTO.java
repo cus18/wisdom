@@ -1,4 +1,4 @@
-package com.wisdom.user.dto;
+package com.wisdom.common.dto.userService;
 
 /**
  * Created by zbm84 on 2017/5/8.

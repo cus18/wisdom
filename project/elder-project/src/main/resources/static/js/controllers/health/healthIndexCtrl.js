@@ -6,22 +6,13 @@ angular.module('controllers',[]).controller('healthIndexCtrl',
 
             GetRelativeElderInfo.save({},function(data){
 
-                console.log(data);
+                ElderUtil.checkResponseData(data,'healthIndex');
 
-                ElderUtil.checkResponseData(data);
                 $scope.relativeElderList = data.responseData;
 
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler(
-                        'getElderInfo','',function(responseData) {
-                            var dataValue = JSON.parse(responseData);
-                            $scope.elderId = dataValue.elderId;
-                            $scope.elderName = dataValue.elderName;
+                $scope.elderId = $scope.relativeElderList[0].elderID;
+                $scope.chooseRelativeElder($scope.elderId);
 
-                            //$scope.elderId = $scope.relativeElderList[0].elderID;
-                            $scope.chooseRelativeElder($scope.elderId);
-                        })
-                })
             })
 
 
@@ -46,7 +37,7 @@ angular.module('controllers',[]).controller('healthIndexCtrl',
                         //根据elderId获取用户的健康产品列表信息
                         GetOnGoingHealthServicePackageList.save({pageNo:"1", pageSize:"3", orderType:"1",orderBy:"0",
                             requestData:{elderId:$scope.elderId}}, function (data) {
-                            ElderUtil.checkResponseData(data);
+                            ElderUtil.checkResponseData(data,'healthIndex');
                             $scope.healthServicePackageList = data.responseData;
                         })
 
@@ -57,17 +48,8 @@ angular.module('controllers',[]).controller('healthIndexCtrl',
                 })
             }
 
-            $scope.param = {
-                page:{
-                    pageNo:1,
-                    pageSize:5,
-                    orderType:1,
-                    requestData:"health"
-                }
-            }
-
             //获取健康类的课程列表
-            GetOnlineCourseList.save($scope.param.page,function(data){
+            GetOnlineCourseList.save({pageNo:1, pageSize:5, orderType:1, requestData:"health"},function(data){
                 $scope.onlineCourseList = data.responseData;
             })
 

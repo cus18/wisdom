@@ -455,5 +455,4 @@ angular.module('controllers',[]).controller('healthAssessmentResultCtrl',
 
             });
 
-
         }])

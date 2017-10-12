@@ -3,6 +3,7 @@ var healthArchive = 'health/healthArchive/';
 var detectionDiagnose = 'health/detectionDiagnose/';
 var interventionGuidance = 'health/';
 var common = 'user/';
+var user = 'user/';
 
 define(['appElder'], function (app) {
     app
@@ -102,9 +103,6 @@ define(['appElder'], function (app) {
         .factory('GetMedicationPlanTimingByElderUserID',['$resource',function ($resource){
             return $resource(interventionGuidance + 'getMedicationPlanTimingByElderUserID')
         }])
-        .factory('SendIdentifying',['$resource',function ($resource){
-            return $resource(common + 'sendIdentifying')
-        }])
 
         //获取已参与的活动群列表信息
         .factory('GetAttendedActivityGroupMessage',['$resource',function ($resource){
@@ -189,7 +187,7 @@ define(['appElder'], function (app) {
 
         //获取自己的亲友群中所有的亲友信息列表
         .factory('GetRelativeElderInfo',['$resource',function ($resource){
-            return $resource(common + 'relativeElderInfo')
+            return $resource(user + 'relativeElderInfo')
         }])
 
         //获取用户的参加的活动信息列表

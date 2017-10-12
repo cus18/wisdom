@@ -173,75 +173,65 @@ angular.module('controllers',[]).controller('medicationPlanCtrl',
             }
 
 
-            connectWebViewJavascriptBridge(function() {
-                window.WebViewJavascriptBridge.callHandler(
-                    'getElderInfo','',function(responseData) {
-                        var dataValue = JSON.parse(responseData);
-                        $scope.elderId = dataValue.elderId;
-                        $scope.elderName = dataValue.elderName;
+            $scope.elderId = $rootScope.elderId;
+            $scope.elderName = $rootScope.elderName;
 
-                        // $scope.elderId = '100000002693';
-                        // $scope.elderName = '浦声波';
+            /*提交*/
+            var submitOnOff = true;  //防止多次提交
+            $scope.medicationPlan.submitForm = function(isValid){
+                if(isValid){
 
+                    if($scope.medicationPlan.repeatData.join(';').length > 0){
 
-                        /*提交*/
-                        var submitOnOff = true;  //防止多次提交
-                        $scope.medicationPlan.submitForm = function(isValid){
-                            if(isValid){
-
-                                if($scope.medicationPlan.repeatData.join(';').length > 0){
-
-                                    var repeatData = $scope.medicationPlan.repeatData.sort();
-                                    if(repeatData.indexOf('7') > 0){
-                                        repeatData = ['7'];
-                                    }
-                                    if(submitOnOff) {
-                                        if ($scope.pageType == 'newPlan') {
-                                            if (new Date($scope.medicationPlan.endTime) > new Date($scope.medicationPlan.startTime)) {
-                                                submitOnOff = false;
-                                                InsertMedicationPlan.save({
-                                                    drugName: $scope.medicationPlan.drugName,
-                                                    dose: $scope.medicationPlan.dose,
-                                                    usageTime: $scope.medicationPlan.timeData.join(';') + ';',
-                                                    repeat: repeatData.join(';') + ';',
-                                                    startTime: $scope.medicationPlan.startTime,
-                                                    endTime: $scope.medicationPlan.endTime,
-                                                    remark: $scope.medicationPlan.remark,
-                                                    elderID: $scope.elderId
-                                                }, function (data) {
-                                                    // console.log(data)
-                                                    $state.go('interventionGuidance', {
-                                                        firstMenu: 'medicineIntervention',
-                                                        secondMenu: 'interventionPlan'
-                                                    });
-                                                })
-                                            }
-                                        } else if ($scope.pageType == 'checkPlan') {
-                                            submitOnOff = false;
-                                            UpdateMedicationPlan.save({
-                                                id: $scope.listId,
-                                                drugName: $scope.medicationPlan.drugName,
-                                                dose: $scope.medicationPlan.dose,
-                                                usageTime: $scope.medicationPlan.timeData.join(';') + ';',
-                                                repeat: repeatData.join(';') + ';',
-                                                startTime: $scope.medicationPlan.startTime,
-                                                endTime: $scope.medicationPlan.endTime,
-                                                remark: $scope.medicationPlan.remark,
-                                                elderID: $scope.elderId
-                                            }, function (data) {
-                                                $state.go('interventionGuidance', {
-                                                    firstMenu: 'medicineIntervention',
-                                                    secondMenu: 'interventionPlan'
-                                                });
-                                            })
-                                        }
-                                    }
+                        var repeatData = $scope.medicationPlan.repeatData.sort();
+                        if(repeatData.indexOf('7') > 0){
+                            repeatData = ['7'];
+                        }
+                        if(submitOnOff) {
+                            if ($scope.pageType == 'newPlan') {
+                                if (new Date($scope.medicationPlan.endTime) > new Date($scope.medicationPlan.startTime)) {
+                                    submitOnOff = false;
+                                    InsertMedicationPlan.save({
+                                        drugName: $scope.medicationPlan.drugName,
+                                        dose: $scope.medicationPlan.dose,
+                                        usageTime: $scope.medicationPlan.timeData.join(';') + ';',
+                                        repeat: repeatData.join(';') + ';',
+                                        startTime: $scope.medicationPlan.startTime,
+                                        endTime: $scope.medicationPlan.endTime,
+                                        remark: $scope.medicationPlan.remark,
+                                        elderID: $scope.elderId
+                                    }, function (data) {
+                                        // console.log(data)
+                                        $state.go('interventionGuidance', {
+                                            firstMenu: 'medicineIntervention',
+                                            secondMenu: 'interventionPlan'
+                                        });
+                                    })
                                 }
+                            } else if ($scope.pageType == 'checkPlan') {
+                                submitOnOff = false;
+                                UpdateMedicationPlan.save({
+                                    id: $scope.listId,
+                                    drugName: $scope.medicationPlan.drugName,
+                                    dose: $scope.medicationPlan.dose,
+                                    usageTime: $scope.medicationPlan.timeData.join(';') + ';',
+                                    repeat: repeatData.join(';') + ';',
+                                    startTime: $scope.medicationPlan.startTime,
+                                    endTime: $scope.medicationPlan.endTime,
+                                    remark: $scope.medicationPlan.remark,
+                                    elderID: $scope.elderId
+                                }, function (data) {
+                                    $state.go('interventionGuidance', {
+                                        firstMenu: 'medicineIntervention',
+                                        secondMenu: 'interventionPlan'
+                                    });
+                                })
                             }
                         }
+                    }
+                }
+            }
 
-                    })
-            })
 
             /*删除用药干预*/
             $scope.medicationPlan.delMedicationPlan = function(){

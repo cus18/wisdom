@@ -60,6 +60,24 @@ public class LogUtils {
 		threadExecutor.execute(thread);
 	}
 
+	/**
+	 * 保存日志
+	 */
+	public static void saveLog(HttpServletRequest request,String title,String parameters){
+		LogDTO log = new LogDTO();
+		log.setType(LogDTO.TYPE_EXCEPTION);
+		log.setTitle(title);
+		log.setParameters(parameters);
+		log.setRemoteAddr(StringUtils.getRemoteAddr(request));
+		log.setUserAgent(request.getHeader("user-agent"));
+		log.setRequestUri(request.getRequestURI());
+		log.setParams(request.getParameterMap());
+		log.setMethod(request.getMethod());
+		log.setOpenId((String) request.getSession().getAttribute("openId"));
+		// 异步保存日志
+		Runnable thread = new SaveLogThread(log, null, null);
+		threadExecutor.execute(thread);
+	}
 
 	/**
 	 * 保存日志线程
@@ -68,18 +86,17 @@ public class LogUtils {
 		private LogDTO logDTO;
 		private Object handler;
 		private Exception ex;
-		
+
 		public SaveLogThread(LogDTO logDTO, Object handler, Exception ex){
 			super(SaveLogThread.class.getSimpleName());
 			this.logDTO = logDTO;
 			this.handler = handler;
 			this.ex = ex;
 		}
-		
+
 		@Override
 		public void run() {
 			//日志功能需要重写
-
 		}
 	}
 

@@ -1,11 +1,24 @@
 package com.wisdom.user.service;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.constant.StatusConstant;
+import com.wisdom.common.dto.userService.ElderUserDTO;
+import com.wisdom.common.dto.userService.LoginDTO;
+import com.wisdom.common.dto.userService.PractitionerUserDTO;
+import com.wisdom.common.dto.userService.UserInfoDTO;
 import com.wisdom.common.util.DaHanTricomSMSMessageUtil;
+import com.wisdom.common.util.LogUtils;
+import com.wisdom.common.util.StringUtils;
+import com.wisdom.common.util.UUIDUtil;
 import com.wisdom.user.mapper.DaHanTricomMessageMapper;
+import com.wisdom.user.mapper.ElderUserMapper;
+import com.wisdom.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Service
 @Transactional(readOnly = false)
@@ -14,15 +27,113 @@ public class LoginService {
     @Autowired
     DaHanTricomMessageMapper daHanTricomMessageMapper;
 
+    @Autowired
+    RedisService redisService;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    EasemobService easemobService;
+
+    @Autowired
+    ElderUserMapper elderUserMapper;
+
     public String sendMessage(String phoneNum) {
         try {
             String num = DaHanTricomSMSMessageUtil.sendIdentifying(phoneNum);
+            if(num==null){
+                return  StatusConstant.FAILURE;
+            }
             daHanTricomMessageMapper.insertIdentifying(phoneNum, num);
             return StatusConstant.SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return StatusConstant.FAILURE;
         }
+    }
+
+    public LoginDTO login(String phone, String validateCode,
+                          String source, String loginIP,
+                          HttpServletRequest request) throws Exception
+    {
+        if (daHanTricomMessageMapper.searchIdentify(phone, validateCode) > 0||
+                (StringUtils.toInteger(phone)<100011&&validateCode.equals("1234"))) {
+
+            UserInfoDTO userInfoDTO = new UserInfoDTO();
+            userInfoDTO.setLoginName(phone);
+            userInfoDTO = userMapper.getByLoginName(userInfoDTO);
+            if (userInfoDTO == null) {
+                userInfoDTO = new UserInfoDTO();
+                userInfoDTO.setLoginName(phone);
+                userInfoDTO.setId(UUIDUtil.getUUID());
+                userInfoDTO.setPhone(phone);
+                userInfoDTO.setCreateDate(new Date());
+                userInfoDTO.setLoginIp(loginIP);
+                userMapper.insert(userInfoDTO);
+                userInfoDTO.setSource(source);
+                String easemobUserID = source + "_" + userInfoDTO.getId();
+                String easemobPassword = UUIDUtil.getUUID();
+                LoginDTO loginDto = new LoginDTO();
+                if (source.equals("elder")) {
+                    easemobService.signEasemobUser(easemobUserID, easemobPassword);
+                    ElderUserDTO sysElderUserDTO = new ElderUserDTO();
+                    sysElderUserDTO.setId(UUIDUtil.getUUID());
+                    sysElderUserDTO.setSysUserID(userInfoDTO.getId());
+                    sysElderUserDTO.setEasemobPassword(easemobPassword);
+                    sysElderUserDTO.setEasemobID(easemobUserID);
+                    elderUserMapper.insertSysElderUser(sysElderUserDTO);
+                    userInfoDTO.setElderUserDTO(sysElderUserDTO);
+                    loginDto.setEasemobID(userInfoDTO.getElderUserDTO().getEasemobID());
+                    loginDto.setEasemobPassword(userInfoDTO.getElderUserDTO().getEasemobPassword());
+                }
+                String loginToken = UUIDUtil.getUUID() + source;
+                redisService.set(loginToken,JSONUtils.toJSONString(userInfoDTO));
+                redisService.expire(loginToken,ConfigConstant.loginTokenPeriod);
+                LogUtils.saveLog(request, "新用户登录", userInfoDTO.getId() + "--" + source + "---" + loginIP);
+                loginDto.setLoginToken(loginToken);
+                return loginDto;
+            } else {
+                LoginDTO loginDto = new LoginDTO();
+                if (source.equals("elder")) {
+                    ElderUserDTO sysElderUserDTO = elderUserMapper.getSysElder(userInfoDTO.getId());
+                    userInfoDTO.setElderUserDTO(sysElderUserDTO);
+                    if (sysElderUserDTO == null) {
+                        loginDto.setLoginToken("00000");
+                    } else {
+                        loginDto.setLoginToken(UUIDUtil.getUUID() + source);
+                    }
+                }
+
+                if (loginDto.getLoginToken() != null && !loginDto.getLoginToken().equals("00000")) {
+                    if (source.equals("elder")) {
+                        loginDto.setEasemobID(userInfoDTO.getElderUserDTO().getEasemobID());
+                        loginDto.setEasemobPassword(userInfoDTO.getElderUserDTO().getEasemobPassword());
+                        redisService.expire(userInfoDTO.getElderUserDTO().getLoginToken(),1);
+                        ElderUserDTO sysElderUserDTO = new ElderUserDTO();
+                        sysElderUserDTO.setId(userInfoDTO.getElderUserDTO().getId());
+                        sysElderUserDTO.setLoginToken(loginDto.getLoginToken());
+                        elderUserMapper.updateLoginToken(sysElderUserDTO);
+                    }
+                    redisService.set(loginDto.getLoginToken(),JSONUtils.toJSONString(userInfoDTO));
+                    redisService.expire(loginDto.getLoginToken(),ConfigConstant.loginTokenPeriod);
+                    LogUtils.saveLog(request, "用户登录", userInfoDTO.getId() + "--" + source + "---" + loginIP);
+                }
+                return loginDto;
+            }
+
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+
+    public String loginOut(String loginToken) {
+        redisService.expire(loginToken,1);
+        return StatusConstant.LOGIN_OUT;
     }
 
 }

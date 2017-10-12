@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.wisdom.common.dto;
+package com.wisdom.common.dto.userService;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -74,6 +74,15 @@ public class UserInfoDTO implements java.io.Serializable{
 
 	@JSONField(name = "del_flag")
 	private char del_flag;
+
+	private PractitionerUserDTO practitionerUserDTO;
+
+	private ElderUserDTO elderUserDTO;
+
+	private HospitalUserDTO hospitalUserDTO;
+
+	//存储用户登录渠道，判断是否需要强制下线。
+	private String source;
 
 	public String getId() {
 		return id;
@@ -249,5 +258,37 @@ public class UserInfoDTO implements java.io.Serializable{
 
 	public void setDel_flag(char del_flag) {
 		this.del_flag = del_flag;
+	}
+
+	public PractitionerUserDTO getPractitionerUserDTO() {
+		return practitionerUserDTO;
+	}
+
+	public void setPractitionerUserDTO(PractitionerUserDTO practitionerUserDTO) {
+		this.practitionerUserDTO = practitionerUserDTO;
+	}
+
+	public ElderUserDTO getElderUserDTO() {
+		return elderUserDTO;
+	}
+
+	public void setElderUserDTO(ElderUserDTO elderUserDTO) {
+		this.elderUserDTO = elderUserDTO;
+	}
+
+	public HospitalUserDTO getHospitalUserDTO() {
+		return hospitalUserDTO;
+	}
+
+	public void setHospitalUserDTO(HospitalUserDTO hospitalUserDTO) {
+		this.hospitalUserDTO = hospitalUserDTO;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 }

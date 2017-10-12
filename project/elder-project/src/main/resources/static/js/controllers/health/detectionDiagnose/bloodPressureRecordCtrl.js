@@ -12,7 +12,9 @@ angular.module('controllers',[]).controller('bloodPressureRecordCtrl',
             };
 
             $scope.enterGroupTalk = function(){
-                window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
+                //进入健康群聊
+
+                //window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
             }
 
             /*提交*/
@@ -150,8 +152,6 @@ angular.module('controllers',[]).controller('bloodPressureRecordCtrl',
                 $scope.bloodPressure.measureTime = attr[1];
                 $scope.bloodPressure.measureDate = attr[0];
             }
-
-
 
             /*测量值*/
             var diastolicNum = ['<90'],

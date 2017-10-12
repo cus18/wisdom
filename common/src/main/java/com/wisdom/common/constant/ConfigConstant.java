@@ -16,6 +16,6 @@ public enum ConfigConstant {
 
 	public static final String hospitalVersion = Global.getConfig("hospitalVersion");
 
-
+    public static final String EASEMOB_MESSAGE_URL = Global.getConfig("easemob.message.url");
 
 }

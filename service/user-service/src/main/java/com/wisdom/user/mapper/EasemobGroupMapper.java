@@ -3,7 +3,7 @@
  */
 package com.wisdom.user.mapper;
 
-import com.wisdom.user.dto.EasemobGroupDTO;
+import com.wisdom.common.dto.userService.EasemobGroupDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

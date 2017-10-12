@@ -42,10 +42,13 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
 
             $scope.attendActivityGroupTalk = function(){
                 //进入活动群聊圈
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
-                        $scope.detailActivityInfo.activityEasemobGroupID+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
-                })
+
+
+
+                // connectWebViewJavascriptBridge(function() {
+                //     window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
+                //         $scope.detailActivityInfo.activityEasemobGroupID+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
+                // })
             }
 
             $scope.doRefresh = function(){
@@ -88,8 +91,9 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
             }
 
             $scope.return = function(){
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler('returnNative','',function(responseData) {});});
+
+                // connectWebViewJavascriptBridge(function() {
+                //     window.WebViewJavascriptBridge.callHandler('returnNative','',function(responseData) {});});
             }
 
         }])

@@ -1,39 +1,29 @@
 angular.module('controllers',[]).controller('physicalExaminationCtrl',
-    ['$scope','$rootScope','$stateParams','$state',
-        'GetHealthArchivePhysicalExamination',
-        function ($scope,$rootScope,$stateParams,$state,
-                  GetHealthArchivePhysicalExamination) {
+    ['$scope','$rootScope','$stateParams','$state','GetHealthArchivePhysicalExamination',
+        function ($scope,$rootScope,$stateParams,$state, GetHealthArchivePhysicalExamination) {
+
+            $scope.enterGroupTalk = function(){
+
+                //进入健康群聊圈
+
+                //window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
+            }
+
+            $scope.elderId = $rootScope.elderId;
+            $scope.elderName = $rootScope.elderName;
+
+            $scope.physicalExaminationResult = false;
 
             $scope.loadingStatus = true;
 
-            $scope.enterGroupTalk = function(){
-                window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
-            }
+            GetHealthArchivePhysicalExamination.get({physicalExaminationId:$stateParams.physicalExaminationId},
+                function(data){
 
-            connectWebViewJavascriptBridge(function() {
-                window.WebViewJavascriptBridge.callHandler(
-                    'getElderInfo','',function(responseData) {
-                        var dataValue = JSON.parse(responseData);
-                        $scope.elderId = dataValue.elderId;
-                        $scope.elderName = dataValue.elderName;
+                $scope.loadingStatus = false;
 
-                        // $scope.elderId = "100000002693";
-                        // $scope.elderName = "刘涛";
+                $scope.physicalExaminationResult = true;
+                $scope.physicalExaminationResultData = data.responseData;
 
-                        $scope.physicalExaminationResult = false;
-
-                        console.log($stateParams.physicalExaminationId)
-
-                        GetHealthArchivePhysicalExamination.get({physicalExaminationId:$stateParams.physicalExaminationId},
-                            function(data){
-
-                                $scope.loadingStatus = false;
-
-                                $scope.physicalExaminationResult = true;
-                                $scope.physicalExaminationResultData = data.responseData;
-
-                            });
-                    })
-            })
+            });
 
         }])

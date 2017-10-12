@@ -10,13 +10,11 @@ define(['appElder','jquery'], function (app,$) {
                     'margin-top:4%;font-size:0.34rem;margin-right:2%;"ng-click="enterService()">服务 ></div></header>',
                     link: function(scope,ele,attrs) {
 
-                        // scope.enterGroupTalk = function(){
-                        //     window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
-                        // }
-
                         scope.return = function(){
-                            connectWebViewJavascriptBridge(function() {
-                                window.WebViewJavascriptBridge.callHandler('returnNative','',function(responseData) {});});
+
+                            // connectWebViewJavascriptBridge(function() {
+                            //     window.WebViewJavascriptBridge.callHandler('returnNative','',function(responseData) {});});
+
                         }
 
                         scope.enterService = function(){

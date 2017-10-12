@@ -1,7 +1,4 @@
-package com.wisdom.user.dto;
-
-
-import com.wisdom.common.dto.UserInfoDTO;
+package com.wisdom.common.dto.userService;
 
 import java.util.Date;
 

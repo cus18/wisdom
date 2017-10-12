@@ -12,59 +12,62 @@ angular.module('controllers',[]).controller('healthServicePackageCtrl',
             $scope.servicePackageId = $stateParams.servicePackageId;
 
             $scope.enterGroupTalk = function(){
-                window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
+
+                //进入健康群聊圈
+
+                //window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
             }
 
-            connectWebViewJavascriptBridge(function(bridge) {
-
-                bridge.registerHandler("createDoctorSignatureDown", function(data, responseCallback) {
-                    $scope.healthServicePackageData.firstParty.doctorSignature = data;
-                    $timeout(function() {
-                        $scope.$apply();
-                    }, 6000);
-                    responseCallback(responseData);
-                });
-
-                bridge.registerHandler("createNurseSignatureDown", function(data, responseCallback) {
-                    $scope.healthServicePackageData.firstParty.nurseSignature = data;
-                    $timeout(function() {
-                        $scope.$apply();
-                    }, 6000);
-                    responseCallback(responseData);
-                });
-
-                bridge.registerHandler("createSecondPartySignatureDown", function(data, responseCallback) {
-                    $scope.healthServicePackageData.secondParty.secondPartySignature = data;
-                    $timeout(function() {
-                        $scope.$apply();
-                    }, 6000);
-                    responseCallback(responseData);
-                });
-            });
+            // connectWebViewJavascriptBridge(function(bridge) {
+            //
+            //     bridge.registerHandler("createDoctorSignatureDown", function(data, responseCallback) {
+            //         $scope.healthServicePackageData.firstParty.doctorSignature = data;
+            //         $timeout(function() {
+            //             $scope.$apply();
+            //         }, 6000);
+            //         responseCallback(responseData);
+            //     });
+            //
+            //     bridge.registerHandler("createNurseSignatureDown", function(data, responseCallback) {
+            //         $scope.healthServicePackageData.firstParty.nurseSignature = data;
+            //         $timeout(function() {
+            //             $scope.$apply();
+            //         }, 6000);
+            //         responseCallback(responseData);
+            //     });
+            //
+            //     bridge.registerHandler("createSecondPartySignatureDown", function(data, responseCallback) {
+            //         $scope.healthServicePackageData.secondParty.secondPartySignature = data;
+            //         $timeout(function() {
+            //             $scope.$apply();
+            //         }, 6000);
+            //         responseCallback(responseData);
+            //     });
+            // });
 
 
             $scope.takeDoctorSignature = function(){
-                window.WebViewJavascriptBridge.callHandler(
-                    'createDoctorSignature',
-                    function(responseData) {
-                    }
-                );
+                // window.WebViewJavascriptBridge.callHandler(
+                //     'createDoctorSignature',
+                //     function(responseData) {
+                //     }
+                // );
             }
 
             $scope.takeNurseSignature = function(){
-                window.WebViewJavascriptBridge.callHandler(
-                    'createNurseSignature',
-                    function(responseData) {
-                    }
-                );
+                // window.WebViewJavascriptBridge.callHandler(
+                //     'createNurseSignature',
+                //     function(responseData) {
+                //     }
+                // );
             }
 
             $scope.takeSecondPartySignature = function(){
-                window.WebViewJavascriptBridge.callHandler(
-                    'createSecondPartySignature',
-                    function(responseData) {
-                    }
-                );
+                // window.WebViewJavascriptBridge.callHandler(
+                //     'createSecondPartySignature',
+                //     function(responseData) {
+                //     }
+                // );
             }
 
             $scope.elderId = $rootScope.rootElderId ;

@@ -3,7 +3,7 @@
  */
 package com.wisdom.user.mapper;
 
-import com.wisdom.user.dto.EasemobDTO;
+import com.wisdom.common.dto.userService.EasemobDTO;
 
 public interface EasemobMapper {
 
