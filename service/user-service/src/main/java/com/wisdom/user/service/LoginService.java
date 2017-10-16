@@ -58,12 +58,16 @@ public class LoginService {
                           HttpServletRequest request) throws Exception
     {
         if (daHanTricomMessageMapper.searchIdentify(phone, validateCode) > 0||
-                (StringUtils.toInteger(phone)<100011&&validateCode.equals("1234"))) {
+                (StringUtils.toInteger(phone)<100011&&validateCode.equals("1234")))
+        {
 
             UserInfoDTO userInfoDTO = new UserInfoDTO();
             userInfoDTO.setLoginName(phone);
             userInfoDTO = userMapper.getByLoginName(userInfoDTO);
-            if (userInfoDTO == null) {
+
+            //系统里面没有此用户，创建用户，并登录
+            if (userInfoDTO == null)
+            {
                 userInfoDTO = new UserInfoDTO();
                 userInfoDTO.setLoginName(phone);
                 userInfoDTO.setId(UUIDUtil.getUUID());
@@ -75,7 +79,8 @@ public class LoginService {
                 String easemobUserID = source + "_" + userInfoDTO.getId();
                 String easemobPassword = UUIDUtil.getUUID();
                 LoginDTO loginDto = new LoginDTO();
-                if (source.equals("elder")) {
+                if (source.equals("elder"))
+                {
                     easemobService.signEasemobUser(easemobUserID, easemobPassword);
                     ElderUserDTO sysElderUserDTO = new ElderUserDTO();
                     sysElderUserDTO.setId(UUIDUtil.getUUID());
@@ -93,20 +98,29 @@ public class LoginService {
                 LogUtils.saveLog(request, "新用户登录", userInfoDTO.getId() + "--" + source + "---" + loginIP);
                 loginDto.setLoginToken(loginToken);
                 return loginDto;
-            } else {
+            }
+            else
+            {
+                //已注册用户登录
                 LoginDTO loginDto = new LoginDTO();
-                if (source.equals("elder")) {
+                if (source.equals("elder"))
+                {
                     ElderUserDTO sysElderUserDTO = elderUserMapper.getSysElder(userInfoDTO.getId());
                     userInfoDTO.setElderUserDTO(sysElderUserDTO);
-                    if (sysElderUserDTO == null) {
+                    if (sysElderUserDTO == null)
+                    {
                         loginDto.setLoginToken("00000");
-                    } else {
+                    }
+                    else
+                    {
                         loginDto.setLoginToken(UUIDUtil.getUUID() + source);
                     }
                 }
 
-                if (loginDto.getLoginToken() != null && !loginDto.getLoginToken().equals("00000")) {
-                    if (source.equals("elder")) {
+                if (loginDto.getLoginToken() != null && !loginDto.getLoginToken().equals("00000"))
+                {
+                    if (source.equals("elder"))
+                    {
                         loginDto.setEasemobID(userInfoDTO.getElderUserDTO().getEasemobID());
                         loginDto.setEasemobPassword(userInfoDTO.getElderUserDTO().getEasemobPassword());
                         redisService.expire(userInfoDTO.getElderUserDTO().getLoginToken(),1);

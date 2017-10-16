@@ -1,6 +1,6 @@
 package com.wisdom.user.service;
 
-import com.wisdom.user.dto.PractitionerUserDTO;
+import com.wisdom.common.dto.userService.PractitionerUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

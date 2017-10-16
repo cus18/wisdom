@@ -4,14 +4,14 @@
 <mapper namespace="com.wisdom.user.mapper.EasemobMapper">
 
     <!-- 查询全部用户数目 -->
-    <select id="getEasemobToken" resultType="com.wisdom.user.dto.EasemobDTO">
+    <select id="getEasemobToken" resultType="com.wisdom.common.dto.userService.EasemobDTO">
         select access_token as
         accessToken,expires_in as expiresIn,application as application
          from easemob_token
     </select>
 
     <!-- 更新Token -->
-    <update id="updateEasemobToken" parameterType="com.wisdom.user.dto.EasemobDTO">
+    <update id="updateEasemobToken" parameterType="com.wisdom.common.dto.userService.EasemobDTO">
         UPDATE easemob_token SET
         access_token=#{access_token},
         expires_in=#{expires_in},

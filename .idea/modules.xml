@@ -6,7 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/config/config.iml" filepath="$PROJECT_DIR$/config/config.iml" />
       <module fileurl="file://$PROJECT_DIR$/project/elder-project/elder-project.iml" filepath="$PROJECT_DIR$/project/elder-project/elder-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/health-service/health-service.iml" filepath="$PROJECT_DIR$/service/health-service/health-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/registry-center/registry-service.iml" filepath="$PROJECT_DIR$/registry-center/registry-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/registry-center/registry-center.iml" filepath="$PROJECT_DIR$/registry-center/registry-center.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/user-service/user-service.iml" filepath="$PROJECT_DIR$/service/user-service/user-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/wisdom.iml" filepath="$PROJECT_DIR$/wisdom.iml" />
     </modules>

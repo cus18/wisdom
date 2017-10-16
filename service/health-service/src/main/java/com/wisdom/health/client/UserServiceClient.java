@@ -1,8 +1,8 @@
 package com.wisdom.health.client;
 
-import com.wisdom.common.dto.RelativeElderDTO;
 import com.wisdom.common.dto.ResponseDTO;
-import com.wisdom.common.dto.UserInfoDTO;
+import com.wisdom.common.dto.userService.RelativeElderDTO;
+import com.wisdom.common.dto.userService.UserInfoDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

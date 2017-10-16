@@ -1,7 +1,7 @@
 package com.wisdom.user.service;
 
-import com.wisdom.common.dto.UserInfoDTO;
-import com.wisdom.user.dto.PractitionerUserDTO;
+import com.wisdom.common.dto.userService.PractitionerUserDTO;
+import com.wisdom.common.dto.userService.UserInfoDTO;
 import com.wisdom.user.util.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,21 +35,4 @@ public class UserService {
         return userInfoDTO;
     }
 
-
-    public boolean updateUser(UserInfoDTO userInfo) {
-        return true;
-    }
-
-
-    public void updateRedisUser(HttpServletRequest request) {
-    }
-
-    public PractitionerUserDTO getPractitionerUserInfo(String id) {
-
-        return null;
-    }
-
-    public static UserInfoDTO getUser(HttpServletRequest request) {
-        return  null;
-    }
 }

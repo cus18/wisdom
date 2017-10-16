@@ -27,7 +27,7 @@
 
 
     <!-- 根据编号获得用户 -->
-    <select id="get" resultType="User">
+    <select id="get" resultType="com.wisdom.common.dto.userService.UserInfoDTO">
         SELECT
         *
         FROM sys_user a
@@ -35,7 +35,9 @@
     </select>
 
     <!-- 根据登录名查询用户 -->
-    <select id="getByLoginName" resultType="User" parameterType="User">
+    <select id="getByLoginName"
+            resultType="com.wisdom.common.dto.userService.UserInfoDTO"
+            parameterType="com.wisdom.common.dto.userService.UserInfoDTO">
         SELECT
         <include refid="userColumns"/>
         FROM sys_user a
@@ -44,7 +46,7 @@
 
 
     <!-- 查询全部用户 -->
-    <select id="findAllList" resultType="User">
+    <select id="findAllList" resultType="com.wisdom.common.dto.userService.UserInfoDTO">
         SELECT
         <include refid="userColumns"/>
         FROM sys_user a
@@ -115,16 +117,16 @@
     <update id="update">
 		UPDATE sys_user SET
 			office_id = #{office.id},
-			login_name = #{loginName}, 
-			password = #{password}, 
-			no = #{no}, 
-			name = #{name}, 
-			email = #{email}, 
-			phone = #{phone}, 
-			mobile = #{mobile}, 
-			user_type = #{userType}, 
-			update_by = #{updateBy.id}, 
-			update_date = #{updateDate}, 
+			login_name = #{loginName},
+			password = #{password},
+			no = #{no},
+			name = #{name},
+			email = #{email},
+			phone = #{phone},
+			mobile = #{mobile},
+			user_type = #{userType},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
 			remarks = #{remarks},
 			login_flag = #{loginFlag},
 			photo = #{photo},
@@ -135,12 +137,12 @@
 
     <!-- 更新用户信息  -->
     <update id="updateUserInfo">
-		UPDATE sys_user SET 
-			email = #{email}, 
-			phone = #{phone}, 
-			mobile = #{mobile}, 
-			update_by = #{updateBy.id}, 
-			update_date = #{updateDate}, 
+		UPDATE sys_user SET
+			email = #{email},
+			phone = #{phone},
+			mobile = #{mobile},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
 			remarks = #{remarks},
 			photo = #{photo}
 		WHERE id = #{id}
@@ -148,16 +150,16 @@
 
     <!-- 更新用户密码 -->
     <update id="updatePasswordById">
-		UPDATE sys_user SET 
-			password = #{password} 
+		UPDATE sys_user SET
+			password = #{password}
 		WHERE id = #{id}
 	</update>
 
     <!-- 更新登录信息，如登录IP、登录时间 -->
     <update id="updateLoginInfo">
-		UPDATE sys_user SET 
-			login_ip = #{loginIp}, 
-			login_Date = #{loginDate} 
+		UPDATE sys_user SET
+			login_ip = #{loginIp},
+			login_Date = #{loginDate}
 		WHERE id = #{id}
 	</update>
 
@@ -199,8 +201,9 @@
         WHERE id = #{id}
     </update>
 
-    <select id="getUserByInfo" parameterType="com.yhl.laoyou.common.dto.practitioner.Settings.SysElderUserDTO"
-            resultType="com.yhl.laoyou.modules.sys.entity.User">
+    <select id="getUserByInfo"
+            parameterType="com.wisdom.common.dto.userService.ElderUserDTO"
+            resultType="com.wisdom.common.dto.userService.UserInfoDTO">
         SELECT su.* FROM sys_elder_user seu left join sys_user su on su.id = seu.sys_user_id where 1=1
         <if test="memberCardID != null and memberCardID !=''">
             and seu.memberCardID = #{memberCardID}

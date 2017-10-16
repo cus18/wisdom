@@ -1,8 +1,8 @@
 package com.wisdom.health.controller;
 
-import com.wisdom.common.dto.RelativeElderDTO;
 import com.wisdom.common.dto.ResponseDTO;
-import com.wisdom.common.dto.UserInfoDTO;
+import com.wisdom.common.dto.userService.RelativeElderDTO;
+import com.wisdom.common.dto.userService.UserInfoDTO;
 import com.wisdom.health.client.UserServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

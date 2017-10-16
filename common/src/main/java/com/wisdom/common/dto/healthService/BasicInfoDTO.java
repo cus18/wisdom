@@ -1,7 +1,6 @@
 package com.wisdom.common.dto.healthService;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.yhl.laoyou.common.utils.excel.ExcelField;
 
 import java.util.Date;
 import java.util.List;
@@ -15,84 +14,65 @@ public class BasicInfoDTO {
     private String memberCarID;
 
     @JSONField(name = "elderName")
-    @ExcelField(title = "姓名")
     private String elderName;
 
     @JSONField(name = "elderId")
     private String elderId;
 
     @JSONField(name = "gender")
-    @ExcelField(title = "性别")
     private String gender;
 
     @JSONField(name = "birthday")
-    @ExcelField(title = "出生日期")
     private Date birthday;
 
     @JSONField(name = "idNum")
-    @ExcelField(title = "身份证号")
     private String idNum;
 
     @JSONField(name = "phone")
-    @ExcelField(title = "手机号")
     private String phone;
 
     @JSONField(name = "workPlace")
-    @ExcelField(title = "工作单位")
     private String workPlace;
 
     @JSONField(name = "nation")
-    @ExcelField(title = "民族")
     private String nation;
 
     @JSONField(name = "education")
-    @ExcelField(title = "文化程度")
     private String education;
 
     @JSONField(name = "career")
-    @ExcelField(title = "职业")
     private String career;
 
     @JSONField(name = "marriage")
-    @ExcelField(title = "婚姻状况")
     private String marriage;
 
     @JSONField(name = "costWay")
-    @ExcelField(title = "医疗费用支付方式")
     private String costWay;
 
     @JSONField(name = "aboBloodType")
-    @ExcelField(title = "ABO 血型")
     private String aboBloodType;
 
     @JSONField(name = "rhBloodType")
-    @ExcelField(title = "RH 血型")
     private String rhBloodType;
 
     @JSONField(name = "allergicHistory")
-    @ExcelField(title = "药物过敏史")
     private String allergicHistory;
 
     @JSONField(name = "exposureHistory")
-    @ExcelField(title = "暴露史")
     private String exposureHistory;
 
     @JSONField(name = "pastHistory")
-    @ExcelField(title = "既往史")
     private String pastHistory;
 
     @JSONField(name = "familyHistory")
-    @ExcelField(title = "家族史")
     private String familyHistory;
 
     @JSONField(name = "livestock")
-    @ExcelField(title = "生活环境")
     private String livestock;
 
     private String healthServiceName;
 
     @JSONField(name = "age")
-    @ExcelField(title = "年龄")
     private String age;
 
     private String doctorName;
