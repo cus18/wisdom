@@ -18,12 +18,19 @@ angular.module('controllers',[]).controller('myRelatedElderCtrl',
 
             $scope.goHealthService = function(elderInfo){
 
-                //将用户信息放入$rootScope中
-                $rootScope.rootElderId = elderInfo.elderId;
-                $rootScope.rootElderName = elderInfo.elderName;
-
-                $rootScope.rootElderId = "563cd194da50430c93d2982e88cbfc94";
-                $rootScope.rootElderName = "赵健宇";
+                if($rootScope.rootElderId!=undefined)
+                {
+                    $scope.elderId = $rootScope.rootElderId;
+                    $scope.elderName = $rootScope.rootElderName;
+                }
+                else
+                {
+                    //将用户信息放入$rootScope中
+                    $rootScope.rootElderId = window.localStorage.getItem("elderId");
+                    $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                    $scope.elderId = $rootScope.rootElderId;
+                    $scope.elderName = $rootScope.rootElderName;
+                }
 
                 $state.go("healthServiceList");
 

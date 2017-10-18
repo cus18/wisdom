@@ -1,4 +1,4 @@
-<ion-view style="background:#2b2b2b;">
+<ion-view style="background:#f8f8f8;">
     <!--headerTitle start-->
     <div page-loading></div>
     <header>
@@ -16,14 +16,19 @@
             <span>健康体检报告</span>
         </div>
         <div class="resultContDate">{{physicalExaminationResultData.updateDate.substring(0,10)}}</div>
-        <section class="resultContainer bgf">
-            <div class="reportListTit">提交者：<span>{{physicalExaminationResultData.providerName}}</span>提交时间：<span>{{physicalExaminationResultData.updateDate.substring(11,16)}}</span></div>
-            <img ng-src="{{item1}}"  ng-repeat="item1 in physicalExaminationResultData.physicalExaminationData.split(';')">
-        </section>
-        <section class="resultContText">
-            <div>文字备注</div>
-            <p>{{physicalExaminationResultData.description}}</p>
-        </section>
+        <div style="overflow:scroll;height:600px;">
+            <section class="resultContainer bgf">
+                <div class="reportListTit">
+                    提交者：<span>{{physicalExaminationResultData.providerName}}</span>
+                    提交时间：<span>{{physicalExaminationResultData.updateDate.substring(11,16)}}</span>
+                </div>
+                <img ng-src="{{item1}}" ng-repeat="item1 in physicalExaminationResultData.physicalExaminationData.split(';')">
+            </section>
+            <section class="resultContText">
+                <div>文字备注</div>
+                <p>{{physicalExaminationResultData.description}}</p>
+            </section>
+        </div>
     </div>
     <!--content end-->
 </ion-view>

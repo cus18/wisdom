@@ -1,5 +1,6 @@
 package com.wisdom.user.interceptor;
 
+import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.ResponseDTO;
 import com.wisdom.user.service.RedisService;
@@ -41,54 +42,39 @@ public class LoginRequiredInterceptor {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod(); //获取被拦截的方法
 
-        Set<Object> allParams = new LinkedHashSet<Object>(); //保存所有请求参数，用于输出到日志中
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-        Object result = null;
-
-        Object[] args = pjp.getArgs();
-        for(Object arg : args){
-            if (arg instanceof Map<?, ?>) {
-                //提取方法中的MAP参数，用于记录进日志中
-                Map<String, Object> map = (Map<String, Object>) arg;
-                allParams.add(map);
-            }else if(arg instanceof HttpServletRequest){
-
-                HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
-                // 判断该方法是否加了@LoginRequired 注解
-                if(method.isAnnotationPresent(LoginRequired.class)){
-                    Map<String, String> tokenValue = getHeadersInfo(request);
-                    String token = tokenValue.get("logintoken");
-                    if(token==null||token.equals("")){
-                        try {
-                            token=request.getSession().getAttribute("token").toString();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            ResponseDTO<String> responseDto=new ResponseDTO<String>();
-                            responseDto.setResult(StatusConstant.FAILURE);
-                            responseDto.setErrorInfo(StatusConstant.TOKEN_ERROR);
-                            return responseDto;
-                        }
-                    }
-
-                    //验证token有效性
-                    int loginTokenPeriod = 0;//ConfigConstant.INSTANCE.loginTokenPeriod;
-                    String userInfo = redisService.get(token);
-                    if(userInfo==null)
-                    {
-                        ResponseDTO<String> responseDto=new ResponseDTO<String>();
-                        responseDto.setResult(StatusConstant.FAILURE);
-                        responseDto.setErrorInfo(StatusConstant.TOKEN_ERROR);
-                        return responseDto;
-                    }
-                    redisService.set(token,userInfo);
-                    redisService.expire(token,loginTokenPeriod);
+        // 判断该方法是否加了@LoginRequired 注解
+        if(method.isAnnotationPresent(LoginRequired.class)){
+            Map<String, String> tokenValue = getHeadersInfo(request);
+            String token = tokenValue.get("logintoken");
+            if(token==null||token.equals("")){
+                try {
+                    token=request.getSession().getAttribute("token").toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ResponseDTO<String> responseDto=new ResponseDTO<String>();
+                    responseDto.setResult(StatusConstant.FAILURE);
+                    responseDto.setErrorInfo(StatusConstant.TOKEN_ERROR);
+                    return responseDto;
                 }
-                result = pjp.proceed();
             }
+
+            //验证token有效性
+            int loginTokenPeriod = ConfigConstant.loginTokenPeriod;
+            String userInfo = redisService.get(token);
+            if(userInfo==null)
+            {
+                ResponseDTO<String> responseDto=new ResponseDTO<String>();
+                responseDto.setResult(StatusConstant.FAILURE);
+                responseDto.setErrorInfo(StatusConstant.TOKEN_ERROR);
+                return responseDto;
+            }
+            redisService.set(token,userInfo);
+            redisService.expire(token,loginTokenPeriod);
         }
 
-        return result;
+        return pjp.proceed();
     }
 
     //get request headers

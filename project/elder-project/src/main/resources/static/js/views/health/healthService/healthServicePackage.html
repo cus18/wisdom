@@ -47,8 +47,8 @@
             </section>
             <div data-ng-bind-html="healthPackageTemplateDetail"></div>
             <section class="serviceSign bgf">
-                <p>甲方（盖章）：</p>
-                <img ng-src="/elder/{{healthServicePackageData.firstParty.firstPartySignature}}"/>
+                <p>甲方（盖章）：{{healthServicePackageData.firstParty.firstPartySignature}}</p>
+                <img ng-src="{{healthServicePackageData.firstParty.firstPartySignature}}"/>
                 <p>责任医生（签字）：</p>
                 <img ng-src="{{healthServicePackageData.firstParty.doctorSignature}}"
                      style="width:150px;height:120px"/>

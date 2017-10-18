@@ -11,14 +11,11 @@ define(['appElder','jquery'], function (app,$) {
                     link: function(scope,ele,attrs) {
 
                         scope.return = function(){
-
-                            // connectWebViewJavascriptBridge(function() {
-                            //     window.WebViewJavascriptBridge.callHandler('returnNative','',function(responseData) {});});
-
+                            history.go(-1);
                         }
 
                         scope.enterService = function(){
-                            window.location.href = "ionic#/healthServiceList";
+                            window.location.href = "elder#/healthServiceList";
                         }
 
 

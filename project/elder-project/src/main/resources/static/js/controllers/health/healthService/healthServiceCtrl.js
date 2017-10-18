@@ -51,11 +51,29 @@ angular.module('controllers',[]).controller('healthServiceCtrl',
             $scope.secondMenu = $stateParams.secondMenu;
             $rootScope.h5Page = true;
 
-            $scope.elderId = $rootScope.rootElderId;
-            $scope.elderName = $rootScope.rootElderName;
+            if($rootScope.rootElderId!=undefined)
+            {
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
+            else
+            {
+                //将用户信息放入$rootScope中
+                $rootScope.rootElderId = window.localStorage.getItem("elderId");
+                $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
+
+            if($scope.elderId==undefined)
+            {
+                $scope.elderId = "00000";
+                $scope.elderName = "0000";
+            }
 
             if($scope.firstMenu == "healthServicePackage"){
-                GetOnGoingHealthServicePackageList.save({pageNo:"1", pageSize:"5", orderType:"1",orderBy:"0",
+                GetOnGoingHealthServicePackageList.save({pageNo:"1", pageSize:"5",
+                    orderType:"1",orderBy:"0",
                     requestData:{elderId:$scope.elderId}}, function (data) {
                     $scope.loadingStatus = false;
                     ElderUtil.checkResponseData(data);
@@ -67,7 +85,7 @@ angular.module('controllers',[]).controller('healthServiceCtrl',
                 if($scope.secondMenu == 'basicInfo'){
                     GetHealthArchiveBasicInfo.get({elderId:$scope.elderId},function(data){
                         $scope.loadingStatus = false;
-                        ElderUtil.checkResponseData(data);
+                        ElderUtil.checkResponseData(data,"healthService/healthArchives,basicInfo");
                         $scope.healthArchiveBasicInfo = data.responseData;
                     });
                 }
@@ -76,9 +94,8 @@ angular.module('controllers',[]).controller('healthServiceCtrl',
                         orderType:"1",orderBy:"0",
                         requestData:{elderId:$scope.elderId}},function(data){
                         $scope.loadingStatus = false;
-                        ElderUtil.checkResponseData(data);
+                        ElderUtil.checkResponseData(data,"healthService/healthArchives,physicalExamination");
                         $scope.healthArchivePhysicalExaminationList = data.responseData;
-                        console.log($scope.healthArchivePhysicalExaminationList);
                     });
                 }
             }
@@ -88,9 +105,8 @@ angular.module('controllers',[]).controller('healthServiceCtrl',
                     orderType:"1",orderBy:"0",
                     requestData:{elderId:$scope.elderId}},function(data){
                     $scope.loadingStatus = false;
-                    ElderUtil.checkResponseData(data);
+                    ElderUtil.checkResponseData(data,"healthService/healthAssessment,");
                     $scope.healthArchiveAssessmentList = data.responseData;
-                    console.log($scope.healthArchiveAssessmentList);
                 });
             }
 

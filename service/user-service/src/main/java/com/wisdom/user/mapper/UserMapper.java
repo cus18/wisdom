@@ -4,6 +4,8 @@
 package com.wisdom.user.mapper;
 
 import com.wisdom.common.dto.userService.UserInfoDTO;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public interface UserMapper extends CrudMapper<UserInfoDTO>{
 
-	UserInfoDTO getByLoginName(UserInfoDTO user);
+	UserInfoDTO getByLoginName(UserInfoDTO userInfoDTO);
 
 	long findAllCount(UserInfoDTO userInfoDTO);
 

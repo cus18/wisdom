@@ -1,7 +1,6 @@
 package com.wisdom.user.interceptor;
 
 import org.springframework.web.bind.annotation.Mapping;
-
 import java.lang.annotation.*;
 
 /**

@@ -1,6 +1,15 @@
 <ion-view style="background:white;">
     <div page-loading></div>
-    <elder-head></elder-head>
+    <!--<elder-head></elder-head>-->
+    <ion-header-bar align-title="center" class="bar-energized">
+        <div class="buttons">
+            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
+        </div>
+        <h1 class="title">服务</h1>
+        <div class="buttons">
+            <button class="button" ng-click="returnRootNative()">服务&gt;</button>
+        </div>
+    </ion-header-bar>
     <div class="empty10"></div>
     <!--headerTitle end-->
     <ul class="primaryTab bgf mb10">
@@ -33,15 +42,15 @@
         <ul class="secondary bgf">
             <a ng-click="goMenu('healthArchives','basicInfo')">
                 <li ng-class="{'on': secondMenu == 'basicInfo'}">
-                    <img ng-if="secondMenu == 'physicalExamination'" src="/elder/images/group_242@2x.png"/>
-                    <img ng-if="secondMenu == 'basicInfo'" src="/elder/images/group_242@1x.png"/>
+                    <img ng-if="secondMenu == 'physicalExamination'" src="/images/group_242@2x.png"/>
+                    <img ng-if="secondMenu == 'basicInfo'" src="/images/group_242@1x.png"/>
                     基本信息
                 </li>
             </a>
             <a ng-click="goMenu('healthArchives','physicalExamination')">
                 <li ng-class="{'on': secondMenu == 'physicalExamination'}">
-                    <img ng-if="secondMenu == 'basicInfo'" src="/elder/images/group_251@2x.png"/>
-                    <img ng-if="secondMenu == 'physicalExamination'" src="/elder/images/group_251@1x.png"/>
+                    <img ng-if="secondMenu == 'basicInfo'" src="/images/group_251@2x.png"/>
+                    <img ng-if="secondMenu == 'physicalExamination'" src="/images/group_251@1x.png"/>
                     健康体检
                 </li>
             </a>

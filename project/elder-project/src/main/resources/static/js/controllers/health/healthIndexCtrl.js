@@ -49,8 +49,8 @@ angular.module('controllers',[]).controller('healthIndexCtrl',
             }
 
             //获取健康类的课程列表
-            GetOnlineCourseList.save({pageNo:1, pageSize:5, orderType:1, requestData:"health"},function(data){
-                $scope.onlineCourseList = data.responseData;
-            })
+            // GetOnlineCourseList.save({pageNo:1, pageSize:5, orderType:1, requestData:"health"},function(data){
+            //     $scope.onlineCourseList = data.responseData;
+            // })
 
 }])

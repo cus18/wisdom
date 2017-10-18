@@ -13,8 +13,19 @@ angular.module('controllers',[]).controller('diagnoseReportResultCtrl',
                 //window.WebViewJavascriptBridge.callHandler('enterGroupTalk','',function(responseData){});
             }
 
-            $scope.elderId = $rootScope.rootElderId;
-            $scope.elderName = $rootScope.rootElderName;
+            if($rootScope.rootElderId!=undefined)
+            {
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
+            else
+            {
+                //将用户信息放入$rootScope中
+                $rootScope.rootElderId = window.localStorage.getItem("elderId");
+                $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
 
             $scope.diagnoseReportResult = false;
 

@@ -70,8 +70,19 @@ angular.module('controllers',[]).controller('healthServicePackageCtrl',
                 // );
             }
 
-            $scope.elderId = $rootScope.rootElderId ;
-            $scope.elderName = $rootScope.rootElderName;
+            if($rootScope.rootElderId!=undefined)
+            {
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
+            else
+            {
+                //将用户信息放入$rootScope中
+                $rootScope.rootElderId = window.localStorage.getItem("elderId");
+                $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
 
             $scope.healthServicePackageData ={
                 servicePackageId:"",
@@ -86,11 +97,11 @@ angular.module('controllers',[]).controller('healthServicePackageCtrl',
 
             if($scope.operation == "existHealthServicePackage")
             {
-                GetOnGoingHealthServicePackage.get({healthServicePackageId:$scope.servicePackageId, elderId:$scope.elderId},function(data){
+                GetOnGoingHealthServicePackage.get({healthPackageServiceId:$scope.servicePackageId, elderId:$scope.elderId},function(data){
                     $scope.loadingStatus = false;
                     ElderUtil.checkResponseData(data);
                     $scope.healthServicePackageData = data.responseData;
-                    GetHealthServicePackageTemplateDetail.get({healthServicePackageTemplateId:$scope.healthServicePackageData.servicePackageTemplateId},
+                    GetHealthServicePackageTemplateDetail.get({healthPackageServiceTemplateId:$scope.healthServicePackageData.servicePackageTemplateId},
                         function(data){
                             ElderUtil.checkResponseData(data);
                             $scope.healthPackageTemplateDetail = $sce.trustAsHtml('<section class="serviceCont">'
@@ -101,7 +112,7 @@ angular.module('controllers',[]).controller('healthServicePackageCtrl',
             }
             else if($scope.operation == "newHealthServicePackage")
             {
-                GetHealthServicePackageTemplateDetail.get({healthServicePackageTemplateId:$scope.servicePackageId},function(data){
+                GetHealthServicePackageTemplateDetail.get({healthPackageServiceTemplateId:$scope.servicePackageId},function(data){
                     $scope.loadingStatus = false;
                     $scope.healthServicePackageData.firstParty.firstPartySignature = data.responseData.firstPartySignature;
                     $scope.healthServicePackageData.servicePackageTemplateId = $scope.servicePackageId;

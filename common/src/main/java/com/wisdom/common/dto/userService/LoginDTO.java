@@ -10,6 +10,12 @@ public class LoginDTO {
     @JSONField(name = "loginToken")
     private String loginToken;
 
+    @JSONField(name = "id")
+    private String id;
+
+    @JSONField(name = "name")
+    private String name;
+
     @JSONField(name = "easemobID")
     private String easemobID;
 
@@ -38,5 +44,21 @@ public class LoginDTO {
 
     public void setEasemobPassword(String easemobPassword) {
         this.easemobPassword = easemobPassword;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

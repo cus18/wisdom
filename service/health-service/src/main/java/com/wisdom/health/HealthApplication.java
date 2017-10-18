@@ -11,6 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @EnableFeignClients
+@MapperScan(basePackages = {"com.wisdom.health.mapper"})
 public class HealthApplication {
 
 	public static void main(String[] args) {

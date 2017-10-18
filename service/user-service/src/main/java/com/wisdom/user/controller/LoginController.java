@@ -4,8 +4,8 @@ import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.ResponseDTO;
 import com.wisdom.common.dto.userService.LoginDTO;
 import com.wisdom.common.dto.userService.UserInfoDTO;
-import com.wisdom.user.interceptor.LoginRequired;
 import com.wisdom.user.service.LoginService;
+import com.wisdom.user.interceptor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +42,7 @@ public class LoginController {
 				loginInfo.get("source").toString(),
 				request.getRemoteAddr().toString().toString(),
 				request);
-		ResponseDTO<LoginDTO> result = new ResponseDTO<LoginDTO>();
+		ResponseDTO<LoginDTO> result = new ResponseDTO<>();
 		if (loginDto == null) {
 			result.setResult(StatusConstant.FAILURE);
 			result.setErrorInfo("验证码输入不正确");

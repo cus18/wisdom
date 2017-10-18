@@ -49,9 +49,6 @@ var loginPageInit = function(){
 
                 $.post('user/sendIdentifying',param,
                     function(data) {
-
-                    console.log(data);
-
                     }, 'json');
 
                 var second = 59;
@@ -97,6 +94,8 @@ var loginPageInit = function(){
                         {
                             //登录成功后，跳转到之前页面，将token信息放入缓存中
                             window.localStorage.setItem("loginToken",data.responseData.loginToken);
+                            window.localStorage.setItem("elderId",data.responseData.id);
+                            window.localStorage.setItem("elderName",data.responseData.name);
                             var redirectParam = getQueryString('redirectParam');
                             window.location.href = "elder#/" + redirectParam;
                         }

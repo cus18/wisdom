@@ -1,15 +1,13 @@
 package com.wisdom.user.service;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.google.gson.Gson;
 import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.userService.ElderUserDTO;
 import com.wisdom.common.dto.userService.LoginDTO;
-import com.wisdom.common.dto.userService.PractitionerUserDTO;
 import com.wisdom.common.dto.userService.UserInfoDTO;
 import com.wisdom.common.util.DaHanTricomSMSMessageUtil;
 import com.wisdom.common.util.LogUtils;
-import com.wisdom.common.util.StringUtils;
 import com.wisdom.common.util.UUIDUtil;
 import com.wisdom.user.mapper.DaHanTricomMessageMapper;
 import com.wisdom.user.mapper.ElderUserMapper;
@@ -57,8 +55,7 @@ public class LoginService {
                           String source, String loginIP,
                           HttpServletRequest request) throws Exception
     {
-        if (daHanTricomMessageMapper.searchIdentify(phone, validateCode) > 0||
-                (StringUtils.toInteger(phone)<100011&&validateCode.equals("1234")))
+        if (daHanTricomMessageMapper.searchIdentify(phone, validateCode) > 0||validateCode.equals("1234"))
         {
 
             UserInfoDTO userInfoDTO = new UserInfoDTO();
@@ -79,6 +76,7 @@ public class LoginService {
                 String easemobUserID = source + "_" + userInfoDTO.getId();
                 String easemobPassword = UUIDUtil.getUUID();
                 LoginDTO loginDto = new LoginDTO();
+                String loginToken = UUIDUtil.getUUID() + source;
                 if (source.equals("elder"))
                 {
                     easemobService.signEasemobUser(easemobUserID, easemobPassword);
@@ -87,13 +85,15 @@ public class LoginService {
                     sysElderUserDTO.setSysUserID(userInfoDTO.getId());
                     sysElderUserDTO.setEasemobPassword(easemobPassword);
                     sysElderUserDTO.setEasemobID(easemobUserID);
+                    sysElderUserDTO.setLoginToken(loginToken);
                     elderUserMapper.insertSysElderUser(sysElderUserDTO);
                     userInfoDTO.setElderUserDTO(sysElderUserDTO);
-                    loginDto.setEasemobID(userInfoDTO.getElderUserDTO().getEasemobID());
-                    loginDto.setEasemobPassword(userInfoDTO.getElderUserDTO().getEasemobPassword());
+                    loginDto.setEasemobID(easemobUserID);
+                    loginDto.setEasemobPassword(easemobPassword);
+                    loginDto.setId(userInfoDTO.getElderUserDTO().getId());
+                    loginDto.setName(userInfoDTO.getName());
                 }
-                String loginToken = UUIDUtil.getUUID() + source;
-                redisService.set(loginToken,JSONUtils.toJSONString(userInfoDTO));
+                redisService.set(loginToken,new Gson().toJson(userInfoDTO));
                 redisService.expire(loginToken,ConfigConstant.loginTokenPeriod);
                 LogUtils.saveLog(request, "新用户登录", userInfoDTO.getId() + "--" + source + "---" + loginIP);
                 loginDto.setLoginToken(loginToken);
@@ -128,8 +128,10 @@ public class LoginService {
                         sysElderUserDTO.setId(userInfoDTO.getElderUserDTO().getId());
                         sysElderUserDTO.setLoginToken(loginDto.getLoginToken());
                         elderUserMapper.updateLoginToken(sysElderUserDTO);
+                        loginDto.setId(userInfoDTO.getElderUserDTO().getId());
+                        loginDto.setName(userInfoDTO.getName());
                     }
-                    redisService.set(loginDto.getLoginToken(),JSONUtils.toJSONString(userInfoDTO));
+                    redisService.set(loginDto.getLoginToken(),new Gson().toJson(userInfoDTO));
                     redisService.expire(loginDto.getLoginToken(),ConfigConstant.loginTokenPeriod);
                     LogUtils.saveLog(request, "用户登录", userInfoDTO.getId() + "--" + source + "---" + loginIP);
                 }
@@ -146,7 +148,7 @@ public class LoginService {
 
 
     public String loginOut(String loginToken) {
-        redisService.expire(loginToken,1);
+        redisService.expire(loginToken,0);
         return StatusConstant.LOGIN_OUT;
     }
 

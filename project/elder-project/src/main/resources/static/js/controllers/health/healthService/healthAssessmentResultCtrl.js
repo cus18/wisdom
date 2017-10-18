@@ -7,8 +7,19 @@ angular.module('controllers',[]).controller('healthAssessmentResultCtrl',
             $scope.existHealthAssessmentId = $stateParams.existHealthAssessmentId;
             $scope.keyId = $stateParams.keyId;
 
-            $scope.elderId = $rootScope.rootElderId;
-            $scope.elderName = $rootScope.rootElderName;
+            if($rootScope.rootElderId!=undefined)
+            {
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
+            else
+            {
+                //将用户信息放入$rootScope中
+                $rootScope.rootElderId = window.localStorage.getItem("elderId");
+                $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
 
             GetHealthArchiveHealthAssessmentResult.get({healthAssessmentId:$scope.existHealthAssessmentId,
                 keyId:$scope.keyId},function(data){

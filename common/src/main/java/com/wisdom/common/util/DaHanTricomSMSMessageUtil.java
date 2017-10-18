@@ -52,26 +52,29 @@ public class DaHanTricomSMSMessageUtil {
      * @return 随机数的验证码
      * */
     public static String sendIdentifying(String phoneNum){
-        try {
-            String msgid = UUIDUtil.getUUID(32).toString(); // 短信id，查询短信状态报告时需要，（可选）
-            JSONHttpClient jsonHttpClient = new JSONHttpClient("http://www.dh3t.com");
-            jsonHttpClient.setRetryCount(1);
-            String num=createRandom(true,4);
-            String content="您好，您本次的验证码："+num+"，10分钟内有效，切记请勿告知他人。";
-            String sendhRes = jsonHttpClient.sendSms(account, password, phoneNum, content, sign, subcode,msgid);
-            DaHanTricomMessageDTO dtmb = JSON.parseObject(sendhRes,DaHanTricomMessageDTO.class);
-            if(dtmb.getResult().equals("0")){
-                LogUtils.saveLog("验证码短信发送成功",phoneNum+"-"+content+"-"+sendhRes);//定时器短信
-                return num;
-            }else{
-                LogUtils.saveLog("验证码短信发送失败",phoneNum+"-"+content+"-"+sendhRes);//定时器短信
-                return null;
-            }
-        } catch (Exception e) {
-            LogUtils.saveLog("验证码短信发送失败",phoneNum+"-"+e);
-            e.printStackTrace();
-            return null;
-        }
+
+        String num=createRandom(true,4);
+        return num;
+//        try {
+//            String msgid = UUIDUtil.getUUID(32).toString(); // 短信id，查询短信状态报告时需要，（可选）
+//            JSONHttpClient jsonHttpClient = new JSONHttpClient("http://www.dh3t.com");
+//            jsonHttpClient.setRetryCount(1);
+//            String num=createRandom(true,4);
+//            String content="您好，您本次的验证码："+num+"，10分钟内有效，切记请勿告知他人。";
+//            String sendhRes = jsonHttpClient.sendSms(account, password, phoneNum, content, sign, subcode,msgid);
+//            DaHanTricomMessageDTO dtmb = JSON.parseObject(sendhRes,DaHanTricomMessageDTO.class);
+//            if(dtmb.getResult().equals("0")){
+//                LogUtils.saveLog("验证码短信发送成功",phoneNum+"-"+content+"-"+sendhRes);//定时器短信
+//                return num;
+//            }else{
+//                LogUtils.saveLog("验证码短信发送失败",phoneNum+"-"+content+"-"+sendhRes);//定时器短信
+//                return null;
+//            }
+//        } catch (Exception e) {
+//            LogUtils.saveLog("验证码短信发送失败",phoneNum+"-"+e);
+//            e.printStackTrace();
+//            return null;
+//        }
     }
 
     /**

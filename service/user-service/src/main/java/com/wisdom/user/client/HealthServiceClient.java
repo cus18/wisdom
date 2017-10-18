@@ -10,4 +10,5 @@ public interface HealthServiceClient {
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     String healthServiceTest();
 
+
 }

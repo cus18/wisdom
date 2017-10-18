@@ -39,28 +39,28 @@ public class EasemobService {
     private static final String adminEasemobID = "健康宝";
 
     @Autowired
-    private EasemobMapper easemobDaoTemp;
+    private EasemobMapper easemobMapperTemp;
 
     @Autowired
-    private EasemobGroupMapper easemobGroupDao;
+    private EasemobGroupMapper easemobGroupMapper;
 
     @Autowired
     protected MongoTemplate mongoTemplate;
 
     @Autowired
-    private ElderUserMapper sysElderUserDao;
+    private ElderUserMapper elderUserMapper;
 
     @Autowired
-    private UserMapper userDao;
+    private UserMapper userMapper;
 
     @Autowired
-    private PractitionerUserMapper sysPractitionerUserDao;
+    private PractitionerUserMapper practitionerMapper;
 
-    private static EasemobMapper easemobDao;
+    private static EasemobMapper easemobMapper;
 
     @PostConstruct
     public void init(){
-        easemobDao=this.easemobDaoTemp;
+        easemobMapper = this.easemobMapperTemp;
     }
 
     /**
@@ -75,11 +75,11 @@ public class EasemobService {
         String result = HttpRequestUtil.httpsRequest(SRC + "token", "POST", content);
         EasemobDTO easemob = JSON.parseObject(result, EasemobDTO.class);
         System.out.println(easemob.getAccessToken());
-        easemobDao.updateEasemobToken(easemob);
+        easemobMapper.updateEasemobToken(easemob);
     }
 
     public static String getEasemobToken() {
-        EasemobDTO easemob = easemobDao.getEasemobToken();
+        EasemobDTO easemob = easemobMapper.getEasemobToken();
         return easemob.getAccessToken();
     }
 
@@ -145,7 +145,7 @@ public class EasemobService {
         easemobGroup.setOwner(owner);
         easemobGroup.setElderEasemobID(elderEasemobID);
         easemobGroup.setDoctorIDArray(elderEasemobID+";");
-        Integer res = easemobGroupDao.insertEasemobGroup(easemobGroup);
+        Integer res = easemobGroupMapper.insertEasemobGroup(easemobGroup);
         if (res > 0) {
             return true;
         } else {
@@ -196,7 +196,7 @@ public class EasemobService {
         if (result.equals("403>>>>")) {
             return false;
         }
-        EasemobGroupDTO easemobGroup = easemobGroupDao.getEasemobGroupByGroupID(groupID);
+        EasemobGroupDTO easemobGroup = easemobGroupMapper.getEasemobGroupByGroupID(groupID);
         if (type.equals("2")) {
             easemobGroup.setNurse(easemobID);
             Query query = new Query(Criteria.where("elderId").is(elderID));
@@ -230,7 +230,7 @@ public class EasemobService {
             newDoctorArray += easemobID + ";";
             easemobGroup.setDoctorIDArray(newDoctorArray);
         }
-        Integer res = easemobGroupDao.updateEasemobGroup(easemobGroup);
+        Integer res = easemobGroupMapper.updateEasemobGroup(easemobGroup);
         if (res > 0) {
             return true;
         } else {
@@ -242,14 +242,14 @@ public class EasemobService {
 
         String result = HttpRequestUtil.httpsRequest(SRC + "chatgroups" + groupID + "/users/" + easemobID, "DELETE", "", "YWMtsKn4UDnpEee5KaM3VTu7UAAAAAAAAAAAAAAAAAAAAAGwR_sAOekR54vdbXjgyUL5AgMAAAFcD1mhMgBPGgDDwzX8kVVpl9lC8i3e_GZGxl4wl6qCrUcP3IZ6remH9g");
         Map<String, Object> map = (Map<String, Object>) JSON.parse(result);
-        EasemobGroupDTO easemobGroup = easemobGroupDao.getEasemobGroupByGroupID(groupID);
+        EasemobGroupDTO easemobGroup = easemobGroupMapper.getEasemobGroupByGroupID(groupID);
         if (type.equals("1")) {
             easemobGroup.setNurse("");
         } else if (type.equals("2")) {
             easemobGroup.setOwner("");
         }
 
-        Integer res = easemobGroupDao.updateEasemobGroup(easemobGroup);
+        Integer res = easemobGroupMapper.updateEasemobGroup(easemobGroup);
         if (res > 0) {
             return true;
         } else {
@@ -391,31 +391,31 @@ public class EasemobService {
     }
 
     public EasemobGroupDTO getEasemobGroup(String elderId) {
-        EasemobGroupDTO easemobGroup = easemobGroupDao.getEasemobGroupIDByElderID(elderId);
+        EasemobGroupDTO easemobGroup = easemobGroupMapper.getEasemobGroupIDByElderID(elderId);
         return easemobGroup;
     }
 
 
     public GroupMemberDTO getEasemobGroupByGroupID(String groupID) {
-        EasemobGroupDTO easemobGroup = easemobGroupDao.getEasemobGroupByGroupID(groupID);
+        EasemobGroupDTO easemobGroup = easemobGroupMapper.getEasemobGroupByGroupID(groupID);
         GroupMemberDTO groupMemberDTO = new GroupMemberDTO();
-        ElderUserDTO sysElderUserDTO = sysElderUserDao.getSysElderUserByEasemobID(easemobGroup.getElderEasemobID());
-        UserInfoDTO user = userDao.get(sysElderUserDTO.getSysUserID());
+        ElderUserDTO sysElderUserDTO = elderUserMapper.getSysElderUserByEasemobID(easemobGroup.getElderEasemobID());
+        UserInfoDTO user = userMapper.get(sysElderUserDTO.getSysUserID());
         groupMemberDTO.setElderID(sysElderUserDTO.getId());
         groupMemberDTO.setElderName(user.getName());
         groupMemberDTO.setElderPhoto(user.getPhoto());
         groupMemberDTO.setElderMemberCardID(sysElderUserDTO.getMemberCardID());
-        PractitionerUserDTO sysPractitionerUserDTO = sysPractitionerUserDao.getSysPractitionerByEasemobID(easemobGroup.getOwner());
-        user = userDao.get(sysPractitionerUserDTO.getSysUserID());
+        PractitionerUserDTO sysPractitionerUserDTO = practitionerMapper.getSysPractitionerByEasemobID(easemobGroup.getOwner());
+        user = userMapper.get(sysPractitionerUserDTO.getSysUserID());
         groupMemberDTO.setOwnerID(sysPractitionerUserDTO.getId());
         groupMemberDTO.setOwnerName(user.getName());
         groupMemberDTO.setOwnerPhoto(user.getPhoto());
         groupMemberDTO.setOwnerType(Integer.parseInt(sysPractitionerUserDTO.getType()));
-        PractitionerUserDTO sysPractitionerUser = sysPractitionerUserDao.getSysPractitionerByEasemobID(easemobGroup.getNurse());
+        PractitionerUserDTO sysPractitionerUser = practitionerMapper.getSysPractitionerByEasemobID(easemobGroup.getNurse());
         if (sysPractitionerUser == null) {
             groupMemberDTO.setNurseName("");
         } else {
-            user = userDao.get(sysPractitionerUser.getSysUserID());
+            user = userMapper.get(sysPractitionerUser.getSysUserID());
             groupMemberDTO.setNurseName(user.getName());
         }
         if (easemobGroup.getDoctorIDArray() != null) {
@@ -424,8 +424,8 @@ public class EasemobService {
             for (String doctor : doctorID) {
                 try {
                     GroupDoctorDTO groupDoctorDTO = new GroupDoctorDTO();
-                    PractitionerUserDTO doc = sysPractitionerUserDao.getSysPractitionerByEasemobID(doctor);
-                    user = userDao.get(doc.getSysUserID());
+                    PractitionerUserDTO doc = practitionerMapper.getSysPractitionerByEasemobID(doctor);
+                    user = userMapper.get(doc.getSysUserID());
                     groupDoctorDTO.setDoctorID(doc.getId());
                     groupDoctorDTO.setDoctorName(user.getName());
                     groupDoctorDTO.setDoctorPhoto(user.getPhoto());
@@ -487,12 +487,10 @@ public class EasemobService {
     }
 
     public UserInfoDTO getDoctorInfoByID(String id) {
-        PractitionerUserDTO sysPractitionerUserDTO = sysPractitionerUserDao.getSysPractitionerByID(id);
-        UserInfoDTO user = userDao.get(sysPractitionerUserDTO.getSysUserID());
+        PractitionerUserDTO sysPractitionerUserDTO = practitionerMapper.getSysPractitionerByID(id);
+        UserInfoDTO user = userMapper.get(sysPractitionerUserDTO.getSysUserID());
         user.setPractitionerUserDTO(sysPractitionerUserDTO);
         return user;
     }
-
-
 
 }

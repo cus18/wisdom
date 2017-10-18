@@ -1,14 +1,10 @@
-package com.wisdom.user.util;
+package com.wisdom.common.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
+
+import java.util.*;
 
 public class JSONUtils {
     /**
