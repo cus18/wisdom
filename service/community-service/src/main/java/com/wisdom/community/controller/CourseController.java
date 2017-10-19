@@ -108,9 +108,10 @@ public class CourseController {
 													HttpServletRequest request) {
 
 		ResponseDTO<LiveCourseDTO> responseDTO = new ResponseDTO<>();
-		UserInfoDTO user = CoreServiceClient.getUserInfo(request);
-		if(user!=null){
-			liveCourseDTO = liveCourseService.getLiveBroadCastDetail(user.getElderUserDTO().getId(),liveCourseDTO);
+		String loginToken = request.getHeader("loginToken");
+		ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
+		if(userInfoValue.getResponseData()!=null){
+			liveCourseDTO = liveCourseService.getLiveBroadCastDetail(userInfoValue.getResponseData().getElderUserDTO().getId(),liveCourseDTO);
 			responseDTO.setResponseData(liveCourseDTO);
 			responseDTO.setResult(StatusConstant.SUCCESS);
 		}else{
@@ -136,10 +137,11 @@ public class CourseController {
 												   HttpServletRequest request) {
 
 		ResponseDTO<LiveCourseDTO> responseDTO = new ResponseDTO<>();
-		UserInfoDTO user = CoreServiceClient.getUserInfo(request);
+		String loginToken = request.getHeader("loginToken");
+		ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
 		LiveCourseRegisterDTO dto = new LiveCourseRegisterDTO();
-		if(user!=null){
-			dto.setElderId(user.getElderUserDTO().getId());
+		if(userInfoValue.getResponseData()!=null){
+			dto.setElderId(userInfoValue.getResponseData().getElderUserDTO().getId());
 			dto.setLiveCourseId(liveCourseDTO.getLiveCourseId());
 			liveCourseService.registerLiveBroadCast(dto);
 			responseDTO.setResult(StatusConstant.SUCCESS);
@@ -212,12 +214,12 @@ public class CourseController {
 	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO<Page> onlineCourseDiscuss(@RequestBody PageParamDTO<String> pageParamDTO,
-															HttpServletRequest request) {
+	ResponseDTO<List<OnlineCourseDiscussDTO>> onlineCourseDiscuss(@RequestBody PageParamDTO<String> pageParamDTO,
+										  HttpServletRequest request) {
 
-		ResponseDTO<Page> responseDTO = new ResponseDTO<>();
-		Page page = liveCourseService.getOnlineCourseDiscuss(pageParamDTO);
-		responseDTO.setResponseData(page);
+		ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
+		List<OnlineCourseDiscussDTO> onlineCourseDiscussDTOList = liveCourseService.getOnlineCourseDiscuss(pageParamDTO);
+		responseDTO.setResponseData(onlineCourseDiscussDTOList);
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
@@ -238,10 +240,11 @@ public class CourseController {
 																		HttpServletRequest request) {
 
 		ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
-		UserInfoDTO user = CoreServiceClient.getUserInfo(request);
-		if(user!=null){
-			onlineCourseDiscussDTO.setElderId(user.getElderUserDTO().getId());
-			onlineCourseDiscussDTO.setElderName(user.getName());
+		String loginToken = request.getHeader("loginToken");
+		ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
+		if(userInfoValue.getResponseData()!=null){
+			onlineCourseDiscussDTO.setElderId(userInfoValue.getResponseData().getElderUserDTO().getId());
+			onlineCourseDiscussDTO.setElderName(userInfoValue.getResponseData().getName());
 			liveCourseService.createOnlineCourseDiscuss(onlineCourseDiscussDTO);
 			responseDTO.setResult(StatusConstant.SUCCESS);
 		}else{
@@ -266,10 +269,11 @@ public class CourseController {
 	ResponseDTO<List<OnlineCourseMyCourseDTO>> collectionCourse(@RequestBody PageParamDTO<String> pageParamDTO, HttpServletRequest request) {
 
 		ResponseDTO<List<OnlineCourseMyCourseDTO>> responseDTO = new ResponseDTO<>();
-		UserInfoDTO user = CoreServiceClient.getUserInfo(request);
+		String loginToken = request.getHeader("loginToken");
+		ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
 		OnlineCourseMyCourseDTO onlineCourseMyCourseDTO = new OnlineCourseMyCourseDTO();
-		if(user!=null){
-			onlineCourseMyCourseDTO.setElderId(user.getElderUserDTO().getId());
+		if(userInfoValue.getResponseData()!=null){
+			onlineCourseMyCourseDTO.setElderId(userInfoValue.getResponseData().getElderUserDTO().getId());
 			List<OnlineCourseMyCourseDTO> list = liveCourseService.getMyOnlineCourse(onlineCourseMyCourseDTO,pageParamDTO);
 			responseDTO.setResponseData(list);
 			responseDTO.setResult(StatusConstant.SUCCESS);

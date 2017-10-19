@@ -122,7 +122,7 @@ public class LiveCourseService{
         return result;
     }
 
-    public Page getOnlineCourseDiscuss(PageParamDTO<String> pageParamDTO) {
+    public List<OnlineCourseDiscussDTO> getOnlineCourseDiscuss(PageParamDTO<String> pageParamDTO) {
         OnlineCourseDiscussDTO dto = new OnlineCourseDiscussDTO();
         dto.setOnlineCourseId(Integer.parseInt(pageParamDTO.getRequestData()));
         Page page = new Page(Integer.parseInt(pageParamDTO.getPageNo()),Integer.parseInt(pageParamDTO.getPageSize()));

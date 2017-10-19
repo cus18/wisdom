@@ -31,8 +31,8 @@ public interface CoreServiceClient {
     @RequestMapping(value = "/getEasemobGroup",method=RequestMethod.GET)
     EasemobGroupDTO getEasemobGroup(String elderId);
 
-    @RequestMapping(value = "/getUserInfo",method=RequestMethod.GET)
-    UserInfoDTO getUserInfo(HttpServletRequest request);
+    @RequestMapping(value = "/getUserInfoValue",method=RequestMethod.GET)
+    ResponseDTO<UserInfoDTO> getUserInfo(@RequestParam(value = "loginToken") String loginToken);
 
     @RequestMapping(value = "/getElderUserByHospitalID",method=RequestMethod.GET)
     Page<ElderUserDTO> getElderUserByHospitalID(@RequestParam(value = "id") String id,

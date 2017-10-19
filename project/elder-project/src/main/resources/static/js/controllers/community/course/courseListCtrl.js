@@ -43,9 +43,4 @@ angular.module('controllers',[]).controller('courseListCtrl',
                 }
             }
 
-            $scope.return = function(){
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler('returnNative','',function(responseData) {});});
-            }
-
         }])

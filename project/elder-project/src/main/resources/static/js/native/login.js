@@ -47,7 +47,7 @@ var loginPageInit = function(){
                     contentType : 'application/json'
                 });
 
-                $.post('user/sendIdentifying',param,
+                $.post('core/sendIdentifying',param,
                     function(data) {
                     }, 'json');
 
@@ -87,7 +87,7 @@ var loginPageInit = function(){
             $.ajaxSetup({
                 contentType : 'application/json'
             });
-            $.post('user/login',param,
+            $.post('core/login',param,
                 function(data) {
                     if(data!=null ){
                         if(data.result == '0x00001')

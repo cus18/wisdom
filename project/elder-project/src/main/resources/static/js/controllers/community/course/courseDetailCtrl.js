@@ -42,6 +42,7 @@ angular.module('controllers',[]).controller('courseDetailCtrl',
                 GetOnlineCourseDiscuss.save($scope.param.discussPage,function(data){
                     ElderUtil.checkResponseData(data);
                     $scope.onlineCourseDiscussData  = data.responseData;
+                    console.log($scope.onlineCourseDiscussData);
                 })
             }
 

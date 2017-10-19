@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2015-10-14
  */
 @Controller
-@RequestMapping(value = "detectionDiagnose")
+@RequestMapping(value = "healthDetect")
 public class DetectionDiagnosisController {
 
 	@Autowired

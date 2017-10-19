@@ -1,7 +1,7 @@
 <ion-view style="background:#f8f8f8;" ng-if="!param.startCourseFlag">
 	<ion-header-bar align-title="center" class="bar-energized">
 		<div class="buttons">
-			<button class="button" ng-click="return()"><</button>
+			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
 		</div>
 		<h1 class="title">{{param.onlineCourseDetail.onlineCourseName}}</h1>
 	</ion-header-bar>
@@ -19,18 +19,6 @@
 				{{param.onlineCourseDetail.onlineCourseOutline}}
 			</a>
 		</div>
-		<!--<div class="list" style="margin-top:15px;">-->
-			<!--<div class="item item-divider">-->
-				<!--&nbsp;授课老师-->
-			<!--</div>-->
-			<!--<a class="item item-text-wrap" style="color: black;font-size:12px;">-->
-				<!--<i class="icon ion-person" style="font-size:15px">-->
-					<!--&nbsp;{{param.onlineCourseDetail.onlineCourseTeacherName}}-->
-				<!--</i>-->
-				<!--<br>-->
-				<!--{{param.onlineCourseDetail.onlineCourseTeacherLevel}}-->
-			<!--</a>-->
-		<!--</div>-->
 		<div style="background:white;width:90%;margin-left:5%;">
 			<h2 style="font-size:1px;">&nbsp;&nbsp;</h2>
 			<h1 style="font-size: 15px;color: blue;margin-left: 73%;width: 25%;">{{onlineCourseDiscussData.list.length}}条评论</h1>
@@ -49,7 +37,7 @@
 <ion-view style="background:#f8f8f8;" ng-if="param.startCourseFlag">
 	<ion-header-bar align-title="center" class="bar-energized">
 		<div class="buttons">
-			<button class="button" ng-click="return()"><</button>
+			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
 		</div>
 		<h1 class="title">{{param.onlineCourseDetail.onlineCourseName}}</h1>
 	</ion-header-bar>

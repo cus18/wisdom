@@ -33,11 +33,12 @@
         *
         FROM sys_dict
         WHERE
+        1=1
         <if test="type != null and type != ''">
             AND type = #{type}
         </if>
         <if test="value != null and value != ''">
-            AND value like CONCAT(CONCAT('%', #{value}), '%')
+            AND value like CONCAT('%', #{value}, '%')
         </if>
     </select>
 

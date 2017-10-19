@@ -42,6 +42,13 @@ public class UserService {
         return userInfoDTO;
     }
 
+    public UserInfoDTO getUserFromLoginToken(String loginToken)
+    {
+        String userInfo = redisService.get(loginToken);
+        UserInfoDTO userInfoDTO = new Gson().fromJson(userInfo,UserInfoDTO.class);
+        return userInfoDTO;
+    }
+
     public List<RelativeElderDTO> getRelativeList(UserInfoDTO userInfoDTO)
     {
         List<RelativeElderDTO> l=new ArrayList<>();

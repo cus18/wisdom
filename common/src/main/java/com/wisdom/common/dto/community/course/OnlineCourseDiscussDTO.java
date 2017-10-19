@@ -1,10 +1,10 @@
 package com.wisdom.common.dto.community.course;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
+import com.wisdom.common.dto.basic.DataEntity;
 import java.util.Date;
 
-public class OnlineCourseDiscussDTO {
+public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
 
     //评论id
     @JSONField(name = "discussId")
@@ -77,4 +77,5 @@ public class OnlineCourseDiscussDTO {
     public void setOnlineCourseDiscussDate(Date onlineCourseDiscussDate) {
         this.onlineCourseDiscussDate = onlineCourseDiscussDate;
     }
+
 }

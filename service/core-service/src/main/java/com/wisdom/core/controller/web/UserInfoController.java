@@ -1,4 +1,4 @@
-package com.wisdom.core.controller;
+package com.wisdom.core.controller.web;
 
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.ResponseDTO;

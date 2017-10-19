@@ -26,7 +26,7 @@ public interface CourseMapper {
 
     List<OnlineCourseDataDTO> getOnlineCourseDataList(OnlineCourseDataDTO onlineCourseDataDTO);
 
-    Page getOnlineCourseDiscuss(OnlineCourseDiscussDTO dto, Page page);
+    List<OnlineCourseDiscussDTO> getOnlineCourseDiscuss(OnlineCourseDiscussDTO dto, Page page);
 
     void addOnlineCourseDiscuss(OnlineCourseDiscussDTO onlineCourseDiscussDTO);
 
