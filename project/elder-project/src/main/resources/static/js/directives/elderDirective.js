@@ -5,9 +5,10 @@ define(['appElder','jquery'], function (app,$) {
                 return {
                     restrict: 'EAC',
                     replace: true,
-                    template: '<header><div style="float:left;margin-top:4%;margin-left:2%;font-size:0.34rem;" ' +
-                    'ng-click="return()">&lt; 返回</div> <h1>{{elderName}}</h1> <div style="float:right;' +
-                    'margin-top:4%;font-size:0.34rem;margin-right:2%;"ng-click="enterService()">服务 ></div></header>',
+                    template: '<ion-header-bar align-title=\"center\" class=\"bar-energized\">' +
+                            '<div class=\"buttons\"><button class=\"button\" ng-click=\"returnRootNative()\">' +
+                            '&lt;返回</button></div><h1 class=\"title\">{{elderName}}</h1><div class=\"buttons\">' +
+                            '<button class=\"button\" ng-click=\"enterService()\">服务&gt;</button></div></ion-header-bar>',
                     link: function(scope,ele,attrs) {
 
                         scope.return = function(){

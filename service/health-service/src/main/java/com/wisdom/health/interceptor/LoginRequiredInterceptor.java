@@ -2,7 +2,7 @@ package com.wisdom.health.interceptor;
 
 import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.ResponseDTO;
+import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.health.service.RedisService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

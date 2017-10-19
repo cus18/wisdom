@@ -2,13 +2,12 @@
     <div page-loading></div>
     <form name="addMedicationPlanForm" ng-submit="medicationPlan.submitForm(addMedicationPlanForm.$valid)" novalidate>
         <!--header start-->
-        <header>
-            <a href="javascript:history.go(-1);">返回</a>
-            <h1>服药干预计划</h1>
-            <button ng-show="editable">保存</button>
-            <span ng-if="pageType == 'checkPlan' && editable" ng-click="medicationPlan.delSure='true'">删除</span>
-            <em ng-hide="editable"></em>
-        </header>
+        <ion-header-bar align-title="center" class="bar-energized">
+            <div class="buttons">
+                <button class="button" ng-click="returnRootNative()">&lt;返回</button>
+            </div>
+            <h1 class="title">服药干预计划</h1>
+        </ion-header-bar>
         <div class="empty10"></div>
         <!--header end-->
         <!--服药干预-->
@@ -29,7 +28,9 @@
                 <input ng-hide="editable" type="text" ng-model="medicationPlan.medicineTime" disabled>
             </div>
             <ul class="medicineTimeShow clearfix">
-                <li ng-repeat="item in medicationPlan.timeData">{{item}}<img ng-if="editable" class="delTimeImg" src="/practitioner/images/icon_del.png" ng-click="delTime($event)"/></li>
+                <li ng-repeat="item in medicationPlan.timeData">{{item}}
+                    <img ng-if="editable" class="delTimeImg" src="/images/icon_del.png" ng-click="delTime($event)"/>
+                </li>
             </ul>
             <div class="clearfix">
                 <span>用药重复：</span>

@@ -1,11 +1,11 @@
 package com.wisdom.health.controller;
 
 import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.PageParamDTO;
-import com.wisdom.common.dto.ResponseDTO;
-import com.wisdom.common.dto.healthService.*;
-import com.wisdom.common.dto.userService.UserInfoDTO;
-import com.wisdom.health.client.UserServiceClient;
+import com.wisdom.common.dto.core.PageParamDTO;
+import com.wisdom.common.dto.core.ResponseDTO;
+import com.wisdom.common.dto.health.*;
+import com.wisdom.common.dto.core.user.UserInfoDTO;
+import com.wisdom.health.client.CoreServiceClient;
 import com.wisdom.health.interceptor.LoginRequired;
 import com.wisdom.health.service.HealthArchiveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class HealthArchiveController {
 	private HealthArchiveService healthArchiveService;
 
 	@Autowired
-	private UserServiceClient userServiceClient;
+	private CoreServiceClient CoreServiceClient;
 
 	@RequestMapping(value = "basicInfo", method = {RequestMethod.POST, RequestMethod.GET})
 	@LoginRequired
@@ -119,7 +119,7 @@ public class HealthArchiveController {
 																  HttpServletRequest request) {
 		ResponseDTO<PhysicalExaminationDTO> responseDto = new ResponseDTO<>();
 		try{
-			UserInfoDTO userInfoDTO = userServiceClient.getUserInfo(request);
+			UserInfoDTO userInfoDTO = CoreServiceClient.getUserInfo(request);
 			physicalExaminationDTO.setProviderId(userInfoDTO.getPractitionerUserDTO().getId());
 			physicalExaminationDTO.setProviderType(userInfoDTO.getPractitionerUserDTO().getTitle());
 			physicalExaminationDTO.setProviderName(userInfoDTO.getName());
@@ -179,7 +179,7 @@ public class HealthArchiveController {
 
 		ResponseDTO responseDto = new ResponseDTO<>();
 		try{
-			UserInfoDTO userInfoDTO = userServiceClient.getUserInfo(request);
+			UserInfoDTO userInfoDTO = CoreServiceClient.getUserInfo(request);
 			healthAssessmentAnswer.setProviderId(userInfoDTO.getPractitionerUserDTO().getId());
 			healthAssessmentAnswer.setProviderType(userInfoDTO.getPractitionerUserDTO().getTitle());
 			healthAssessmentAnswer.setProviderName(userInfoDTO.getName());

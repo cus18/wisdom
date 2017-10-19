@@ -92,11 +92,4 @@ public class OSSObjectTool {
         //OSSObject ossObject = ossClient.getObject(bucketName, key);
         return null;
     }
-
-    public static void main(String[] args) throws Exception {
-        String file = "D:\\5.png";
-        File f = new File(file);
-        String bucket =  Global.getConfig("oss.bucket.doctor.pic");
-        uploadFileInputStream("123", f.length(), new FileInputStream(f), bucket);
-    }
 }

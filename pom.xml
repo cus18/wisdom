@@ -34,8 +34,9 @@
 		<module>config</module>
 		<module>registry-center</module>
 
-		<module>service/user-service</module>
+		<module>service/community-service</module>
 		<module>service/health-service</module>
+		<module>service/core-service</module>
 
 		<module>project/elder-project</module>
 

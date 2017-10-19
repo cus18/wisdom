@@ -1,9 +1,10 @@
 <ion-view style="background:#f8f8f8;">
-    <header>
-        <a href="javascript:history.go(-1)">返回</a>
-        <h1>{{elderName}}</h1>
-        <em></em>
-    </header>
+    <ion-header-bar align-title="center" class="bar-energized">
+        <div class="buttons">
+            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
+        </div>
+        <h1 class="title">{{elderName}}</h1>
+    </ion-header-bar>
     <div page-loading></div>
     <div class="empty10"></div>
     <!--headerTitle end-->
@@ -16,5 +17,4 @@
             {{displayResult}}
         </p>
     </section>
-
 </ion-view>

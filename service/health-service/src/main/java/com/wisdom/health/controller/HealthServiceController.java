@@ -1,11 +1,11 @@
 package com.wisdom.health.controller;
 
 import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.PageParamDTO;
-import com.wisdom.common.dto.ResponseDTO;
-import com.wisdom.common.dto.healthService.HealthServicePackageDTO;
-import com.wisdom.common.dto.healthService.HealthServicePackageTemplateDTO;
-import com.wisdom.common.dto.healthService.MemberDTO;
+import com.wisdom.common.dto.core.PageParamDTO;
+import com.wisdom.common.dto.core.ResponseDTO;
+import com.wisdom.common.dto.health.HealthServicePackageDTO;
+import com.wisdom.common.dto.health.HealthServicePackageTemplateDTO;
+import com.wisdom.common.dto.health.MemberDTO;
 import com.wisdom.health.interceptor.LoginRequired;
 import com.wisdom.health.service.HealthPackageService;
 import org.springframework.beans.factory.annotation.Autowired;

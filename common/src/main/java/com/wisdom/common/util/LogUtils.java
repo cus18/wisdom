@@ -3,7 +3,7 @@
  */
 package com.wisdom.common.util;
 
-import com.wisdom.common.dto.LogDTO;
+import com.wisdom.common.dto.core.LogDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import javax.servlet.http.HttpServletRequest;

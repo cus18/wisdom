@@ -1,12 +1,12 @@
 package com.wisdom.health.service;
 
-import com.wisdom.common.dto.PageParamDTO;
-import com.wisdom.common.dto.PaginationDTO;
-import com.wisdom.common.dto.healthService.*;
-import com.wisdom.common.dto.userService.EasemobGroupDTO;
+import com.wisdom.common.dto.core.PageParamDTO;
+import com.wisdom.common.dto.core.PaginationDTO;
+import com.wisdom.common.dto.health.*;
+import com.wisdom.common.dto.core.user.EasemobGroupDTO;
 import com.wisdom.common.util.DateUtils;
 import com.wisdom.common.util.TimeUtils;
-import com.wisdom.health.client.UserServiceClient;
+import com.wisdom.health.client.CoreServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -30,12 +30,12 @@ public class HealthArchiveService {
     protected MongoTemplate mongoTemplate;
 
     @Autowired
-    private UserServiceClient userServiceClient;
+    private CoreServiceClient CoreServiceClient;
 
     private static ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
 
     public void sendEasemobMessage(String easemobGroup, String message) {
-        userServiceClient.sendEasemobMessage(easemobGroup, message);
+        CoreServiceClient.sendEasemobMessage(easemobGroup, message);
     }
 
     public class sendEasemobMessage extends Thread {
@@ -185,9 +185,9 @@ public class HealthArchiveService {
         }
 
         try {
-            String message = userServiceClient.getEasemobMessageUrl("chatType2", physicalExaminationDTO.getPhysicalExaminationId());
+            String message = CoreServiceClient.getEasemobMessageUrl("chatType2", physicalExaminationDTO.getPhysicalExaminationId());
 
-            EasemobGroupDTO easemobGroupDTO = userServiceClient.getEasemobGroup(physicalExaminationDTO.getElderId());
+            EasemobGroupDTO easemobGroupDTO = CoreServiceClient.getEasemobGroup(physicalExaminationDTO.getElderId());
             Runnable thread = new sendEasemobMessage(easemobGroupDTO.getEasemobGroupID(), message);
             threadExecutor.execute(thread);
         } catch (Exception e) {

@@ -1,14 +1,14 @@
 package com.wisdom.health.service;
 
-import com.wisdom.common.dto.PageParamDTO;
-import com.wisdom.common.dto.PaginationDTO;
-import com.wisdom.common.dto.healthService.BasicInfoDTO;
-import com.wisdom.common.dto.healthService.HealthServicePackageDTO;
-import com.wisdom.common.dto.healthService.HealthServicePackageTemplateDTO;
-import com.wisdom.common.dto.healthService.MemberDTO;
-import com.wisdom.common.dto.userService.EasemobGroupDTO;
+import com.wisdom.common.dto.core.PageParamDTO;
+import com.wisdom.common.dto.core.PaginationDTO;
+import com.wisdom.common.dto.health.BasicInfoDTO;
+import com.wisdom.common.dto.health.HealthServicePackageDTO;
+import com.wisdom.common.dto.health.HealthServicePackageTemplateDTO;
+import com.wisdom.common.dto.health.MemberDTO;
+import com.wisdom.common.dto.core.user.EasemobGroupDTO;
 import com.wisdom.common.util.TimeUtils;
-import com.wisdom.health.client.UserServiceClient;
+import com.wisdom.health.client.CoreServiceClient;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -34,13 +34,13 @@ public class HealthPackageService {
     protected MongoTemplate mongoTemplate;
     
     @Autowired
-    UserServiceClient userServiceClient;
+    CoreServiceClient CoreServiceClient;
 
     private static ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
 
     public void sendEasemobMessage(String easemobGroup,String message)
     {
-        userServiceClient.sendEasemobMessage(easemobGroup,message);
+        CoreServiceClient.sendEasemobMessage(easemobGroup,message);
     }
 
     public class sendEasemobMessage extends Thread
@@ -143,9 +143,9 @@ public class HealthPackageService {
         {
             throw new Exception("create healthServicePackage failure");
         }
-        String message = userServiceClient.getEasemobMessageUrl("chatType1",healthServicePackageDto.getServicePackageId());
+        String message = CoreServiceClient.getEasemobMessageUrl("chatType1",healthServicePackageDto.getServicePackageId());
 
-        EasemobGroupDTO easemobGroupDTO = userServiceClient.getEasemobGroup(healthServicePackageDto.getElderId());
+        EasemobGroupDTO easemobGroupDTO = CoreServiceClient.getEasemobGroup(healthServicePackageDto.getElderId());
         Runnable thread = new sendEasemobMessage(easemobGroupDTO.getEasemobGroupID(),message);
         threadExecutor.execute(thread);
 

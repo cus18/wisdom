@@ -265,7 +265,7 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
                         $scope.loadingStatus = false;
 
-                        ElderUtil.checkResponseData(data);
+                        ElderUtil.checkResponseData(data,'detectionDiagnose/detection,bloodSugarTable');
 
                         if(data.responseData!=undefined){
 

@@ -2,7 +2,7 @@ package com.wisdom.common.util;
 
 import com.alibaba.fastjson.JSON;
 import com.dahantc.api.sms.json.JSONHttpClient;
-import com.wisdom.common.dto.DaHanTricomMessageDTO;
+import com.wisdom.common.dto.core.DaHanTricomMessageDTO;
 
 
 /**

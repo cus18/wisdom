@@ -283,7 +283,8 @@ define(['appElder'], function(app){
                             load: function($templateCache, $ocLazyLoad, $q, $http) {
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.medicationPlan',
                                     ['js/controllers/health/interventionGuidance/medicationPlanCtrl.js?ver='+elderVersion,
-                                        'styles/lib/mobiscroll.custom-3.0.0-beta2.min.css','js/libs/mobiscroll.custom-3.0.0-beta2.min.js'],
+                                        'styles/lib/mobiscroll.custom-3.0.0-beta2.min.css',
+                                        'js/libs/tool/mobiscroll.custom-3.0.0-beta2.min.js'],
                                     'js/views/health/interventionGuidance/medicationPlan.html?ver='+elderVersion);
                             }
                         }
