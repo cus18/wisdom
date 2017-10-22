@@ -468,6 +468,20 @@ define(['appElder'], function(app){
                         }
                     })
 
+                /*社区首页*/
+                    .state('communityIndex', {
+                        url: '/communityIndex',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'communityIndexCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myRelatedElder',
+                                    ['js/controllers/community/communityIndexCtrl.js?ver='+elderVersion],
+                                    'js/views/community/communityIndex.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
 })

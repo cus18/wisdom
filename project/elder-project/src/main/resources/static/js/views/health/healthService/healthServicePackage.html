@@ -2,14 +2,15 @@
     <div page-loading></div>
     <form name="servicePackageForm" novalidate>
         <!--headerTitle start-->
-        <header>
-            <div ng-if="h5Page" style="float:left;margin-top:4%;margin-left:2%;font-size:0.34rem;"
-                 ng-click="returnRootNative()">&lt;返回
+        <ion-header-bar align-title="center" class="bar-energized">
+            <div class="buttons">
+                <button class="button" ng-click="returnRootNative()">&lt;返回</button>
             </div>
-            <h1>服务协议书</h1>
-            <em ng-if="operation == 'existHealthServicePackage'"></em>
-            <button ng-if="operation == 'newHealthServicePackage' && h5Page" ng-click="commitHealthServicePackage(servicePackageForm.$valid)">保存</button>
-        </header>
+            <h1 class="title">服务协议书</h1>
+            <div class="buttons" ng-if="operation == 'newHealthServicePackage' && h5Page" ng-click="commitHealthServicePackage(servicePackageForm.$valid)">
+                <button class="button" ng-click="returnRootNative()">&lt;返回</button>
+            </div>
+        </ion-header-bar>
         <div class="empty10"></div>
         <!--headerTitle end-->
         <div ng-if="operation == 'existHealthServicePackage'" style="overflow:auto;height:12rem;">
