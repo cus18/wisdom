@@ -10,6 +10,8 @@
       <set>
         <option value="$PROJECT_DIR$/project/living-project/pom.xml" />
         <option value="$PROJECT_DIR$/project/medical-project/pom.xml" />
+        <option value="$PROJECT_DIR$/service/home-service/pom.xml" />
+        <option value="$PROJECT_DIR$/service/weixin-service/pom.xml" />
       </set>
     </option>
   </component>

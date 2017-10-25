@@ -6,6 +6,7 @@ var healthDiet = 'health/diet/';
 var core = 'core/';
 var communityCourse = 'community/course/';
 var communityActivity = 'community/activity/';
+var communityIndex = 'community/index/';
 
 define(['appElder'], function (app) {
     app
@@ -193,6 +194,15 @@ define(['appElder'], function (app) {
         //获取用户的参加在线课堂列表
         .factory('GetMyCourseList',['$resource',function ($resource){
             return $resource(communityCourse + 'myCourseList')
+        }])
+
+        //获取用户的社区首页的banner图
+        .factory('GetActivityListByFirstPage',['$resource',function ($resource){
+            return $resource(communityIndex + 'activityListByFirstPage')
+        }])
+        //获取用户的社区首页的活动列表信息
+        .factory('GetCommunityBannerList',['$resource',function ($resource){
+            return $resource(communityIndex + 'bannerList')
         }])
 
         //获取自己的亲友群中所有的亲友信息列表

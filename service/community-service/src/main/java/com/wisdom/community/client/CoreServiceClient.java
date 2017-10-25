@@ -1,5 +1,6 @@
 package com.wisdom.community.client;
 
+import com.wisdom.common.dto.basic.BannerDTO;
 import com.wisdom.common.dto.community.course.OnlineCourseDTO;
 import com.wisdom.common.dto.core.DictDTO;
 import com.wisdom.common.dto.core.Page;
@@ -43,5 +44,8 @@ public interface CoreServiceClient {
 
     @RequestMapping(value = "/findDictListByInfo",method=RequestMethod.POST)
     ResponseDTO<List<DictDTO>> findDictListByInfo(@RequestBody DictDTO dictDTO);
+
+    @RequestMapping(value = "/bannerList", method = {RequestMethod.GET})
+    ResponseDTO<List<BannerDTO>> getBannerList();
 
 }

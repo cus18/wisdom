@@ -9,6 +9,7 @@
         <module name="common" />
         <module name="community-project" />
         <module name="community-service" />
+        <module name="community-service (1)" />
         <module name="config" />
         <module name="core-service" />
         <module name="course-service" />
@@ -31,11 +32,13 @@
       <module name="common" target="1.8" />
       <module name="community-project" target="1.8" />
       <module name="community-service" target="1.8" />
+      <module name="community-service (1)" target="1.6" />
       <module name="config" target="1.8" />
       <module name="core-service" target="1.8" />
       <module name="course-service" target="1.8" />
       <module name="elder-project" target="1.8" />
       <module name="health-service" target="1.8" />
+      <module name="home-service" target="1.8" />
       <module name="living-project" target="1.8" />
       <module name="medical-project" target="1.8" />
       <module name="monitoring" target="1.8" />
@@ -45,6 +48,7 @@
       <module name="system-service" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="user-service (1)" target="1.8" />
+      <module name="weixin-service" target="1.8" />
       <module name="wisdom" target="1.8" />
     </bytecodeTargetLevel>
   </component>
