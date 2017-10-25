@@ -2,7 +2,10 @@ package com.wisdom.community.service;
 
 import com.alibaba.fastjson.JSON;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
+import com.wisdom.common.dto.community.activity.ActivityDiscussDTO;
+import com.wisdom.community.mapper.ActivityDiscussMapper;
 import com.wisdom.community.mapper.ActivityMapper;
+import com.wisdom.community.mapper.ActivityUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,12 @@ public class ActivityService {
     @Autowired
     private ActivityMapper activityMapper;
 
+    @Autowired
+    private ActivityUserMapper activityUserMapper;
+
+    @Autowired
+    private ActivityDiscussMapper activityDiscussMapper;
+
     public List<ActivityDTO> activityListByFirstPage(String hospitalID) {
         List<ActivityDTO> list = activityMapper.getMyHospitalActivityListByHospitalID(hospitalID);
         if(list.size()==0){
@@ -32,4 +41,20 @@ public class ActivityService {
         return list;
     }
 
+    public List<ActivityDTO> getActivityList(String elderID, String pageNo,String activityType) {
+        List<ActivityDTO> result = activityMapper.getMyActivityListByElderID(elderID,Integer.parseInt(pageNo)*10,activityType);
+        return result;
+    }
+
+    public ActivityDTO getActivity(String elderID) {
+        return activityMapper.getActivityList(elderID,null).get(0);
+    }
+
+    public Integer getActivityAttendStatus(String activityID, String elderID) {
+        return activityUserMapper.getActivityCountByID(activityID, elderID);
+    }
+
+    public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
+        return activityDiscussMapper.getActivityDiscussList(id,page);
+    }
 }

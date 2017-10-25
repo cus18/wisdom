@@ -14,6 +14,27 @@ angular.module('controllers',[]).controller('courseListCtrl',
                 type : $stateParams.type
             }
 
+            if($rootScope.rootElderId!=undefined)
+            {
+                $scope.elderId = $rootScope.rootElderId;
+                $scope.elderName = $rootScope.rootElderName;
+            }
+            else
+            {
+                //将用户信息放入$rootScope中
+                $rootScope.rootElderId = window.localStorage.getItem("elderId");
+                $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                if($rootScope.rootElderId!=undefined)
+                {
+                    $scope.elderId = $rootScope.rootElderId;
+                    $scope.elderName = $rootScope.rootElderName;
+                }
+                else
+                {
+                    $scope.elderId = "0000";
+                }
+            }
+
             if($scope.param.type=="live")
             {
                 console.log($scope.param.type)

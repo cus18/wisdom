@@ -63,7 +63,7 @@ public class CommunityIndexController {
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
 		String loginToken = request.getHeader("loginToken");
-		String hospitalID =  coreServiceClient.getUserInfo(loginToken).getResponseData().getElderUserDTO().getSysHospitalID();
+		String hospitalID = coreServiceClient.getUserInfo(loginToken).getResponseData().getElderUserDTO().getSysHospitalID();
 		responseDTO.setResponseData(activityService.activityListByFirstPage(hospitalID));
 
 		responseDTO.setResult(StatusConstant.SUCCESS);

@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="list">
-            <a class="item item-icon-right" href="#">
+            <a class="item item-icon-right" ui-sref="activityList">
                 <span style="color:#999">社区活动</span>
                 <i class="icon ion-chevron-right" style="font-size:15px;color:#fc6"></i>
             </a>
@@ -42,11 +42,15 @@
             </a>
         </div>
         <div class="list">
-            <a class="item item-icon-right" href="#">
+            <a class="item item-icon-right" ui-sref="courseList({'type':'vod'})">
                 <span style="color:#999">在线课堂</span>
                 <i class="icon ion-chevron-right" style="font-size:15px;color:#fc6"></i>
             </a>
-            <div class="item item-image" ng-repeat="item in param.onlineCourseList" style="min-height: 50px;">
+            <div class="item item-image"
+                 ng-repeat="item in param.onlineCourseList"
+                 style="min-height:50px;"
+                 ui-sref="courseDetail({courseId:item.onlineCourseId,courseType:'vod'})"
+                 ng-if="$index<3">
                 <span style="position:absolute;background:#b2b2b2;opacity:0.8;border:1px solid #ffc900;
                             margin-top:19%;z-index:2;margin-left:24%;font-size:2px;
                             border-radius: 8px 8px 8px 8px;width:70px;">
