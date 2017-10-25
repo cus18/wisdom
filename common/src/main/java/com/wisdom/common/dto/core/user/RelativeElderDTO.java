@@ -31,6 +31,14 @@ public class RelativeElderDTO {
     @JSONField(name = "headImage")
     private String headImage;
 
+    //头像
+    @JSONField(name = "easemobID")
+    private String easemobID;
+
+    //头像
+    @JSONField(name = "easemobPassword")
+    private String easemobPassword;
+
     public String getHeadImage() {
         return headImage;
     }
@@ -85,5 +93,21 @@ public class RelativeElderDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEasemobID() {
+        return easemobID;
+    }
+
+    public void setEasemobID(String easemobID) {
+        this.easemobID = easemobID;
+    }
+
+    public String getEasemobPassword() {
+        return easemobPassword;
+    }
+
+    public void setEasemobPassword(String easemobPassword) {
+        this.easemobPassword = easemobPassword;
     }
 }

@@ -57,6 +57,8 @@ public class UserService {
         relativeElderDTO.setAge(userInfoDTO.getAge());
         relativeElderDTO.setElderID(userInfoDTO.getElderUserDTO().getId());
         relativeElderDTO.setElderName(userInfoDTO.getName());
+        relativeElderDTO.setEasemobID(userInfoDTO.getElderUserDTO().getEasemobID());
+        relativeElderDTO.setEasemobPassword(userInfoDTO.getElderUserDTO().getEasemobPassword());
         l.add(relativeElderDTO);
         return l;
     }
