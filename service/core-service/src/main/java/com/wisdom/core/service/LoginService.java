@@ -92,6 +92,7 @@ public class LoginService {
                     loginDto.setEasemobPassword(easemobPassword);
                     loginDto.setId(userInfoDTO.getElderUserDTO().getId());
                     loginDto.setName(userInfoDTO.getName());
+                    loginDto.setImg(userInfoDTO.getPhoto());
                 }
                 redisService.set(loginToken,new Gson().toJson(userInfoDTO));
                 redisService.expire(loginToken,ConfigConstant.loginTokenPeriod);
@@ -130,6 +131,7 @@ public class LoginService {
                         elderUserMapper.updateLoginToken(sysElderUserDTO);
                         loginDto.setId(userInfoDTO.getElderUserDTO().getId());
                         loginDto.setName(userInfoDTO.getName());
+                        loginDto.setImg(userInfoDTO.getPhoto());
                     }
                     redisService.set(loginDto.getLoginToken(),new Gson().toJson(userInfoDTO));
                     redisService.expire(loginDto.getLoginToken(),ConfigConstant.loginTokenPeriod);

@@ -19,6 +19,7 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                 //将用户信息放入$rootScope中
                 $rootScope.rootElderId = window.localStorage.getItem("elderId");
                 $rootScope.rootElderName = window.localStorage.getItem("elderName");
+                $rootScope.rootElderImg = window.localStorage.getItem("elderImg");
                 if($rootScope.rootElderId!=undefined)
                 {
                     $scope.elderId = $rootScope.rootElderId;
@@ -28,6 +29,9 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                 {
                     $scope.elderId = "0000";
                 }
+                console.log($rootScope.rootElderId);
+                console.log($rootScope.rootElderName);
+                console.log($rootScope.rootElderImg);
             }
 
             GetCommunityBannerList.save(function(data){
@@ -52,8 +56,6 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
 
                 $scope.relativeElderList = data.responseData;
 
-                console.log($scope.relativeElderList[0]);
-
                 var conn = new WebIM.connection({
                     isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
                     https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
@@ -65,20 +67,39 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                     isAutoLogin: true
                 });
 
+                var options = {
+                    apiUrl: WebIM.config.apiURL,
+                    user: $scope.relativeElderList[0].easemobID,
+                    pwd: $scope.relativeElderList[0].easemobPassword,
+                    appKey: '1156170425115453#laoyoupractitioner'
+                };
+                conn.open(options);
+
                 conn.listen({
-                    onOpened: function ( message ) {          //连接成功回调
+                    onOpened: function ( message ) {
+                        //连接成功回调
                         // 如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
                         // 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
                         // 则无需调用conn.setPresence();
                         console.log("connection success");
-                        var options1 = {
+
+                        options = {
                             success: function (resp) {
-                                console.log("Response: ", resp);
+
+                                angular.forEach(resp.data,function(value,index,array){
+                                    if(value.groupname.indexOf('医护')!=-1)
+                                    {
+                                        $rootScope.groupId = value.groupid;
+                                        $rootScope.groupName = value.groupname;
+                                        $rootScope.easemobId = $scope.relativeElderList[0].easemobID;
+                                        $rootScope.easemobPassword = $scope.relativeElderList[0].easemobPassword;
+                                    }
+                                })
                             },
                             error: function (e) {
                             }
                         }
-                        conn.getGroup(options1);
+                        conn.getGroup(options);
                     },
                     onClosed: function ( message ) {},         //连接关闭回调
                     onTextMessage: function ( message ) {},    //收到文本消息
@@ -112,7 +133,7 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                     onOffline: function () {},                 //本机网络掉线
                     onError: function ( message ) {},          //失败回调
                     onBlacklistUpdate: function (list) {       //黑名单变动
-                                                               // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
+                        // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
                         console.log(list);
                     },
                     onReceivedMessage: function(message){},    //收到消息送达服务器回执
@@ -121,14 +142,6 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                     onCreateGroup: function(message){},        //创建群组成功回执（需调用createGroupNew）
                     onMutedMessage: function(message){}        //如果用户在A群组被禁言，在A群发消息会走这个回调并且消息不会传递给群其它成员
                 });
-
-                var options = {
-                    apiUrl: WebIM.config.apiURL,
-                    user: $scope.relativeElderList[0].easemobID,
-                    pwd: $scope.relativeElderList[0].easemobPassword,
-                    appKey: '1156170425115453#laoyoupractitioner'
-                };
-                conn.open(options);
             })
 
         }])

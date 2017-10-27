@@ -475,9 +475,23 @@ define(['appElder'], function(app){
                         controller: 'communityIndexCtrl',
                         resolve: {
                             load: function($templateCache, $ocLazyLoad, $q, $http) {
-                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myRelatedElder',
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.communityIndex',
                                     ['js/controllers/community/communityIndexCtrl.js?ver='+elderVersion],
                                     'js/views/community/communityIndex.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+
+                    /*社区首页*/
+                    .state('myChat', {
+                        url: '/myChat',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myChatCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myChat',
+                                    ['js/controllers/my/myChatCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myChat.html?ver='+elderVersion);
                             }
                         }
                     })

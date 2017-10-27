@@ -22,6 +22,9 @@ public class LoginDTO {
     @JSONField(name = "easemobPassword")
     private String easemobPassword;
 
+    @JSONField(name = "img")
+    private String img;
+
     public String getLoginToken() {
         return loginToken;
     }
@@ -60,5 +63,13 @@ public class LoginDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

@@ -96,6 +96,7 @@ var loginPageInit = function(){
                             window.localStorage.setItem("loginToken",data.responseData.loginToken);
                             window.localStorage.setItem("elderId",data.responseData.id);
                             window.localStorage.setItem("elderName",data.responseData.name);
+                            window.localStorage.setItem("elderImg",data.responseData.img);
                             var redirectParam = getQueryString('redirectParam');
                             window.location.href = "elder#/" + redirectParam;
                         }
