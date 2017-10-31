@@ -1,9 +1,11 @@
 angular.module('controllers',[]).controller('myChatCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
-        function ($scope,$interval,$rootScope,$stateParams,$state) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','$ionicScrollDelegate',
+        function ($scope,$interval,$rootScope,$stateParams,$state,$ionicScrollDelegate) {
 
             $scope.param = {
-                messageList : []
+                messageList : [],
+                chatMessage: '',
+                elderMessage:{},
             }
 
             if($rootScope.rootElderId!=undefined)
@@ -61,6 +63,8 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 onTextMessage: function ( message ) {
                     $scope.param.messageList.push(message);
                     console.log($scope.param.messageList);
+                    $scope.$apply();
+                    $ionicScrollDelegate.$getByHandle('chat-content').scrollBottom();
                 },    //收到文本消息
                 onEmojiMessage: function ( message )
                 {
@@ -132,13 +136,22 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 var id = conn.getUniqueId();            // 生成本地消息id
                 var msg = new WebIM.message('txt', id); // 创建文本消息
                 var option = {
-                    msg: '谢谢医生的建议',             // 消息内容
+                    msg: $scope.param.chatMessage,             // 消息内容
                     to: $rootScope.groupId,                     // 接收消息对象(群组id)
                     roomType: false,
                     chatType: 'chatRoom',
                     ext :{"user_nice_name":$scope.elderName,"user_type":null,"user_img":$scope.elderImg},
                     success: function () {
                         console.log('send room text success');
+                        $scope.param.elderMessage.ext = option.ext;
+                        $scope.param.elderMessage.data = option.msg;
+                        $scope.param.elderMessage.from = 'elder';
+                        $scope.param.messageList.push(angular.copy($scope.param.elderMessage));
+                        $scope.param.chatMessage = '';
+                        $scope.param.elderMessage = {};
+                        $scope.$apply();
+                        console.log($scope.param.messageList);
+                        $ionicScrollDelegate.$getByHandle('chat-content').scrollBottom();
                     },
                     fail: function () {
                         console.log('failed');
@@ -148,6 +161,5 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 msg.setGroup('groupchat');
                 conn.send(msg.body);
             }
-
 
 }])

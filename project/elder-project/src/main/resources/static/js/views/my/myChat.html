@@ -9,6 +9,44 @@
 		</div>
 	</ion-header-bar>
 	<div class="empty10"></div>
-	<button ng-click="sendMessage()">我的测试</button>
-
+	<ion-scroll delegate-handle="chat-content" style="height:85%">
+		<div class="chat"
+			 ng-repeat="item in param.messageList"
+			 style="background:transparent;border-color:transparent">
+			<div ng-if="item.from!='elder'">
+				<img style="margin-left:15px;margin-top:10px;width:60px;height:60px"
+					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
+				<h2 style="margin-left:85px;margin-top:-60px;font-size:16px;">
+					{{item.ext.user_nice_name}}
+				</h2>
+				<br>
+				<ul></ul>
+				<span>{{item.data}}</span>
+			</div>
+			<div ng-if="item.from=='elder'">
+				<img style="margin-right:15px;width:60px;height:60px;float:right;z-index:2"
+					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
+				<h2 style="margin-right:10px;margin-top:-1px;font-size:16px;float:right">
+					{{item.ext.user_nice_name}}
+				</h2>
+				<br><br>
+				<ul style="float:right;right:80px;border-radius: 0px 0px 25px 0px;margin-top:80px"></ul>
+				<span style="float:right;margin-right:15px;margin-left:0px;">{{item.data}}</span>
+			</div>
+		</div>
+	</ion-scroll>
+	<div class="tabs tabs-icon-top">
+		<a class="tab-item" style="max-width:15%">
+			<i class="icon ion-volume-high"></i>
+		</a>
+		<a class="tab-item" style="max-width:70%">
+			<input ng-model="param.chatMessage" type="text" style="width:100%" placeholder="聊天内容">
+		</a>
+		<a class="tab-item" style="max-width:15%" ng-if="param.chatMessage==''">
+			<i class="icon ion-ios-plus-outline"></i>
+		</a>
+		<a class="tab-item" style="max-width:15%" ng-if="param.chatMessage!=''">
+			<button class="button button-small button-balanced" ng-click="sendMessage()">发送</button>
+		</a>
+	</div>
 </ion-view>

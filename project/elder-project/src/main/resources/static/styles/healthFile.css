@@ -1314,3 +1314,36 @@ div.inputItem>input{
 .community .loginBtn{
     background:#ff8e01;
 }
+
+.chat {
+	overflow: hidden;
+	margin-top: 5%;
+	position: relative;
+}
+
+.chat span{
+	word-break: normal;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow: hidden;
+	margin-left: 90px;
+	background: #6d7;
+	border-radius: 10px 10px 10px 10px;
+	display: inline-block;
+	max-width: 70%;
+	padding: 15px 15px 15px 15px;
+}
+
+/* Chat - Speech Bubble Arrow */
+.chat ul {
+	top: -32px;
+	content: '';
+	width: 18px;
+	height: 18px;
+	background-color: #6d7;
+	margin-left: 80px;
+	margin-top: 88px;
+	border-radius: 0px 10px 0px 25px;
+	z-index: 2;
+	position: absolute;
+}
