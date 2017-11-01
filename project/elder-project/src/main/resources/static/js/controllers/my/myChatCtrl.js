@@ -6,7 +6,13 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 messageList : [],
                 chatMessage: '',
                 elderMessage:{},
+                chatStyle: {
+                    "position": "relative",
+                    "margin-top": "0"
+                }
             }
+
+            var addPhoto = false;
 
             if($rootScope.rootElderId!=undefined)
             {
@@ -160,6 +166,26 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 msg.set(option);
                 msg.setGroup('groupchat');
                 conn.send(msg.body);
+            }
+
+            $scope.addPhoto = function(){
+
+                if(!addPhoto)
+                {
+                    $scope.param.chatStyle = {
+                        "position": "relative",
+                        "margin-top": "-25%"
+                    }
+                }
+                else
+                {
+                    $scope.param.chatStyle = {
+                        "position": "relative",
+                        "margin-top": "0"
+                    }
+                }
+                addPhoto = !addPhoto;
+
             }
 
 }])

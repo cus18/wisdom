@@ -29,9 +29,6 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                 {
                     $scope.elderId = "0000";
                 }
-                console.log($rootScope.rootElderId);
-                console.log($rootScope.rootElderName);
-                console.log($rootScope.rootElderImg);
             }
 
             GetCommunityBannerList.save(function(data){
