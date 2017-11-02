@@ -496,6 +496,20 @@ define(['appElder'], function(app){
                         }
                     })
 
+                    /*个人中心*/
+                    .state('myselfCenter', {
+                        url: '/myselfCenter',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myselfCenterCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfCenter',
+                                    ['js/controllers/my/myselfCenterCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myselfCenter.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
 })
