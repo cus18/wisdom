@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisdom.core.mapper.RemindMapper">
+
+	<insert id="addRemind"
+			parameterType="com.wisdom.common.dto.core.entity.RemindEntity"
+			useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO`remind`
+			(`remind_temlate_id`, `title`, `content`, `uri`, `icon`,`remark`,`type`,`type_id`,`create_by`)
+		  VALUES (#{remind_temlate_id}, #{title}, #{content}, #{uri},#{icon},#{remark},#{type},#{type_id}, #{create_by})
+	</insert>
+
+	<select id="getRemindListBySysElderUserID"
+			resultType="com.wisdom.common.dto.core.notification.NotificationMessageDTO">
+		select nu.id as notificationMessageId,n.icon as notificationMessageLogo,n.title as notificationMessageTitle,
+				nu.create_date as notificationMessageDate ,n.content as  notificationMessageContent ,n.type as notificationMessageType,
+				n.type_id as notificationMessageContentId,nu.status as notificationMessageStatus
+				from remind n
+		inner join remind_user nu on n.id=nu.remind_id
+		where nu.sys_elder_user_id=#{sysElderUserID} limit #{limit}
+	</select>
+
+	<select id="getRemindByID"
+			resultType="com.wisdom.common.dto.core.notification.NotificationMessageDTO">
+		select nu.id as notificationMessageId,n.icon as notificationMessageLogo,n.title as notificationMessageTitle,
+				nu.create_date as notificationMessageDate ,n.content as  notificationMessageContent,n.type as notificationMessageType,
+				n.type_id as notificationMessageContentId,nu.status as notificationMessageStatus
+				from remind n
+		inner join remind_user nu on n.id=nu.remind_id
+		where nu.id=#{ID}
+	</select>
+
+</mapper>
