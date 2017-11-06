@@ -61,7 +61,8 @@ public class ActivityController {
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
 		String elderID = userInfoDTO.getElderUserDTO().getId();
-		responseDTO.setResponseData(activityService.getActivityList(elderID,pageParamDTO.getPageNo(),pageParamDTO.getRequestData()));
+		responseDTO.setResponseData(activityService.getActivityList(elderID,pageParamDTO.getPageNo(),
+				pageParamDTO.getRequestData()));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}

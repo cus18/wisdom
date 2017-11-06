@@ -139,15 +139,14 @@ public class LiveCourseService{
 
     public List<OnlineCourseMyCourseDTO> getMyOnlineCourse(OnlineCourseMyCourseDTO dto, PageParamDTO<String> pageParamDTO) {
         if(pageParamDTO.getRequestData().indexOf(",")>0){
-            Page<OnlineCourseMyCourseDTO> page = new Page(Integer.parseInt(pageParamDTO.getPageNo()),Integer.parseInt(pageParamDTO.getPageSize()));
             dto.setType(pageParamDTO.getRequestData().split(",")[1]);
-            Page<OnlineCourseMyCourseDTO> p = courseMapper.getMyOnlineCourse(dto,page);
-            for(OnlineCourseMyCourseDTO temp : p.getList()){
+            List<OnlineCourseMyCourseDTO> p = courseMapper.getMyOnlineCourse(dto);
+            for(OnlineCourseMyCourseDTO temp : p){
                 OnlineCourseDTO onlineCourseDTO = new OnlineCourseDTO();
                 onlineCourseDTO.setOnlineCourseId(temp.getCourseId());
                 temp.setOnlineCourseDTO(courseMapper.getOnlineCourse(onlineCourseDTO));
             }
-            return p.getList();
+            return p;
         }else{
             dto.setType(pageParamDTO.getRequestData());
             List<OnlineCourseMyCourseDTO> list = courseMapper.getAllMyOnlineCourseByInfo(dto);

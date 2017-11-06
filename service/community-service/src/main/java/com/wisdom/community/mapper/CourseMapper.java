@@ -34,7 +34,7 @@ public interface CourseMapper {
 
     LiveCourseRegisterDTO getLiveCourseRegister(LiveCourseRegisterDTO liveCourseRegisterDTO);
 
-    Page getMyOnlineCourse(OnlineCourseMyCourseDTO dto, Page page);
+    List<OnlineCourseMyCourseDTO> getMyOnlineCourse(OnlineCourseMyCourseDTO dto);
 
     List<OnlineCourseDTO> getAllOnlineCourseListByInfo(OnlineCourseDTO dto);
 

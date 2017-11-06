@@ -4,6 +4,7 @@ import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.dto.core.user.ElderUserDTO;
 import com.wisdom.common.dto.core.user.RelativeElderDTO;
+import com.wisdom.common.dto.core.user.UserInfoDTO;
 import com.wisdom.core.interceptor.LoginRequired;
 import com.wisdom.core.service.PractitionerUserService;
 import com.wisdom.core.service.RedisService;
@@ -60,11 +61,29 @@ public class UserInfoController {
 	@ResponseBody
 	ResponseDTO<ElderUserDTO> getUserInfo(HttpServletRequest request) {
 		ResponseDTO responseDto = new ResponseDTO();
-//		UserInfoDTO userInfoDTO = user.getUserFromJedis(request);
-//		responseDto.setResponseData(userInfoDTO);
-		//responseDto.setResult(StatusConstant.SUCCESS);
+		UserInfoDTO userInfoDTO = userService.getUserFromRedis(request);
+		responseDto.setResponseData(userInfoDTO);
+		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
 
+	/**
+	 * 退出登录
+	 */
+	@RequestMapping(value = "laoyou/loginout", method = {RequestMethod.POST, RequestMethod.GET})
+	@LoginRequired
+	public
+	@ResponseBody
+	ResponseDTO<UserInfoDTO> loginout(HttpServletRequest request) {
+		String loginToken=request.getHeader("logintoken");
+		if(loginToken==null||loginToken.equals("")){
+			loginToken=request.getSession().getAttribute("token").toString();
+		}
+		String status = userService.loginOut(loginToken);
+		ResponseDTO<UserInfoDTO> result = new ResponseDTO<>();
+		result.setResult(status);
+		result.setErrorInfo(status.equals(StatusConstant.LOGIN_OUT) ? "退出登录" : "保持在线");
+		return result;
+	}
 
 }

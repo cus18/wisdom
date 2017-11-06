@@ -67,6 +67,9 @@ define(['appElder'], function (app) {
         .factory('DiagnoseReportList',['$resource',function ($resource){
             return $resource(healthDetect + 'treatment')
         }])
+        .factory('GetUserInfo',['$resource',function ($resource){
+            return $resource(core + 'getUserInfo');
+        }])
         .factory('UserLogin',['$resource',function ($resource){
             return $resource(core + 'login');
         }])
@@ -194,6 +197,9 @@ define(['appElder'], function (app) {
         //获取用户的参加在线课堂列表
         .factory('GetMyCourseList',['$resource',function ($resource){
             return $resource(communityCourse + 'myCourseList')
+        }])
+        .factory('GetMyOnlineCourseList',['$resource',function ($resource){
+            return $resource(communityCourse + 'getMyOnlineCourse')
         }])
 
         //获取用户的社区首页的banner图

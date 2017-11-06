@@ -1,10 +1,12 @@
 package com.wisdom.core.service;
 
 import com.google.gson.Gson;
+import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.user.RelativeElderDTO;
 import com.wisdom.common.dto.core.user.UserInfoDTO;
 import com.wisdom.core.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.jedis.JedisUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +63,11 @@ public class UserService {
         relativeElderDTO.setEasemobPassword(userInfoDTO.getElderUserDTO().getEasemobPassword());
         l.add(relativeElderDTO);
         return l;
+    }
+
+    public String loginOut(String loginToken) {
+        redisService.expire(loginToken,0);
+        return StatusConstant.LOGIN_OUT;
     }
 
 }

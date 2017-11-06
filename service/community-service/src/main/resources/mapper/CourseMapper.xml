@@ -80,14 +80,7 @@
                 and id = #{liveCourseId}
             </if>
         </where>
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-                ORDER BY ${page.orderBy}
-            </when>
-            <otherwise>
-                ORDER BY id DESC
-            </otherwise>
-        </choose>
+        ORDER BY id DESC
     </select>
 
     <select id="getAllLiveCourseByInfo" resultMap="liveCourse">
@@ -261,15 +254,11 @@
             <if test="elderId != null and elderId != ''">
                 and elderId = #{elderId}
             </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
         </where>
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-                ORDER BY ${page.orderBy}
-            </when>
-            <otherwise>
-                ORDER BY id DESC
-            </otherwise>
-        </choose>
+        ORDER BY id DESC
     </select>
 
     <select id="getAllMyOnlineCourseByInfo" resultMap="onlineCourseMyCourse">

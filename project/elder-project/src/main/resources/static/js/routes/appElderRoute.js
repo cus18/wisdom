@@ -509,6 +509,18 @@ define(['appElder'], function(app){
                             }
                         }
                     })
+                    .state('myselfInfo', {
+                        url: '/myselfInfo',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myselfInfoCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myselfInfoCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myselfInfo.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                 $urlRouterProvider.otherwise('/healthIndex')
             }])

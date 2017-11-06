@@ -34,7 +34,9 @@
                 <span style="color:#999">社区活动</span>
                 <i class="icon ion-chevron-right" style="font-size:15px;color:#fc6"></i>
             </a>
-            <a class="item item-thumbnail-left" href="#" ng-repeat="item in param.activityList">
+            <a class="item item-thumbnail-left"
+               ui-sref="activityDetail({activityId:item.activityId})"
+               ng-repeat="item in param.activityList">
                 <img ng-src="{{item.activityLogo}}">
                 <h2>{{item.activityName}}</h2>
                 <br/><br/>
