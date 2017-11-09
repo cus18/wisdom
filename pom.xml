@@ -41,7 +41,7 @@
 		<module>service/translation-service</module>
 
 		<module>project/elder-project</module>
-		<module>project/translation-project</module>
+		<module>project/TWStranslation-project</module>
 
 	</modules>
 
