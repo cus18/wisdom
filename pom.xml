@@ -38,8 +38,10 @@
 		<module>service/health-service</module>
 		<module>service/core-service</module>
 		<module>service/tcc-coordinator-service</module>
+		<module>service/translation-service</module>
 
 		<module>project/elder-project</module>
+		<module>project/translation-project</module>
 
 	</modules>
 
