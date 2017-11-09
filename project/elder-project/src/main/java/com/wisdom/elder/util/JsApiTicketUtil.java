@@ -54,7 +54,7 @@ public class JsApiTicketUtil {
         ret.put("nonceStr", nonce_str);
         ret.put("timestamp", timestamp);
         ret.put("signature", signature);
-        ret.put("appid", ConfigConstant.CORPID);
+        ret.put("appid", ConfigConstant.APPID);
         return ret;
     }
 

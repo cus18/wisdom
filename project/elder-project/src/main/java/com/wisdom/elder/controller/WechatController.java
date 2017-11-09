@@ -173,21 +173,16 @@ public class WechatController {
 		}
 
 		String get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
-				"appid=APPID" +
-				"&secret=SECRET&" +
-				"code=CODE&grant_type=authorization_code";
-		get_access_token_url = get_access_token_url.replace("APPID", ConfigConstant.CORPID);
-		get_access_token_url = get_access_token_url.replace("SECRET", ConfigConstant.SECTET);
-		get_access_token_url = get_access_token_url.replace("CODE", code);
+				"appid=" + ConfigConstant.APPID  +
+				"&secret=" + ConfigConstant.SECTET +
+				"&code=" + code + "&grant_type=authorization_code";
 		String access_token = "";
 		String openid = "";
 		if (access_token.isEmpty() && openid.isEmpty()) {
 			WechatBean wechat;
 			int countNum = 0;
 			do {
-				System.out.print("wechatURL:"+get_access_token_url);
 				String json = HttpRequestUtil.getConnectionResult(get_access_token_url, "GET", "");
-				System.out.print("json:"+json);
 				wechat = JsonUtil.getObjFromJsonStr(json, WechatBean.class);
 				if (countNum++ > 3) {
 					break;
@@ -329,7 +324,7 @@ public class WechatController {
 				"appid=APPID" +
 				"&secret=SECRET&" +
 				"code=CODE&grant_type=authorization_code";
-		get_access_token_url = get_access_token_url.replace("APPID", ConfigConstant.CORPID);
+		get_access_token_url = get_access_token_url.replace("APPID", ConfigConstant.APPID);
 		get_access_token_url = get_access_token_url.replace("SECRET", ConfigConstant.SECTET);
 		get_access_token_url = get_access_token_url.replace("CODE", code);
 		String access_token = "";
@@ -355,7 +350,7 @@ public class WechatController {
 				"appid=APPID" +
 				"&secret=SECRET&" +
 				"code=CODE&grant_type=authorization_code";
-		get_access_token_url = get_access_token_url.replace("APPID", ConfigConstant.CORPID);
+		get_access_token_url = get_access_token_url.replace("APPID", ConfigConstant.APPID);
 		get_access_token_url = get_access_token_url.replace("SECRET", ConfigConstant.SECTET);
 		get_access_token_url = get_access_token_url.replace("CODE", code);
 		String access_token = "";

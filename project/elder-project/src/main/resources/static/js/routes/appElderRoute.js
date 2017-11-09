@@ -522,6 +522,20 @@ define(['appElder'], function(app){
                         }
                     })
 
+                    /*居家服务*/
+                    .state('livingIndex', {
+                        url: '/livingIndex',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myselfInfoCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/living/livingIndexCtrl.js?ver='+elderVersion],
+                                    'js/views/living/livingIndex.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
 })

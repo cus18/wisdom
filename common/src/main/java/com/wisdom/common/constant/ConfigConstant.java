@@ -44,4 +44,6 @@ public enum ConfigConstant {
 
 	public static final String PARTNER_KEY = Global.getConfig("PARTNER_KEY");
 
+	public static final String APPID = Global.getConfig("APPID");
+
 }
