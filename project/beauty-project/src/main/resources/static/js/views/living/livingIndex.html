@@ -1,0 +1,15 @@
+<ion-view style="background:#f8f8f8;">
+
+    <ion-content>
+        <ion-slide-box auto-play="true" does-continue="true" slide-interval=1000>
+            <ion-slide ng-repeat="item in param.bannerList">
+                <div class="box" style="width:120%">
+                    <img ng-src="{{item.banner}}?x-oss-process=image/resize,m_fill,h_200,w_420"/>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+
+
+    </ion-content>
+</ion-view>
+
