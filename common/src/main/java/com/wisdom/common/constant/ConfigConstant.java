@@ -46,4 +46,6 @@ public enum ConfigConstant {
 
 	public static final String APPID = Global.getConfig("APPID");
 
+	public static final String recognitionCallBack = Global.getConfig("recognitionCallBack");
+
 }

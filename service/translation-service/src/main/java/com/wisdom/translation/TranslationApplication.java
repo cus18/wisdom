@@ -6,16 +6,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @EnableFeignClients
-@MapperScan(basePackages = {"com.wisdom.community.mapper"})
-public class CommunityApplication {
+@EnableScheduling
+@MapperScan(basePackages = {"com.wisdom.translation.mapper"})
+public class TranslationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CommunityApplication.class, args);
+		SpringApplication.run(TranslationApplication.class, args);
 	}
 
 }
