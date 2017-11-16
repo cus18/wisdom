@@ -41,7 +41,8 @@
 		<module>service/translation-service</module>
 
 		<module>project/elder-project</module>
-		<module>project/TWStranslation-project</module>
+		<module>project/titan-project</module>
+		<module>project/beauty-project</module>
 
 	</modules>
 
