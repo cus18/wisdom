@@ -526,7 +526,7 @@ define(['appElder'], function(app){
                     .state('livingIndex', {
                         url: '/livingIndex',
                         templateProvider: function() { return lazyDeferred.promise; },
-                        controller: 'myselfInfoCtrl',
+                        controller: 'livingIndexCtrl',
                         resolve: {
                             load: function($templateCache, $ocLazyLoad, $q, $http) {
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',

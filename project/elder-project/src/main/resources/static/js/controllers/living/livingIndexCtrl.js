@@ -1,8 +1,8 @@
 angular.module('controllers',[]).controller('livingIndexCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state',
-        'ElderUtil','GetUserInfo',
+        'ElderUtil','GetUserInfo','GetCommunityBannerList',
         function ($scope,$interval,$rootScope,$stateParams,$state,
-                  ElderUtil,GetUserInfo) {
+                  ElderUtil,GetUserInfo,GetCommunityBannerList) {
 
             $scope.param = {
                 bannerList : '',
@@ -33,6 +33,14 @@ angular.module('controllers',[]).controller('livingIndexCtrl',
 
             GetUserInfo.save(function(data){
                 ElderUtil.checkResponseData(data,'livingIndex');
+                GetCommunityBannerList.save(function(data){
+                    ElderUtil.checkResponseData(data,'communityIndex');
+                    $scope.param.bannerList = data.responseData;
+                });
             })
+
+
+
+
 
         }])
