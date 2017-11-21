@@ -1,0 +1,35 @@
+<ion-view style="background:#f8f8f8;">
+    <ion-header-bar align-title="center" class="bar-energized">
+        <div class="buttons">
+            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
+        </div>
+        <h1 class="title">居家服务详情</h1>
+    </ion-header-bar>
+    <div class="list card" style="margin-top:50px">
+        <div class="item item-image">
+            <img src="http://yhllaoyoubanner.oss-cn-hangzhou.aliyuncs.com/QQ%E5%9B%BE%E7%89%8720170816111212.jpg?x-oss-process=image/resize,m_fill,h_200,w_420">
+        </div>
+    </div>
+    <ion-content style="margin-top:180px">
+        <div class="list">
+            <a class="item item-avatar item-text-wrap" style="min-height:80px">
+                <button class="button button-energized button-larger item-note"
+                        style="min-width:100px"
+                        ui-sref="livingServiceDetail({livingServiceId:item.livingServiceId})">预约</button>
+                <h2><span style="margin-left:-15%;font-size:20px">¥50元/小时</span></h2>
+                <h2><span style="margin-left:-15%;font-size:15px;color:red">审核通过后当面结算付费</span></h2>
+            </a>
+            <a class="item item-avatar item-text-wrap">
+                <h2><span style="margin-left:-15%">服务介绍</span></h2>
+                <p style="margin-left:-15%">由后台富文本编辑器编辑的服务内容由后台富文本编辑器编辑的服务内容由后台富文本编辑器编辑的服务内容由后台富文本编辑器编辑的服务内容</p>
+                <br><br>
+                <h2><span style="margin-left:-15%">特别说明</span></h2>
+                <p style="margin-left:-15%"
+                   ng-repeat="item in [1,2,3]">
+                    <i class="ion ion-record"></i>&nbsp;家里有水有电
+                </p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
+

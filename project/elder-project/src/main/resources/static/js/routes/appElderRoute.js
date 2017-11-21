@@ -535,6 +535,32 @@ define(['appElder'], function(app){
                             }
                         }
                     })
+                    /*居家服务列表*/
+                    .state('livingServiceList', {
+                        url: '/livingServiceList/:type',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'livingServiceListCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.livingServiceList',
+                                    ['js/controllers/living/livingServiceListCtrl.js?ver='+elderVersion],
+                                    'js/views/living/livingServiceList.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    /*居家服务列表*/
+                    .state('livingServiceDetail', {
+                        url: '/livingServiceDetail/:livingServiceId',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'livingServiceDetailCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.livingServiceDetail',
+                                    ['js/controllers/living/livingServiceDetailCtrl.js?ver='+elderVersion],
+                                    'js/views/living/livingServiceDetail.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
