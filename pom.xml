@@ -40,6 +40,7 @@
 		<module>service/tcc-coordinator-service</module>
 		<module>service/translation-service</module>
 		<module>service/living-service</module>
+		<module>service/wechat-service</module>
 
 		<module>project/elder-project</module>
 		<module>project/titan-project</module>

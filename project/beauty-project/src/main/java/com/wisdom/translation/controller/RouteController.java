@@ -10,7 +10,7 @@ public class RouteController {
 	/*
         elder ionic框架
     */
-	@RequestMapping(value ="translation",method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value ="beauty",method = {RequestMethod.POST, RequestMethod.GET})
 	public String elderIonic(HttpServletResponse response) {
 		response.addHeader("Pragma","no-cache");
 		response.setHeader("Cache-Control","no-cache");
