@@ -1,12 +1,11 @@
-angular.module('controllers',[]).controller('livingIndexCtrl',
+angular.module('controllers',[]).controller('beadHouseDetailCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state',
         'ElderUtil','GetUserInfo','GetCommunityBannerList',
         function ($scope,$interval,$rootScope,$stateParams,$state,
                   ElderUtil,GetUserInfo,GetCommunityBannerList) {
 
             $scope.param = {
-                bannerList : '',
-                activityList : ''
+                type : 'short'
             }
 
             if($rootScope.rootElderId!=undefined)
@@ -32,15 +31,23 @@ angular.module('controllers',[]).controller('livingIndexCtrl',
             }
 
             GetUserInfo.save(function(data){
-                ElderUtil.checkResponseData(data,'livingIndex');
-                GetCommunityBannerList.save(function(data){
-                    ElderUtil.checkResponseData(data,'livingIndex');
-                    $scope.param.bannerList = data.responseData;
-                });
+                ElderUtil.checkResponseData(data,'beadHouseDetail/'+$stateParams.beadHouseId);
             })
 
-            $scope.reserveService = function(beadHouseId){
-                $state.go('beadHouseDetail',{beadHouseId:beadHouseId});
+            $scope.chooseLivingService = function(type){
+                if(type=='short')
+                {
+                    $scope.param.type = 'short';
+                }
+                else if(type=='long')
+                {
+                    $scope.param.type = 'long';
+                }
             }
+
+            $scope.livingServiceDetail = function(livingServiceId){
+                $state.go("livingServiceDetail",{livingServiceId:livingServiceId});
+            }
+
 
         }])

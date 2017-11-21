@@ -1,0 +1,69 @@
+<ion-view style="background:#f8f8f8;">
+    <ion-header-bar align-title="center" class="bar-energized">
+        <h1 class="title">预约服务</h1>
+    </ion-header-bar>
+    <ion-content>
+        <h2 style="font-size:18px;margin-left:15px;width:100%;margin-top:15px">
+            自理能力
+        </h2>
+        <div class="list" style="margin-top:15px;background: #f8f8f8">
+            <div class="row">
+                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
+                    <button class="button button-light" style="background:#ddd">能够自理</button>
+                </div>
+                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
+                    <button class="button button-light">部分失能</button>
+                </div>
+                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
+                    <button class="button button-light" style="background:#ddd">失能一级</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
+                    <button class="button button-light">失能二级</button>
+                </div>
+                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
+                    <button class="button button-light">完全失能</button>
+                </div>
+                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
+                </div>
+            </div>
+        </div>
+        <h2 style="font-size:18px;margin-left:15px;width:100%">
+            联系信息
+        </h2>
+        <div class="list" style="margin-top: 15px;">
+            <label class="item item-input">
+                <input type="text" placeholder="输入姓名">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="输入电话">
+            </label>
+        </div>
+        <h2 style="font-size:18px;margin-left:15px;width:100%">
+            服务地点
+        </h2>
+        <div class="list" style="margin-top: 15px;">
+            <label class="item item-input">
+                <input type="text" placeholder="选择区域">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="输入详细地址">
+            </label>
+        </div>
+        <h2 style="font-size:18px;margin-left:15px;width:100%">
+            备注
+        </h2>
+        <div class="list" style="margin-top:15px;">
+            <label class="item item-input">
+                <textarea placeholder="输入备注内容" style="height:85px"></textarea>
+            </label>
+        </div>
+        <button class="button button-assertive"
+                style="width:60%;height:100%;margin-left:22%"
+                ng-click="subscribeConfirm()">
+            确认预约
+        </button>
+    </ion-content>
+</ion-view>
+

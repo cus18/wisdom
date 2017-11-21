@@ -51,5 +51,4 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
             }
 
 
-
         }])

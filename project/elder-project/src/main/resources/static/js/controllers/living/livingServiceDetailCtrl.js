@@ -27,7 +27,12 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
             }
 
             GetUserInfo.save(function(data){
-                ElderUtil.checkResponseData(data,'livingServiceDetail');
+                ElderUtil.checkResponseData(data,'livingServiceDetail/'+$stateParams.livingServiceId);
             });
+
+            $scope.subscribeService = function()
+            {
+                $state.go('subscribeService',{livingServiceId:$stateParams.livingServiceId});
+            }
 
         }])

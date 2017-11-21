@@ -561,6 +561,42 @@ define(['appElder'], function(app){
                             }
                         }
                     })
+                    .state('beadHouseDetail', {
+                        url: '/beadHouseDetail/:beadHouseId',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'beadHouseDetailCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.beadHouseDetail',
+                                    ['js/controllers/living/beadHouseDetailCtrl.js?ver='+elderVersion],
+                                    'js/views/living/beadHouseDetail.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('subscribeService', {
+                        url: '/subscribeService/:livingServiceId',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'subscribeServiceCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.subscribeService',
+                                    ['js/controllers/living/subscribeServiceCtrl.js?ver='+elderVersion],
+                                    'js/views/living/subscribeService.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('subscribeServiceSuccess', {
+                        url: '/subscribeServiceSuccess/:livingServiceId',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'subscribeServiceSuccessCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.subscribeServiceSuccess',
+                                    ['js/controllers/living/subscribeServiceSuccessCtrl.js?ver='+elderVersion],
+                                    'js/views/living/subscribeServiceSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
