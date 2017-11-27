@@ -1,6 +1,6 @@
 package com.wisdom.common.util;
 
-import com.dahantc.api.commons.MyX509TrustManager;
+//import com.dahantc.api.commons.MyX509TrustManager;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -195,7 +195,7 @@ public class HttpRequestUtil {
     public static String httpsRequest(String requestUrl, String requestMethod, String outputStr,String... token) {
         try {
             // 创建SSLContext对象，并使用我们指定的信任管理器初始化
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = null;//{ new MyX509TrustManager() };
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
             // 从上述SSLContext对象中得到SSLSocketFactory对象
