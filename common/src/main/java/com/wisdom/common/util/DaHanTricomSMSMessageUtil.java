@@ -1,7 +1,7 @@
 package com.wisdom.common.util;
 
 import com.alibaba.fastjson.JSON;
-import com.dahantc.api.sms.json.JSONHttpClient;
+//import com.dahantc.api.sms.json.JSONHttpClient;
 import com.wisdom.common.dto.core.DaHanTricomMessageDTO;
 
 
@@ -26,9 +26,9 @@ public class DaHanTricomSMSMessageUtil {
     public static boolean sendMsg(String phoneNum, String content) {
         try {
             String msgid = UUIDUtil.getUUID(32).toString(); // 短信id，查询短信状态报告时需要，（可选）
-            JSONHttpClient jsonHttpClient = new JSONHttpClient("http://www.dh3t.com");
-            jsonHttpClient.setRetryCount(1);
-            String sendhRes = jsonHttpClient.sendSms(account, password, phoneNum, content, sign, subcode,msgid);
+            //JSONHttpClient jsonHttpClient = new JSONHttpClient("http://www.dh3t.com");
+            //jsonHttpClient.setRetryCount(1);
+            String sendhRes = null;//jsonHttpClient.sendSms(account, password, phoneNum, content, sign, subcode,msgid);
             DaHanTricomMessageDTO dtmb = JSON.parseObject(sendhRes,DaHanTricomMessageDTO.class);
             if(dtmb.getResult().equals("0")){
                 LogUtils.saveLog("自定义短信发送成功",phoneNum+"-"+content+"-"+sendhRes);//定时器短信
