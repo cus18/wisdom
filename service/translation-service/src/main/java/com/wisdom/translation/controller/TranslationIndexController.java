@@ -1,10 +1,6 @@
 package com.wisdom.translation.controller;
 
-import com.aliyun.oss.common.utils.HttpUtil;
-import com.iflytek.cloud.speech.*;
 import com.wisdom.common.constant.ConfigConstant;
-import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.basic.BannerDTO;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
 import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.translation.client.CoreServiceClient;
@@ -16,7 +12,11 @@ import com.wisdom.translation.service.RedisService;
 import com.wisdom.translation.util.HttpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +95,6 @@ public class TranslationIndexController {
 	ResponseDTO<List<ActivityDTO>> translate(HttpServletRequest request) {
 
 		//1.创建SpeechRecognizer对象
-		SpeechRecognizer mIat= SpeechRecognizer.createRecognizer( );
 
 		return null;
 	}
@@ -112,12 +111,8 @@ public class TranslationIndexController {
 	ResponseDTO<List<ActivityDTO>> compose(HttpServletRequest request) {
 
 		//1.创建SpeechRecognizer对象
-		SpeechRecognizer mIat= SpeechRecognizer.createRecognizer( );
 
 		//2.设置听写参数，详见《MSC Reference Manual》SpeechConstant类
-		mIat.setParameter(SpeechConstant.DOMAIN, "iat");
-		mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
-		mIat.setParameter(SpeechConstant.ACCENT, "mandarin ");
 
 		return null;
 	}
