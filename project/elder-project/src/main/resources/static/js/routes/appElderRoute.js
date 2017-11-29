@@ -521,6 +521,42 @@ define(['appElder'], function(app){
                             }
                         }
                     })
+                    .state('myActivity', {
+                        url: '/myActivity',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myActivityCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myActivityCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myActivity.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('myClass', {
+                        url: '/myClass',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myClassCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myClassCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myClass.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('myService', {
+                        url: '/myService/:type',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myServiceCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myServiceCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myService.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                     /*居家服务*/
                     .state('livingIndex', {

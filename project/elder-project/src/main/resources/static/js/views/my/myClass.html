@@ -1,22 +1,49 @@
-<div class="overhidden">
-    <!--headerTitle start-->
-    <header class="loginHead">
-        <h1><img class="logoImg" src="/images/laoyou_logo.png" alt=""></h1>
-    </header>
-    <!--headerTitle end-->
-    <!--login start-->
-    <form class="loginForm" name="loginForm" ng-submit="submitForm(loginForm.$valid)" novalidate>
-        <div class="inputItem">
-            <input type="number" name="phoneNum" placeholder="手机号" ng-model="login.userPhone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/" required/>
+<ion-view style="background:white;">
+    <ion-header-bar align-title="center" class="bar-energized">
+        <div class="buttons">
+            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
         </div>
-        <div class="inputItem inputCodeItem">
-            <input type="text" name="phoneCode" placeholder="短信验证码" ng-model="login.userPhoneCode" ng-focus="login.errorHint=false" ng-disabled="loginForm.phoneNum.$invalid" required/>
-            <div ng-class="login.paraclass" ng-click="login.loginCode()" ng-if="loginForm.phoneNum.$valid">{{login.paracont || '获取验证码'}}</div>
-            <div class="getCodeBtn null" ng-if="loginForm.phoneNum.$invalid">{{login.paracont || '获取验证码'}}</div>
-            <div class="errorHint fontc00" ng-show="login.errorHint">验证码不正确</div>
+        <h1 class="title">我的课程</h1>
+    </ion-header-bar>
+    <!--课程列表-->
+    <div>
+        <div ng-if="param.myCourseList.length==0"
+             class="list card"
+             style="margin-top:15%">
+            <div class="item item-body">
+                <img class="full-image"
+                     src="http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/QQ%E5%9B%BE%E7%89%8720171106093303.png">
+                <p style="margin-left:30%;font-size:18px;color:#ff8e01">您还未参加课程</p>
+                <button class="button button-energized"
+                        style="margin-left:37%;border-radius:20px" ui-sref="courseList({type:'vod'})">查看课程</button>
+            </div>
         </div>
-
-        <button type="submit" ng-disabled="loginForm.$invalid" ng-class="{'loginBtn':true,'suc':loginForm.$valid}">登 录</button>
-    </form>
-    <!--login end-->
-</div>
+        <div ng-if="param.myCourseList.length>0" style="margin-top:12%">
+            <div class="list">
+                <style>
+                    .talkOdd {
+                        background-color: white;
+                    }
+                    .talkEven {
+                        background-color: #f8f8f8;
+                    }
+                </style>
+                <a class="item item-avatar item-text-wrap"
+                   ng-repeat="item in param.myCourseList"
+                   ui-sref="courseDetail({courseId:item.onlineCourseDTO.onlineCourseId,courseType:'vod'})"
+                   ng-class-odd="'talkOdd'"
+                   ng-class-even="'talkEven'">
+                    <img ng-src="{{item.onlineCourseDTO.onlineCourseLogo}}"
+                         style="max-width:50px;max-height:50px;border-radius:0;margin-left:-5px;">
+                    <h2>{{item.onlineCourseDTO.onlineCourseName}}</h2>
+                    <p>课程提供方：{{item.onlineCourseDTO.onlineCourseProvider}}</p>
+                    <span class="item-note"
+                          style="text-align:right;margin-top:-10px">
+                    <p>{{item.onlineCourseDTO.onlineCourseStudyNum}}人学习</p>
+                </span>
+                    <p>授课老师：{{item.onlineCourseDTO.onlineCourseTeacherName}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</ion-view>
