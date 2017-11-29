@@ -1,0 +1,116 @@
+<ion-view style="background:white;">
+	<ion-header-bar align-title="center" class="bar-energized">
+		<div class="buttons">
+			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
+		</div>
+		<h1 class="title">我的服务</h1>
+	</ion-header-bar>
+
+	<div class="tabs tabs-top tabs-striped" style="padding-top:2%;">
+		<a ng-class="{true:'tab-item active',false:'tab-item'}[param.tabValue=='inReview']" style="border-color:#ff8e01" ng-click="chooseTab('inReview')">
+			<p style="margin-top:-10px">审核中</p>
+		</a>
+		<a ng-class="{true:'tab-item active',false:'tab-item'}[param.tabValue=='inService']" style="border-color:#ff8e01" ng-click="chooseTab('inService')">
+			<p style="margin-top:-10px">服务中</p>
+		</a>
+		<a ng-class="{true:'tab-item active',false:'tab-item'}[param.tabValue=='finished']" style="border-color:#ff8e01" ng-click="chooseTab('finished')">
+			<p style="margin-top:-10px">已完成</p>
+		</a>
+		<a ng-class="{true:'tab-item active',false:'tab-item'}[param.tabValue=='failed']" style="border-color:#ff8e01" ng-click="chooseTab('failed')">
+			<p style="margin-top:-10px">未成功</p>
+		</a>
+	</div>
+	<div ng-if="param.tabValue=='inReview'">
+		<div class="list" style="margin-top:25%;color:black">
+			<a class="item" ng-repeat="item in [1,2]">
+                <div>
+                    <i class="">LY20171103365091164</i>
+                    <i class="item-note">当面结算</i>
+                </div>
+                <div style="margin-top:2%;">
+                    <div class="item-content">
+                        <i class="">血三项测量</i>
+                        <i class="item-note">
+                            <p class="text-right">￥50元/1次</p>
+                        </i>
+                    </div>
+                    <p style="margin:3% 0;white-space:normal;">正在等待一心养老驿站电话联系您并确认接收服务预约</p>
+                    <div class="item-content">
+                        <i class="">预约时间：2017年10月24日 13:15</i>
+                        <i class="item-note">催审核</i>
+                    </div>
+                </div>
+			</a>
+		</div>
+	</div>
+	<div ng-if="param.tabValue=='inService'">
+        <div class="list" style="margin-top:25%;color:black">
+            <a class="item" ng-repeat="item in [1,2]">
+                <div>
+                    <i class="">LY20171103365091164</i>
+                    <i class="item-note">当面结算</i>
+                </div>
+                <div style="margin-top:2%;">
+                    <div class="item-content">
+                        <i class="">血三项测量</i>
+                        <i class="item-note">
+                            <p class="text-right">￥50元/1次</p>
+                        </i>
+                    </div>
+                    <p style="margin:3% 0;white-space:normal;">一心养老驿站已接收您的预约，将与您当面结算并签约</p>
+                    <div class="item-content">
+                        <i class="">护理师：陈艳艳<br/>服务时间：2017年10月24日 13:15</i>
+                        <i class="item-note">成功享受服务</i>
+                    </div>
+                </div>
+            </a>
+        </div>
+	</div>
+    <div ng-if="param.tabValue=='finished'">
+        <div class="list" style="margin-top:25%;color:black">
+            <a class="item" ng-repeat="item in [1,2]">
+                <div>
+                    <i class="">LY20171103365091164</i>
+                    <i class="item-note">当面结算</i>
+                </div>
+                <div style="margin-top:2%;">
+                    <div class="item-content">
+                        <i class="">血三项测量</i>
+                        <i class="item-note">
+                            <p class="">优惠价：￥30元/1次</p>
+                            <p class="text-right">￥50元/1次</p>
+                        </i>
+                    </div>
+                    <p style="margin:3% 0;white-space:normal;">一心养老驿站收到您的服务费，并确认本次交易生效</p>
+                    <div class="item-content">
+                        <i class="">护理师：陈艳艳<br/>服务时间：2017年10月24日 13:15</i>
+                        <i class="item-note">删除订单</i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div ng-if="param.tabValue=='failed'">
+        <div class="list" style="margin-top:25%;color:black">
+            <a class="item" ng-repeat="item in [1,2]">
+                <div>
+                    <i class="">LY20171103365091164</i>
+                    <i class="item-note">当面结算</i>
+                </div>
+                <div style="margin-top:2%;">
+                    <div class="item-content">
+                        <i class="">血三项测量</i>
+                        <i class="item-note">
+                            <p class="text-right">￥50元/1次</p>
+                        </i>
+                    </div>
+                    <p style="margin:3% 0;white-space:normal;">一心养老驿站拒绝了您的预约，原因是“后台拒绝订单填写的原因”</p>
+                    <div class="item-content">
+                        <i class="">预约时间：2017年10月24日 13:15</i>
+                        <i class="item-note">删除订单</i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</ion-view>

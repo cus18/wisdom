@@ -1,8 +1,9 @@
-angular.module('controllers',[]).controller('myActivityCtrl',
-    ['$scope','$rootScope','$stateParams','$state','GetRelativeElderInfo','GetActivityList','ElderUtil',
-        function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,ElderUtil) {
+angular.module('controllers',[]).controller('myServiceCtrl',
+    ['$scope','$rootScope','$stateParams','$state','ElderUtil',
+        function ($scope,$rootScope,$stateParams,$state,ElderUtil) {
 
             $scope.param = {
+                tabValue : $stateParams.type,
                 recentPublishActive:[],
                 recentAttendActive:[],
                 myCourseList:[]
@@ -30,16 +31,31 @@ angular.module('controllers',[]).controller('myActivityCtrl',
                 }
             }
 
+            function tabChange(){
+                if($scope.param.tabValue=='inReview')
+                {
 
-            GetActivityList.save({pageNo:5,requestData:'0'},function(data){
-                ElderUtil.checkResponseData(data,'myselfCenter');
-                $scope.param.recentPublishActive = data.responseData;
-            })
-            GetActivityList.save({pageNo:5,requestData:'1'},function(data){
-                ElderUtil.checkResponseData(data,'myselfCenter');
-                $scope.param.recentAttendActive = data.responseData;
-            })
+                }
+                if($scope.param.tabValue=='inService')
+                {
 
+                }
+                if($scope.param.tabValue=='finished')
+                {
+
+                }
+                if($scope.param.tabValue=='failed')
+                {
+
+                }
+            }
+            tabChange();
+
+            $scope.chooseTab = function(tabValue)
+            {
+                $scope.param.tabValue = tabValue;
+                tabChange();
+            }
 
 
         }])
