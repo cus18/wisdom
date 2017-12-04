@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="beauty-project" />
         <module name="common" />
         <module name="community-project" />
         <module name="community-service" />
@@ -15,11 +16,16 @@
         <module name="course-service" />
         <module name="elder-project" />
         <module name="health-service" />
+        <module name="living-service" />
         <module name="registry" />
         <module name="registry-center" />
         <module name="registry-service" />
         <module name="system-service" />
+        <module name="tcc-coordinator-service" />
+        <module name="titan-project" />
+        <module name="translation-service" />
         <module name="user-service" />
+        <module name="wechat-service" />
       </profile>
       <profile name="Annotation profile for wisdom" enabled="true">
         <sourceOutputDir name="../user-service/target/generated-sources/annotations" />
@@ -29,6 +35,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="beauty-project" target="1.8" />
       <module name="common" target="1.8" />
       <module name="community-project" target="1.8" />
       <module name="community-service" target="1.8" />
@@ -40,14 +47,19 @@
       <module name="health-service" target="1.8" />
       <module name="home-service" target="1.8" />
       <module name="living-project" target="1.8" />
+      <module name="living-service" target="1.8" />
       <module name="medical-project" target="1.8" />
       <module name="monitoring" target="1.8" />
       <module name="registry" target="1.8" />
       <module name="registry-center" target="1.8" />
       <module name="registry-service" target="1.8" />
       <module name="system-service" target="1.8" />
+      <module name="tcc-coordinator-service" target="1.8" />
+      <module name="titan-project" target="1.8" />
+      <module name="translation-service" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="user-service (1)" target="1.8" />
+      <module name="wechat-service" target="1.8" />
       <module name="weixin-service" target="1.8" />
       <module name="wisdom" target="1.8" />
     </bytecodeTargetLevel>

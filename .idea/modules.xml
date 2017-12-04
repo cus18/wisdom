@@ -2,13 +2,19 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/project/beauty-project/beauty-project.iml" filepath="$PROJECT_DIR$/project/beauty-project/beauty-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/community-service/community-service.iml" filepath="$PROJECT_DIR$/service/community-service/community-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/config/config.iml" filepath="$PROJECT_DIR$/config/config.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/core-service/core-service.iml" filepath="$PROJECT_DIR$/service/core-service/core-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/project/elder-project/elder-project.iml" filepath="$PROJECT_DIR$/project/elder-project/elder-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/health-service/health-service.iml" filepath="$PROJECT_DIR$/service/health-service/health-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/living-service/living-service.iml" filepath="$PROJECT_DIR$/service/living-service/living-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/registry-center/registry-center.iml" filepath="$PROJECT_DIR$/registry-center/registry-center.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/tcc-coordinator-service/tcc-coordinator-service.iml" filepath="$PROJECT_DIR$/service/tcc-coordinator-service/tcc-coordinator-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/titan-project/titan-project.iml" filepath="$PROJECT_DIR$/project/titan-project/titan-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/translation-service/translation-service.iml" filepath="$PROJECT_DIR$/service/translation-service/translation-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/wechat-service/wechat-service.iml" filepath="$PROJECT_DIR$/service/wechat-service/wechat-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/wisdom.iml" filepath="$PROJECT_DIR$/wisdom.iml" />
     </modules>
   </component>
