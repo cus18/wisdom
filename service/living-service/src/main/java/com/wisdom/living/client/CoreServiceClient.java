@@ -1,7 +1,6 @@
 package com.wisdom.living.client;
 
 import com.wisdom.common.dto.basic.BannerDTO;
-import com.wisdom.common.dto.community.course.OnlineCourseDTO;
 import com.wisdom.common.dto.core.DictDTO;
 import com.wisdom.common.dto.core.Page;
 import com.wisdom.common.dto.core.ResponseDTO;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 @FeignClient("core-service")
