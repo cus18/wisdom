@@ -183,5 +183,6 @@
     <orderEntry type="library" name="Maven: com.aliyun.oss:aliyun-sdk-oss:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
+    <orderEntry type="module" module-name="core-service" />
   </component>
 </module>

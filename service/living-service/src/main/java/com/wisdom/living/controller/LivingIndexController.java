@@ -2,13 +2,12 @@ package com.wisdom.living.controller;
 
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.ResponseDTO;
-import com.wisdom.core.service.UserService;
+import com.wisdom.living.client.CoreServiceClient;
 import com.wisdom.living.entity.LivingService;
 import com.wisdom.living.entity.LivingServiceOffice;
 import com.wisdom.living.entity.LivingServiceOrder;
 import com.wisdom.living.service.LivingServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +27,7 @@ public class LivingIndexController {
 	LivingServiceService livingServiceService;
 
 	@Autowired
-	UserService userService;
+	CoreServiceClient coreServiceClient;
 
 	/**
 	 * 获取 living service 列表
@@ -56,8 +55,8 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO commitOrder(@RequestBody LivingServiceOrder livingServiceOrder,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		livingServiceOrder.setSys_elder_user_id(userService.getUserFromRedis(request).getElderUserDTO().getSysUserID());
-		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,userService.getUserFromRedis(request).getElderUserDTO().getId()));
+		livingServiceOrder.setSys_elder_user_id(coreServiceClient.getUserInfo(request).getElderUserDTO().getSysUserID());
+		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,coreServiceClient.getUserInfo(request).getElderUserDTO().getId()));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -87,7 +86,7 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO getLivingServiceOrderStatus(@RequestParam String status,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(userService.getUserFromRedis(request).getElderUserDTO().getId(),status));
+		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -102,7 +101,7 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO sendMessage(@RequestParam String livingServiceOrderID,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		livingServiceService.sendMessage(livingServiceOrderID,userService.getUserFromRedis(request).getElderUserDTO().getId());
+		livingServiceService.sendMessage(livingServiceOrderID,coreServiceClient.getUserInfo(request).getElderUserDTO().getId());
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
