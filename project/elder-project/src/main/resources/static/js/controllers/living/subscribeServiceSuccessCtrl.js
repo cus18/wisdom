@@ -32,7 +32,7 @@ angular.module('controllers',[]).controller('subscribeServiceSuccessCtrl',
 
             $scope.enterSubscribeServiceList = function()
             {
-                $state.go("subscribeServiceList");
+                $state.go("myService",{type:'inReview'});
             }
 
             $scope.enterLivingIndex = function()
