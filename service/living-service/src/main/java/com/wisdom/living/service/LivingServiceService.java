@@ -30,7 +30,8 @@ public class LivingServiceService {
     private OfficeMessageMapper officeMessageMapper;
 
     public List getLivingService(LivingService livingService) {
-        return livingServiceDao.getLivingService(livingService);
+        List<LivingService> list= livingServiceDao.getLivingService(livingService);
+        return list;
     }
 
     @Transactional(rollbackFor= Exception.class)
@@ -38,13 +39,15 @@ public class LivingServiceService {
         Integer result=livingServiceOrderMapper.insertLivingServiceOrder(livingServiceOrder);
         LivingService livingService=new LivingService();
         livingService.setId(livingServiceOrder.getLivingservice_id());
+        livingService.setLastNo(0);
+        livingService.setNextNo(10);
         livingService=livingServiceDao.getLivingService(livingService).get(0);
         String message=livingServiceOrder.getPhone()+"刚刚在老友提醒您审核"+livingService.getName()+"服务，请您及时登录系统处理";
         OfficeMessage officeMessage=new OfficeMessage();
         officeMessage.setMessage(message);
         officeMessage.setSys_elder_user_id(userID);
         officeMessageMapper.insertOfficeMessage(officeMessage);
-        DaHanTricomSMSMessageUtil.sendMsg(officeMessageMapper.getOfficePhone(livingService.getSys_office_id()),message);
+//        DaHanTricomSMSMessageUtil.sendMsg(officeMessageMapper.getOfficePhone(livingService.getSys_office_id()),message);
         return result;
     }
 

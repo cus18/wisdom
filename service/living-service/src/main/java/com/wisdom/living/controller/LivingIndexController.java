@@ -55,8 +55,9 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO commitOrder(@RequestBody LivingServiceOrder livingServiceOrder,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		livingServiceOrder.setSys_elder_user_id(coreServiceClient.getUserInfo(request).getElderUserDTO().getSysUserID());
-		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,coreServiceClient.getUserInfo(request).getElderUserDTO().getId()));
+//		livingServiceOrder.setSys_elder_user_id(coreServiceClient.getUserInfo(request).getElderUserDTO().getSysUserID());
+//		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,coreServiceClient.getUserInfo(request).getElderUserDTO().getId()));
+		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,""));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
