@@ -59,12 +59,12 @@
     </select>
 
     <select id="getLivingServiceOffice" resultType="com.wisdom.living.entity.LivingServiceOffice">
-        select so.id,so.logo,so.name,lof.about,lof.announcement,count(loi.id) as lc from  sys_office so
+        select so.id,so.logo,so.name,lof.about,lof.announcement,count(loi.id) as count,so.address from  sys_office so
         inner join livingService_office lof on so.id=lof.sys_office_id
         inner join livingservice l on so.id=l.sys_office_id
         right  join livingservice_order lo on l.id=lo.livingservice_id
         right join livingservice_order_information loi on lo.id=loi.livingservice_order_id
-        where loi.`status`='0'
+        where loi.`status`='0' and l.del_flag='0'
         <if test="id!= ''and id!=null">
             and so.id=#{id}
         </if>
