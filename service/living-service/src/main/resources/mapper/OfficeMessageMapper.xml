@@ -3,7 +3,7 @@
 <mapper namespace="com.wisdom.living.mapper.OfficeMessageMapper">
 
 
-    <insert id="updateLivingService">
+    <insert id="insertOfficeMessage">
        INSERT INTO `office_message` (`message`, `sys_elder_user_id`) VALUES (#{message}, #{sys_elder_user_id})
     </insert>
 
