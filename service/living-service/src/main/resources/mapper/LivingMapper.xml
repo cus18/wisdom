@@ -43,7 +43,7 @@
         SELECT ls.*,so.name as officeName,count(lo.id) as count FROM `livingservice` ls
         inner join sys_office so on so.id=ls.sys_office_id
         right join livingservice_order lo on lo.livingservice_id=ls.id
-        where ls.del_flag='0' and ls.status='2'
+        where ls.del_flag='0' and ls.status='0'
         <if test="id!= ''and id!=null">
             and ls.id=#{id}
         </if>
