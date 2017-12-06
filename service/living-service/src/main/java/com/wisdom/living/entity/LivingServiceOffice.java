@@ -11,6 +11,7 @@ public class LivingServiceOffice {
     private String about;
     private String announcement;
     private String count;
+    private String address;
 
     public String getId() {
         return id;
@@ -58,5 +59,13 @@ public class LivingServiceOffice {
 
     public void setCount(String count) {
         this.count = count;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
