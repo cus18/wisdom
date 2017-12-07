@@ -1,69 +1,73 @@
 <ion-view style="background:#f8f8f8;">
     <ion-header-bar align-title="center" class="bar-energized">
+        <div class="buttons">
+            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
+        </div>
         <h1 class="title">预约服务</h1>
     </ion-header-bar>
     <ion-content>
-        <h2 style="font-size:18px;margin-left:15px;width:100%;margin-top:15px">
-            自理能力
-        </h2>
-        <div class="list" style="margin-top:15px;background: #f8f8f8">
-            <div class="row">
-                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
-                    <button class="button button-light" style="background:#ddd">能够自理</button>
-                </div>
-                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
-                    <button class="button button-light">部分失能</button>
-                </div>
-                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
-                    <button class="button button-light" style="background:#ddd">失能一级</button>
+        <form name="subscribeForm" novalidate>
+            <h2 style="font-size:18px;margin-left:15px;width:100%;margin-top:15px">
+                自理能力
+            </h2>
+            <style>
+                .careDiv{
+                    width:25%;
+                    float:left;
+                    margin:5px 15px;
+                    text-align:center;
+                }
+                .careDiv>input:checked~label{
+                    background-color: #ddd;
+                    border-color:#ddd;
+                }
+            </style>
+            <div style="overflow:hidden;margin:15px 0 20px;">
+                <!--<div ng-repeat="careOption in careList" class="careDiv">-->
+                    <!--<input type="checkbox" id="{{careOption.id}}" ng-click="repeatSelection($event,careOption.value)" style="display:none;">-->
+                    <!--<label for="{{careOption.id}}" class="button button-light" style="width:100%;">{{careOption.name}}</label>-->
+                <!--</div>-->
+                <div ng-repeat="careOption in careList" class="careDiv">
+                    <input type="radio" id="{{careOption.id}}" value="{{careOption.value}}" ng-model="subscribeInfo.care" style="display:none;">
+                    <label for="{{careOption.id}}" class="button button-light" style="width:100%;">{{careOption.name}}</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
-                    <button class="button button-light">失能二级</button>
-                </div>
-                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
-                    <button class="button button-light">完全失能</button>
-                </div>
-                <div class="col" style="background:#f8f8f8;color:black;text-align:center">
-                </div>
+            <h2 style="font-size:18px;margin-left:15px;width:100%">
+                联系信息
+            </h2>
+            <div class="list" style="margin-top: 15px;">
+                <label class="item item-input">
+                    <input type="text" placeholder="输入姓名" ng-model="subscribeInfo.name" required>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="输入电话" ng-model="subscribeInfo.phone" required>
+                </label>
             </div>
-        </div>
-        <h2 style="font-size:18px;margin-left:15px;width:100%">
-            联系信息
-        </h2>
-        <div class="list" style="margin-top: 15px;">
-            <label class="item item-input">
-                <input type="text" placeholder="输入姓名">
-            </label>
-            <label class="item item-input">
-                <input type="text" placeholder="输入电话">
-            </label>
-        </div>
-        <h2 style="font-size:18px;margin-left:15px;width:100%">
-            服务地点
-        </h2>
-        <div class="list" style="margin-top: 15px;">
-            <label class="item item-input">
-                <input type="text" placeholder="选择区域">
-            </label>
-            <label class="item item-input">
-                <input type="text" placeholder="输入详细地址">
-            </label>
-        </div>
-        <h2 style="font-size:18px;margin-left:15px;width:100%">
-            备注
-        </h2>
-        <div class="list" style="margin-top:15px;">
-            <label class="item item-input">
-                <textarea placeholder="输入备注内容" style="height:85px"></textarea>
-            </label>
-        </div>
-        <button class="button button-assertive"
-                style="width:60%;height:100%;margin-left:22%"
-                ng-click="subscribeConfirm()">
-            确认预约
-        </button>
+            <h2 style="font-size:18px;margin-left:15px;width:100%">
+                服务地点
+            </h2>
+            <div class="list" style="margin-top: 15px;">
+                <!--<label class="item item-input">-->
+                    <!--<input type="text" placeholder="选择区域">-->
+                <!--</label>-->
+                <label class="item item-input">
+                    <input type="text" placeholder="输入详细地址" ng-model="subscribeInfo.address">
+                </label>
+            </div>
+            <h2 style="font-size:18px;margin-left:15px;width:100%">
+                备注
+            </h2>
+            <div class="list" style="margin-top:15px;">
+                <label class="item item-input">
+                    <textarea placeholder="输入备注内容" style="height:85px" ng-model="subscribeInfo.remarks"></textarea>
+                </label>
+            </div>
+            <button class="button button-assertive"
+                    style="width:60%;height:100%;margin-left:22%"
+                    ng-click="subscribeConfirm(subscribeForm.$valid)">
+                确认预约
+            </button>
+        </form>
     </ion-content>
 </ion-view>
 

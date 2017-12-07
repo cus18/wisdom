@@ -16,17 +16,17 @@
                 <button class="button button-energized button-larger item-note"
                         style="min-width:100px"
                         ng-click="subscribeService()">预约</button>
-                <h2><span style="margin-left:-15%;font-size:20px">¥50元/小时</span></h2>
+                <h2><span style="margin-left:-15%;font-size:20px">¥{{response.price}}元/{{response.priceUnit}}</span></h2>
                 <h2><span style="margin-left:-15%;font-size:15px;color:red">审核通过后当面结算付费</span></h2>
             </a>
             <a class="item item-avatar item-text-wrap">
                 <h2><span style="margin-left:-15%">服务介绍</span></h2>
-                <p style="margin-left:-15%">由后台富文本编辑器编辑的服务内容由后台富文本编辑器编辑的服务内容由后台富文本编辑器编辑的服务内容由后台富文本编辑器编辑的服务内容</p>
+                <p style="margin-left:-15%">{{response.description}}</p>
                 <br><br>
                 <h2><span style="margin-left:-15%">特别说明</span></h2>
                 <p style="margin-left:-15%"
-                   ng-repeat="item in [1,2,3]">
-                    <i class="ion ion-record"></i>&nbsp;家里有水有电
+                   ng-repeat="item in specialList">
+                    <i class="ion ion-record"></i>&nbsp;{{item}}
                 </p>
             </a>
         </div>

@@ -36,15 +36,14 @@
             服务站点
         </h2>
         <div class="list" style="margin-top: 15px;">
-            <a class="item item-avatar item-text-wrap" ng-repeat="item in [1,2,3]" style="min-height:125px">
+            <a class="item item-avatar item-text-wrap" ng-repeat="item in officeList" style="min-height:125px" ng-click="reserveService(item.id)">
                 <img src="http://yhllaoyoubanner.oss-cn-hangzhou.aliyuncs.com/1.png" style="max-width:50px;max-height:50px;border-radius:0;margin-left:-5px;">
-                <h2 style="color:#ff8e01">阳关积善之家&nbsp;&nbsp;&nbsp;&nbsp;共36项服务</h2>
+                <h2 style="color:#ff8e01">{{item.name}}&nbsp;&nbsp;&nbsp;&nbsp;共{{item.count}}项服务</h2>
                 <p></p>
-                <p>嵌入社区的积善之家照料中心，提供全方位的养老服务产品。这是后台填写的服务站简介。</p>
-                <button class="button button-energized button-small item-note"
-                        ng-click="reserveService(item)">立即预约</button>
+                <p>{{item.about}}</p>
+                <button class="button button-energized button-small item-note">立即预约</button>
                 <p></p>
-                <p><i class="ion ion-location"></i>&nbsp;和平里北街40号</p>
+                <p><i class="ion ion-location"></i>&nbsp;{{item.address}}</p>
             </a>
         </div>
     </ion-content>

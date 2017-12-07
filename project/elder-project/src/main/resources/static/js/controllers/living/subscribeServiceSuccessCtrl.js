@@ -1,8 +1,8 @@
 angular.module('controllers',[]).controller('subscribeServiceSuccessCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
-        'ElderUtil','GetUserInfo',
-        function ($scope,$interval,$rootScope,$stateParams,$state,
-                  ElderUtil,GetUserInfo) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global',
+        'ElderUtil','GetUserInfo','GetlivingServiceList',
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,
+                  ElderUtil,GetUserInfo,GetlivingServiceList) {
 
             if($rootScope.rootElderId!=undefined)
             {
@@ -28,6 +28,22 @@ angular.module('controllers',[]).controller('subscribeServiceSuccessCtrl',
 
             GetUserInfo.save(function(data){
                 ElderUtil.checkResponseData(data,'subscribeServiceSuccess/'+$stateParams.livingServiceId);
+            })
+
+            GetlivingServiceList.save({
+                id:$stateParams.livingServiceId,
+                type:'',
+                lastNo:'0',
+                nextNo:'10'
+            },function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.response = data.responseData[0];
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+
             })
 
             $scope.enterSubscribeServiceList = function()

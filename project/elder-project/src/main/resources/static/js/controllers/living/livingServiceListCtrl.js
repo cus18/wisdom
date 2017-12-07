@@ -1,11 +1,11 @@
 angular.module('controllers',[]).controller('livingServiceListCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
-        'ElderUtil','GetUserInfo','GetCommunityBannerList',
-        function ($scope,$interval,$rootScope,$stateParams,$state,
-                  ElderUtil,GetUserInfo,GetCommunityBannerList) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global',
+        'ElderUtil','GetUserInfo','GetlivingServiceList',
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,
+                  ElderUtil,GetUserInfo,GetlivingServiceList) {
 
             $scope.param = {
-                type:'short'
+                type:$stateParams.type
             }
 
             if($rootScope.rootElderId!=undefined)
@@ -35,19 +35,63 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                 $scope.param.type = $stateParams.type;
             });
 
+            function serviceType(){
+                if($scope.param.type == 'short'){
+                    GetlivingServiceList.save({
+                        id:'',
+                        type:'short',
+                        lastNo:'0',
+                        nextNo:'10'
+                    },function(data){
+                        if(data.result == Global.SUCCESS){
+                            $scope.shortResponse = data.responseData;
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+
+                    })
+                }
+                else if($scope.param.type == 'long')
+                {
+                    GetlivingServiceList.save({
+                        id:'',
+                        type:'long',
+                        lastNo:'0',
+                        nextNo:'10'
+                    },function(data){
+                        if(data.result == Global.SUCCESS){
+                            $scope.longResponse = data.responseData;
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+                    })
+                }
+            }
+            serviceType();
+
             $scope.chooseLivingService = function(type){
                 if(type=='short')
                 {
                     $scope.param.type = 'short';
+
                 }
                 else if(type=='long')
                 {
                     $scope.param.type = 'long';
                 }
+                serviceType();
             }
 
-            $scope.livingServiceDetail = function(livingServiceId){
-                $state.go("livingServiceDetail",{livingServiceId:livingServiceId});
+
+
+
+
+            $scope.livingServiceDetail = function(id){
+                $state.go("livingServiceDetail",{livingServiceId:id});
             }
 
 

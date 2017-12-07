@@ -37,7 +37,7 @@
                     <p style="margin:3% 0;white-space:normal;">正在等待一心养老驿站电话联系您并确认接收服务预约</p>
                     <div class="item-content">
                         <i class="">预约时间：2017年10月24日 13:15</i>
-                        <i class="item-note">催审核</i>
+                        <i class="item-note" ng-click="sendMessage(item)">催审核</i>
                     </div>
                 </div>
 			</a>
@@ -84,7 +84,7 @@
                     <p style="margin:3% 0;white-space:normal;">一心养老驿站收到您的服务费，并确认本次交易生效</p>
                     <div class="item-content">
                         <i class="">护理师：陈艳艳<br/>服务时间：2017年10月24日 13:15</i>
-                        <i class="item-note">删除订单</i>
+                        <i class="item-note" ng-click="delOrder(item)">删除订单</i>
                     </div>
                 </div>
             </a>
@@ -107,7 +107,7 @@
                     <p style="margin:3% 0;white-space:normal;">一心养老驿站拒绝了您的预约，原因是“后台拒绝订单填写的原因”</p>
                     <div class="item-content">
                         <i class="">预约时间：2017年10月24日 13:15</i>
-                        <i class="item-note">删除订单</i>
+                        <i class="item-note" ng-click="delOrder(item)">删除订单</i>
                     </div>
                 </div>
             </a>

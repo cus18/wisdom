@@ -7,6 +7,7 @@ var core = 'core/';
 var communityCourse = 'community/course/';
 var communityActivity = 'community/activity/';
 var communityIndex = 'community/index/';
+var livingIndex = 'living/index/';
 
 define(['appElder'], function (app) {
     app
@@ -214,6 +215,36 @@ define(['appElder'], function (app) {
         //获取自己的亲友群中所有的亲友信息列表
         .factory('GetRelativeElderInfo',['$resource',function ($resource){
             return $resource(core + 'relativeElderInfo')
+        }])
+
+        //获取居家服务列表
+        .factory('GetlivingServiceList',['$resource',function ($resource){
+            return $resource(livingIndex + 'livingServiceList')
+        }])
+
+        //预约服务
+        .factory('CommitOrder',['$resource',function ($resource){
+            return $resource(livingIndex + 'commitOrder')
+        }])
+
+        //获取机构列表
+        .factory('GetLivingOfficeList',['$resource',function ($resource){
+            return $resource(livingIndex + 'getLivingOfficeList')
+        }])
+
+        //获取我的服务订单列表
+        .factory('GetLivingServiceOrderStatus',['$resource',function ($resource){
+            return $resource(livingIndex + 'getLivingServiceOrderStatus')
+        }])
+
+        //催审核
+        .factory('SendMessage',['$resource',function ($resource){
+            return $resource(livingIndex + 'sendMessage')
+        }])
+
+        //删除服务订单
+        .factory('DelLivingServiceOrder',['$resource',function ($resource){
+            return $resource(livingIndex + 'delLivingServiceOrder')
         }])
 
 

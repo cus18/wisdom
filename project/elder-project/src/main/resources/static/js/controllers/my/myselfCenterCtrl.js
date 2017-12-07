@@ -1,6 +1,8 @@
 angular.module('controllers',[]).controller('myselfCenterCtrl',
     ['$scope','$rootScope','$stateParams','$state','GetRelativeElderInfo','GetActivityList','GetMyOnlineCourseList','ElderUtil',
-        function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,GetMyOnlineCourseList,ElderUtil) {
+        'GetUserInfo',
+        function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,GetMyOnlineCourseList,ElderUtil,
+                  GetUserInfo) {
 
             $scope.param = {
                 messageImg : "http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E6%88%91%E7%9A%84%E6%B6%88%E6%81%AFicon%E7%81%B0@2x.png",
@@ -29,6 +31,10 @@ angular.module('controllers',[]).controller('myselfCenterCtrl',
                     $scope.elderId = "0000";
                 }
             }
+
+            GetUserInfo.save(function(data){
+                ElderUtil.checkResponseData(data,'myselfCenter');
+            })
 
             // $scope.chooseTab = function(tabValue)
             // {

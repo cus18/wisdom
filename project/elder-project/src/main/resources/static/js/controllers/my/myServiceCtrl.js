@@ -1,12 +1,11 @@
 angular.module('controllers',[]).controller('myServiceCtrl',
-    ['$scope','$rootScope','$stateParams','$state','ElderUtil',
-        function ($scope,$rootScope,$stateParams,$state,ElderUtil) {
+    ['$scope','$rootScope','$stateParams','$state','ElderUtil','Global','GetLivingServiceOrderStatus',
+        'SendMessage','DelLivingServiceOrder','GetUserInfo',
+        function ($scope,$rootScope,$stateParams,$state,ElderUtil,Global,GetLivingServiceOrderStatus,
+        SendMessage,DelLivingServiceOrder,GetUserInfo) {
 
             $scope.param = {
-                tabValue : $stateParams.type,
-                recentPublishActive:[],
-                recentAttendActive:[],
-                myCourseList:[]
+                tabValue : $stateParams.type
             }
 
             if($rootScope.rootElderId!=undefined)
@@ -31,9 +30,37 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 }
             }
 
+            GetUserInfo.save(function(data){
+                ElderUtil.checkResponseData(data,'myService/'+$stateParams.type);
+            })
+
             function tabChange(){
                 if($scope.param.tabValue=='inReview')
                 {
+                    GetLivingServiceOrderStatus.get({status:'0'},function(data){
+                        console.log(data)
+                        if(data.result == Global.SUCCESS){
+
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+                    })
+
+                    //催审核
+                    $scope.sendMessage = function(id){
+                        sendMessage.get({livingServiceOrderID:id},function(data){
+                            console.log(data)
+                            if(data.result == Global.SUCCESS){
+
+                            }
+                            else
+                            {
+                                console.log(data.errorInfo);
+                            }
+                        })
+                    }
 
                 }
                 if($scope.param.tabValue=='inService')
@@ -42,6 +69,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 }
                 if($scope.param.tabValue=='finished')
                 {
+
 
                 }
                 if($scope.param.tabValue=='failed')
@@ -54,7 +82,21 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             $scope.chooseTab = function(tabValue)
             {
                 $scope.param.tabValue = tabValue;
-                tabChange();
+                tabChange(); 
+            }
+
+            //删除服务订单
+            $scope.delOrder = function(id){
+                DelLivingServiceOrder.get({livingServiceOrderID:id},function(data){
+                    console.log(data)
+                    if(data.result == Global.SUCCESS){
+
+                    }
+                    else
+                    {
+                        console.log(data.errorInfo);
+                    }
+                })
             }
 
 

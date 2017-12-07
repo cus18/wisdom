@@ -20,35 +20,33 @@
     <ion-content style="margin-top:47px">
         <div class="list" ng-if="param.type=='short'">
             <a class="item item-avatar item-text-wrap"
-               ng-repeat="item in [1,2,3]"
-               style="min-height:95px">
+               ng-repeat="item in shortResponse"
+               style="min-height:115px" ng-click="livingServiceDetail(item.id)">
                 <h2>
-                    <span style="margin-left:-15%;font-size:20px">驻家照护</span>
-                    <span style="float:right">¥4000-8000元/月</span>
+                    <span style="margin-left:-15%;font-size:20px">{{item.name}}</span>
+                    <span style="float:right">¥{{item.price}}元/{{item.priceUnit}}</span>
                 </h2>
                 <button class="button button-energized button-small item-note"
-                        style="margin-top:27px;min-width:55px"
-                        ng-click="livingServiceDetail(item.livingServiceId)">详情</button>
-                <p style="margin-left:-42px">带您练习手部肌肉完成一些列精细动作，提升您的独立生活能力和幸福感。</p>
+                        style="margin-top:27px;min-width:55px">详情</button>
+                <p style="margin-left:-42px">{{item.description}}</p>
                 <p style="margin-left:-42px">
-                    <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由阳光积善之家提供
+                    <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由{{item.officeName}}提供
                 </p>
             </a>
         </div>
         <div class="list" ng-if="param.type=='long'">
             <a class="item item-avatar item-text-wrap"
-               ng-repeat="item in [1,2,3]"
-               style="min-height:95px">
+               ng-repeat="item in longResponse"
+               style="min-height:115px" ng-click="livingServiceDetail(item.id)">
                 <h2>
-                    <span style="margin-left:-15%;font-size:20px">驻家照护test</span>
-                    <span style="float:right">¥4000-8000元/月</span>
+                    <span style="margin-left:-15%;font-size:20px">{{item.name}}</span>
+                    <span style="float:right">¥{{item.price}}元/{{item.priceUnit}}</span>
                 </h2>
                 <button class="button button-energized button-small item-note"
-                        style="margin-top:27px;min-width:55px"
-                        ng-click="livingServiceDetail(item.livingServiceId)">详情</button>
-                <p style="margin-left:-42px">带您练习手部肌肉完成一些列精细动作，提升您的独立生活能力和幸福感。</p>
+                        style="margin-top:27px;min-width:55px">详情</button>
+                <p style="margin-left:-42px">{{item.description}}</p>
                 <p style="margin-left:-42px">
-                    <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由阳光积善之家提供
+                    <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由{{item.officeName}}提供
                 </p>
             </a>
         </div>

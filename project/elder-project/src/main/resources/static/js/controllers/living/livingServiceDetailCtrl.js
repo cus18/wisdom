@@ -1,8 +1,9 @@
 angular.module('controllers',[]).controller('livingServiceDetailCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
-        'ElderUtil','GetUserInfo','GetCommunityBannerList',
-        function ($scope,$interval,$rootScope,$stateParams,$state,
-                  ElderUtil,GetUserInfo,GetCommunityBannerList) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global',
+        'ElderUtil','GetUserInfo','GetlivingServiceList',
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,
+                  ElderUtil,GetUserInfo,GetlivingServiceList) {
+
 
             if($rootScope.rootElderId!=undefined)
             {
@@ -29,6 +30,25 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
             GetUserInfo.save(function(data){
                 ElderUtil.checkResponseData(data,'livingServiceDetail/'+$stateParams.livingServiceId);
             });
+
+
+            GetlivingServiceList.save({
+                id:$stateParams.livingServiceId,
+                type:'',
+                lastNo:'0',
+                nextNo:'10'
+            },function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.response = data.responseData[0];
+                    $scope.specialList = data.responseData[0].special.split(';');
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+
+            })
+
 
             $scope.subscribeService = function()
             {

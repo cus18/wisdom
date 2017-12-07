@@ -1,8 +1,8 @@
 angular.module('controllers',[]).controller('beadHouseDetailCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
-        'ElderUtil','GetUserInfo','GetCommunityBannerList',
-        function ($scope,$interval,$rootScope,$stateParams,$state,
-                  ElderUtil,GetUserInfo,GetCommunityBannerList) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global',
+        'ElderUtil','GetUserInfo','GetCommunityBannerList','GetLivingOfficeList','GetlivingServiceList',
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,
+                  ElderUtil,GetUserInfo,GetCommunityBannerList,GetLivingOfficeList,GetlivingServiceList) {
 
             $scope.param = {
                 type : 'short'
@@ -34,6 +34,52 @@ angular.module('controllers',[]).controller('beadHouseDetailCtrl',
                 ElderUtil.checkResponseData(data,'beadHouseDetail/'+$stateParams.beadHouseId);
             })
 
+
+            GetLivingOfficeList.save({id:$stateParams.beadHouseId},function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.officeInfo = data.responseData[0];
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+            })
+
+
+            GetlivingServiceList.save({
+                id:$stateParams.beadHouseId,
+                type:'short',
+                lastNo:'0',
+                nextNo:'10'
+            },function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.shortResponse = data.responseData;
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+
+            })
+
+            GetlivingServiceList.save({
+                id:$stateParams.beadHouseId,
+                type:'long',
+                lastNo:'0',
+                nextNo:'10'
+            },function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.longResponse = data.responseData;
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+            })
+
+
+
+
             $scope.chooseLivingService = function(type){
                 if(type=='short')
                 {
@@ -44,6 +90,7 @@ angular.module('controllers',[]).controller('beadHouseDetailCtrl',
                     $scope.param.type = 'long';
                 }
             }
+
 
             $scope.livingServiceDetail = function(livingServiceId){
                 $state.go("livingServiceDetail",{livingServiceId:livingServiceId});
