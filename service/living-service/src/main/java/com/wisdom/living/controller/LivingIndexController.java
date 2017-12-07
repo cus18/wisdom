@@ -6,6 +6,7 @@ import com.wisdom.living.client.CoreServiceClient;
 import com.wisdom.living.entity.LivingService;
 import com.wisdom.living.entity.LivingServiceOffice;
 import com.wisdom.living.entity.LivingServiceOrder;
+import com.wisdom.living.interceptor.LoginRequired;
 import com.wisdom.living.service.LivingServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "livingServiceList", method = {RequestMethod.POST, RequestMethod.GET})
-//	@LoginRequired
+	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO livingServiceList(@RequestBody LivingService livingService) {
@@ -55,9 +56,9 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO commitOrder(@RequestBody LivingServiceOrder livingServiceOrder,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-//		livingServiceOrder.setSys_elder_user_id(coreServiceClient.getUserInfo(request).getElderUserDTO().getSysUserID());
-//		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,coreServiceClient.getUserInfo(request).getElderUserDTO().getId()));
-		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,""));
+		livingServiceOrder.setSys_elder_user_id(coreServiceClient.getUserInfo(request).getElderUserDTO().getSysUserID());
+		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,coreServiceClient.getUserInfo(request).getElderUserDTO().getId()));
+//		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,""));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -67,7 +68,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "getLivingOfficeList", method = {RequestMethod.POST, RequestMethod.GET})
-//	@LoginRequired
+	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO getLivingOfficeList(@RequestBody LivingServiceOffice livingServiceOffice) {
@@ -82,12 +83,13 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "getLivingServiceOrderStatus", method = {RequestMethod.POST, RequestMethod.GET})
-//	@LoginRequired
+	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO getLivingServiceOrderStatus(@RequestParam String status,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
 		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
+//		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(null,status));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -97,7 +99,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "sendMessage", method = {RequestMethod.POST, RequestMethod.GET})
-//	@LoginRequired
+	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO sendMessage(@RequestParam String livingServiceOrderID,HttpServletRequest request) {
@@ -112,7 +114,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "delLivingServiceOrder", method = {RequestMethod.POST, RequestMethod.GET})
-//	@LoginRequired
+	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO delLivingServiceOrder(@RequestParam String livingServiceOrderID) {

@@ -52,7 +52,11 @@ public class LivingServiceService {
     }
 
     public List getLivingServiceOffice(LivingServiceOffice livingServiceOffice){
-        return livingServiceDao.getLivingServiceOffice(livingServiceOffice);
+        List<LivingServiceOffice> list=livingServiceDao.getLivingServiceOffice(livingServiceOffice);
+        for (LivingServiceOffice l:list) {
+            l.setCount(livingServiceDao.getLivingServiceOfficeCount(l.getId()));
+        }
+        return list;
     }
 
     public List getLivingServiceOrderStatus(String userid,String status){

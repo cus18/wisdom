@@ -12,6 +12,7 @@ public class LivingServiceOffice {
     private String announcement;
     private String count;
     private String address;
+    private String serviceCount;
 
     public String getId() {
         return id;
@@ -68,4 +69,13 @@ public class LivingServiceOffice {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getServiceCount() {
+        return serviceCount;
+    }
+
+    public void setServiceCount(String serviceCount) {
+        this.serviceCount = serviceCount;
+    }
+
 }
