@@ -87,7 +87,8 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO getLivingServiceOrderStatus(@RequestParam String status,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
+//		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
+		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(null,status));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
