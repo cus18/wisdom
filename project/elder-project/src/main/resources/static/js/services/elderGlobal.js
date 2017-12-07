@@ -18,7 +18,7 @@ angular.module('elderGlobal',[])
                     {
                         if(data.errorInfo==Global.TOKEN_ERROR){
                             //如果登录token发生了问题，跳转到登录页面，且在登录成功后，跳转到之前页面去
-                            window.location.href = "login?redirectParam="+redirectParam;
+                            // window.location.href = "login?redirectParam="+redirectParam;
                         }
                     }
                 },

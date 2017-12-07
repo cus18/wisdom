@@ -57,4 +57,5 @@ angular.module('controllers',[]).controller('subscribeServiceSuccessCtrl',
             }
 
 
+
         }])

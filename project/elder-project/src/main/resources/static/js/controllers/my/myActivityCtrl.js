@@ -1,6 +1,6 @@
 angular.module('controllers',[]).controller('myActivityCtrl',
-    ['$scope','$rootScope','$stateParams','$state','GetRelativeElderInfo','GetActivityList','ElderUtil','GetUserInfo',
-        function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,ElderUtil,GetUserInfo) {
+    ['$scope','$rootScope','$stateParams','$state','GetRelativeElderInfo','GetActivityList','ElderUtil',
+        function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,ElderUtil) {
 
             $scope.param = {
                 recentPublishActive:[],
@@ -30,16 +30,14 @@ angular.module('controllers',[]).controller('myActivityCtrl',
                 }
             }
 
-            GetUserInfo.save(function(data){
-                ElderUtil.checkResponseData(data,'myActivity  ');
-            })
+
 
             GetActivityList.save({pageNo:5,requestData:'0'},function(data){
-                ElderUtil.checkResponseData(data,'myselfCenter');
+                ElderUtil.checkResponseData(data,'myActivity');
                 $scope.param.recentPublishActive = data.responseData;
             })
             GetActivityList.save({pageNo:5,requestData:'1'},function(data){
-                ElderUtil.checkResponseData(data,'myselfCenter');
+                ElderUtil.checkResponseData(data,'myActivity');
                 $scope.param.recentAttendActive = data.responseData;
             })
 

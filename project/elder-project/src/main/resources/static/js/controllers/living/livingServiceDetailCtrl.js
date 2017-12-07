@@ -55,4 +55,5 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
                 $state.go('subscribeService',{livingServiceId:$stateParams.livingServiceId});
             }
 
+
         }])

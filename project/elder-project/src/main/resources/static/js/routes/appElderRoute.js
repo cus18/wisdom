@@ -634,6 +634,7 @@ define(['appElder'], function(app){
                         }
                     })
 
+
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
 })

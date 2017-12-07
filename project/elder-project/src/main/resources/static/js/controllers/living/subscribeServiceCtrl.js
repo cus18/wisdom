@@ -39,17 +39,6 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
                 {'id':'info5','value':'5','name':'完全失能'}
             ];
 
-            // $scope.repeatSelection = function($event,value){
-            //     var checkbox = $event.target;
-            //     var checked = checkbox.checked;
-            //     if(checked){
-            //         $scope.subscribeInfo.care.push(value);
-            //     }else{
-            //         var idx = $scope.subscribeInfo.care.indexOf(value);
-            //         $scope.subscribeInfo.care.splice(idx,1);
-            //     }
-            // };
-
             GetUserInfo.save(function(data){
                 ElderUtil.checkResponseData(data,'subscribeService/'+$stateParams.livingServiceId);
             })

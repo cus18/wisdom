@@ -88,8 +88,6 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
 
 
 
-
-
             $scope.livingServiceDetail = function(id){
                 $state.go("livingServiceDetail",{livingServiceId:id});
             }

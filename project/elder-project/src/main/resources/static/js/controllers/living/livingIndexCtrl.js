@@ -53,4 +53,5 @@ angular.module('controllers',[]).controller('livingIndexCtrl',
                 $state.go('beadHouseDetail',{beadHouseId:beadHouseId});
             }
 
+
         }])

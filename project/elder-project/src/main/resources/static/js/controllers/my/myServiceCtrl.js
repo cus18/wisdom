@@ -37,7 +37,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             function tabChange(){
                 if($scope.param.tabValue=='inReview')
                 {
-                    GetLivingServiceOrderStatus.get({status:'0'},function(data){
+                    GetLivingServiceOrderStatus.get({status:'1'},function(data){
                         console.log(data)
                         if(data.result == Global.SUCCESS){
 

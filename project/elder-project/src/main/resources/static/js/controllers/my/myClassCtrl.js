@@ -30,8 +30,9 @@ angular.module('controllers',[]).controller('myClassCtrl',
                 }
             }
 
+
             GetMyOnlineCourseList.save({"pageNo":1,"pageSize":1,"requestData":"page,learn"},function(data){
-                ElderUtil.checkResponseData(data,'myselfCenter');
+                ElderUtil.checkResponseData(data,'myselfClass');
                 $scope.param.myCourseList = data.responseData;
                 console.log($scope.param.myCourseList);
             })

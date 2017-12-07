@@ -79,7 +79,6 @@ angular.module('controllers',[]).controller('beadHouseDetailCtrl',
 
 
 
-
             $scope.chooseLivingService = function(type){
                 if(type=='short')
                 {
