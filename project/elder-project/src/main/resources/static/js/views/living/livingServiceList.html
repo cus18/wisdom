@@ -51,6 +51,45 @@
             </a>
         </div>
     </ion-content>
+    <div class="bar bar-footer bar-stable" style="height:88px;">
+        <div class="title" ng-if="param.type == 'short'">共为您加载{{shortResponse.length}}条数据</div>
+        <div class="title" ng-if="param.type == 'long'">共为您加载{{longResponse.length}}条数据</div>
+        <button class="button button-icon icon-left icon-funnel" ng-click="sortShow()" style="left:45%;background:transparent;margin-top:4%;">筛选</button>
+    </div>
 </ion-view>
+<style>
+    /*居家服务列表筛选*/
+    .filtrateArea{
+        width:100%;
+        height:100%;
+        position:fixed;
+        left:0px;
+        top:100%;
+        z-index:2;
+        background:#f8f8f8;
+    }
+    .sortDiv{
+        width:25%;
+        float:left;
+        margin:8px 15px;
+        text-align:center;
+    }
+    .sortDiv>input:checked~label{
+        background-color: #ddd;
+        border-color:#ddd;
+    }
+</style>
+<div class="filtrateArea">
+    <div class="bar bar-header bar-energized">
+        <button class="button button-icon icon ion-ios-arrow-left" ng-click="sortHide()"></button>
+        <h1 class="title">服务筛选</h1>
+    </div>
+    <div style="margin-top:70px;">
+        <div ng-repeat="sortOption in sortList" class="sortDiv" ng-click="sortService()">
+            <input type="radio" name="sort" id="{{sortOption.id}}" value="{{sortOption.value}}" ng-model="sort" style="display:none;">
+            <label for="{{sortOption.id}}" class="button button-light" style="width:100%;">{{sortOption.name}}</label>
+        </div>
+    </div>
+</div>
 
 
