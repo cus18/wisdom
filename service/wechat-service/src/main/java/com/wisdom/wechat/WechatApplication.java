@@ -1,4 +1,4 @@
-package com.wisdom.community;
+package com.wisdom.wechat;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @EnableFeignClients
-@MapperScan(basePackages = {"com.wisdom.community.mapper"})
+@MapperScan(basePackages = {"com.wisdom.wechat.mapper"})
 public class WechatApplication {
 
 	public static void main(String[] args) {

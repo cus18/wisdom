@@ -34,6 +34,16 @@ public class WechatController {
 	/**
 	 * *用户校验是否是微信服务器发送的请求
 	 * */
+	@RequestMapping(value = "/index")
+	public
+	@ResponseBody
+	String index() {
+		return "Hello!";
+	}
+
+	/**
+	 * *用户校验是否是微信服务器发送的请求
+	 * */
 	@RequestMapping(value = "/wxChat", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
