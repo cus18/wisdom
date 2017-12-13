@@ -35,7 +35,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "livingServiceList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
+//	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO livingServiceList(@RequestBody LivingService livingService) {
@@ -68,7 +68,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "getLivingOfficeList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
+//	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO getLivingOfficeList(@RequestBody LivingServiceOffice livingServiceOffice) {
@@ -83,13 +83,13 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "getLivingServiceOrderStatus", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
+//	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO getLivingServiceOrderStatus(@RequestParam String status,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
-//		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(null,status));
+//		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
+		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(null,status));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -99,12 +99,13 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "sendMessage", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
+//	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO sendMessage(@RequestParam String livingServiceOrderID,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		livingServiceService.sendMessage(livingServiceOrderID,coreServiceClient.getUserInfo(request).getElderUserDTO().getId());
+//		livingServiceService.sendMessage(livingServiceOrderID,coreServiceClient.getUserInfo(request).getElderUserDTO().getId());
+		livingServiceService.sendMessage(livingServiceOrderID,"");
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -114,7 +115,7 @@ public class LivingIndexController {
 	 *
 	 */
 	@RequestMapping(value = "delLivingServiceOrder", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
+//	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO delLivingServiceOrder(@RequestParam String livingServiceOrderID) {
