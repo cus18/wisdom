@@ -59,21 +59,22 @@ public class WechatController {
 		}
 	}
 
-	/**
-	 * 微信授权
-	 * 1、客户端请求获取 OpenID
-	 *
-	 */
-	@RequestMapping(value = "getOpenID", method = {RequestMethod.POST, RequestMethod.GET})
-	public void getOpenID(@RequestParam String url,HttpServletRequest request,HttpServletResponse response) throws Exception {
-		String redirectUrl= URLEncoder.encode("http://hualulaoyou.viphk.ngrok.org/wechat/returnCode?url="+url,"UTF-8");
-		String requestUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx952c2a0a6b0d63c0&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-//		request.getRequestDispatcher(requestUrl).forward(request,response);
-		response.sendRedirect(requestUrl);
+		/**
+		 * 微信授权
+		 * 1.客户端请求获取 OpenID
+		 *
+		 */
+		@RequestMapping(value = "getOpenID", method = {RequestMethod.POST, RequestMethod.GET})
+		public void getOpenID(@RequestParam String url,HttpServletRequest request,HttpServletResponse response) throws Exception {
+			url=url.replace("#","@");
+			String redirectUrl= URLEncoder.encode("http://hualulaoyou.viphk.ngrok.org/wechat/returnCode?url="+url,"UTF-8");
+			String requestUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx952c2a0a6b0d63c0&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+			response.sendRedirect(requestUrl);
 	}
 
 	/**
 	 * 微信授权
+	 * 2.获取微信授权，跳转回请求链接
 	 *
 	 */
 	@RequestMapping(value = "returnCode", method = {RequestMethod.POST, RequestMethod.GET})
@@ -81,23 +82,11 @@ public class WechatController {
 		String uri="https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WechatService.appid+"&secret="+WechatService.secret+"&code="+code+"&grant_type=authorization_code";
 		String reulst=HttpRequestUtil.get(uri);
 		Map<String,String> map= JSONObject.parseObject(reulst,Map.class);
-		String openid=map.get("openid");
-		response.sendRedirect(url+"?openid="+openid);
+		url=url.replace("@","#");
+		response.sendRedirect(url+"?openid="+map.get("openid"));
 	}
 
 
 
-	/**
-	 * 微信授权
-	 *
-	 */
-	@RequestMapping(value = "helloWorld", method = {RequestMethod.POST, RequestMethod.GET})
-	public
-	@ResponseBody
-	ResponseDTO helloWorld() {
-		ResponseDTO responseDto=new ResponseDTO<>();
-		responseDto.setResponseData("Hello,World!");
-		responseDto.setResult(StatusConstant.SUCCESS);
-		return responseDto;
-	}
+
 }
