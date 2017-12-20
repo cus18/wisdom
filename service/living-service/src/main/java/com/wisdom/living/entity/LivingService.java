@@ -14,6 +14,7 @@ public class LivingService {
     private Integer id;
     private String name;
     private String description;
+    private String flag;
     private String type;
     private String status;
     private String payment;
@@ -184,5 +185,14 @@ public class LivingService {
 
     public void setNextNo(Integer nextNo) {
         this.nextNo = nextNo;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+
+        this.flag = flag;
     }
 }
