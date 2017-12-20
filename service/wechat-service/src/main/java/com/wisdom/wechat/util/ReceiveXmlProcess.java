@@ -40,7 +40,7 @@ public enum ReceiveXmlProcess {
 			msg = new ReceiveXmlEntity();
 			//利用反射机制，调用set方法
 			//获取该实体的元类型
-			Class<?> c = Class.forName("com.cxqm.xiaoerke.modules.sys.entity.ReceiveXmlEntity");
+			Class<?> c = Class.forName("com.wisdom.wechat.entity.ReceiveXmlEntity");
 			msg = (ReceiveXmlEntity)c.newInstance();//创建这个实体的对象
 			while(iter.hasNext()){
 				Element ele = (Element)iter.next();

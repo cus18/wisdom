@@ -1,6 +1,5 @@
 package com.wisdom.living.mapper;
 
-import com.wisdom.common.dto.core.Page;
 import com.wisdom.living.entity.LivingService;
 import com.wisdom.living.entity.LivingServiceOffice;
 import org.apache.ibatis.annotations.Param;

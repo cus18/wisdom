@@ -1,4 +1,4 @@
-package com.wisdom.community.conf;
+package com.wisdom.wechat.conf;
 
 import org.apache.log4j.Logger;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

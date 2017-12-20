@@ -1,4 +1,4 @@
-package com.wisdom.community.service;
+package com.wisdom.wechat.service;
 
 import com.wisdom.common.util.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class RedisService {
+
 
     @Autowired
     private RedisTemplate<String, ?> redisTemplate;

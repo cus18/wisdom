@@ -1,15 +1,22 @@
 package com.wisdom.wechat.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wisdom.common.constant.ConfigConstant;
+import com.wisdom.common.util.HttpRequestUtil;
 import com.wisdom.common.util.StringUtils;
 import com.wisdom.wechat.entity.*;
+import com.wisdom.wechat.mapper.WeChatAttentionMapper;
 import com.wisdom.wechat.util.EmojiFilter;
 import com.wisdom.wechat.util.MessageUtil;
 import com.wisdom.wechat.util.ReceiveXmlProcess;
 import com.wisdom.wechat.util.WechatUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,7 +29,68 @@ import java.util.*;
 
 @Service
 @Transactional(readOnly = false)
+@Component
 public class WechatService {
+
+	@Autowired
+	RedisService redisService;
+
+	@Autowired
+	public static  RedisService staticRedisService;
+
+	@Autowired
+	private WeChatAttentionMapper weChatAttentionMapper;
+
+	//华录老友
+//	private static final String appid="wx07acc4feaf7d07d3";
+//
+//	private static final String secret="a13b8339bd15fb3a498a002f9ece36b3";
+
+	//测试微信号
+	public static final String appid="wx952c2a0a6b0d63c0";
+
+	public static final String secret="d4624c36b6795d1d99dcf0547af5443d";
+
+	@PostConstruct
+	public void init() {
+		WechatService.staticRedisService = this.redisService;
+	}
+
+	//获取 Token
+	public static String getWechatToken() {
+		try {
+			String token=staticRedisService.get("WeChatToken");
+			//调用微信获取菜单接口测试 Token 是否有效
+			String result=HttpRequestUtil.get("https://api.weixin.qq.com/cgi-bin/menu/get?access_token="+ token);
+			Map<String,Object> map= JSONObject.parseObject(result,Map.class);
+			String errcode=map.get("errcode")+"";
+			if(map.get("errcode")==null||!map.get("errcode").equals("40001")){
+				return token;
+			}else {
+				result = HttpRequestUtil.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + WechatService.appid + "&secret=" + WechatService.secret);
+				map = JSONObject.parseObject(result, Map.class);
+				token = map.get("access_token")+"";
+				staticRedisService.set("WeChatToken", token);
+				return token;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	//定时器更新 Token
+	@Scheduled(initialDelay=1000, fixedRate=2*60*60*1000)
+	public void updateWechatToken() {
+		try {
+			String result= HttpRequestUtil.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+ WechatService.appid+"&secret="+WechatService.secret);
+			Map<String,String> map= JSONObject.parseObject(result,Map.class);
+			redisService.set("WeChatToken",map.get("access_token"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * 处理微信发来的请求
@@ -189,31 +257,31 @@ public class WechatService {
 		newsMessage.setCreateTime(new Date().getTime());
 		newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
 		newsMessage.setFuncFlag(0);
-		if(EventKey.indexOf("baoxian_000001")>-1&&xmlEntity.getEvent().equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)){
-			TextMessage textMessage = new TextMessage();
-			textMessage.setToUserName(xmlEntity.getFromUserName());
-			textMessage.setFromUserName(xmlEntity.getToUserName());
-			textMessage.setCreateTime(new Date().getTime());
-			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-			textMessage.setFuncFlag(0);
-			textMessage.setContent("尊敬的诺安康VIP客户，您好！欢迎加入宝大夫，让您从此育儿不用愁！\n\n【咨询大夫】直接咨询北京三甲医院儿科专家，一分钟内极速回复！\n\n【妈妈活动】添加宝大夫客服微信：bdfdxb，加入宝大夫家长群，与众多宝爸宝妈一起交流分享，参与更多好玩的活动！\n\n如需人工协助，请您拨打：400-623-7120。\n");
-			return MessageUtil.textMessageToXml(textMessage);
-
-		}
-		else if(EventKey.indexOf("xuanjianghuodong_zhengyuqiao_saoma")>-1)
-		{
-			article.setDescription("您好，欢迎关注！" +
-					"\n\n点击进入宝大夫-郑玉巧育儿经，一起交流学习育儿健康管理知识！");
-			article.setUrl("http://baodf.com/titan/wechatInfo/fieldwork/wechat/author?" +
-					"url=http://baodf.com/titan/wechatInfo/getUserWechatMenId?url=4");
-			articleList.add(article);
-		}
-        String toOpenId = xmlEntity.getFromUserName();//扫码者openid
-        Map<String, Object> param1 = new HashMap<String, Object>();
-        param1.put("openid", toOpenId);
-		if(articleList.size() == 0){
-			return "";
-		}
+//		if(EventKey.indexOf("baoxian_000001")>-1&&xmlEntity.getEvent().equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)){
+//			TextMessage textMessage = new TextMessage();
+//			textMessage.setToUserName(xmlEntity.getFromUserName());
+//			textMessage.setFromUserName(xmlEntity.getToUserName());
+//			textMessage.setCreateTime(new Date().getTime());
+//			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+//			textMessage.setFuncFlag(0);
+//			textMessage.setContent("尊敬的诺安康VIP客户，您好！欢迎加入宝大夫，让您从此育儿不用愁！\n\n【咨询大夫】直接咨询北京三甲医院儿科专家，一分钟内极速回复！\n\n【妈妈活动】添加宝大夫客服微信：bdfdxb，加入宝大夫家长群，与众多宝爸宝妈一起交流分享，参与更多好玩的活动！\n\n如需人工协助，请您拨打：400-623-7120。\n");
+//			return MessageUtil.textMessageToXml(textMessage);
+//
+//		}
+//		else if(EventKey.indexOf("xuanjianghuodong_zhengyuqiao_saoma")>-1)
+//		{
+//			article.setDescription("您好，欢迎关注！" +
+//					"\n\n点击进入宝大夫-郑玉巧育儿经，一起交流学习育儿健康管理知识！");
+//			article.setUrl("http://baodf.com/titan/wechatInfo/fieldwork/wechat/author?" +
+//					"url=http://baodf.com/titan/wechatInfo/getUserWechatMenId?url=4");
+//			articleList.add(article);
+//		}
+//        String toOpenId = xmlEntity.getFromUserName();//扫码者openid
+//        Map<String, Object> param1 = new HashMap<String, Object>();
+//        param1.put("openid", toOpenId);
+//		if(articleList.size() == 0){
+//			return "";
+//		}
 		// 设置图文消息个数
 		newsMessage.setArticleCount(articleList.size());
 		// 设置图文消息包含的图文集合
@@ -277,9 +345,8 @@ public class WechatService {
 
 	private String processSubscribeEvent(ReceiveXmlEntity xmlEntity,HttpServletRequest request,HttpServletResponse response)
 	{
-		Map parameter = null;
 		//获取微信可以发送消息的token
-		String token = (String) parameter.get("token");
+		String token = WechatService.getWechatToken();
 		String EventKey = xmlEntity.getEventKey();
 		String marketer = "";
 		if(StringUtils.isNotNull(EventKey)){
@@ -295,25 +362,26 @@ public class WechatService {
 		String openId = xmlEntity.getFromUserName();
 		String id = UUID.randomUUID().toString().replaceAll("-", "");
 		WechatBean wechatBean = WechatUtil.getWechatName(token, openId);
-		map.put("id", id);
-		map.put("status", "0");
-		map.put("openId", openId);
-		map.put("marketer", marketer);
-		map.put("doctorMarketer", marketer);
-		map.put("updateTime", new Date());
-		map.put("nickname", EmojiFilter.coverEmoji(wechatBean.getNickname()));
+		WeChatAttention weChatAttention=new WeChatAttention();
+		weChatAttention.setStatus("0");
+		weChatAttention.setOpenid(openId);
+		weChatAttention.setMarketer(marketer);
+		weChatAttention.setNickname(EmojiFilter.coverEmoji(wechatBean.getNickname()));
+		weChatAttentionMapper.insertWeChatAttention(weChatAttention);
     }
 
     private void updateAttentionInfo(ReceiveXmlEntity xmlEntity)
 	{
 		String EventKey = xmlEntity.getEventKey();
-		Date updateDate = new Date();
 		String openId = xmlEntity.getFromUserName();
 		String marketer = EventKey.replace("qrscene_", "");
-		HashMap<String,Object> updateTimeMap = new HashMap<String, Object>();
-		updateTimeMap.put("openId",openId);
-		updateTimeMap.put("updateTime", updateDate);
-		updateTimeMap.put("doctorMarketer", marketer);
+		WechatBean wechatBean = WechatUtil.getWechatName(WechatService.getWechatToken(), openId);
+		WeChatAttention weChatAttention=new WeChatAttention();
+		weChatAttention.setStatus("0");
+		weChatAttention.setOpenid(openId);
+		weChatAttention.setMarketer(marketer);
+		weChatAttention.setNickname(EmojiFilter.coverEmoji(wechatBean.getNickname()));
+		weChatAttentionMapper.insertWeChatAttention(weChatAttention);
 	}
 
 	private String sendSubScribeMessage(ReceiveXmlEntity xmlEntity,HttpServletRequest request,HttpServletResponse response,String marketer,String token)
@@ -366,7 +434,13 @@ public class WechatService {
 		session.setAttribute("openId", xmlEntity.getFromUserName());
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		String openId = xmlEntity.getFromUserName();
-		map.put("openId", openId);
+		WechatBean wechatBean = WechatUtil.getWechatName(WechatService.getWechatToken(), openId);
+		WeChatAttention weChatAttention=new WeChatAttention();
+		weChatAttention.setStatus("1");
+		weChatAttention.setOpenid(openId);
+		weChatAttention.setMarketer("");
+		weChatAttention.setNickname(EmojiFilter.coverEmoji(wechatBean.getNickname()));
+		weChatAttentionMapper.insertWeChatAttention(weChatAttention);
 	}
 
 	private String processClickMenuEvent(ReceiveXmlEntity xmlEntity,

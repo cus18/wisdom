@@ -53,6 +53,9 @@
         <if test="type!= ''and type!=null">
             and ls.type=#{type}
         </if>
+        <if test="sys_office_id!= ''and sys_office_id!=null">
+            and so.id=#{sys_office_id}
+        </if>
         group by ls.id
         order by ls.update_date
         limit #{lastNo},#{nextNo}

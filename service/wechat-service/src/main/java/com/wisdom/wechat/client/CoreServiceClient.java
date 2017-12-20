@@ -1,4 +1,4 @@
-package com.wisdom.community.client;
+package com.wisdom.wechat.client;
 
 import com.wisdom.common.dto.basic.BannerDTO;
 import com.wisdom.common.dto.community.course.OnlineCourseDTO;
@@ -20,32 +20,9 @@ import java.util.List;
 @FeignClient("core-service")
 public interface CoreServiceClient {
 
-    @RequestMapping(value = "/relativeElderInfo",method=RequestMethod.GET)
-    ResponseDTO<List<RelativeElderDTO>> relativeElderInfo(UserInfoDTO userInfoDTO);
-
-    @RequestMapping(value = "/sendEasemobMessage",method=RequestMethod.GET)
-    void sendEasemobMessage(@RequestParam(value = "easemobGroup") String easemobGroup, @RequestParam(value = "message") String message);
-
-    @RequestMapping(value = "/getEasemobMessageUrl",method=RequestMethod.GET)
-    String getEasemobMessageUrl(String... params);
-
-    @RequestMapping(value = "/getEasemobGroup",method=RequestMethod.GET)
-    EasemobGroupDTO getEasemobGroup(String elderId);
 
     @RequestMapping(value = "/getUserInfoValue",method=RequestMethod.GET)
     ResponseDTO<UserInfoDTO> getUserInfo(@RequestParam(value = "loginToken") String loginToken);
 
-    @RequestMapping(value = "/getElderUserByHospitalID",method=RequestMethod.GET)
-    Page<ElderUserDTO> getElderUserByHospitalID(@RequestParam(value = "id") String id,
-                                                @RequestParam(value = "page") Page page);
-
-    @RequestMapping(value = "/getEasemobGroupIDByElderID",method=RequestMethod.GET)
-    String getEasemobGroupIDByElderID(String elderId);
-
-    @RequestMapping(value = "/findDictListByInfo",method=RequestMethod.POST)
-    ResponseDTO<List<DictDTO>> findDictListByInfo(@RequestBody DictDTO dictDTO);
-
-    @RequestMapping(value = "/bannerList", method = {RequestMethod.GET})
-    ResponseDTO<List<BannerDTO>> getBannerList();
 
 }
