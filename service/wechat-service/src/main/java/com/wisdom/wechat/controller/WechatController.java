@@ -59,6 +59,7 @@ public class WechatController {
 		}
 	}
 
+
 		/**
 		 * 微信授权
 		 * 1.客户端请求获取 OpenID
@@ -66,7 +67,6 @@ public class WechatController {
 		 */
 		@RequestMapping(value = "getOpenID", method = {RequestMethod.POST, RequestMethod.GET})
 		public void getOpenID(@RequestParam String url,HttpServletRequest request,HttpServletResponse response) throws Exception {
-			url=url.replace("#","@");
 			String redirectUrl= URLEncoder.encode("http://hualulaoyou.viphk.ngrok.org/wechat/returnCode?url="+url,"UTF-8");
 			String requestUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx952c2a0a6b0d63c0&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 			response.sendRedirect(requestUrl);
