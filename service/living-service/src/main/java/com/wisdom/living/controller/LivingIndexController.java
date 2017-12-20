@@ -54,11 +54,9 @@ public class LivingIndexController {
 //	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO commitOrder(@RequestBody LivingServiceOrder livingServiceOrder,HttpServletRequest request) {
+	ResponseDTO commitOrder(@RequestBody LivingServiceOrder livingServiceOrder) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		livingServiceOrder.setSys_elder_user_id(coreServiceClient.getUserInfo(request).getElderUserDTO().getSysUserID());
-		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,coreServiceClient.getUserInfo(request).getElderUserDTO().getId()));
-//		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder,""));
+		responseDto.setResponseData(livingServiceService.insertLivingServiceOrder(livingServiceOrder));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}
@@ -86,10 +84,9 @@ public class LivingIndexController {
 //	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO getLivingServiceOrderStatus(@RequestParam String status,HttpServletRequest request) {
+	ResponseDTO getLivingServiceOrderStatus(@RequestParam String openID,@RequestParam String status,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-//		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(coreServiceClient.getUserInfo(request).getElderUserDTO().getId(),status));
-		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(null,status));
+		responseDto.setResponseData(livingServiceService.getLivingServiceOrderStatus(openID,status));
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}

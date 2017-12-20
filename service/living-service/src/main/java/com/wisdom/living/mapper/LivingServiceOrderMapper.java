@@ -16,7 +16,7 @@ public interface LivingServiceOrderMapper {
 
     Integer insertLivingServiceOrder(LivingServiceOrder livingServiceOrder);
 
-    List<LivingServiceOrderStatus> getLivingServiceOrderStatus(@Param("userID")String userid,@Param("status")String status);
+    List<LivingServiceOrderStatus> getLivingServiceOrderStatus(@Param("openID")String openID,@Param("status")String status);
 
     LivingServiceOrder getLivingServiceOrder(@Param("id")String id);
 

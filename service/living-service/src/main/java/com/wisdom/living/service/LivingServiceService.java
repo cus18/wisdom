@@ -35,7 +35,7 @@ public class LivingServiceService {
     }
 
     @Transactional(rollbackFor= Exception.class)
-    public Integer insertLivingServiceOrder(LivingServiceOrder livingServiceOrder,String userID){
+    public Integer insertLivingServiceOrder(LivingServiceOrder livingServiceOrder){
         Integer result=livingServiceOrderMapper.insertLivingServiceOrder(livingServiceOrder);
         LivingService livingService=new LivingService();
         livingService.setId(livingServiceOrder.getLivingservice_id());
@@ -45,7 +45,6 @@ public class LivingServiceService {
         String message=livingServiceOrder.getPhone()+"刚刚在老友提醒您审核"+livingService.getName()+"服务，请您及时登录系统处理";
         OfficeMessage officeMessage=new OfficeMessage();
         officeMessage.setMessage(message);
-        officeMessage.setSys_elder_user_id(userID);
         officeMessageMapper.insertOfficeMessage(officeMessage);
 //        DaHanTricomSMSMessageUtil.sendMsg(officeMessageMapper.getOfficePhone(livingService.getSys_office_id()),message);
         return result;
@@ -59,8 +58,8 @@ public class LivingServiceService {
         return list;
     }
 
-    public List getLivingServiceOrderStatus(String userid,String status){
-        return livingServiceOrderMapper.getLivingServiceOrderStatus(userid,status);
+    public List getLivingServiceOrderStatus(String openID,String status){
+        return livingServiceOrderMapper.getLivingServiceOrderStatus(openID,status);
     }
 
     public void sendMessage(String livingServiceOrderID,String userID){

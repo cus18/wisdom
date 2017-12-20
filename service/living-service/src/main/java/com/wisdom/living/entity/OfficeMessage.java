@@ -1,6 +1,5 @@
 package com.wisdom.living.entity;
 
-import com.sun.tools.corba.se.idl.IncludeGen;
 
 import java.util.Date;
 
