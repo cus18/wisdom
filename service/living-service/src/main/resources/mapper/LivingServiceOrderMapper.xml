@@ -5,9 +5,9 @@
 
     <insert id="insertLivingServiceOrder">
         INSERT INTO `livingservice_order`
-        ( `livingservice_id`, `phone`, `name`, `care`, `address`, `remarks`)
+        ( `livingservice_id`, `phone`, `name`, `openid`,`care`, `address`, `remarks`)
         VALUES
-         (#{livingservice_id}, #{phone}, #{name}, #{care}, #{address}, #{remarks})
+         (#{livingservice_id}, #{phone}, #{name},#{openid}, #{care}, #{address}, #{remarks})
     </insert>
 
     <insert id="getLivingServiceOrder">
@@ -20,7 +20,7 @@
         inner join livingservice l on lo.livingservice_id=l.id
         inner join sys_office so on l.sys_office_id=so.id
         left join livingservice_order_information loi on loi.livingservice_order_id=lo.id
-        where lo.sys_elder_user_id=#{userID} and loi.del_flag='0'
+        where lo.openid=#{openID} and loi.del_flag='0'
         <if test="status== ''.toString() and status==null">
             and loi.`status` is null
         </if>
