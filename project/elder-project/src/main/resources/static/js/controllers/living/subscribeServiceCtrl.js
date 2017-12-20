@@ -1,11 +1,35 @@
 angular.module('controllers',[]).controller('subscribeServiceCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','Global',
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location',
         'ElderUtil','GetUserInfo','CommitOrder',
-        function ($scope,$interval,$rootScope,$stateParams,$state,Global,
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,
                   ElderUtil,GetUserInfo,CommitOrder) {
 
+
+            //获取openid
+            var search = $location.search();
+            if(search.openid)
+            {
+                $rootScope.openid = $location.search().openid;
+            }
+            else
+            {
+                var absUrl = $location.absUrl().replace('#','@');
+                GetOpenID.get({url:absUrl},function(data){
+                    if(data.result == Global.SUCCESS){
+                        $rootScope.openid = data.responseData;
+                    }
+                    else
+                    {
+                        alert(data.errorInfo)
+                    }
+                })
+            }
+
+
+
             $scope.subscribeInfo = {
-                livingservice_id:$stateParams.livingServiceId
+                livingservice_id:$stateParams.livingServiceId,
+                openid:$rootScope.openid
             };
 
             if($rootScope.rootElderId!=undefined)

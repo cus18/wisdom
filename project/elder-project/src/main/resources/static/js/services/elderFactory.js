@@ -8,6 +8,7 @@ var communityCourse = 'community/course/';
 var communityActivity = 'community/activity/';
 var communityIndex = 'community/index/';
 var livingIndex = 'living/index/';
+var wechat = 'wechat/';
 
 define(['appElder'], function (app) {
     app
@@ -245,6 +246,11 @@ define(['appElder'], function (app) {
         //删除服务订单
         .factory('DelLivingServiceOrder',['$resource',function ($resource){
             return $resource(livingIndex + 'delLivingServiceOrder')
+        }])
+
+        //获取openid
+        .factory('GetOpenID',['$resource',function ($resource){
+            return $resource(wechat + 'getOpenID')
         }])
 
 
