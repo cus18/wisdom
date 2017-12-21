@@ -13,7 +13,7 @@ public class LivingServiceOrderStatus {
     private String price;
     private String priceUnit;
     private String payment;
-    private Date  crate_date;
+    private Date  create_date;
     private String nurse;
     private Date  serviceTime;
     private String status;
@@ -71,12 +71,12 @@ public class LivingServiceOrderStatus {
         this.payment = payment;
     }
 
-    public Date getCrate_date() {
-        return crate_date;
+    public Date getCreate_date() {
+        return create_date;
     }
 
-    public void setCrate_date(Date crate_date) {
-        this.crate_date = crate_date;
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 
     public String getNurse() {
