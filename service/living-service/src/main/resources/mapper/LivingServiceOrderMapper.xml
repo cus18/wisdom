@@ -10,11 +10,10 @@
          (#{livingservice_id}, #{phone}, #{name},#{openid}, #{care}, #{address}, #{remarks})
     </insert>
 
-    <insert id="getLivingServiceOrder">
+    <select id="getLivingServiceOrder" resultType="com.wisdom.living.entity.LivingServiceOrder">
         SELECT * FROM livingservice_order
         where id=#{id}
-
-    </insert>
+    </select>
 
     <select id="getLivingServiceOrderStatus" resultType="com.wisdom.living.entity.LivingServiceOrderStatus">
         select lo.id,loi.id as orderid,l.name,l.price,l.priceUnit,l.payment,lo.crate_date,loi.nurse,loi.serviceTime,loi.`status`,loi.discountPrice,loi.discountPriceUnit,so.name as officeName from livingservice_order lo

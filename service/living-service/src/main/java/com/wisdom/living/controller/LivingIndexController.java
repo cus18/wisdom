@@ -104,6 +104,7 @@ public class LivingIndexController {
 //		livingServiceService.sendMessage(livingServiceOrderID,coreServiceClient.getUserInfo(request).getElderUserDTO().getId());
 		livingServiceService.sendMessage(livingServiceOrderID,"");
 		responseDto.setResult(StatusConstant.SUCCESS);
+		responseDto.setResponseData("发送成功");
 		return responseDto;
 	}
 
