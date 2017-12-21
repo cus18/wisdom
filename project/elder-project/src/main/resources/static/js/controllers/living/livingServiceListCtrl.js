@@ -42,7 +42,7 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                         id:'',
                         type:'short',
                         lastNo:'0',
-                        nextNo:'10',
+                        nextNo:'50',
                         flag:$scope.param.sort
                     },function(data){
                         if(data.result == Global.SUCCESS){
@@ -61,7 +61,7 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                         id:'',
                         type:'long',
                         lastNo:'0',
-                        nextNo:'10',
+                        nextNo:'50',
                         flag:$scope.param.sort
                     },function(data){
                         if(data.result == Global.SUCCESS){

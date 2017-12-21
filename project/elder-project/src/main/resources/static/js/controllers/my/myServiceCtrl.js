@@ -1,8 +1,29 @@
 angular.module('controllers',[]).controller('myServiceCtrl',
-    ['$scope','$rootScope','$stateParams','$state','ElderUtil','Global','GetLivingServiceOrderStatus',
-        'SendMessage','DelLivingServiceOrder','GetUserInfo','$location','GetOpenID',
-        function ($scope,$rootScope,$stateParams,$state,ElderUtil,Global,GetLivingServiceOrderStatus,
-        SendMessage,DelLivingServiceOrder,GetUserInfo,$location,GetOpenID) {
+    ['$scope','$rootScope','$stateParams','$state','ElderUtil','Global','GetLivingServiceOrderStatus','$timeout',
+        'SendMessage','DelLivingServiceOrder','GetUserInfo','$location','GetOpenID','$ionicPopup',
+        function ($scope,$rootScope,$stateParams,$state,ElderUtil,Global,GetLivingServiceOrderStatus,$timeout,
+        SendMessage,DelLivingServiceOrder,GetUserInfo,$location,GetOpenID,$ionicPopup) {
+
+            //获取openid
+            if(window.localStorage.getItem('openid')){
+                $rootScope.openid = window.localStorage.getItem('openid');
+            }
+            else
+            {
+                var search = $location.search();
+                if(search.openid)
+                {
+                    window.localStorage.setItem('openid',$location.search().openid);
+                    $rootScope.openid = window.localStorage.getItem('openid');
+                }
+                else
+                {
+                    var absUrl = $location.absUrl().replace('#','@');
+                    GetOpenID.get({url:absUrl},function(data){
+
+                    })
+                }
+            }
 
             $scope.param = {
                 tabValue : $stateParams.type
@@ -41,10 +62,10 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             function tabChange(){
                 if($scope.param.tabValue=='inReview')
                 {
-                    GetLivingServiceOrderStatus.get({status:'1'},function(data){
+                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:''},function(data){
                         console.log(data)
                         if(data.result == Global.SUCCESS){
-
+                            $scope.inReviewResponse = data.responseData;
                         }
                         else
                         {
@@ -54,10 +75,15 @@ angular.module('controllers',[]).controller('myServiceCtrl',
 
                     //催审核
                     $scope.sendMessage = function(id){
-                        sendMessage.get({livingServiceOrderID:id},function(data){
+                        SendMessage.get({livingServiceOrderID:id},function(data){
                             console.log(data)
                             if(data.result == Global.SUCCESS){
-
+                                var alertPopup = $ionicPopup.show({
+                                    title: data.responseData
+                                });
+                                $timeout(function() {
+                                    alertPopup.close();
+                                }, 1500);
                             }
                             else
                             {
@@ -69,16 +95,43 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 }
                 if($scope.param.tabValue=='inService')
                 {
-
+                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'1'},function(data){
+                        console.log(data)
+                        if(data.result == Global.SUCCESS){
+                            $scope.inServiceResponse = data.responseData;
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+                    })
                 }
                 if($scope.param.tabValue=='finished')
                 {
-
+                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'2'},function(data){
+                        console.log(data)
+                        if(data.result == Global.SUCCESS){
+                            $scope.finishedResponse = data.responseData;
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+                    })
 
                 }
                 if($scope.param.tabValue=='failed')
                 {
-
+                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'3'},function(data){
+                        console.log(data)
+                        if(data.result == Global.SUCCESS){
+                            $scope.failedResponse = data.responseData;
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+                    })
                 }
             }
             tabChange();
@@ -94,7 +147,13 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 DelLivingServiceOrder.get({livingServiceOrderID:id},function(data){
                     console.log(data)
                     if(data.result == Global.SUCCESS){
-
+                        var alertPopup = $ionicPopup.show({
+                            title:'删除成功'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                            tabChange();
+                        }, 1500);
                     }
                     else
                     {

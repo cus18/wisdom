@@ -1,30 +1,30 @@
 angular.module('controllers',[]).controller('subscribeServiceCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location',
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location','GetOpenID',
         'ElderUtil','GetUserInfo','CommitOrder',
-        function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,GetOpenID,
                   ElderUtil,GetUserInfo,CommitOrder) {
 
 
             //获取openid
-            var search = $location.search();
-            if(search.openid)
-            {
-                $rootScope.openid = $location.search().openid;
+            if(window.localStorage.getItem('openid')){
+                $rootScope.openid = window.localStorage.getItem('openid');
             }
             else
             {
-                var absUrl = $location.absUrl().replace('#','@');
-                GetOpenID.get({url:absUrl},function(data){
-                    if(data.result == Global.SUCCESS){
-                        $rootScope.openid = data.responseData;
-                    }
-                    else
-                    {
-                        alert(data.errorInfo)
-                    }
-                })
-            }
+                var search = $location.search();
+                if(search.openid)
+                {
+                    window.localStorage.setItem('openid',$location.search().openid);
+                    $rootScope.openid = window.localStorage.getItem('openid');
+                }
+                else
+                {
+                    var absUrl = $location.absUrl().replace('#','@');
+                    GetOpenID.get({url:absUrl},function(data){
 
+                    })
+                }
+            }
 
 
             $scope.subscribeInfo = {
