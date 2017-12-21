@@ -19,6 +19,7 @@ public class LivingServiceOrderStatus {
     private String status;
     private String discountPrice;
     private String discountPriceUnit;
+    private String officeName;
 
     public String getId() {
         return id;
@@ -114,5 +115,13 @@ public class LivingServiceOrderStatus {
 
     public void setDiscountPriceUnit(String discountPriceUnit) {
         this.discountPriceUnit = discountPriceUnit;
+    }
+
+    public String getOfficeName() {
+        return officeName;
+    }
+
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
     }
 }
