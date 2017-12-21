@@ -18,6 +18,7 @@
         </a>
     </div>
     <ion-content style="margin-top:47px">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="sortService()"></ion-refresher>
         <div class="list" ng-if="param.type=='short'">
             <a class="item item-avatar item-text-wrap"
                ng-repeat="item in shortResponse"
@@ -33,6 +34,7 @@
                     <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由{{item.officeName}}提供
                 </p>
             </a>
+            <ion-infinite-scroll ng-if="param.canMoreShort" on-infinite="loadMoreShort()" distance="1%" ></ion-infinite-scroll>
         </div>
         <div class="list" ng-if="param.type=='long'">
             <a class="item item-avatar item-text-wrap"
@@ -49,6 +51,7 @@
                     <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由{{item.officeName}}提供
                 </p>
             </a>
+            <ion-infinite-scroll ng-if="param.canMoreLong" on-infinite="loadMoreLong()" distance="1%" ></ion-infinite-scroll>
         </div>
         <div style="height:88px;"></div>
     </ion-content>

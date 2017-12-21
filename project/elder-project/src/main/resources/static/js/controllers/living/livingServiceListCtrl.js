@@ -6,6 +6,9 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
 
             $scope.param = {
                 type:$stateParams.type,
+                lastNo:0,
+                nextNoShort:0,
+                nextNoLong:10,
                 sort:''
             }
 
@@ -41,12 +44,21 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                     GetlivingServiceList.save({
                         id:'',
                         type:'short',
-                        lastNo:'0',
-                        nextNo:'50',
+                        lastNo:$scope.param.lastNo,
+                        nextNo:$scope.param.nextNoShort,
                         flag:$scope.param.sort
                     },function(data){
                         if(data.result == Global.SUCCESS){
                             $scope.shortResponse = data.responseData;
+                            if(data.responseData && data.responseData.length < $scope.param.nextNoShort){
+                                $scope.param.canMoreShort = false;
+                            }
+                            else
+                            {
+                                $scope.param.canMoreShort = true;
+                            }
+                            $scope.$broadcast('scroll.refreshComplete');
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                         else
                         {
@@ -60,12 +72,21 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                     GetlivingServiceList.save({
                         id:'',
                         type:'long',
-                        lastNo:'0',
-                        nextNo:'50',
+                        lastNo:$scope.param.lastNo,
+                        nextNo:$scope.param.nextNoLong,
                         flag:$scope.param.sort
                     },function(data){
                         if(data.result == Global.SUCCESS){
                             $scope.longResponse = data.responseData;
+                            if(data.responseData && data.responseData.length < $scope.param.nextNoLong){
+                                $scope.param.canMoreLong = false;
+                            }
+                            else
+                            {
+                                $scope.param.canMoreLong = true;
+                            }
+                            $scope.$broadcast('scroll.refreshComplete');
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                         else
                         {
@@ -120,6 +141,16 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
             $scope.sortService = function(){
                 serviceType();
                 $scope.sortHide();
+            }
+
+            $scope.loadMoreShort = function(){
+                $scope.param.nextNoShort += 10;
+                serviceType();
+            }
+
+            $scope.loadMoreLong = function(){
+                $scope.param.nextNoLong += 10;
+                serviceType();
             }
 
         }])
