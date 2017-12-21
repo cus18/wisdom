@@ -86,7 +86,7 @@
     </div>
     <div style="margin-top:70px;">
         <div ng-repeat="sortOption in sortList" class="sortDiv" ng-click="sortService()">
-            <input type="radio" name="sort" id="{{sortOption.id}}" value="{{sortOption.value}}" ng-model="sort" style="display:none;">
+            <input type="radio" name="sort" id="{{sortOption.id}}" value="{{sortOption.value}}" ng-model="param.sort" style="display:none;">
             <label for="{{sortOption.id}}" class="button button-light" style="width:100%;">{{sortOption.name}}</label>
         </div>
     </div>

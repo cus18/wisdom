@@ -5,7 +5,8 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                   ElderUtil,GetUserInfo,GetlivingServiceList) {
 
             $scope.param = {
-                type:$stateParams.type
+                type:$stateParams.type,
+                sort:''
             }
 
             if($rootScope.rootElderId!=undefined)
@@ -41,7 +42,8 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                         id:'',
                         type:'short',
                         lastNo:'0',
-                        nextNo:'10'
+                        nextNo:'10',
+                        flag:$scope.param.sort
                     },function(data){
                         if(data.result == Global.SUCCESS){
                             $scope.shortResponse = data.responseData;
@@ -59,7 +61,8 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                         id:'',
                         type:'long',
                         lastNo:'0',
-                        nextNo:'10'
+                        nextNo:'10',
+                        flag:$scope.param.sort
                     },function(data){
                         if(data.result == Global.SUCCESS){
                             $scope.longResponse = data.responseData;
@@ -94,16 +97,16 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
 
             //筛选
             $scope.sortList = [
-                {'id':'info1','value':'1','name':'全部'},
-                {'id':'info2','value':'2','name':'出行'},
-                {'id':'info3','value':'3','name':'购物'},
-                {'id':'info4','value':'4','name':'饮食'},
-                {'id':'info5','value':'5','name':'环境卫生'},
-                {'id':'info6','value':'6','name':'就医'},
-                {'id':'info7','value':'7','name':'健康管理'},
-                {'id':'info8','value':'8','name':'体能训练'},
-                {'id':'info9','value':'9','name':'咨询'},
-                {'id':'info10','value':'10','name':'个人清洁'}
+                {'id':'info1','value':'','name':'全部'},
+                {'id':'info2','value':'1','name':'出行'},
+                {'id':'info3','value':'2','name':'购物'},
+                {'id':'info4','value':'3','name':'饮食'},
+                {'id':'info5','value':'4','name':'环境卫生'},
+                {'id':'info6','value':'5','name':'就医'},
+                {'id':'info7','value':'6','name':'健康管理'},
+                {'id':'info8','value':'7','name':'体能训练'},
+                {'id':'info9','value':'8','name':'咨询'},
+                {'id':'info10','value':'9','name':'个人清洁'}
             ];
 
             $scope.sortShow = function(){

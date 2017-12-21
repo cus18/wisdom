@@ -1,8 +1,8 @@
 angular.module('controllers',[]).controller('myServiceCtrl',
     ['$scope','$rootScope','$stateParams','$state','ElderUtil','Global','GetLivingServiceOrderStatus',
-        'SendMessage','DelLivingServiceOrder','GetUserInfo',
+        'SendMessage','DelLivingServiceOrder','GetUserInfo','$location','GetOpenID',
         function ($scope,$rootScope,$stateParams,$state,ElderUtil,Global,GetLivingServiceOrderStatus,
-        SendMessage,DelLivingServiceOrder,GetUserInfo) {
+        SendMessage,DelLivingServiceOrder,GetUserInfo,$location,GetOpenID) {
 
             $scope.param = {
                 tabValue : $stateParams.type
@@ -33,6 +33,10 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             GetUserInfo.save(function(data){
                 ElderUtil.checkResponseData(data,'myService/'+$stateParams.type);
             })
+
+
+
+
 
             function tabChange(){
                 if($scope.param.tabValue=='inReview')
