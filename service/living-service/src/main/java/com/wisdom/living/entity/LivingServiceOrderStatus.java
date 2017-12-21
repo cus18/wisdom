@@ -20,6 +20,8 @@ public class LivingServiceOrderStatus {
     private String discountPrice;
     private String discountPriceUnit;
     private String officeName;
+    private String unpaid;
+    private String refusal;
 
     public String getId() {
         return id;
@@ -123,5 +125,21 @@ public class LivingServiceOrderStatus {
 
     public void setOfficeName(String officeName) {
         this.officeName = officeName;
+    }
+
+    public String getUnpaid() {
+        return unpaid;
+    }
+
+    public void setUnpaid(String unpaid) {
+        this.unpaid = unpaid;
+    }
+
+    public String getRefusal() {
+        return refusal;
+    }
+
+    public void setRefusal(String refusal) {
+        this.refusal = refusal;
     }
 }
