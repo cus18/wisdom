@@ -10,18 +10,18 @@ angular.module('elderGlobal',[])
             PARAM_ERROR: '0x00007',
             LOGIN_SUCCESS_SECOND : '0x00008',
         })
-    .factory('openidUtil',['Global','$rootScope',
-        function(Global,$rootScope){
+    .factory('openidUtil',['Global','$rootScope','$location',
+        function(Global,$rootScope,$location){
             return{
-                checkResponseData:function(url,redirectParam){
+                checkResponseData:function(redirectParam){
                     if(window.localStorage.getItem('openid')){
                         $rootScope.openid = window.localStorage.getItem('openid');
                     }
                     else
                     {
-                        if(url.openid)
+                        if($location.search().openid)
                         {
-                            window.localStorage.setItem('openid',url.openid);
+                            window.localStorage.setItem('openid',$location.search().openid);
                             $rootScope.openid = window.localStorage.getItem('openid');
                         }
                         else

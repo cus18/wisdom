@@ -7,7 +7,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
 
             //获取openid
             var absUrl = $location.absUrl().replace('#','@');
-            openidUtil.checkResponseData($location.search(),absUrl);
+            openidUtil.checkResponseData(absUrl);
 
             $scope.param = {
                 tabValue : $stateParams.type
