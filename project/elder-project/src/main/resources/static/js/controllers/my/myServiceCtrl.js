@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
         SendMessage,DelLivingServiceOrder,GetUserInfo,$location,GetOpenID,$ionicPopup,openidUtil) {
 
 
-            //获取openid
+
             var absUrl = $location.absUrl().replace('#','@');
             openidUtil.checkResponseData(absUrl);
 

@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
                   ElderUtil,GetUserInfo,CommitOrder,openidUtil) {
 
 
-            //获取openid
+
             var absUrl = $location.absUrl().replace('#','@');
             openidUtil.checkResponseData(absUrl);
 
@@ -66,7 +66,7 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
                }
                else
                {
-                   alert('请完善联系信息内容')
+                   alert('请完善联系信息')
                }
 
 
