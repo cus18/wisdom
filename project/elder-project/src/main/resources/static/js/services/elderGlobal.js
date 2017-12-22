@@ -10,6 +10,28 @@ angular.module('elderGlobal',[])
             PARAM_ERROR: '0x00007',
             LOGIN_SUCCESS_SECOND : '0x00008',
         })
+    .factory('openidUtil',['Global','$rootScope',
+        function(Global,$rootScope){
+            return{
+                checkResponseData:function(url,redirectParam){
+                    if(window.localStorage.getItem('openid')){
+                        $rootScope.openid = window.localStorage.getItem('openid');
+                    }
+                    else
+                    {
+                        if(url.openid)
+                        {
+                            window.localStorage.setItem('openid',url.openid);
+                            $rootScope.openid = window.localStorage.getItem('openid');
+                        }
+                        else
+                        {
+                            window.location.href = "http://wechat.hlsenior.com/wechat/getOpenID?url=" + redirectParam;
+                        }
+                    }
+                }
+            }
+    }])
     .factory('ElderUtil', ['Global','$ionicPopup',
         function(Global,$ionicPopup) {
             return {

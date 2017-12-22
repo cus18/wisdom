@@ -47,10 +47,10 @@ angular.module('controllers',[]).controller('beadHouseDetailCtrl',
 
 
             GetlivingServiceList.save({
-                id:$stateParams.beadHouseId,
+                sys_office_id:$stateParams.beadHouseId,
                 type:'short',
                 lastNo:'0',
-                nextNo:'10'
+                nextNo:'50'
             },function(data){
                 if(data.result == Global.SUCCESS){
                     $scope.shortResponse = data.responseData;
@@ -63,7 +63,10 @@ angular.module('controllers',[]).controller('beadHouseDetailCtrl',
             })
 
             GetlivingServiceList.save({
-                sys_office_id:$stateParams.beadHouseId
+                sys_office_id:$stateParams.beadHouseId,
+                type:'long',
+                lastNo:'0',
+                nextNo:'50'
             },function(data){
                 if(data.result == Global.SUCCESS){
                     $scope.longResponse = data.responseData;

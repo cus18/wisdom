@@ -1,29 +1,13 @@
 angular.module('controllers',[]).controller('myServiceCtrl',
     ['$scope','$rootScope','$stateParams','$state','ElderUtil','Global','GetLivingServiceOrderStatus','$timeout',
-        'SendMessage','DelLivingServiceOrder','GetUserInfo','$location','GetOpenID','$ionicPopup',
+        'SendMessage','DelLivingServiceOrder','GetUserInfo','$location','GetOpenID','$ionicPopup','openidUtil',
         function ($scope,$rootScope,$stateParams,$state,ElderUtil,Global,GetLivingServiceOrderStatus,$timeout,
-        SendMessage,DelLivingServiceOrder,GetUserInfo,$location,GetOpenID,$ionicPopup) {
+        SendMessage,DelLivingServiceOrder,GetUserInfo,$location,GetOpenID,$ionicPopup,openidUtil) {
+
 
             //获取openid
-            if(window.localStorage.getItem('openid')){
-                $rootScope.openid = window.localStorage.getItem('openid');
-            }
-            else
-            {
-                var search = $location.search();
-                if(search.openid)
-                {
-                    window.localStorage.setItem('openid',$location.search().openid);
-                    $rootScope.openid = window.localStorage.getItem('openid');
-                }
-                else
-                {
-                    var absUrl = $location.absUrl().replace('#','@');
-                    GetOpenID.get({url:absUrl},function(data){
-
-                    })
-                }
-            }
+            var absUrl = $location.absUrl().replace('#','@');
+            openidUtil.checkResponseData($location.search(),absUrl);
 
             $scope.param = {
                 tabValue : $stateParams.type

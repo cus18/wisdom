@@ -1,30 +1,13 @@
 angular.module('controllers',[]).controller('subscribeServiceCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location','GetOpenID',
-        'ElderUtil','GetUserInfo','CommitOrder',
+        'ElderUtil','GetUserInfo','CommitOrder','openidUtil',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,GetOpenID,
-                  ElderUtil,GetUserInfo,CommitOrder) {
+                  ElderUtil,GetUserInfo,CommitOrder,openidUtil) {
 
 
             //获取openid
-            if(window.localStorage.getItem('openid')){
-                $rootScope.openid = window.localStorage.getItem('openid');
-            }
-            else
-            {
-                var search = $location.search();
-                if(search.openid)
-                {
-                    window.localStorage.setItem('openid',$location.search().openid);
-                    $rootScope.openid = window.localStorage.getItem('openid');
-                }
-                else
-                {
-                    var absUrl = $location.absUrl().replace('#','@');
-                    GetOpenID.get({url:absUrl},function(data){
-
-                    })
-                }
-            }
+            var absUrl = $location.absUrl().replace('#','@');
+            openidUtil.checkResponseData($location.search(),absUrl);
 
 
             $scope.subscribeInfo = {
