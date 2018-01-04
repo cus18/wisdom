@@ -47,7 +47,6 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 if($scope.param.tabValue=='inReview')
                 {
                     GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:''},function(data){
-                        console.log(data)
                         if(data.result == Global.SUCCESS){
                             $scope.inReviewResponse = data.responseData;
                         }
@@ -60,7 +59,6 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                     //催审核
                     $scope.sendMessage = function(id){
                         SendMessage.get({livingServiceOrderID:id},function(data){
-                            console.log(data)
                             if(data.result == Global.SUCCESS){
                                 var alertPopup = $ionicPopup.show({
                                     title: data.responseData
@@ -80,7 +78,6 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 if($scope.param.tabValue=='inService')
                 {
                     GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'1'},function(data){
-                        console.log(data)
                         if(data.result == Global.SUCCESS){
                             $scope.inServiceResponse = data.responseData;
                         }
@@ -92,8 +89,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 }
                 if($scope.param.tabValue=='finished')
                 {
-                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'2'},function(data){
-                        console.log(data)
+                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'3'},function(data){
                         if(data.result == Global.SUCCESS){
                             $scope.finishedResponse = data.responseData;
                         }
@@ -106,8 +102,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
                 }
                 if($scope.param.tabValue=='failed')
                 {
-                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'3'},function(data){
-                        console.log(data)
+                    GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'4'},function(data){
                         if(data.result == Global.SUCCESS){
                             $scope.failedResponse = data.responseData;
                         }
@@ -129,7 +124,6 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             //删除服务订单
             $scope.delOrder = function(id){
                 DelLivingServiceOrder.get({livingServiceOrderID:id},function(data){
-                    console.log(data)
                     if(data.result == Global.SUCCESS){
                         var alertPopup = $ionicPopup.show({
                             title:'删除成功'
