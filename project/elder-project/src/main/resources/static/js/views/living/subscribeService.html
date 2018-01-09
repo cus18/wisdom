@@ -12,7 +12,7 @@
             </h2>
             <style>
                 .careDiv{
-                    width:25%;
+                    min-width:25%;
                     float:left;
                     margin:5px 15px;
                     text-align:center;
@@ -23,10 +23,6 @@
                 }
             </style>
             <div style="overflow:hidden;margin:15px 0 20px;">
-                <!--<div ng-repeat="careOption in careList" class="careDiv">-->
-                    <!--<input type="checkbox" id="{{careOption.id}}" ng-click="repeatSelection($event,careOption.value)" style="display:none;">-->
-                    <!--<label for="{{careOption.id}}" class="button button-light" style="width:100%;">{{careOption.name}}</label>-->
-                <!--</div>-->
                 <div ng-repeat="careOption in careList" class="careDiv">
                     <input type="radio" id="{{careOption.id}}" value="{{careOption.value}}" ng-model="subscribeInfo.care" style="display:none;">
                     <label for="{{careOption.id}}" class="button button-light" style="width:100%;">{{careOption.name}}</label>

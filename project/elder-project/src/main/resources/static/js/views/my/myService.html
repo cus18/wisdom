@@ -72,9 +72,9 @@
                 <div style="margin-top:2%;">
                     <div class="item-content">
                         <i class="">{{item.name}}</i>
-                        <i class="item-note">
+                        <i class="item-note text-right">
                             <p class="">优惠价：￥{{item.discountPrice}}元/{{item.discountPriceUnit}}</p>
-                            <p class="text-right">￥{{item.price}}元/1{{item.priceUnit}}</p>
+                            <del>￥{{item.price}}元/{{item.priceUnit}}</del>
                         </i>
                     </div>
                     <p style="margin:3% 0;white-space:normal;">{{item.officeName}}收到您的服务费，并确认本次交易生效</p>
@@ -98,7 +98,10 @@
                             <p class="text-right">￥{{item.price}}元/{{item.priceUnit}}</p>
                         </i>
                     </div>
-                    <p style="margin:3% 0;white-space:normal;">{{item.officeName}}拒绝了您的预约，原因是“{{item.refusal}}”</p>
+                    <p style="margin:3% 0;white-space:normal;">{{item.officeName}}拒绝了您的预约，原因是“
+                        <span ng-if="item.refusal">{{item.refusal}}</span>
+                        <span ng-if="item.unpaid">{{item.unpaid}}</span>
+                        ”</p>
                     <div class="item-content">
                         <i class="">预约时间：{{item.create_date | date:'yyyy年MM月dd日 HH:mm'}}</i>
                         <i class="item-note" ng-click="delOrder(item.id)">删除订单</i>

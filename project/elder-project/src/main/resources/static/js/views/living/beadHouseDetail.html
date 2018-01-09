@@ -45,12 +45,12 @@
             <a class="item item-avatar item-text-wrap"
                ng-repeat="item in shortResponse"
                style="min-height:115px" ng-click="livingServiceDetail(item.id)">
-                <h2>
+                <h2 style="height:50px;">
                     <span style="margin-left:-15%;font-size:20px">{{item.name}}</span>
                     <span style="float:right">¥{{item.price}}元/{{item.priceUnit}}</span>
                 </h2>
                 <button class="button button-energized button-small item-note"
-                        style="margin-top:27px;min-width:55px">详情</button>
+                        style="margin-top:15px;min-width:55px">详情</button>
                 <p style="margin-left:-42px">{{item.description}}</p>
                 <p style="margin-left:-42px">
                     <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由{{item.officeName}}提供
@@ -61,12 +61,12 @@
             <a class="item item-avatar item-text-wrap"
                ng-repeat="item in longResponse"
                style="min-height:115px" ng-click="livingServiceDetail(item.id)">
-                <h2>
+                <h2 style="height:50px;">
                     <span style="margin-left:-15%;font-size:20px">{{item.name}}</span>
                     <span style="float:right">¥{{item.price}}元/{{item.priceUnit}}</span>
                 </h2>
                 <button class="button button-energized button-small item-note"
-                        style="margin-top:27px;min-width:55px">详情</button>
+                        style="margin-top:15px;min-width:55px">详情</button>
                 <p style="margin-left:-42px">{{item.description}}</p>
                 <p style="margin-left:-42px">
                     <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由{{item.officeName}}提供
