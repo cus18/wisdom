@@ -42,14 +42,14 @@ public class WechatService {
 	private WeChatAttentionMapper weChatAttentionMapper;
 
 	//华录老友
-//	private static final String appid="wx07acc4feaf7d07d3";
-//
-//	private static final String secret="a13b8339bd15fb3a498a002f9ece36b3";
+	public static final String appid="wx07acc4feaf7d07d3";
+
+	public static final String secret="a13b8339bd15fb3a498a002f9ece36b3";
 
 	//测试微信号
-	public static final String appid="wx952c2a0a6b0d63c0";
-
-	public static final String secret="d4624c36b6795d1d99dcf0547af5443d";
+//	public static final String appid="wx952c2a0a6b0d63c0";
+//
+//	public static final String secret="d4624c36b6795d1d99dcf0547af5443d";
 
 	@PostConstruct
 	public void init() {
