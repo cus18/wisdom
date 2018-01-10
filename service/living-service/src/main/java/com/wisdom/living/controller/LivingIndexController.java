@@ -2,11 +2,9 @@ package com.wisdom.living.controller;
 
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.ResponseDTO;
-import com.wisdom.living.client.CoreServiceClient;
 import com.wisdom.living.entity.LivingService;
 import com.wisdom.living.entity.LivingServiceOffice;
 import com.wisdom.living.entity.LivingServiceOrder;
-import com.wisdom.living.interceptor.LoginRequired;
 import com.wisdom.living.service.LivingServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +25,6 @@ public class LivingIndexController {
 	@Autowired
 	LivingServiceService livingServiceService;
 
-	@Autowired
-	CoreServiceClient coreServiceClient;
 
 	/**
 	 * 获取 living service 列表
@@ -101,7 +97,6 @@ public class LivingIndexController {
 	@ResponseBody
 	ResponseDTO sendMessage(@RequestParam String livingServiceOrderID,HttpServletRequest request) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-//		livingServiceService.sendMessage(livingServiceOrderID,coreServiceClient.getUserInfo(request).getElderUserDTO().getId());
 		livingServiceService.sendMessage(livingServiceOrderID,"");
 		responseDto.setResult(StatusConstant.SUCCESS);
 		responseDto.setResponseData("发送成功");
@@ -116,9 +111,10 @@ public class LivingIndexController {
 //	@LoginRequired
 	public
 	@ResponseBody
+
 	ResponseDTO delLivingServiceOrder(@RequestParam String livingServiceOrderID) {
 		ResponseDTO responseDto=new ResponseDTO<>();
-		livingServiceService.delLivingServiceOrder(livingServiceOrderID);
+		Integer a=livingServiceService.delLivingServiceOrder(livingServiceOrderID);
 		responseDto.setResult(StatusConstant.SUCCESS);
 		return responseDto;
 	}

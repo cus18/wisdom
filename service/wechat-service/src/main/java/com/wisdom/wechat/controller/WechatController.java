@@ -67,8 +67,8 @@ public class WechatController {
 		 */
 		@RequestMapping(value = "getOpenID", method = {RequestMethod.POST, RequestMethod.GET})
 		public void getOpenID(@RequestParam String url,HttpServletRequest request,HttpServletResponse response) throws Exception {
-			String redirectUrl= URLEncoder.encode("http://hualulaoyou.viphk.ngrok.org/wechat/returnCode?url="+url,"UTF-8");
-			String requestUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx952c2a0a6b0d63c0&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+			String redirectUrl= URLEncoder.encode("http://wechat.hlsenior.com/wechat/returnCode?url="+url,"UTF-8");
+			String requestUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WechatService.appid+"&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 			response.sendRedirect(requestUrl);
 	}
 
@@ -86,7 +86,13 @@ public class WechatController {
 		response.sendRedirect(url+"?openid="+map.get("openid"));
 	}
 
-
-
+	/**
+	 * 获取微信 Token
+	 * @return
+	 */
+	@RequestMapping(value = "getWeChatToken", method = {RequestMethod.POST, RequestMethod.GET})
+	public String getWeChatToken(){
+		return WechatService.getWechatToken();
+	}
 
 }
