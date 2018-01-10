@@ -6,7 +6,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
 
 
 
-            var absUrl = $location.absUrl().replace('#','@');
+
             openidUtil.checkResponseData(absUrl);
 
             $scope.param = {
@@ -40,7 +40,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             })
 
 
-
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
 
             function tabChange(){

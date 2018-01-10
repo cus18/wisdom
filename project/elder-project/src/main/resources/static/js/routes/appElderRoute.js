@@ -610,7 +610,7 @@ define(['appElder'], function(app){
                         }
                     })
                     .state('subscribeService', {
-                        url: '/subscribeService/:livingServiceId',
+                        url: '/subscribeService/:livingServiceId,:information',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'subscribeServiceCtrl',
                         resolve: {

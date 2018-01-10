@@ -52,7 +52,7 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
 
             $scope.subscribeService = function()
             {
-                $state.go('subscribeService',{livingServiceId:$stateParams.livingServiceId});
+                $state.go('subscribeService',{livingServiceId:$stateParams.livingServiceId,information:$scope.response.information});
             }
 
 

@@ -1,14 +1,14 @@
 angular.module('controllers',[]).controller('subscribeServiceCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location','GetOpenID',
-        'ElderUtil','GetUserInfo','CommitOrder','openidUtil',
+        'ElderUtil','GetUserInfo','CommitOrder','openidUtil','$ionicPopup','$timeout',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,GetOpenID,
-                  ElderUtil,GetUserInfo,CommitOrder,openidUtil) {
+                  ElderUtil,GetUserInfo,CommitOrder,openidUtil,$ionicPopup,$timeout) {
 
 
 
-            var absUrl = $location.absUrl().replace('#','@');
-            openidUtil.checkResponseData(absUrl);
 
+            openidUtil.checkResponseData();
+            $scope.info = $stateParams.information;
 
             $scope.subscribeInfo = {
                 livingservice_id:$stateParams.livingServiceId,
@@ -39,35 +39,95 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
 
             /*自理能力*/
             $scope.careList = [
-                {'id':'info1','value':'1','name':'自理'},
-                {'id':'info2','value':'2','name':'部分失能'},
-                {'id':'info3','value':'3','name':'失能一级'},
-                {'id':'info4','value':'4','name':'失能二级'},
-                {'id':'info5','value':'5','name':'完全失能'}
+                { text: "自理", value: "1" },
+                { text: "部分失能", value: "2" },
+                { text: "失能一级", value: "3" },
+                { text: "失能二级", value: "4" },
+                { text: "完全失能", value: "5" }
             ];
+
 
             GetUserInfo.save(function(data){
                 ElderUtil.checkResponseData(data,'subscribeService/'+$stateParams.livingServiceId);
             })
 
-            $scope.subscribeConfirm = function(valid){
-                // $scope.subscribeInfo.care=$scope.subscribeInfo.care.join(';');
-               if(valid){
-                   CommitOrder.save($scope.subscribeInfo,function(data){
-                       if(data.result == Global.SUCCESS){
-                           $state.go('subscribeServiceSuccess',{livingServiceId:$stateParams.livingServiceId})
-                       }
-                       else
-                       {
-                           console.log(data.errorInfo);
-                       }
+            $scope.subscribeConfirm = function(){
+                $scope.submit = function(){
+                    CommitOrder.save($scope.subscribeInfo,function(data){
+                        if(data.result == Global.SUCCESS){
+                            $state.go('subscribeServiceSuccess',{livingServiceId:$stateParams.livingServiceId})
+                        }
+                        else
+                        {
+                            console.log(data.errorInfo);
+                        }
+                    })
+                }
+                if($scope.info.indexOf('1')>=0 && $scope.info.indexOf('2')>=0 && $scope.info.indexOf('3')>0 && $scope.info.indexOf('4')>=0)
+                {
+                    if($scope.subscribeInfo.care && $scope.subscribeInfo.name && $scope.subscribeInfo.phone && $scope.subscribeInfo.address && $scope.subscribeInfo.remarks)
+                    {
+                        $scope.submit();
+                    }
+                    else
+                    {
+                        var alertPopup = $ionicPopup.show({
+                            title:'商家要求填写“自理能力”、“联系信息”、“服务地点”、“备注”'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                        }, 2000);
+                    }
+                }
+                else if($scope.info.indexOf('1')>=0 && $scope.info.indexOf('2')>=0 && $scope.info.indexOf('3')>=0)
+                {
+                    if($scope.subscribeInfo.care && $scope.subscribeInfo.name && $scope.subscribeInfo.phone && $scope.subscribeInfo.address)
+                    {
+                        $scope.submit();
+                    }
+                    else
+                    {
+                        var alertPopup = $ionicPopup.show({
+                            title:'商家要求填写“自理能力”、“联系信息”、“服务地点”'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                        }, 2000);
+                    }
+                }
+                else if($scope.info.indexOf('1')>=0 && $scope.info.indexOf('2')>=0)
+                {
+                    if($scope.subscribeInfo.care && $scope.subscribeInfo.name && $scope.subscribeInfo.phone)
+                    {
+                        $scope.submit();
+                    }
+                    else
+                    {
+                        var alertPopup = $ionicPopup.show({
+                            title:'商家要求填写“自理能力”、“联系信息”'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                        }, 2000);
+                    }
+                }
+                else if($scope.info.indexOf('2')>=0)
+                {
+                    if($scope.subscribeInfo.name && $scope.subscribeInfo.phone)
+                    {
+                        $scope.submit();
+                    }
+                    else
+                    {
+                        var alertPopup = $ionicPopup.show({
+                            title:'商家要求填写“联系信息”'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                        }, 2000);
+                    }
+                }
 
-                   })
-               }
-               else
-               {
-                   alert('请完善联系信息')
-               }
 
 
             }

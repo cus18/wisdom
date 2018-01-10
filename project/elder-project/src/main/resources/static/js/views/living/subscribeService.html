@@ -11,32 +11,27 @@
                 自理能力
             </h2>
             <style>
-                .careDiv{
-                    min-width:25%;
-                    float:left;
-                    margin:5px 15px;
-                    text-align:center;
-                }
-                .careDiv>input:checked~label{
-                    background-color: #ddd;
-                    border-color:#ddd;
-                }
+                .item-radio .item-content{padding:16px 0px;}
+                .item-radio input:checked+.radio-content .item-content{background:#ddd;}
+                .ion-checkmark:before{content:'';}
             </style>
-            <div style="overflow:hidden;margin:15px 0 20px;">
-                <div ng-repeat="careOption in careList" class="careDiv">
-                    <input type="radio" id="{{careOption.id}}" value="{{careOption.value}}" ng-model="subscribeInfo.care" style="display:none;">
-                    <label for="{{careOption.id}}" class="button button-light" style="width:100%;">{{careOption.name}}</label>
-                </div>
+            <div style="overflow:hidden;margin:15px 0 20px;padding-left:17px;">
+                <ion-radio ng-repeat="item in careList"
+                           ng-value="item.value"
+                           ng-model="subscribeInfo.care"
+                           style="min-width:25%;float:left;margin:5px 17px 5px 0px;text-align:center;">
+                    {{ item.text }}
+                </ion-radio>
             </div>
             <h2 style="font-size:18px;margin-left:15px;width:100%">
                 联系信息
             </h2>
             <div class="list" style="margin-top: 15px;">
                 <label class="item item-input">
-                    <input type="text" placeholder="输入姓名" ng-model="subscribeInfo.name" required>
+                    <input type="text" placeholder="输入姓名" ng-model="subscribeInfo.name">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="输入电话" ng-model="subscribeInfo.phone" required>
+                    <input type="text" placeholder="输入电话" ng-model="subscribeInfo.phone">
                 </label>
             </div>
             <h2 style="font-size:18px;margin-left:15px;width:100%">
@@ -60,7 +55,7 @@
             </div>
             <button class="button button-assertive"
                     style="width:60%;height:100%;margin-left:22%"
-                    ng-click="subscribeConfirm(subscribeForm.$valid)">
+                    ng-click="subscribeConfirm()">
                 确认预约
             </button>
         </form>
