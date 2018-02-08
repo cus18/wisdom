@@ -1,5 +1,6 @@
 package com.wisdom.community.service;
 
+import com.wisdom.common.dto.basic.ActivityDiscuss;
 import com.wisdom.common.dto.basic.ActivityEasemobGroup;
 import com.wisdom.common.dto.basic.ActivityUser;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
@@ -95,5 +96,13 @@ public class ActivityService {
         return activity.getActivityEasemobGroupID();
     }
 
+
+    public Integer addActivityDiscuss(ActivityDiscussDTO activityDiscussDTO) {
+        ActivityDiscuss activityDiscuss = new ActivityDiscuss();
+        activityDiscuss.setContent(activityDiscussDTO.getDiscussContent());
+        activityDiscuss.setOpenID(activityDiscussDTO.getOpenID());
+        activityDiscuss.setActivityID(activityDiscussDTO.getActivityId());
+        return activityDiscussMapper.addActivityDiscuss(activityDiscuss);
+    }
 
 }

@@ -5,8 +5,8 @@
     <insert id="addActivityDiscuss">
 		INSERT INTO
 		`laoyou`.`activity_discuss`
-		(`activity_id`, `sys_elder_user_id`, `content`)
-	  	VALUES (#{activityID},#{sysUserElderID}, #{content})
+		(`activity_id`, `openID`, `content`)
+	  	VALUES (#{activityID},#{openID}, #{content})
 	</insert>
 
 

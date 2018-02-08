@@ -5,8 +5,6 @@ import com.wisdom.common.dto.community.activity.ActivityDTO;
 import com.wisdom.common.dto.community.activity.ActivityDiscussDTO;
 import com.wisdom.common.dto.core.PageParamDTO;
 import com.wisdom.common.dto.core.ResponseDTO;
-import com.wisdom.common.dto.core.user.UserInfoDTO;
-import com.wisdom.community.client.CoreServiceClient;
 import com.wisdom.community.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +23,6 @@ import java.util.List;
 @RequestMapping(value = "activity")
 public class ActivityController {
 
-	@Autowired
-	CoreServiceClient coreServiceClient;
 
 	@Autowired
 	ActivityService activityService;
@@ -155,5 +151,27 @@ public class ActivityController {
 		return responseDTO;
 	}
 
+	/**
+	 * 用户针对对某个活动的发表评论
+	 *
+	 *  input activityDiscussDTO,
+	 *
+	 *  output ResponseDTO<List<ActivityDiscussDTO>>
+	 *
+	 */
+	@RequestMapping(value = "activityDiscuss/create", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO CreateActivityDiscuss(@RequestBody ActivityDiscussDTO activityDiscussDTO,
+									  HttpServletRequest request) {
+		ResponseDTO<List<ActivityDiscussDTO>> responseDTO = new ResponseDTO<>();
+		/****
+		 根据活动的ID号，用户对某个活动发表评论
+		 *****/
+		activityService.addActivityDiscuss(activityDiscussDTO);
+
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
 
 }
