@@ -38,8 +38,8 @@ public class ActivityService {
     @Autowired
     CoreServiceClient coreServiceClient;
 
-    public List<ActivityDTO> activityListByFirstPage(String hospitalID) {
-        List<ActivityDTO> list = activityMapper.getMyHospitalActivityListByHospitalID(hospitalID);
+    public List<ActivityDTO> activityListByFirstPage() {
+        List<ActivityDTO> list = activityMapper.getMyHospitalActivityListByHospitalID();
         if(list.size()==0){
             list = activityMapper.getMyActivityListByElderID(null,2,null);
         }else if(list.size()==1){

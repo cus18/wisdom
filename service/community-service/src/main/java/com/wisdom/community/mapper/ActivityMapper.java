@@ -32,7 +32,7 @@ public interface ActivityMapper {
 
 	List<ActivityDTO> getMyFavoriteActivityList(@Param("sysElderUserID") String sysElderUserID);
 
-	List<ActivityDTO> getMyHospitalActivityListByHospitalID(@Param("hospitalID") String hospitalID);
+	List<ActivityDTO> getMyHospitalActivityListByHospitalID();
 
 	Activity getActivityByGroupID(String groupID);
 

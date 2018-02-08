@@ -101,7 +101,7 @@
 		left join activity_user au on a.id=au.activity_id
 		left join sys_user su on a.sys_user_id=su.id
 		left join sys_hospital_user sh on su.id=sh.sys_user_id
-		where sh.id=#{hospitalID}  group by a.id  limit 2
+		 group by a.id  limit 2
 	</select>
 
 	<update id="updateActivityStatus">
