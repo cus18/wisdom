@@ -361,7 +361,7 @@ public class WechatService {
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		String openId = xmlEntity.getFromUserName();
 		String id = UUID.randomUUID().toString().replaceAll("-", "");
-		WechatBean wechatBean = WechatUtil.getWechatName(token, openId);
+		WechatBean wechatBean = WechatUtil.getWechatName(openId);
 		WeChatAttention weChatAttention=new WeChatAttention();
 		weChatAttention.setStatus("0");
 		weChatAttention.setOpenid(openId);
@@ -375,7 +375,7 @@ public class WechatService {
 		String EventKey = xmlEntity.getEventKey();
 		String openId = xmlEntity.getFromUserName();
 		String marketer = EventKey.replace("qrscene_", "");
-		WechatBean wechatBean = WechatUtil.getWechatName(WechatService.getWechatToken(), openId);
+		WechatBean wechatBean = WechatUtil.getWechatName(openId);
 		WeChatAttention weChatAttention=new WeChatAttention();
 		weChatAttention.setStatus("0");
 		weChatAttention.setOpenid(openId);
@@ -434,7 +434,7 @@ public class WechatService {
 		session.setAttribute("openId", xmlEntity.getFromUserName());
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		String openId = xmlEntity.getFromUserName();
-		WechatBean wechatBean = WechatUtil.getWechatName(WechatService.getWechatToken(), openId);
+		WechatBean wechatBean = WechatUtil.getWechatName(openId);
 		WeChatAttention weChatAttention=new WeChatAttention();
 		weChatAttention.setStatus("1");
 		weChatAttention.setOpenid(openId);

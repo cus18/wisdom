@@ -29,6 +29,7 @@
             and loi.`status` = #{status}
             and loi.del_flag='0'
         </if>
+        order by lo.create_date desc
     </select>
 
     <update id="delLivingServiceOrder">

@@ -11,16 +11,16 @@ public class ActivityDiscussDTO {
     private String activityId;
 
     //此条评论的评论者的logo
-    @JSONField(name = "elderLogo")
-    private String elderLogo;
+    @JSONField(name = "weChatHeadPhoto")
+    private String weChatHeadPhoto;
 
     //此条评论的评论者的名称
-    @JSONField(name = "elderName")
-    private String elderName;
+    @JSONField(name = "weChatNickName")
+    private String wechatNickName;
 
     //此条评论的评论者的ID号
-    @JSONField(name = "elderId")
-    private String elderId;
+    @JSONField(name = "openID")
+    private String openID;
 
     //此条评论的创建时间
     @JSONField(name = "discussDate")
@@ -30,6 +30,8 @@ public class ActivityDiscussDTO {
     @JSONField(name = "discussContent")
     private String discussContent;
 
+
+
     public String getActivityId() {
         return activityId;
     }
@@ -38,28 +40,28 @@ public class ActivityDiscussDTO {
         this.activityId = activityId;
     }
 
-    public String getElderLogo() {
-        return elderLogo;
+    public String getWeChatHeadPhoto() {
+        return weChatHeadPhoto;
     }
 
-    public void setElderLogo(String elderLogo) {
-        this.elderLogo = elderLogo;
+    public void setWeChatHeadPhoto(String weChatHeadPhoto) {
+        this.weChatHeadPhoto = weChatHeadPhoto;
     }
 
-    public String getElderName() {
-        return elderName;
+    public String getWechatNickName() {
+        return wechatNickName;
     }
 
-    public void setElderName(String elderName) {
-        this.elderName = elderName;
+    public void setWechatNickName(String wechatNickName) {
+        this.wechatNickName = wechatNickName;
     }
 
-    public String getElderId() {
-        return elderId;
+    public String getOpenID() {
+        return openID;
     }
 
-    public void setElderId(String elderId) {
-        this.elderId = elderId;
+    public void setOpenID(String openID) {
+        this.openID = openID;
     }
 
     public Date getDiscussDate() {

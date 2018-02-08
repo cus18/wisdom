@@ -149,11 +149,11 @@ public class HealthDataService {
             info.setMeasureTime(measureTime);
             info.setRemark(((CommonDataDTO)detectionDTO.getDetectionData().get(0)).getRemarks());
             vo.setData(info);
-            mongoTemplate.save(vo,"finalHealthDataDTO");
             message = CoreServiceClient.getEasemobMessageUrl("chatType4",vo.getMeasureId(),vo.getMeasureTime(),info.getDiastolic(),info.getSystolic(),info.getHeartRate());
         }else{
             throw new Exception("类型不存在！");
         }
+        mongoTemplate.save(vo,"finalHealthDataDTO");
         mongoTemplate.save(vo);
 
         if(StringUtils.isNotNull(message)){

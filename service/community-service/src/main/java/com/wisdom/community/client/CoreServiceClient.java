@@ -48,4 +48,14 @@ public interface CoreServiceClient {
     @RequestMapping(value = "/bannerList", method = {RequestMethod.GET})
     ResponseDTO<List<BannerDTO>> getBannerList();
 
+
+    //活动
+
+    @RequestMapping(value = "/signEasemobUser", method = {RequestMethod.GET})
+    ResponseDTO signEasemobUser(@RequestParam String userID, @RequestParam String password, @RequestParam String... nickname);
+
+
+    @RequestMapping(value = "/joinEasemobGroup", method = {RequestMethod.GET})
+    boolean joinEasemobGroup(@RequestParam String groupID, @RequestParam String easemobID);
+
 }

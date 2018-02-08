@@ -1,18 +1,19 @@
 package com.wisdom.community.service;
 
-import com.alibaba.fastjson.JSON;
+import com.wisdom.common.dto.basic.ActivityEasemobGroup;
+import com.wisdom.common.dto.basic.ActivityUser;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
 import com.wisdom.common.dto.community.activity.ActivityDiscussDTO;
+import com.wisdom.community.client.CoreServiceClient;
 import com.wisdom.community.mapper.ActivityDiscussMapper;
+import com.wisdom.community.mapper.ActivityEasemobGroupMapper;
 import com.wisdom.community.mapper.ActivityMapper;
 import com.wisdom.community.mapper.ActivityUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zbm84 on 2017/7/24.
@@ -29,6 +30,12 @@ public class ActivityService {
 
     @Autowired
     private ActivityDiscussMapper activityDiscussMapper;
+
+    @Autowired
+    private ActivityEasemobGroupMapper activityEasemobGroupMapper;
+
+    @Autowired
+    CoreServiceClient coreServiceClient;
 
     public List<ActivityDTO> activityListByFirstPage(String hospitalID) {
         List<ActivityDTO> list = activityMapper.getMyHospitalActivityListByHospitalID(hospitalID);
@@ -50,11 +57,43 @@ public class ActivityService {
         return activityMapper.getActivityList(elderID,null).get(0);
     }
 
-    public Integer getActivityAttendStatus(String activityID, String elderID) {
-        return activityUserMapper.getActivityCountByID(activityID, elderID);
+    public Integer getActivityAttendStatus(String activityID, String openID) {
+        return activityUserMapper.getActivityCountByID(activityID, openID);
     }
 
     public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
         return activityDiscussMapper.getActivityDiscussList(id,page);
     }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public String addActivityUser(String activityID,String openid) {
+        ActivityUser activityUser = new ActivityUser();
+        activityUser.setActivityID(activityID);
+        ActivityDTO activity = activityMapper.getActivityList(activityID,null).get(0);
+        Integer nums=activityUserMapper.getActivityCountByID(activityID, null);
+        if(nums!=0&&nums.equals(activity.getPeopleNum())){
+            return "max";
+        }
+        activityUser.setSysElderUserID(openid);
+        activityUserMapper.addActivityUser(activityUser);
+
+        boolean ifGroup=activity.getActivityEasemobGroupID()!=null && !activity.getActivityEasemobGroupID().equals("");
+        //将用户加入群组
+        if (ifGroup) {
+
+            coreServiceClient.signEasemobUser(openid,"123456");
+            boolean a = coreServiceClient.joinEasemobGroup(activity.getActivityEasemobGroupID(), openid);
+            if (a) {
+                ActivityEasemobGroup activityEasemobGroup = activityEasemobGroupMapper.searchActivityEasemobGroupByGroupID(activity.getActivityEasemobGroupID());
+                activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("") ? openid : activityEasemobGroup.getMembers() + "," + openid);
+                activityEasemobGroupMapper.updateActivityEasemobGroup(activityEasemobGroup);
+            }
+        }
+
+        activity = activityMapper.getActivityList(activityID,null).get(0);
+        return activity.getActivityEasemobGroupID();
+    }
+
+
 }

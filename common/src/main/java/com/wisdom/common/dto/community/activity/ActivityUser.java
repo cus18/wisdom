@@ -1,4 +1,4 @@
-package com.wisdom.common.dto.basic;
+package com.wisdom.common.dto.community.activity;
 
 /**
  * Created by zbm84 on 2017/7/21.
@@ -7,10 +7,9 @@ public class ActivityUser {
 
     private Integer id;
     private String activityID;
-    private String sysElderUserID;
-    private String phoneNum;
+    private String  sysElderUserID;
+    private String  phoneNum;
     private String createDate;
-    private String openID;
 
     private String name;
 
@@ -61,13 +60,4 @@ public class ActivityUser {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getOpenID() {
-        return openID;
-    }
-
-    public void setOpenID(String openID) {
-        this.openID = openID;
-    }
-
 }

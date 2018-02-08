@@ -111,4 +111,30 @@ public class ServiceController {
 	}
 
 
+	/**
+	 * 注册环信用户
+	 *
+	 */
+	@RequestMapping(value = "/signEasemobUser", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO signEasemobUser(@RequestParam String userID, @RequestParam String password, @RequestParam String... nickname) throws Exception {
+		ResponseDTO responseDto=new ResponseDTO<>();
+		responseDto.setResponseData(easemobService.signEasemobUser(userID,password,nickname));
+		responseDto.setResult(StatusConstant.SUCCESS);
+		return responseDto;
+	}
+
+	/**
+	 * 用户加入环信群组
+	 *
+	 */
+	@RequestMapping(value = "/joinEasemobGroup", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	boolean joinEasemobGroup(@RequestParam String groupID, @RequestParam String easemobID) throws Exception {
+		ResponseDTO responseDto=new ResponseDTO<>();
+		return easemobService.signEasemobUser(groupID,easemobID);
+	}
+
 }

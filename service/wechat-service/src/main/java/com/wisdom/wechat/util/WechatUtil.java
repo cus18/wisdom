@@ -5,6 +5,7 @@ import com.wisdom.common.util.HttpRequestUtil;
 import com.wisdom.common.util.OSSObjectTool;
 import com.wisdom.common.util.StringUtils;
 import com.wisdom.wechat.entity.*;
+import com.wisdom.wechat.service.WechatService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
@@ -70,72 +71,31 @@ public class WechatUtil {
     }
 
     /**
-     * 获取某一天多客服聊天记录
-     */
-    public static String getCustom(String accessToken, long endtime, Long starttime, int pageIndex, int pagesize) {
-        String url = " https://api.weixin.qq.com/customservice/msgrecord/getrecord?access_token=" + accessToken;
-        JSONObject json = new JSONObject();
-        json.put("endtime", endtime);
-        json.put("pageindex", pageIndex);
-        json.put("pagesize", pagesize);
-        json.put("starttime", starttime);
-        String request = HttpRequestUtil.getConnectionResult(url, "POST", json.toString());
-        System.out.println("request:" + request);
-        return request;
-    }
-
-    /**
-     * 获取多客服聊天记录
+     * 获取微信用户基本信息
      *
-     * @param dateTime    时间
-     * @param accessToken 唯一票据
-     * @param pageIndex   起始页
-     * @param li          聊天记录集合
+     * @param openid 用户唯一标示
+     * @return WechatBean 微信实体
      */
-    public static void setWechatInfoToDb(String dateTime, String accessToken, int pageIndex, List<WechatRecord> li) {
-        long startTime = (new Date().getTime()-30*60*1000)/1000;
-        long endTime = new Date().getTime()/1000;
-        String request = getCustom(accessToken, endTime, startTime, pageIndex, 30);
-        JSONObject resultJson = new JSONObject(request);
-        JSONArray array = resultJson.getJSONArray("recordlist");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject jo = (JSONObject) array.get(i);
-            String openid = (String) jo.get("openid");//用户的标识
-            Integer opercode = (Integer) jo.get("opercode");//操作ID（会话状态）
-            Integer time = (Integer) jo.get("time");//操作时间
-            String worker = (String) jo.get("worker");//客服账号
-            String text = (String) jo.get("text");//客服账号
-            Long timestamp = Long.parseLong(time.toString()) * 1000;
-            Date date = new Date(timestamp);
-            text = EmojiFilter.filterEmoji(text);
-            Long times = Long.parseLong(time.toString()) * 1000;
-            Date dates = new Date(times);
-            Timestamp tt = new Timestamp(dates.getTime());
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-
-            WechatRecord record = new WechatRecord();
-            record.setId(uuid);
-            record.setOpenid(openid);
-            record.setinfoTime(tt);
-            record.setOpercode(opercode + "");
-            record.setText(text);
-            record.setWorker(worker);
-            li.add(record);
+    public static WeChatUserInfo getWechatUserInfo(String openid) throws Exception{
+        String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + WechatService.getWechatToken() + "&openid=" + openid + "&lang=zh_CN";
+        String json = HttpRequestUtil.getConnectionResult(url, "GET", "");
+        WeChatUserInfo weChatUserInfo=JsonUtil.getObjFromJsonStr(json, WeChatUserInfo.class);
+        if(weChatUserInfo.getErrcode()!=null){
+            throw new Exception(weChatUserInfo.getErrmsg());
         }
-        if (array.length() > 0) {
-            setWechatInfoToDb(dateTime, accessToken, pageIndex + 1, li);
-        }
+        return weChatUserInfo;
     }
+
+
 
     /**
      * 获取微信用户基本信息
      *
-     * @param token  access_token
      * @param openid 用户唯一标示
      * @return WechatBean 微信实体
      */
-    public static WechatBean getWechatName(String token, String openid) {
-        String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + token + "&openid=" + openid + "&lang=zh_CN";
+    public static WechatBean getWechatName(String openid) {
+        String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + WechatService.getWechatToken() + "&openid=" + openid + "&lang=zh_CN";
         String json = HttpRequestUtil.getConnectionResult(url, "GET", "");
         return JsonUtil.getObjFromJsonStr(json, WechatBean.class);
     }

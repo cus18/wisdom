@@ -52,6 +52,33 @@ public class LivingServiceService {
         officeMessage.setMessage(message);
         officeMessageMapper.insertOfficeMessage(officeMessage);
 //        DaHanTricomSMSMessageUtil.sendMsg(officeMessageMapper.getOfficePhone(livingService.getSys_office_id()),message);
+        WxTemplate wxTemplate=new WxTemplate();
+        wxTemplate.setTemplate_id("ZFPAi-GiZAdXvbtcB494tkErnX5yMd_FbukjqXHhumc");
+        wxTemplate.setTouser(livingServiceOrder.getOpenid());
+        wxTemplate.setUrl("http://wechat.hlsenior.com/elder#/myselfCenter");
+        Map data=new HashMap<String,String>();
+        TemplateData templateData=new TemplateData();
+        templateData.setValue("服务确认通知");
+        data.put("first","服务确认通知");
+        TemplateData templateData1=new TemplateData();
+        templateData1.setValue(livingService.getOfficeName());
+        data.put("keyword1",templateData1);
+        TemplateData templateData2=new TemplateData();
+        templateData2.setValue(livingService.getName());
+        data.put("keyword2",templateData2);
+        TemplateData templateData3=new TemplateData();
+        templateData3.setValue(livingService.getOfficeName());
+        data.put("keyword3",templateData3);
+        TemplateData templateData4=new TemplateData();
+        templateData4.setValue("无");
+        data.put("keyword4",templateData4);
+        TemplateData templateData5=new TemplateData();
+        templateData5.setValue("服务商家将尽快与您电话联系，确认更多的服务细节，请保持电话畅通！");
+        data.put("remark",templateData5);
+        wxTemplate.setData(data);
+        String json=JSONObject.toJSONString(wxTemplate);
+        String token=weChatServiceClient.getWeChatToken();
+        String results=HttpRequestUtil.httpPost(json,"https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token);
         return result;
     }
 

@@ -1,7 +1,6 @@
 package com.wisdom.community.controller;
 
 import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.basic.BannerDTO;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
 import com.wisdom.common.dto.community.activity.ActivityDiscussDTO;
 import com.wisdom.common.dto.core.PageParamDTO;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * 直播板块
+ * 社区活动
  * @author frank
  * @date 2015-10-14
  */
@@ -46,7 +45,6 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO,
@@ -76,7 +74,6 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityDetail", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<ActivityDTO> activityDetail(@RequestParam String activityId) {
@@ -99,21 +96,15 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityAttendStatus", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,
-											 HttpServletRequest request) {
+	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,@RequestParam String openID) {
 
 		ResponseDTO<String> responseDTO = new ResponseDTO<>();
-
-		String loginToken = request.getHeader("loginToken");
-		UserInfoDTO userInfoDTO = coreServiceClient.getUserInfo(loginToken).getResponseData();
-
 		/****
 		 根据活动的ID号，和用户的信息，判断此用户是否报名参加了此活动，"1"代表已经报名参加，如果为"0"，则代表没有报名参加
 		 *****/
-		responseDTO.setResponseData(activityService.getActivityAttendStatus(activityId,userInfoDTO.getElderUserDTO().getId())>0?"1":"0");
+		responseDTO.setResponseData(activityService.getActivityAttendStatus(activityId,openID)>0?"1":"0");
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
@@ -141,5 +132,34 @@ public class ActivityController {
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
+
+
+	/**
+	 * 用户报名参加某个活动
+	 *
+	 *  input PageParamDTO<List<String>> String中放入的是报名的用户的elderId列表,['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
+	 *
+	 *  output ResponseDTO<String> 返回的String中，此次活动所对应的群组ID
+	 *
+	 */
+	@RequestMapping(value = "joinActivity", method = {RequestMethod.POST, RequestMethod.GET})
+	@LoginRequired
+	public
+	@ResponseBody
+	ResponseDTO<String> joinActivity(@RequestParam String openid,
+									 @RequestParam String activityId,
+									 HttpServletRequest request) {
+
+		ResponseDTO responseDTO = new ResponseDTO<>();
+
+		/****
+		 List<String>中放入的是报名参加活动的用户列表，为用户的elderId值，['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
+		 *****/
+		//responseData里面放入的是此次活动所对应的群组ID
+		responseDTO.setResponseData(activityService.addActivityUser(activityId,openid));
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
+
 
 }
