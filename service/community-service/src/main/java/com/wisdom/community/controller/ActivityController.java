@@ -7,7 +7,6 @@ import com.wisdom.common.dto.core.PageParamDTO;
 import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.dto.core.user.UserInfoDTO;
 import com.wisdom.community.client.CoreServiceClient;
-import com.wisdom.community.interceptor.LoginRequired;
 import com.wisdom.community.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,14 +51,11 @@ public class ActivityController {
 
 		ResponseDTO<List<ActivityDTO>> responseDTO = new ResponseDTO<>();
 
-		String loginToken = request.getHeader("loginToken");
-		UserInfoDTO userInfoDTO = coreServiceClient.getUserInfo(loginToken).getResponseData();
 
 		/****
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
-		String elderID = userInfoDTO.getElderUserDTO().getId();
-		responseDTO.setResponseData(activityService.getActivityList(elderID,pageParamDTO.getPageNo(),
+		responseDTO.setResponseData(activityService.getActivityList(null,pageParamDTO.getPageNo(),
 				pageParamDTO.getRequestData()));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
@@ -118,7 +114,6 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityDiscuss", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<ActivityDiscussDTO>> activityDiscuss(@RequestBody PageParamDTO<String> pageParamDTO) {
@@ -143,7 +138,6 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "joinActivity", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<String> joinActivity(@RequestParam String openid,
