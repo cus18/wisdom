@@ -1,7 +1,6 @@
 package com.wisdom.community.client;
 
 import com.wisdom.common.dto.basic.BannerDTO;
-import com.wisdom.common.dto.community.course.OnlineCourseDTO;
 import com.wisdom.common.dto.core.DictDTO;
 import com.wisdom.common.dto.core.Page;
 import com.wisdom.common.dto.core.ResponseDTO;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @FeignClient("core-service")
@@ -52,10 +50,10 @@ public interface CoreServiceClient {
     //活动
 
     @RequestMapping(value = "/signEasemobUser", method = {RequestMethod.GET})
-    ResponseDTO signEasemobUser(@RequestParam String userID, @RequestParam String password, @RequestParam String... nickname);
+    ResponseDTO signEasemobUser(@RequestParam(value = "userID") String userID, @RequestParam(value = "password") String password, @RequestParam(value = "nickname") String... nickname);
 
 
     @RequestMapping(value = "/joinEasemobGroup", method = {RequestMethod.GET})
-    boolean joinEasemobGroup(@RequestParam String groupID, @RequestParam String easemobID);
+    boolean joinEasemobGroup(@RequestParam(value = "groupID") String groupID, @RequestParam(value = "easemobID") String easemobID);
 
 }
