@@ -46,7 +46,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "recentLiveBroadCast", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<LiveCourseDTO>> recentLiveBroadCast(@RequestBody PageParamDTO<String> pageParamDTO,
@@ -75,7 +74,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "historyLiveBroadCast", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<LiveCourseDTO>> historyLiveBroadCast(@RequestBody PageParamDTO<String> pageParamDTO,
@@ -165,7 +163,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "onlineCourseList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<OnlineCourseDTO>> onlineCourseList(@RequestBody PageParamDTO<String> pageParamDTO,
@@ -188,7 +185,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "onlineCourseDetail", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<OnlineCourseDTO> onlineCourseDetail(@RequestBody OnlineCourseDTO onlineCourseDTO,
@@ -212,7 +208,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "onlineCourseDiscuss", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<OnlineCourseDiscussDTO>> onlineCourseDiscuss(@RequestBody PageParamDTO<String> pageParamDTO,
@@ -234,7 +229,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "onlineCourseDiscuss/create", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<OnlineCourseDiscussDTO>> createOnlineCourseDiscuss(@RequestBody OnlineCourseDiscussDTO onlineCourseDiscussDTO,
@@ -265,7 +259,6 @@ public class CourseController {
 	 *
 	 */
 	@RequestMapping(value = "getMyOnlineCourse", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<OnlineCourseMyCourseDTO>> collectionCourse(@RequestBody PageParamDTO<String> pageParamDTO, HttpServletRequest request) {
