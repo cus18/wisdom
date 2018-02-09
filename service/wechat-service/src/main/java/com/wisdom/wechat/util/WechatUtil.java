@@ -1,12 +1,12 @@
 package com.wisdom.wechat.util;
 
 import com.wisdom.common.constant.ConfigConstant;
+import com.wisdom.common.dto.basic.WeChatUserInfo;
 import com.wisdom.common.util.HttpRequestUtil;
 import com.wisdom.common.util.OSSObjectTool;
 import com.wisdom.common.util.StringUtils;
 import com.wisdom.wechat.entity.*;
 import com.wisdom.wechat.service.WechatService;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,10 +14,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by baoweiw on 2015/7/27.

@@ -3,8 +3,12 @@ package com.wisdom.common.dto.community.activity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
+import java.util.List;
 
 public class ActivityDiscussDTO {
+
+    @JSONField(name = "id")
+    private String id;
 
     //此条评论的对应的活动ID
     @JSONField(name = "activityId")
@@ -31,6 +35,17 @@ public class ActivityDiscussDTO {
     private String discussContent;
 
 
+    @JSONField(name = "activityDiscussReplyDTOList")
+    private List<ActivityDiscussReplyDTO> activityDiscussReplyDTOList;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getActivityId() {
         return activityId;
@@ -78,5 +93,13 @@ public class ActivityDiscussDTO {
 
     public void setDiscussContent(String discussContent) {
         this.discussContent = discussContent;
+    }
+
+    public List<ActivityDiscussReplyDTO> getActivityDiscussReplyDTOList() {
+        return activityDiscussReplyDTOList;
+    }
+
+    public void setActivityDiscussReplyDTOList(List<ActivityDiscussReplyDTO> activityDiscussReplyDTOList) {
+        this.activityDiscussReplyDTOList = activityDiscussReplyDTOList;
     }
 }
