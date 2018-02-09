@@ -35,7 +35,6 @@ public class CommunityIndexController {
 	 *
 	 */
 	@RequestMapping(value = "bannerList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<BannerDTO>> bannerList() {
