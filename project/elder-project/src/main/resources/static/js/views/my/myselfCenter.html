@@ -1,62 +1,61 @@
-<ion-view style="background:white;">
-    <ion-header-bar align-title="center" class="bar-energized" style="height:15%">
-    </ion-header-bar>
-    <h1 style="position:absolute;z-index:10;margin-top:18%;margin-left:42%;font-size:18px">{{rootElderName}}</h1>
-    <img ng-src="{{rootElderImg}}?x-oss-process=image/resize,m_fill,h_95,w_95"
-         style="position:absolute;z-index:999;margin-top:9%;margin-left:8%;border-radius:50px;border:5px solid #f8f8f8;">
-    <div style="margin-top:39%;color:#000;padding:0 0 3% 4%;border-bottom:1px solid #ddd;">我的服务</div>
-    <div class="tabs tabs-top tabs-striped" style="margin-top:38%;height:15%;background:#fff;">
+<ion-view style="background:#f8f8f8;">
+    <h2 class="myself_serviceTit">我的服务</h2>
+    <div class="tabs tabs-top tabs-striped myselfTab">
         <a class="tab-item" ui-sref="myService({type:'inReview'})">
-            <img style="margin-left:20%;margin-top:10%"
-                 ng-src="{{param.messageImg}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-            <p style="margin-top:-10px">审核中</p>
+            <img src="images/myself_icon01.png">
+            <p>审核中</p>
+            <span class="flg">2</span>
         </a>
         <a class="tab-item" ui-sref="myService({type:'inService'})">
-            <img style="margin-left:20%;margin-top:10%"
-                 ng-src="{{param.activeImg}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-            <p style="margin-top:-10px">服务中</p>
+            <img src="images/myself_icon02.png">
+            <p>服务中</p>
         </a>
         <a class="tab-item" ui-sref="myService({type:'finished'})">
-            <img style="margin-left:20%;margin-top:10%"
-                 ng-src="{{param.courseImg}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-            <p style="margin-top:-10px">已完成</p>
+            <img src="images/myself_icon03.png">
+            <p>已完成</p>
         </a>
         <a class="tab-item" ui-sref="myService({type:'failed'})">
-            <img style="margin-left:20%;margin-top:10%"
-                 ng-src="{{param.courseImg}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-            <p style="margin-top:-10px">未成功</p>
+            <img src="images/myself_icon04.png">
+            <p>未成功</p>
         </a>
     </div>
-    <div class="list" style="margin-top:29%;color:black">
+    <div class="list myselfList" style="margin-top:32%;color:black">
         <a class="item item-icon-left item-icon-right"
            ui-sref="myActivity">
             <i class="icon">
-                <img src="http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E8%80%81%E5%8F%8B%E6%8F%90%E9%86%92%E5%A4%B4%E5%83%8F@2x.png?x-oss-process=image/resize,m_fill,h_40,w_40">
+                <img src="images/laoyou_icon_02.png">
             </i>
-            &nbsp;我的活动
+            我的活动
             <i class="icon ion-ios-arrow-right"></i>
         </a>
         <a class="item item-icon-left item-icon-right"
             ui-sref="myClass">
             <i class="icon">
-                <img src="http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E9%80%9A%E7%9F%A5%E5%A4%B4%E5%83%8F@2x.png?x-oss-process=image/resize,m_fill,h_40,w_40">
+                <img src="images/laoyou_icon_03.png">
             </i>
-            &nbsp;我的课程
+            我的课程
             <i class="icon ion-ios-arrow-right"></i>
         </a>
         <a class="item item-icon-left item-icon-right"
-           ui-sref="myselfInfo">
+           ui-sref="myselfInfo" style="margin-top:10px;">
             <i class="icon">
-                <img src="http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E8%80%81%E5%8F%8B%E6%8F%90%E9%86%92%E5%A4%B4%E5%83%8F@2x.png?x-oss-process=image/resize,m_fill,h_40,w_40">
+                <img src="images/laoyou_icon_05.png">
             </i>
-            &nbsp;个人信息
+            消息中心
             <i class="icon ion-ios-arrow-right"></i>
         </a>
         <a class="item item-icon-left item-icon-right">
             <i class="icon">
-                <img src="http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E9%80%9A%E7%9F%A5%E5%A4%B4%E5%83%8F@2x.png?x-oss-process=image/resize,m_fill,h_40,w_40">
+                <img src="images/laoyou_icon_04.png">
             </i>
-            &nbsp;系统设置
+            意见反馈
+            <i class="icon ion-ios-arrow-right"></i>
+        </a>
+        <a class="item item-icon-left item-icon-right" style="margin-top:10px;">
+            <i class="icon">
+                <img src="images/laoyou_icon_01.png">
+            </i>
+            关于老友
             <i class="icon ion-ios-arrow-right"></i>
         </a>
     </div>

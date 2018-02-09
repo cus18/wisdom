@@ -4,6 +4,9 @@ angular.module('controllers',[]).controller('subscribeServiceSuccessCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,
                   ElderUtil,GetUserInfo,GetlivingServiceList) {
 
+
+            $rootScope.pageTitle = '预约成功';
+
             if($rootScope.rootElderId!=undefined)
             {
                 $scope.elderId = $rootScope.rootElderId;

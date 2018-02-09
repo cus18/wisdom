@@ -4,6 +4,8 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,
                   ElderUtil,GetUserInfo,GetlivingServiceList) {
 
+
+            $rootScope.pageTitle = '老友居家';
             $scope.param = {
                 type:$stateParams.type,
                 lastNo:0,
@@ -131,7 +133,7 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
             ];
 
             $scope.sortShow = function(){
-                $('.filtrateArea').animate({'top':'0px'},'1000')
+                $('.filtrateArea').animate({'top':'63px'},'1000')
             }
 
             $scope.sortHide = function(){

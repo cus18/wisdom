@@ -1,63 +1,52 @@
 <ion-view style="background:#f8f8f8;">
-    <ion-header-bar align-title="center" class="bar-energized">
-        <div class="buttons">
-            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
-        </div>
-        <h1 class="title">预约服务</h1>
-    </ion-header-bar>
     <ion-content>
-        <form name="subscribeForm" novalidate>
-            <h2 style="font-size:18px;margin-left:15px;width:100%;margin-top:15px">
-                自理能力
-            </h2>
-            <style>
-                .item-radio .item-content{padding:16px 0px;}
-                .item-radio input:checked+.radio-content .item-content{background:#ddd;}
-                .ion-checkmark:before{content:'';}
-            </style>
-            <div style="overflow:hidden;margin:15px 0 20px;padding-left:17px;">
-                <ion-radio ng-repeat="item in careList"
-                           ng-value="item.value"
-                           ng-model="subscribeInfo.care"
-                           style="min-width:25%;float:left;margin:5px 17px 5px 0px;text-align:center;">
-                    {{ item.text }}
-                </ion-radio>
+        <div class="bar bar-header" style="height:60px;border-bottom:1px solid #ddd;">
+            <div class="title" style="line-height:60px;">{{response.name}}</div>
+        </div>
+        <form name="subscribeForm" novalidate style="" class="subscribeForm">
+            <div ng-if="info.indexOf('1')>=0">
+                <h2>自理能力</h2>
+                <div class="subscribeAble">
+                    <ion-radio ng-repeat="item in careList"
+                               ng-value="item.value"
+                               ng-model="subscribeInfo.care"
+                               style="min-width:25%;float:left;margin:5px 17px 5px 0px;text-align:center;border-radius:16px;">
+                        {{ item.text }}
+                    </ion-radio>
+                </div>
             </div>
-            <h2 style="font-size:18px;margin-left:15px;width:100%">
-                联系信息
-            </h2>
-            <div class="list" style="margin-top: 15px;">
-                <label class="item item-input">
-                    <input type="text" placeholder="输入姓名" ng-model="subscribeInfo.name">
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="输入电话" ng-model="subscribeInfo.phone">
-                </label>
+            <div ng-if="info.indexOf('2')>=0">
+                <h2>联系信息</h2>
+                <div class="list">
+                    <label class="item item-input">
+                        <input type="text" placeholder="输入姓名" ng-model="subscribeInfo.name">
+                    </label>
+                    <label class="item item-input">
+                        <input type="text" placeholder="输入电话" ng-model="subscribeInfo.phone">
+                    </label>
+                </div>
             </div>
-            <h2 style="font-size:18px;margin-left:15px;width:100%">
-                服务地点
-            </h2>
-            <div class="list" style="margin-top: 15px;">
-                <!--<label class="item item-input">-->
+            <div ng-if="info.indexOf('3')>=0">
+                <h2>服务地点</h2>
+                <div class="list">
+                    <!--<label class="item item-input">-->
                     <!--<input type="text" placeholder="选择区域">-->
-                <!--</label>-->
-                <label class="item item-input">
-                    <input type="text" placeholder="输入详细地址" ng-model="subscribeInfo.address">
-                </label>
+                    <!--</label>-->
+                    <label class="item item-input">
+                        <input type="text" placeholder="输入详细地址" ng-model="subscribeInfo.address">
+                    </label>
+                </div>
             </div>
-            <h2 style="font-size:18px;margin-left:15px;width:100%">
-                备注
-            </h2>
-            <div class="list" style="margin-top:15px;">
-                <label class="item item-input">
-                    <textarea placeholder="输入备注内容" style="height:85px" ng-model="subscribeInfo.remarks"></textarea>
-                </label>
+            <div ng-if="info.indexOf('4')>=0">
+                <h2>备注</h2>
+                <div class="list">
+                    <label class="item item-input">
+                        <textarea placeholder="输入备注内容" style="height:85px" ng-model="subscribeInfo.remarks"></textarea>
+                    </label>
+                </div>
             </div>
-            <button class="button button-assertive"
-                    style="width:60%;height:100%;margin-left:22%"
-                    ng-click="subscribeConfirm()">
-                确认预约
-            </button>
+            <button class="button button-full button-energized subscribe-btn"
+                    ng-click="subscribeConfirm()" style="margin-top:30px;">确认预约</button>
         </form>
     </ion-content>
 </ion-view>

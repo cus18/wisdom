@@ -4,6 +4,7 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,
                   ElderUtil,GetUserInfo,GetlivingServiceList) {
 
+            $rootScope.pageTitle = '服务详情';
 
             if($rootScope.rootElderId!=undefined)
             {
@@ -40,7 +41,7 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
             },function(data){
                 if(data.result == Global.SUCCESS){
                     $scope.response = data.responseData[0];
-                    $scope.specialList = data.responseData[0].special.split(';');
+                    $scope.specialList = data.responseData[0].special.split('；');
                 }
                 else
                 {
@@ -52,7 +53,7 @@ angular.module('controllers',[]).controller('livingServiceDetailCtrl',
 
             $scope.subscribeService = function()
             {
-                $state.go('subscribeService',{livingServiceId:$stateParams.livingServiceId,information:$scope.response.information});
+                $state.go('subscribeService',{livingServiceId:$stateParams.livingServiceId});
             }
 
 

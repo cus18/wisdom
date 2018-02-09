@@ -1,14 +1,30 @@
 angular.module('controllers',[]).controller('subscribeServiceCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location','GetOpenID',
-        'ElderUtil','GetUserInfo','CommitOrder','openidUtil','$ionicPopup','$timeout',
+        'ElderUtil','GetUserInfo','CommitOrder','openidUtil','$ionicPopup','$timeout','GetlivingServiceList',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,GetOpenID,
-                  ElderUtil,GetUserInfo,CommitOrder,openidUtil,$ionicPopup,$timeout) {
+                  ElderUtil,GetUserInfo,CommitOrder,openidUtil,$ionicPopup,$timeout,GetlivingServiceList) {
 
 
-
+            $rootScope.pageTitle = '预约服务';
 
             openidUtil.checkResponseData();
-            $scope.info = $stateParams.information;
+
+            GetlivingServiceList.save({
+                id:$stateParams.livingServiceId,
+                type:'',
+                lastNo:'0',
+                nextNo:'10'
+            },function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.response = data.responseData[0];
+                    $scope.info = data.responseData[0].information;
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+
+            })
 
             $scope.subscribeInfo = {
                 livingservice_id:$stateParams.livingServiceId,
