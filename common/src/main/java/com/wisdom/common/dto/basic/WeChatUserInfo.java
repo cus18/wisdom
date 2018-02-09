@@ -1,4 +1,4 @@
-package com.wisdom.wechat.entity;
+package com.wisdom.common.dto.basic;
 
 /**
  * Created by zbm84 on 2018/2/2.

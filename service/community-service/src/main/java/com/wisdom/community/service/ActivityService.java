@@ -3,9 +3,12 @@ package com.wisdom.community.service;
 import com.wisdom.common.dto.basic.ActivityDiscuss;
 import com.wisdom.common.dto.basic.ActivityEasemobGroup;
 import com.wisdom.common.dto.basic.ActivityUser;
+import com.wisdom.common.dto.basic.WeChatUserInfo;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
 import com.wisdom.common.dto.community.activity.ActivityDiscussDTO;
+import com.wisdom.common.dto.community.activity.ActivityDiscussReplyDTO;
 import com.wisdom.community.client.CoreServiceClient;
+import com.wisdom.community.client.WeChatServiceClient;
 import com.wisdom.community.mapper.ActivityDiscussMapper;
 import com.wisdom.community.mapper.ActivityEasemobGroupMapper;
 import com.wisdom.community.mapper.ActivityMapper;
@@ -38,6 +41,9 @@ public class ActivityService {
     @Autowired
     CoreServiceClient coreServiceClient;
 
+    @Autowired
+    WeChatServiceClient weChatServiceClient;
+
     public List<ActivityDTO> activityListByFirstPage() {
         List<ActivityDTO> list = activityMapper.getMyHospitalActivityListByHospitalID();
         if(list.size()==0){
@@ -63,7 +69,20 @@ public class ActivityService {
     }
 
     public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
-        return activityDiscussMapper.getActivityDiscussList(id,page);
+        List<ActivityDiscussDTO> activityDiscussDTOList=activityDiscussMapper.getActivityDiscussList(id,page);
+        for (ActivityDiscussDTO a:activityDiscussDTOList) {
+            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenID());
+            a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
+            a.setWechatNickName(weChatUserInfo.getNickname());
+            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
+            for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
+                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenID());
+                adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
+                adr.setWechatNickName(weChatUserInfos.getNickname());
+            }
+            a.setActivityDiscussReplyDTOList(activityDiscussReplyDTO);
+        }
+        return activityDiscussDTOList;
     }
 
 
@@ -103,6 +122,10 @@ public class ActivityService {
         activityDiscuss.setOpenID(activityDiscussDTO.getOpenID());
         activityDiscuss.setActivityID(activityDiscussDTO.getActivityId());
         return activityDiscussMapper.addActivityDiscuss(activityDiscuss);
+    }
+
+    public Integer addActivityDiscussReply(ActivityDiscussReplyDTO activityDiscussReplyDTO) {
+        return activityDiscussMapper.addActivityDiscussReply(activityDiscussReplyDTO);
     }
 
 }

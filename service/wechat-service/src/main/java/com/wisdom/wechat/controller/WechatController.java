@@ -1,11 +1,11 @@
 package com.wisdom.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.util.HttpRequestUtil;
 import com.wisdom.common.util.SignUtil;
+import com.wisdom.common.dto.basic.WeChatUserInfo;
 import com.wisdom.wechat.service.WechatService;
+import com.wisdom.wechat.util.WechatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -93,6 +92,15 @@ public class WechatController {
 	@RequestMapping(value = "getWeChatToken", method = {RequestMethod.POST, RequestMethod.GET})
 	public String getWeChatToken(){
 		return WechatService.getWechatToken();
+	}
+
+	/**
+	 * 获取微信用户的基本信息
+	 * @return
+	 */
+	@RequestMapping(value = "getWechatUserInfo", method = {RequestMethod.POST, RequestMethod.GET})
+	public WeChatUserInfo getWechatUserInfo(@RequestParam String openid) throws  Exception{
+		return WechatUtil.getWechatUserInfo(openid);
 	}
 
 }
