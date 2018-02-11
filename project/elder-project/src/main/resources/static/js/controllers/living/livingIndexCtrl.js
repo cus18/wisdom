@@ -4,6 +4,7 @@ angular.module('controllers',[]).controller('livingIndexCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,
                   ElderUtil,GetUserInfo,GetCommunityBannerList,GetLivingOfficeList) {
 
+
             $scope.param = {
                 bannerList : '',
                 activityList : ''

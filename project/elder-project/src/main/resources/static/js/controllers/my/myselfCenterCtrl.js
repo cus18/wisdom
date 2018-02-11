@@ -4,6 +4,8 @@ angular.module('controllers',[]).controller('myselfCenterCtrl',
         function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,GetMyOnlineCourseList,ElderUtil,
                   GetUserInfo) {
 
+            $rootScope.pageTitle = '个人中心';
+
             $scope.param = {
                 messageImg : "http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E6%88%91%E7%9A%84%E6%B6%88%E6%81%AFicon%E7%81%B0@2x.png",
                 activeImg : "http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E6%88%91%E7%9A%84%E6%B4%BB%E5%8A%A8icon%E7%81%B0@2x.png",

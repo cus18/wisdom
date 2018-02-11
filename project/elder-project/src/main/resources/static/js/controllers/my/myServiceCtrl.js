@@ -6,8 +6,9 @@ angular.module('controllers',[]).controller('myServiceCtrl',
 
 
 
+            $rootScope.pageTitle = '我的服务';
 
-            openidUtil.checkResponseData(absUrl);
+            openidUtil.checkResponseData();
 
             $scope.param = {
                 tabValue : $stateParams.type
@@ -40,7 +41,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             })
 
 
-            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
+            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
 
             function tabChange(){

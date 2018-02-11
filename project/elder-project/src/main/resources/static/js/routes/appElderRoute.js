@@ -610,7 +610,7 @@ define(['appElder'], function(app){
                         }
                     })
                     .state('subscribeService', {
-                        url: '/subscribeService/:livingServiceId,:information',
+                        url: '/subscribeService/:livingServiceId',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'subscribeServiceCtrl',
                         resolve: {
@@ -633,7 +633,42 @@ define(['appElder'], function(app){
                             }
                         }
                     })
-
+                    .state('bindPhone', {
+                        url: '/bindPhone/:state',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'bindPhoneCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.bindPhone',
+                                    ['js/controllers/phone/bindPhoneCtrl.js?ver='+elderVersion],
+                                    'js/views/phone/bindPhone.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('unbindPhoneSuccess', {
+                        url: '/unbindPhoneSuccess',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'unbindPhoneSuccessCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.unbindPhoneSuccess',
+                                    ['js/controllers/phone/unbindPhoneSuccessCtrl.js?ver='+elderVersion],
+                                    'js/views/phone/unbindPhoneSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('bindPhoneSuccess', {
+                        url: '/bindPhoneSuccess',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'bindPhoneSuccessCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.bindPhoneSuccess',
+                                    ['js/controllers/phone/bindPhoneSuccessCtrl.js?ver='+elderVersion],
+                                    'js/views/phone/bindPhoneSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                 $urlRouterProvider.otherwise('/healthIndex')
             }])

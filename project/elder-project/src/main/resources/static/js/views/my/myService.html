@@ -1,12 +1,5 @@
-<ion-view style="background:white;">
-	<ion-header-bar align-title="center" class="bar-energized">
-		<div class="buttons">
-			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
-		</div>
-		<h1 class="title">我的服务</h1>
-	</ion-header-bar>
-
-	<div class="tabs tabs-top tabs-striped" style="padding-top:2%;">
+<ion-view style="background:#f8f8f8;">
+	<div class="tabs tabs-top tabs-striped" style="padding-top:2%;top:0px;background:#fff;border-bottom:1px solid #ddd;">
 		<a ng-class="{true:'tab-item active',false:'tab-item'}[param.tabValue=='inReview']" style="border-color:#ff8e01" ng-click="chooseTab('inReview')">
 			<p style="margin-top:-10px">审核中</p>
 		</a>
@@ -21,90 +14,90 @@
 		</a>
 	</div>
     <ion-content style="margin-top:13%;color:#000;">
-		<div class="list" ng-if="param.tabValue=='inReview'">
+		<div class="list myServiceList" ng-if="param.tabValue=='inReview'">
 			<a class="item" ng-repeat="item in inReviewResponse">
-                <div>
-                    <i class="">{{item.id}}</i>
+                <div class="myServiceTit">
+                    <i>{{item.id}}</i>
                     <i class="item-note">当面结算</i>
                 </div>
-                <div style="margin-top:2%;">
+                <div>
                     <div class="item-content">
-                        <i class="">{{item.name}}</i>
+                        <i>{{item.name}}</i>
                         <i class="item-note">
                             <p class="text-right">￥{{item.price}}元/{{item.priceUnit}}</p>
                         </i>
                     </div>
-                    <p style="margin:3% 0;white-space:normal;">正在等待{{item.officeName}}电话联系您并确认接收服务预约</p>
+                    <p class="nowrap">正在等待{{item.officeName}}电话联系您并确认接收服务预约</p>
                     <div class="item-content">
-                        <i class="">预约时间：{{item.create_date | date:'yyyy年MM月dd日 HH:mm'}}</i>
-                        <i class="item-note" ng-click="sendMessage(item.id)">催审核</i>
+                        <i>{{item.create_date | date:'yyyy年MM月dd日 HH:mm'}}</i>
+                        <!--<i class="item-note" ng-click="sendMessage(item.id)">催审核</i>-->
                     </div>
                 </div>
 			</a>
 		</div>
-        <div class="list" ng-if="param.tabValue=='inService'">
+        <div class="list myServiceList" ng-if="param.tabValue=='inService'">
             <a class="item" ng-repeat="item in inServiceResponse">
-                <div>
-                    <i class="">{{item.id}}</i>
+                <div class="myServiceTit">
+                    <i>{{item.id}}</i>
                     <i class="item-note">当面结算</i>
                 </div>
-                <div style="margin-top:2%;">
+                <div>
                     <div class="item-content">
-                        <i class="">{{item.name}}</i>
+                        <i>{{item.name}}</i>
                         <i class="item-note">
                             <p class="text-right">￥{{item.discountPrice}}元/{{item.discountPriceUnit}}</p>
                         </i>
                     </div>
-                    <p style="margin:3% 0;white-space:normal;">{{item.officeName}}已接收您的预约，将与您当面结算并签约</p>
+                    <p class="nowrap">{{item.officeName}}已接收您的预约，将与您当面结算并签约</p>
                     <div class="item-content">
-                        <i class="">护理师：{{item.nurse}}<br/><br/>服务时间：{{item.serviceTime | date:'yyyy年MM月dd日 HH:mm'}}</i>
-                        <i class="item-note">成功享受服务</i>
+                        <i class="myServiceDate">护理师：{{item.nurse}}<br/>{{item.serviceTime | date:'yyyy年MM月dd日 HH:mm'}}</i>
+                        <!--<i class="item-note">成功享受服务</i>-->
                     </div>
                 </div>
             </a>
         </div>
-        <div class="list" ng-if="param.tabValue=='finished'">
+        <div class="list myServiceList" ng-if="param.tabValue=='finished'">
             <a class="item" ng-repeat="item in finishedResponse">
-                <div>
-                    <i class="">{{item.id}}</i>
+                <div class="myServiceTit">
+                    <i>{{item.id}}</i>
                     <i class="item-note">当面结算</i>
                 </div>
-                <div style="margin-top:2%;">
+                <div>
                     <div class="item-content">
-                        <i class="">{{item.name}}</i>
+                        <i>{{item.name}}</i>
                         <i class="item-note text-right">
-                            <p class="">优惠价：￥{{item.discountPrice}}元/{{item.discountPriceUnit}}</p>
+                            <p><i class="myServiceFlg">优惠价</i>￥{{item.discountPrice}}元/{{item.discountPriceUnit}}</p>
                             <del>￥{{item.price}}元/{{item.priceUnit}}</del>
                         </i>
                     </div>
-                    <p style="margin:3% 0;white-space:normal;">{{item.officeName}}收到您的服务费，并确认本次交易生效</p>
+                    <p class="nowrap">{{item.officeName}}收到您的服务费，并确认本次交易生效</p>
                     <div class="item-content">
-                        <i class="">护理师：{{item.nurse}}<br/><br/>服务时间：{{item.serviceTime | date:'yyyy年MM月dd日 HH:mm'}}</i>
-                        <i class="item-note" ng-click="delOrder(item.id)">删除订单</i>
+                        <i class="myServiceDate">护理师：{{item.nurse}}<br/>{{item.serviceTime | date:'yyyy年MM月dd日 HH:mm'}}</i>
+                        <i class="button button-energized delServiceBtn" ng-click="delOrder(item.id)">删除订单</i>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="list" ng-if="param.tabValue=='failed'">
+        <div class="list myServiceList" ng-if="param.tabValue=='failed'">
             <a class="item" ng-repeat="item in failedResponse">
-                <div>
-                    <i class="">{{item.id}}</i>
+                <div class="myServiceTit">
+                    <i>{{item.id}}</i>
                     <i class="item-note">当面结算</i>
                 </div>
-                <div style="margin-top:2%;">
+                <div>
                     <div class="item-content">
                         <i class="">{{item.name}}</i>
                         <i class="item-note">
                             <p class="text-right">￥{{item.price}}元/{{item.priceUnit}}</p>
                         </i>
                     </div>
-                    <p style="margin:3% 0;white-space:normal;">{{item.officeName}}拒绝了您的预约，原因是“
+                    <p class="nowrap">{{item.officeName}}拒绝了您的预约，原因是“
                         <span ng-if="item.refusal">{{item.refusal}}</span>
                         <span ng-if="item.unpaid">{{item.unpaid}}</span>
                         ”</p>
-                    <div class="item-content">
-                        <i class="">预约时间：{{item.create_date | date:'yyyy年MM月dd日 HH:mm'}}</i>
-                        <i class="item-note" ng-click="delOrder(item.id)">删除订单</i>
+                    <div class="item-content" style="padding-top:6px;">
+                        <i class="myServiceDate">{{item.create_date | date:'yyyy年MM月dd日 HH:mm'}}</i>
+                        <i class="button button-energized delServiceBtn" ng-click="delOrder(item.id)">删除订单</i>
                     </div>
                 </div>
             </a>

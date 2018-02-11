@@ -1,0 +1,40 @@
+<ion-view style="background:#f8f8f8;">
+    <div>
+        <div class="bar bar-header" style="height:92px;background:#f8f8f8;">
+            <div ng-if="state == 'didNotBind'" class="title ng-binding" style="top:22px;">
+                您还未绑定手机号，请先进行绑定
+            </div>
+            <div ng-if="state == 'yetBind_update'" class="title ng-binding" style="top:22px;">
+                您已绑定姓名和手机号，请直接修改
+            </div>
+            <div ng-if="state == 'yetBind'" class="title ng-binding" style="top:22px;">
+                您已绑定姓名和手机号。
+            </div>
+            <!--<div ng-if="false" class="title ng-binding" style="top:22px;height:auto;text-align:left;white-space:normal;line-height:24px;">-->
+                <!--您还未绑定手机号，后台无法识别您的健康数据。请先进行绑定。-->
+            <!--</div>-->
+        </div>
+        <div class="list" style="margin-top:90px;">
+            <label class="item item-input">
+                <input type="text" placeholder="请输入手机号" class="ng-pristine ng-untouched ng-valid ng-empty">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="请输入验证码" class="ng-pristine ng-untouched ng-valid ng-empty">
+                <button type="button" class="button button-full button-energized subscribe-btn bindPhoneCode" ng-click="phone.getCode()">{{phone.codeText}}</button>
+            </label>
+        </div>
+        <button ng-if="state == 'didNotBind'" class="button button-full button-energized subscribe-btn" style="margin-top:80px;" ng-click="bindPhone()">立即绑定</button>
+        <button ng-if="state == 'yetBind_update'" class="button button-full button-energized subscribe-btn" style="margin-top:80px;" ng-click="updateBind()">重新绑定</button>
+        <div ng-if="state == 'yetBind'" style="margin-top:30%;">
+            <button class="button button-assertive"
+                    style="width:38%;height:100%;margin-left:9%;background-color:#b2b2b2;border-radius:23px;"
+                    ng-click="unbindPhone()">解除绑定
+            </button>
+            <button class="button button-assertive"
+                    style="width:38%;height:100%;margin-left:3%;background-color:#ff8e01;border-radius:23px;"
+                    ng-click="updatePhone()">更改手机号码
+            </button>
+        </div>
+    </div>
+
+</ion-view>
