@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface WeChatServiceClient {
 
     @RequestMapping(value = "getWechatUserInfo", method = {RequestMethod.GET})
-    WeChatUserInfo getWechatUserInfo(@RequestParam String openid);
+    WeChatUserInfo getWechatUserInfo(@RequestParam(value = "openid") String openid);
 }

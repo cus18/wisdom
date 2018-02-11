@@ -48,8 +48,7 @@ public class CourseController {
 	@RequestMapping(value = "recentLiveBroadCast", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO<List<LiveCourseDTO>> recentLiveBroadCast(@RequestBody PageParamDTO<String> pageParamDTO,
-														 HttpServletRequest request)
+	ResponseDTO<List<LiveCourseDTO>> recentLiveBroadCast(@RequestBody PageParamDTO<String> pageParamDTO)
 	{
 		ResponseDTO<List<LiveCourseDTO>> responseDTO = new ResponseDTO<>();
 		if("page".equals(pageParamDTO.getRequestData())){
