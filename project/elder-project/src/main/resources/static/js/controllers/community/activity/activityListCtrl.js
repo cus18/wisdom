@@ -2,6 +2,8 @@ angular.module('controllers',[]).controller('activityListCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityList','ElderUtil',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityList,ElderUtil) {
 
+            $rootScope.pageTitle = '更多活动';
+
             $scope.param = {
                 page:{
                     pageNo:1,
@@ -38,6 +40,15 @@ angular.module('controllers',[]).controller('activityListCtrl',
                 GetActivityList.save($scope.param.page,
                     function(data){
                     ElderUtil.checkResponseData(data);
+                    angular.forEach(data.responseData,function(data){
+                        if(data.activityStatus == 'end'){
+                            data.activityStatus = '已结束';
+                        }else if(data.activityStatus == 'waiting'){
+                            data.activityStatus = '未开始';
+                        }else if(data.activityStatus == 'ongoing') {
+                            data.activityStatus = '进行中';
+                        }
+                    })
                     $scope.activityList = data.responseData;
                 })
             });
@@ -47,6 +58,15 @@ angular.module('controllers',[]).controller('activityListCtrl',
                 GetActivityList.save($scope.param.page,
                     function(data){
                         ElderUtil.checkResponseData(data,'activityList');
+                        angular.forEach(data.responseData,function(data){
+                            if(data.activityStatus == 'end'){
+                                data.activityStatus = '已结束';
+                            }else if(data.activityStatus == 'waiting'){
+                                data.activityStatus = '未开始';
+                            }else if(data.activityStatus == 'ongoing') {
+                                data.activityStatus = '进行中';
+                            }
+                        })
                         $scope.activityList = data.responseData;
                         $scope.$broadcast('scroll.refreshComplete');
                     })
@@ -63,6 +83,15 @@ angular.module('controllers',[]).controller('activityListCtrl',
                 }
                 GetActivityList.save($scope.param.page, function(data){
                     ElderUtil.checkResponseData(data,'activityList');
+                    angular.forEach(data.responseData,function(data){
+                        if(data.activityStatus == 'end'){
+                            data.activityStatus = '已结束';
+                        }else if(data.activityStatus == 'waiting'){
+                            data.activityStatus = '未开始';
+                        }else if(data.activityStatus == 'ongoing') {
+                            data.activityStatus = '进行中';
+                        }
+                    })
                     $scope.activityList = data.responseData;
                 })
             }

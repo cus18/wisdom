@@ -1,15 +1,9 @@
 <ion-view style="background:#f8f8f8;">
-    <ion-header-bar align-title="center" class="bar-energized">
-        <div class="buttons">
-            <button class="button" onclick="window.history.go(-1)"><</button>
-        </div>
-        <h1 class="title">通知详情</h1>
-    </ion-header-bar>
     <ion-content>
-        <div class="list card" style="margin-top:1.2rem;">
+        <div class="list">
             <div class="item item-divider item-text-wrap">
-                <h2>{{extendMessageDetail.extendMessageName}}</h2>
-                <p>时间：{{extendMessageDetail.extendMessageDate|date:'yyyy/MM/dd HH:mm:ss'}}</p>
+                <h2 style="line-height:36px;border-bottom:1px dashed #ddd;padding-bottom:7px;">{{extendMessageDetail.extendMessageName}}</h2>
+                <p style="line-height:38px;">{{extendMessageDetail.extendMessageDate|date:'yyyy/MM/dd HH:mm:ss'}}</p>
             </div>
             <div class="item item-body">
                 <p>

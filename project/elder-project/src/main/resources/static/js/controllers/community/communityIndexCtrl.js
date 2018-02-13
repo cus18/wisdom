@@ -4,6 +4,8 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetCommunityBannerList,
                   ElderUtil,GetActivityListByFirstPage,GetOnlineCourseList,GetRelativeElderInfo) {
 
+            $rootScope.pageTitle = '老友活动';
+
             $scope.param = {
                 bannerList : '',
                 activityList : ''
@@ -31,13 +33,22 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
                 }
             }
 
-            GetCommunityBannerList.save(function(data){
-                ElderUtil.checkResponseData(data,'communityIndex');
-                $scope.param.bannerList = data.responseData;
-            });
+            // GetCommunityBannerList.save(function(data){
+            //     ElderUtil.checkResponseData(data,'communityIndex');
+            //     $scope.param.bannerList = data.responseData;
+            // });
 
             GetActivityListByFirstPage.save(function(data){
                 ElderUtil.checkResponseData(data,'communityIndex');
+                angular.forEach(data.responseData,function(data){
+                    if(data.activityStatus == 'end'){
+                        data.activityStatus = '已结束';
+                    }else if(data.activityStatus == 'waiting'){
+                        data.activityStatus = '未开始';
+                    }else if(data.activityStatus == 'ongoing') {
+                        data.activityStatus = '进行中';
+                    }
+                })
                 $scope.param.activityList = data.responseData;
             })
 

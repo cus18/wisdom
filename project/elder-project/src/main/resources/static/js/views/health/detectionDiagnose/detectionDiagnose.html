@@ -1,40 +1,23 @@
-<ion-view style="background:white">
+<ion-view style="background:#f8f8f8">
     <div page-loading></div>
-    <elder-head></elder-head>
-    <div class="empty10"></div>
-    <!--headerTitle end-->
-    <!--检测与诊疗tab-->
-    <ul class="primaryTab bgf mb10">
-        <a ng-click="goMenu('detection','bloodSugarTable')">
-            <li ng-class="{'on': firstMenu == 'detection'}" >远程监测</li>
-        </a>
-        <a ng-click="goMenu('testReport','')">
-            <li ng-class="{'on': firstMenu == 'testReport'}">检验报告</li>
-        </a>
-        <a ng-click="goMenu('diagnoseReport','')">
-            <li ng-class="{'on': firstMenu == 'diagnoseReport'}">诊疗记录</li>
-        </a>
-    </ul>
-
+    <div class="bar bar-header">
+        <div class="title">以下是数据示例</div>
+        <div class="tabs tabs-top tabs-striped" style="background:#fff;">
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable']"
+               style="border-color: #ff8e01;"
+               ng-click="goMenu('detection','bloodSugarCurve')" class="tab-item active">
+                <p>血糖</p>
+            </a>
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodPressureCurve'||secondMenu == 'bloodPressureTable']"
+               style="border-color: #ff8e01;"
+               ng-click="goMenu('detection','bloodPressureCurve')" class="tab-item">
+                <p>血压/心率</p>
+            </a>
+        </div>
+    </div>
     <!--远程监测tab-->
     <div ng-if="firstMenu == 'detection'" style="margin-top:-20px;">
-        <ul class="secondary bgf secondaryBor">
-            <a ng-click="goMenu('detection','bloodSugarCurve')">
-                <li ng-class="{'on': secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable'}">
-                    <img ng-if="secondMenu == 'bloodPressureCurve'||secondMenu == 'bloodPressureTable'" src="/images/icon_252.png"/>
-                    <img ng-if="secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable'" src="/images/icon_251.png"/>
-                    血糖
-                </li>
-            </a>
-            <a ng-click="goMenu('detection','bloodPressureCurve')">
-                <li ng-class="{'on': secondMenu == 'bloodPressureCurve'||secondMenu == 'bloodPressureTable'}">
-                    <img ng-if="secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable'" src="/images/icon_242.png"/>
-                    <img ng-if="secondMenu == 'bloodPressureCurve'||secondMenu == 'bloodPressureTable'" src="/images/icon_241.png"/>
-                    血压心率
-                </li>
-            </a>
-        </ul>
-        <div class="secondaryMarB"></div>
+
         <div ng-if="secondMenu == 'bloodSugarCurve'" style="overflow:auto;height:10rem;">
             <!--血糖content-->
             <div ng-if="dataLoad">
@@ -253,45 +236,4 @@
         </div>
     </div>
 
-    <!--检验报告-->
-    <div ng-if="firstMenu == 'testReport'" style="overflow:auto;height:11rem;">
-        <!--检验报告content start-->
-        <section class="calendar" id="directives-calendar-testReport">
-            <div calendar="myCalendar1"
-                 ui-calendar="testReportUiConfig.calendar">
-            </div>
-        </section>
-        <div class="reportList bgf" ng-repeat="item in testReportDatas">
-            <a ui-sref="testReportResult({testDate:item.testDate,testTime:item.testTime})">
-                <p class="reportListTit">{{item.testDate}}</p>
-                <p class="reportListDate">提交者：<span>{{item.providerName}}</span>提交时间：<span>{{item.testTime}}</span></p>
-                <div class="reportImg clearfix">
-                    <div ng-repeat="item2 in item.testPicUrl.split(';')">
-                        <img ng-src="{{item2}}?x-oss-process=image/resize,m_fill,h_100,w_100" alt=""/>
-                    </div>
-                </div>
-                <p ng-if="item.description" class="reportCont">{{item.description}}</p>
-            </a>
-        </div>
-        <!--检验报告content end-->
-    </div>
-
-    <!--诊疗记录-->
-    <div ng-if="firstMenu == 'diagnoseReport'" style="overflow:auto;height:11rem;">
-        <!--诊疗记录content start-->
-        <section class="calendar" id="directives-calendar-diagnoseReport">
-            <div calendar="myCalendar2"
-                 ui-calendar="diagnoseReportUiConfig.calendar">
-            </div>
-        </section>
-        <div class="reportList bgf" ng-repeat="item in diagnoseReportDatas">
-            <a ui-sref="diagnoseReportResult({recordDate:item.recordDate})">
-                <p class="reportListTit">{{item.recordDate.substring(0,10)}}</p>
-                <p class="reportListDate">责任医生：<span>{{item.providerName}}</span>记录时间：<span>{{item.recordDate.substring(11,16)}}</span></p>
-                <img class="diagnoseAudioIcon" src="/images/icon_audio.png" alt="">
-                <p ng-if="item.description" class="reportCont">{{item.description}}</p>
-            </a>
-        </div>
-        <!--诊疗记录content end-->
-    </div>
 </ion-view>

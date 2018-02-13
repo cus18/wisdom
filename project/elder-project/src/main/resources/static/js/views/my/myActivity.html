@@ -1,43 +1,11 @@
-<ion-view style="background:white;">
-	<ion-header-bar align-title="center" class="bar-energized">
-        <div class="buttons">
-            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
-        </div>
-        <h1 class="title">我的活动</h1>
-	</ion-header-bar>
-	<!--活动列表-->
-	<div>
-		<div class="list" style="margin-top:15%">
-			<a class="item item-thumbnail-left"
-			   style="min-height:40px;color:black;margin-left:-90px">
-				<span style="font-size:18px;position:absolute">最近发布</span>
-			</a>
-			<a class="item item-thumbnail-left"
-			   style="min-height:145px"
-			   ng-repeat="item in param.recentPublishActive">
-				<img ng-src="{{item.activityOwnerLogo}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-				<h2>{{item.activityName}}</h2>
-				<span style="background:#ffc900;padding: 5px 10px 5px 10px;position: absolute;margin-top:1%;border-radius:10px">{{item.activityAttendedNum}}人参加</span>
-				<i class="icon ion-location" style="margin-top:40px;position:absolute;color:#ff8e01;font-size:20px"></i>
-				<span style="color:black;word-break:normal;white-space:pre-wrap;overflow:hidden;display:block;width:90%;margin-top:42px;margin-left:15px;position:relative;font-size:14px">{{item.activityAddress}}</span>
-				<i class="icon ion-clock" style="margin-top:5px;position:absolute;color:#ff8e01;font-size:14px">&nbsp;<span style="color: black">{{item.activityEndDate|date:'yyyy/MM/dd HH:mm'}}</span></i>
-			</a>
-		</div>
-		<div class="list" style="margin-top:-22px;position:relative">
-			<a class="item item-thumbnail-left"
-			   style="min-height:40px;color:black;margin-left:-90px">
-				<span style="font-size:18px;position:absolute">最近参加</span>
-			</a>
-			<a class="item item-thumbnail-left"
-			   style="min-height:145px"
-			   ng-repeat="item in param.recentAttendActive">
-				<img ng-src="{{item.activityOwnerLogo}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-				<h2>{{item.activityName}}</h2>
-				<span style="background:#ffc900;padding: 5px 10px 5px 10px;position: absolute;margin-top:1%;border-radius:10px">{{item.activityAttendedNum}}人参加</span>
-				<i class="icon ion-location" style="margin-top:40px;position:absolute;color:#ff8e01;font-size:20px"></i>
-				<span style="color:black;word-break:normal;white-space:pre-wrap;overflow:hidden;display:block;width:90%;margin-top:42px;margin-left:15px;position:relative;font-size:14px">{{item.activityAddress}}</span>
-				<i class="icon ion-clock" style="margin-top:5px;position:absolute;color:#ff8e01;font-size:14px">&nbsp;<span style="color: black">{{item.activityEndDate|date:'yyyy/MM/dd HH:mm'}}</span></i>
-			</a>
-		</div>
+<ion-view style="background:#f8f8f8;">
+	<div class="list">
+		<a class="item"
+		   ng-repeat="item in param.recentPublishActive">
+			<h2 style="margin-bottom:8px;">{{item.activityName}}</h2>
+			<p><i class="icon ion-location" style="margin-left:2px;"></i>&nbsp;{{item.activityAddress}}</p>
+			<p><i class="icon ion-person"></i>&nbsp;{{item.activityAttendedNum}}人已报名</p>
+			<span ng-class="{true:'activityIcon',false:'activityIcon end'}[item.activityStatus=='进行中']">{{item.activityStatus}}</span>
+		</a>
 	</div>
 </ion-view>

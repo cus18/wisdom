@@ -414,7 +414,7 @@ define(['appElder'], function(app){
 
                 /*系统中视频的播放列表，涵直播和点播的*/
                     .state('courseList', {
-                        url: '/courseList/:type',
+                        url: '/courseList',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'courseListCtrl',
                         resolve: {
@@ -428,7 +428,7 @@ define(['appElder'], function(app){
 
                 /*系统中视频点播视频的详细信息*/
                     .state('courseDetail', {
-                        url: '/courseDetail/:courseId,:courseType',
+                        url: '/courseDetail/:courseId',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'courseDetailCtrl',
                         resolve: {
@@ -666,6 +666,18 @@ define(['appElder'], function(app){
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.bindPhoneSuccess',
                                     ['js/controllers/phone/bindPhoneSuccessCtrl.js?ver='+elderVersion],
                                     'js/views/phone/bindPhoneSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('feedback', {
+                        url: '/feedback',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'feedbackCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.feedback',
+                                    ['js/controllers/my/feedbackCtrl.js?ver='+elderVersion],
+                                    'js/views/my/feedback.html?ver='+elderVersion);
                             }
                         }
                     })

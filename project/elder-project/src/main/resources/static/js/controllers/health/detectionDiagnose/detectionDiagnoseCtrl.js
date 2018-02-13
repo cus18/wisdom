@@ -6,6 +6,7 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                   GetDetectionHealthData,ElderUtil,
                   TestReportList,DiagnoseReportList,$timeout,Global,$window) {
 
+            $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
 
             $scope.goMenu = function(firstMenuParam,secondMenuParam){
@@ -22,7 +23,6 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
             $scope.firstMenu = $stateParams.firstMenu;
             $scope.secondMenu = $stateParams.secondMenu;
-            $rootScope.h5Page = true;
 
             var initHealthData = function(num){
                 var date = new Date();
@@ -96,104 +96,9 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
             }
 
-            var loadTestReport = function(){
-                $timeout(function() {
-                    $scope.testReportUiConfig = {
-                        calendar:{
-                            height: 400,
-                            editable: false,
-                            header:{
-                                left: '',
-                                center: 'prev title next',
-                                right: ''
-                            },
-                            events:function(start,end,timezone,callback){
-                                var startDate = $filter('date')(new Date(start).getTime(),'yyyy-MM-dd');
-                                var endDate = $filter('date')(new Date(end).getTime(),'yyyy-MM-dd');
-                                if(!$scope.secondMenu=="")
-                                {
-                                    startDate = $scope.secondMenu;
-                                    endDate = $scope.secondMenu;
-                                }
 
-                                $scope.loadingStatus = true;
-                                TestReportList.get({elderId:$scope.elderId, startDate:startDate, endDate:endDate},
-                                    function(data) {
-                                        $scope.loadingStatus = false;
-                                        $scope.testReportDatas = data.responseData;
-                                        $scope.testReportEvents = [];
-                                        angular.forEach(data.responseData, function (value, index, array) {
-                                            var year = $filter('date')(new Date(value.testDate).getTime(), 'yyyy');
-                                            var month = $filter('date')(new Date(value.testDate).getTime(), 'M');
-                                            var day = $filter('date')(new Date(value.testDate).getTime(), 'd');
-                                            var date = new Date(year, month - 1, day);
-                                            var reportEvent = {
-                                                title: '检验',
-                                                allDay: true,
-                                                start: date,
-                                                url: 'elder#/detectionDiagnose/testReport,' + value.testDate
-                                            }
-                                            if (JSON.stringify($scope.testReportEvents).indexOf($filter('date')(new Date(value.testDate).getTime(), 'yyyy-MM-dd')) == -1) {
-                                                $scope.testReportEvents.push(reportEvent);
-                                            }
-                                        });
-                                        callback($scope.testReportEvents);
-                                    })
-                            }
-                        }
-                    };
-                }, 10);
-            }
 
-            var loadDiagnoseReport = function(){
-                $timeout(function() {
-                    $scope.diagnoseReportUiConfig = {
-                        calendar:{
-                            height: 400,
-                            editable: false,
-                            header:{
-                                left: '',
-                                center: 'prev title next',
-                                right: ''
-                            },
-                            events:function(start,end,timezone,callback){
 
-                                var startDate = $filter('date')(new Date(start).getTime(),'yyyy-MM-dd');
-                                var endDate = $filter('date')(new Date(end).getTime(),'yyyy-MM-dd');
-                                if(!$scope.secondMenu=="")
-                                {
-                                    startDate = $filter('date')(new Date($scope.secondMenu).getTime(),'yyyy-MM-dd');
-                                    endDate = $filter('date')(new Date($scope.secondMenu).getTime(),'yyyy-MM-dd');
-                                }
-
-                                $scope.loadingStatus = true;
-                                DiagnoseReportList.get({elderId:$scope.elderId, startDate:startDate, endDate:endDate},
-                                    function(data) {
-                                        $scope.loadingStatus = false;
-                                        $scope.diagnoseReportDatas = data.responseData;
-                                        $scope.diagnoseReportEvents = [];
-                                        angular.forEach(data.responseData, function(value,index,array){
-                                            var year = $filter('date')(new Date(value.recordDate).getTime(),'yyyy');
-                                            var month = $filter('date')(new Date(value.recordDate).getTime(),'M');
-                                            var day = $filter('date')(new Date(value.recordDate).getTime(),'d');
-                                            var date = new Date(year,month-1,day);
-                                            var reportEvent = {
-                                                title: '诊疗',
-                                                allDay: true,
-                                                start: date,
-                                                url: 'elder#/detectionDiagnose/diagnoseReport,'+value.recordDate
-                                            }
-                                            if(JSON.stringify($scope.diagnoseReportEvents).indexOf($filter('date')(new Date(value.recordDate).getTime(),'yyyy-MM-dd'))==-1){
-                                                $scope.diagnoseReportEvents.push(reportEvent);
-                                            }
-                                        });
-                                        callback($scope.diagnoseReportEvents);
-                                    })
-                            }
-                        }
-                    };
-                }, 10);
-            }
 
             var loadDetectionDiagnose = function(){
 
@@ -221,23 +126,10 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                     }
                 }
 
-                if($scope.firstMenu=="testReport")
-                {
-                    loadTestReport();
-                }
-                else if($scope.firstMenu=="diagnoseReport")
-                {
-                    loadDiagnoseReport();
-                }
-                else if($scope.firstMenu=="detection")
+               if($scope.firstMenu=="detection")
                 {
                     $scope.chooseHealthDataTime('week');
                 }
-            }
-
-            $scope.enterGroupTalk = function() {
-                window.WebViewJavascriptBridge.callHandler(
-                    'enterGroupTalk','',function(responseData){});
             }
 
             $scope.chooseHealthDataTime = function(time){
@@ -497,8 +389,6 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                                 $scope.charts.bloodPressure.heartRateSeries = [{type: 'area', name: '心率', data: []}];
 
                                 angular.forEach(data.responseData.detectionData,function(value,index,array){
-                                    // alert(value.measureTime.substring(0,16));
-                                    // alert(new Date(value.measureTime.substring(0,16)).getTime());
                                     $scope.charts.bloodPressure.pressureSeries[0].data.push([
                                         value.measureTime,
                                         parseFloat(value.diastolic)]);

@@ -1,7 +1,7 @@
 <ion-view style="background:#f8f8f8;">
     <ion-content>
         <div class="item">
-            <div class="list">
+            <div class="list livingList">
                 <div class="item item-image">
                     <img src="images/service_bj.png">
                 </div>
@@ -13,23 +13,23 @@
             </div>
         </div>
         <div class="list">
-            <a class="item item-avatar item-text-wrap">
-                <h2><span style="margin-left:-15%;">¥{{response.price}}元/{{response.priceUnit}}</span></h2>
-                <h2><span style="margin-left:-15%;">审核通过后当面结算付费</span></h2>
+            <a class="item item-avatar item-text-wrap" style="padding-left:20px;">
+                <h2><span>¥{{response.price}}元/{{response.priceUnit}}</span></h2>
+                <h2><span>审核通过后当面结算付费</span></h2>
             </a>
-            <a class="item item-avatar item-text-wrap serviceDetail_cont" style="border:none;background:#f8f8f8;">
-                <h2><span style="margin-left:-15%">服务介绍</span></h2>
-                <p style="margin-left:-15%">{{response.description}}</p>
+            <a class="item item-avatar item-text-wrap serviceDetail_cont" style="border:none;background:#f8f8f8;padding-left:20px;">
+                <h2><span>服务介绍</span></h2>
+                <p>{{response.description}}</p>
                 <br><br>
-                <h2><span style="margin-left:-15%">特别说明</span></h2>
-                <p style="margin-left:-15%"
-                   ng-repeat="item in specialList">
+                <h2><span>特别说明</span></h2>
+                <p ng-repeat="item in specialList">
                     <i class="ion ion-record"></i>&nbsp;{{item}}
                 </p>
             </a>
         </div>
         <button class="button button-full button-energized subscribe-btn" ng-click="subscribeService()">立即预约</button>
     </ion-content>
+    <goback-menu></goback-menu>
 </ion-view>
 
 

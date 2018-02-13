@@ -4,6 +4,8 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,
                   GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,ElderUtil) {
 
+
+            $rootScope.pageTitle = '活动详情';
             var activityId = $stateParams.activityId;
 
             $scope.param = {

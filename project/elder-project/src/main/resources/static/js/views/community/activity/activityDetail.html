@@ -1,60 +1,43 @@
-<ion-view style="background:white;">
-	<ion-header-bar align-title="center" class="bar-energized">
-		<div class="buttons">
-			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
-		</div>
-		<h1 class="title">{{detailActivityInfo.activityName}}</h1>
-	</ion-header-bar>
+<ion-view style="background:#f8f8f8;">
 	<ion-content>
-		<img class="full-image" style="height:190px"
-			 ng-src="{{detailActivityInfo.activityLogo}}">
-		<div class="tabs tabs-striped tabs-top tabs-color-assertive"
-			 style="border-radius:0;margin-top:150px;background-color:#f8f8f8">
-			<a ng-class="{true:'tab-item active',false:'tab-item'}[param.operation=='introduce']" ng-click="introduce()">
-				活动详情
-			</a>
-			<a ng-class="{true:'tab-item active',false:'tab-item'}[param.operation=='discuss']" ng-click="discuss()">
-				老友评论
-			</a>
-		</div>
-		<div class="card" style="margin-top:54px;width:100%;margin-left:0rem;font-size: 0.3rem;background-color:#f8f8f8"
-			 ng-if="param.operation=='introduce'">
-			<div class="item item-divider item-text-wrap"
-				 style="background:white;">
-				<i class="icon ion-ios-clock bar-energized" style="color:black;"></i>
-				&nbsp;
-				{{detailActivityInfo.activityStartDate|date:'yyyy/MM/dd HH:mm'}}&nbsp;至&nbsp;{{detailActivityInfo.activityEndDate|date:'yyyy/MM/dd HH:mm'}}
-			</div>
-			<div class="item item-divider item-text-wrap"
-				 style="background:transparent;">
-				<i class="icon ion-location" style="color: black;"></i>
-				&nbsp;
-				{{detailActivityInfo.activityAddress}}
-			</div>
-			<div class="item item-divider item-text-wrap"
-				 style="background:white;">
-				<i class="icon ion-person-stalker" style="color: black;"></i>
-				&nbsp;
-				已报名{{detailActivityInfo.activityAttendedNum}}人
-			</div>
-			<div class="item item-divider item-text-wrap"
-				 style="background:transparent;">
-				<i class="icon ion-person" style="color: black;"></i>
-				&nbsp;
-				主办方:{{detailActivityInfo.activityOwnerName}}
-			</div>
-			<div class="item item-body"
-				 style="background:white">
-				<h1 style="text-align: center;font-size: 0.4rem;">活动主题</h1>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;{{detailActivityInfo.activityDetailInfo}}</p>
-			</div>
-			<!--<div class="item item-body"-->
-				 <!--style="background:transparent">-->
-				<!--<h1 style="text-align: center;font-size: 0.4rem;">关于主办方</h1>-->
-				<!--<p>&nbsp;&nbsp;&nbsp;&nbsp;{{detailActivityInfo.activityOwnerIntro}}</p>-->
-			<!--</div>-->
-			<br/><br/><br/><br/>
-		</div>
+        <div class="item" style="background:#fff;">
+            <div class="list">
+                <div class="item item-image" style="border:0px;">
+                    <img src="images/activity_bj01.png">
+                </div>
+                <div class="serviceDetail_tit">
+                    <div class="ng-binding">{{detailActivityInfo.activityName}}</div>
+                    <div class="ng-binding">{{detailActivityInfo.activityAttendedNum}}人已报名</div>
+                    <p class="ng-binding"><i class="icon"></i>{{detailActivityInfo.activityOwnerName}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="tabs tabs-top tabs-striped" style="top:196px;background:#fff;border-bottom:0px;">
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[param.operation=='introduce']"
+               style="border-color: #ff8e01;"
+               ng-click="introduce()" class="tab-item active">
+                <p>简介</p>
+            </a>
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[param.operation=='discuss']"
+               style="border-color: #ff8e01;"
+               ng-click="discuss()" class="tab-item">
+                <p>评论</p>
+            </a>
+        </div>
+        <div class="list" style="margin-top:50px;">
+            <a class="item item-avatar item-text-wrap serviceDetail_cont" style="border:none;background:#f8f8f8;padding-left:20px;">
+                <h2><span>活动信息</span></h2>
+                <p><i class="icon ion-location" style="margin:0 9px 0 3px;"></i>{{detailActivityInfo.activityAddress}}</p>
+                <p><i class="icon ion-clock" style="margin-right:6px;"></i>{{detailActivityInfo.activityStartDate|date:'yyyy-MM-dd HH:mm'}}&nbsp;至&nbsp;{{detailActivityInfo.activityEndDate|date:'yyyy-MM-dd HH:mm'}}</p>
+                <br><br>
+                <h2><span>活动详情</span></h2>
+                <p>{{detailActivityInfo.activityDetailInfo}}</p>
+                <br/><br/>
+                <h2><span>主办方</span></h2>
+                <p>{{detailActivityInfo.activityOwnerName}}</p>
+            </a>
+        </div>
+
 		<ion-scroll class="list" style="margin-top:54px;height:8rem;"
 					ng-if="param.operation=='discuss'">
 			<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>

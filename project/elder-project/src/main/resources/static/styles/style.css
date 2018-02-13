@@ -26,11 +26,11 @@
 .serviceListTit span i{
     color:#666;
 }
-.list p{
+.livingList p{
     margin-left:-42px;
     margin-bottom:8px;
 }
-.list p i.icon{
+.livingList p i.icon{
     margin-right:5px;
     width: 15px;
     height: 15px;
@@ -230,3 +230,88 @@ h2.myself_serviceTit{
 .button.subscribe-btn.bindPhoneCode.null{
     background:#ccc;
 }
+/*社区活动*/
+.activityIcon{
+    width: 54px;
+    height: 54px;
+    background: #ff8e01;
+    color: #fff;
+    border-radius: 27px;
+    text-align: center;
+    line-height: 54px;
+    position: absolute;
+    right: 27px;
+    top: 11px;
+}
+.activityIcon.end{
+    background:#ddd;
+}
+.courseList{
+    padding:20px 10px;
+    background:#fff;
+}
+.courseList .item-image{
+    border:none;
+    min-height:50px;
+    padding:2%;
+}
+.courseList .courseCont{
+    position:absolute;
+    left:20px;
+    top:23px;
+    width:90%;
+}
+.courseList .courseCont h2 {
+    margin-bottom:12px;
+    color:#fff;
+    text-align:left;
+}
+.courseList .courseCont p {
+    color:#fff;
+    text-align:right;
+}
+/*快速返回按钮*/
+.goback_btn{
+    position: fixed;
+    left: 10%;
+    bottom: 5%;
+    z-index: 11;
+    width: 140px;
+    height: 200px;
+}
+.goback_btn img{
+    width: 50px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+.goback_btn .list{
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+}
+.goback_btn .list:before{
+    content: '';
+    display: block;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    left: -8px;
+    bottom: 11px;
+    border-width: 4px;
+    border-style: solid;
+    border-right-color: red;
+    border-color: transparent #949494 transparent transparent;
+}
+.goback_btn .list li{
+    padding: 4px 9px;
+    font-size: 14px;
+    background: #949494;
+    border-left: none;
+    border-right: none;
+}
+.goback_btn .list a{
+    color: #fff;
+    text-decoration:none;
+}
+

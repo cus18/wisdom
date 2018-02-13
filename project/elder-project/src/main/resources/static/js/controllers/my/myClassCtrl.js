@@ -2,6 +2,8 @@ angular.module('controllers',[]).controller('myClassCtrl',
     ['$scope','$rootScope','$stateParams','$state','GetMyOnlineCourseList','ElderUtil',
         function ($scope,$rootScope,$stateParams,$state,GetMyOnlineCourseList,ElderUtil) {
 
+            $rootScope.pageTitle = '我的课程';
+
             $scope.param = {
                 recentPublishActive:[],
                 recentAttendActive:[],

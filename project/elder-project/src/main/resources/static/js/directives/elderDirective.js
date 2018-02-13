@@ -32,4 +32,25 @@ define(['appElder','jquery'], function (app,$) {
                 link: function(scope,ele,attrs) {}
             }
         }])
+        .directive('gobackMenu', [function(){
+            return {
+                restrict: 'EAC',
+                replace: true,
+                template: '<div class="goback_btn">'
+                +'<img src="images/laoyou_icon01.png" alt="" ng-click="changeMenu()">'
+                +'<ul class="list" ng-if="tabMenu">'
+                +'<li class="item" style="border-top:none;"><a ui-sref="livingServiceList({type:\'short\'})">居家服务</a></li>'
+                +'<li class="item"><a ui-sref="communityIndex">社区活动</a></li>'
+                +'<li class="item"><a ui-sref="detectionDiagnose({firstMenu:\'detection\',secondMenu:\'bloodSugarCurve\'})">健康数据</a></li>'
+                +'<li class="item"><a ui-sref="myselfCenter">个人中心</a></li>'
+                +'</ul>'
+                +'</div>',
+                link: function(scope,ele,attrs) {
+                    scope.tabMenu = false;
+                    scope.changeMenu = function(){
+                        scope.tabMenu = !scope.tabMenu;
+                    }
+                }
+            }
+        }])
 })

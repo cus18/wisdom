@@ -4,6 +4,8 @@ angular.module('controllers',[]).controller('courseDetailCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetLiveBroadCastDetail,
                   GetOnlineCourseDetail,GetOnlineCourseDiscuss,$sce,CreateOnlineCourseDiscuss,ElderUtil) {
 
+            $rootScope.pageTitle = '课堂详情';
+
             $scope.param = {
                 courseId:$stateParams.courseId,
                 startCourseFlag : false,
@@ -24,18 +26,17 @@ angular.module('controllers',[]).controller('courseDetailCtrl',
 
             }
 
-            if($stateParams.courseType=="vod")
-            {
-                GetOnlineCourseDetail.save({onlineCourseId:$scope.param.courseId},function(data){
+
+            GetOnlineCourseDetail.save({onlineCourseId:$scope.param.courseId},function(data){
+                ElderUtil.checkResponseData(data);
+                $scope.param.onlineCourseDetail = data.responseData;
+                $scope.param.discussPage.requestData = $scope.param.onlineCourseDetail.onlineCourseId;
+                GetOnlineCourseDiscuss.save($scope.param.discussPage,function(data){
                     ElderUtil.checkResponseData(data);
-                    $scope.param.onlineCourseDetail = data.responseData;
-                    $scope.param.discussPage.requestData = $scope.param.onlineCourseDetail.onlineCourseId;
-                    GetOnlineCourseDiscuss.save($scope.param.discussPage,function(data){
-                        ElderUtil.checkResponseData(data);
-                        $scope.onlineCourseDiscussData  = data.responseData;
-                    })
+                    $scope.onlineCourseDiscussData  = data.responseData;
                 })
-            }
+            })
+
 
             $scope.loadMoreDiscuss = function(){
                 $scope.param.discussPage.pageSize = $scope.param.discussPage.pageSize + 2;

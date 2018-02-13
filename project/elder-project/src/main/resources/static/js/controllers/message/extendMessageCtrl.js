@@ -2,6 +2,7 @@ angular.module('controllers',[]).controller('extendMessageCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','GetExtendMessage',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetExtendMessage) {
 
+            $rootScope.pageTitle = '消息';
             $scope.param = {
                 page:{
                     pageNo:1,
