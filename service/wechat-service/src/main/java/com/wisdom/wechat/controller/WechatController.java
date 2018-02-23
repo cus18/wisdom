@@ -1,9 +1,12 @@
 package com.wisdom.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wisdom.common.constant.StatusConstant;
+import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.util.HttpRequestUtil;
 import com.wisdom.common.util.SignUtil;
 import com.wisdom.common.dto.basic.WeChatUserInfo;
+import com.wisdom.wechat.client.CoreServiceClient;
 import com.wisdom.wechat.service.WechatService;
 import com.wisdom.wechat.util.WechatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,10 @@ public class WechatController {
 
 	@Autowired
 	WechatService wechatService;
+
+	@Autowired
+	CoreServiceClient coreServiceClient;
+
 
 	/**
 	 * *用户校验是否是微信服务器发送的请求
@@ -102,5 +109,6 @@ public class WechatController {
 	public WeChatUserInfo getWechatUserInfo(@RequestParam String openid) throws  Exception{
 		return WechatUtil.getWechatUserInfo(openid);
 	}
+
 
 }

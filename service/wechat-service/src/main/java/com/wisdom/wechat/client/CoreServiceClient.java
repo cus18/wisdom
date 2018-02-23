@@ -16,4 +16,10 @@ public interface CoreServiceClient {
     ResponseDTO<UserInfoDTO> getUserInfo(@RequestParam(value = "loginToken") String loginToken);
 
 
+    @RequestMapping(value = "/sendIdentifyingMessage",method=RequestMethod.GET)
+    void sendIdentifyingMessage(@RequestParam(value = "phoneNum") String phoneNum);
+
+    @RequestMapping(value = "/validateCode",method=RequestMethod.GET)
+    boolean validateCode(@RequestParam(value = "phoneNum") String phoneNum,@RequestParam(value = "validateCode") String validateCode);
+
 }

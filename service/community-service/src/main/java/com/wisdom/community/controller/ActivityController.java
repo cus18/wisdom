@@ -45,10 +45,7 @@ public class ActivityController {
 	@ResponseBody
 	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO,
 												HttpServletRequest request) {
-
 		ResponseDTO<List<ActivityDTO>> responseDTO = new ResponseDTO<>();
-
-
 		/****
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
@@ -71,7 +68,6 @@ public class ActivityController {
 	@ResponseBody
 	ResponseDTO<ActivityDTO> activityDetail(@RequestParam String activityId) {
 		ResponseDTO<ActivityDTO> responseDTO = new ResponseDTO<>();
-
 		/****
 		 根据活动的ID号，获取活动的详细信息，放入ActivityDTO中
 		 *****/
@@ -92,7 +88,6 @@ public class ActivityController {
 	public
 	@ResponseBody
 	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,@RequestParam String openID) {
-
 		ResponseDTO<String> responseDTO = new ResponseDTO<>();
 		/****
 		 根据活动的ID号，和用户的信息，判断此用户是否报名参加了此活动，"1"代表已经报名参加，如果为"0"，则代表没有报名参加
@@ -114,9 +109,7 @@ public class ActivityController {
 	public
 	@ResponseBody
 	ResponseDTO<List<ActivityDiscussDTO>> activityDiscuss(@RequestBody PageParamDTO<String> pageParamDTO) {
-
 		ResponseDTO<List<ActivityDiscussDTO>> responseDTO = new ResponseDTO<>();
-
 		/****
 		 根据活动的ID号，获取活动的评论信息，放入List<ActivityDiscussDTO>中
 		 *****/
@@ -140,9 +133,7 @@ public class ActivityController {
 	ResponseDTO<String> joinActivity(@RequestParam String openid,
 									 @RequestParam String activityId,
 									 HttpServletRequest request) {
-
 		ResponseDTO responseDTO = new ResponseDTO<>();
-
 		/****
 		 List<String>中放入的是报名参加活动的用户列表，为用户的elderId值，['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
 		 *****/

@@ -7,6 +7,8 @@ import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.dto.core.user.EasemobGroupDTO;
 import com.wisdom.common.dto.core.user.ElderUserDTO;
 import com.wisdom.common.dto.core.user.UserInfoDTO;
+import com.wisdom.common.util.DaHanTricomSMSMessageUtil;
+import com.wisdom.core.mapper.DaHanTricomMessageMapper;
 import com.wisdom.core.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +31,30 @@ public class ServiceController {
 	@Autowired
 	BannerService bannerService;
 
+	@Autowired
+	LoginService loginService;
+
+	@Autowired
+	DaHanTricomMessageMapper daHanTricomMessageMapper;
+
+	//短信发送验证码
+	@RequestMapping(value = "/sendIdentifyingMessage",method = {RequestMethod.POST, RequestMethod.GET})
+	void sendIdentifyingMessage(@RequestParam String phoneNum)
+	{
+		loginService.sendMessage(phoneNum);
+	}
+
+	//验证验证码有效性
+	@RequestMapping(value = "/validateCode",method = {RequestMethod.POST, RequestMethod.GET})
+	boolean validateCode(@RequestParam String phoneNum,@RequestParam String validateCode)
+	{
+		return  daHanTricomMessageMapper.searchIdentify(phoneNum, validateCode)>0?true:false;
+	}
+
 	@RequestMapping(value = "/sendEasemobMessage",method = {RequestMethod.POST, RequestMethod.GET})
 	void sendEasemobMessage(@RequestParam String easemobGroup, @RequestParam String message)
 	{
-		easemobService.sendEasemobMessage(easemobGroup,message);
+		EasemobService.sendEasemobMessage(easemobGroup,message);
 	}
 
 	@RequestMapping(value = "/getEasemobMessageUrl",method = {RequestMethod.POST, RequestMethod.GET})

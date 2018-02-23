@@ -6,6 +6,8 @@ import com.wisdom.common.dto.core.user.ElderUserDTO;
 import com.wisdom.common.dto.core.user.RelativeElderDTO;
 import com.wisdom.common.dto.core.user.UserInfoDTO;
 import com.wisdom.core.interceptor.LoginRequired;
+import com.wisdom.core.mapper.DaHanTricomMessageMapper;
+import com.wisdom.core.service.LoginService;
 import com.wisdom.core.service.PractitionerUserService;
 import com.wisdom.core.service.RedisService;
 import com.wisdom.core.client.HealthServiceClient;
@@ -30,6 +32,9 @@ public class UserInfoController {
 
 	@Autowired
 	RedisService redisService;
+
+	@Autowired
+	DaHanTricomMessageMapper daHanTricomMessageMapper;
 
 	/**
 	 * 获取用户所有的亲友圈中亲友的信息
@@ -84,6 +89,22 @@ public class UserInfoController {
 		result.setResult(status);
 		result.setErrorInfo(status.equals(StatusConstant.LOGIN_OUT) ? "退出登录" : "保持在线");
 		return result;
+	}
+
+	/**
+	 * 与老友用户绑定
+	 * @return
+	 */
+	@RequestMapping(value = "bindLaoyouUser", method = {RequestMethod.POST, RequestMethod.GET})
+	public ResponseDTO bindLaoyouUser(@RequestParam String phone, @RequestParam String num, @RequestParam String openid) throws  Exception{
+		ResponseDTO responseDTO=new ResponseDTO();
+		if(daHanTricomMessageMapper.searchIdentify(phone,num)>0){
+			return userService.bindLaoyouUser(phone,num);
+		}else{
+			responseDTO.setResult(StatusConstant.SUCCESS);
+			responseDTO.setErrorInfo("验证码不正确");
+			return responseDTO;
+		}
 	}
 
 }

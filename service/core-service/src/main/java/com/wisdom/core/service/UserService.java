@@ -2,6 +2,7 @@ package com.wisdom.core.service;
 
 import com.google.gson.Gson;
 import com.wisdom.common.constant.StatusConstant;
+import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.dto.core.user.RelativeElderDTO;
 import com.wisdom.common.dto.core.user.UserInfoDTO;
 import com.wisdom.core.mapper.UserMapper;
@@ -69,6 +70,24 @@ public class UserService {
     public String loginOut(String loginToken) {
         redisService.expire(loginToken,0);
         return StatusConstant.LOGIN_OUT;
+    }
+
+    public ResponseDTO bindLaoyouUser(String phoneNum, String openid){
+        UserInfoDTO userInfoDTO=new UserInfoDTO();
+        userInfoDTO.setLoginName(phoneNum);
+        userInfoDTO=userMapper.getByLoginName(userInfoDTO);
+        userInfoDTO.setOpenid(openid);
+        ResponseDTO responseDTO=new ResponseDTO();
+        if(userMapper.updateUserInfo(userInfoDTO)>0){
+            responseDTO.setResult(StatusConstant.SUCCESS);
+            responseDTO.setErrorInfo("绑定成功");
+            responseDTO.setResponseData(userInfoDTO);
+            return responseDTO;
+        }else{
+            responseDTO.setResult(StatusConstant.SUCCESS);
+            responseDTO.setErrorInfo("手机号不存在");
+            return responseDTO;
+        }
     }
 
 }
