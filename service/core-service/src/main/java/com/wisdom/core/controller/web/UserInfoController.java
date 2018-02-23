@@ -107,4 +107,20 @@ public class UserInfoController {
 		}
 	}
 
+	/**
+	 * 修改与老友用户绑定
+	 * @return
+	 */
+	@RequestMapping(value = "updateBindLaoyouUser", method = {RequestMethod.POST, RequestMethod.GET})
+	public ResponseDTO updateBindLaoyouUser(@RequestParam String phone, @RequestParam String num, @RequestParam String openid) throws  Exception{
+		ResponseDTO responseDTO=new ResponseDTO();
+		if(daHanTricomMessageMapper.searchIdentify(phone,num)>0){
+			return userService.bindLaoyouUser(phone,num);
+		}else{
+			responseDTO.setResult(StatusConstant.SUCCESS);
+			responseDTO.setErrorInfo("验证码不正确");
+			return responseDTO;
+		}
+	}
+
 }
