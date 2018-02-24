@@ -95,7 +95,7 @@ public class ActivityService {
         if(nums!=0&&nums.equals(activity.getPeopleNum())){
             return "max";
         }
-        activityUser.setSysElderUserID(openid);
+        activityUser.setOpenID(openid);
         activityUserMapper.addActivityUser(activityUser);
 
         boolean ifGroup=activity.getActivityEasemobGroupID()!=null && !activity.getActivityEasemobGroupID().equals("");
