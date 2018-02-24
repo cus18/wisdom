@@ -237,8 +237,7 @@ public class CourseController {
 		String loginToken = request.getHeader("loginToken");
 		ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
 		if(userInfoValue.getResponseData()!=null){
-			onlineCourseDiscussDTO.setElderId(userInfoValue.getResponseData().getElderUserDTO().getId());
-			onlineCourseDiscussDTO.setElderName(userInfoValue.getResponseData().getName());
+			onlineCourseDiscussDTO.setOpendId(onlineCourseDiscussDTO.getOpendId());
 			onlineCourseDiscussDTO.setOnlineCourseDiscussDate(new Date());
 			liveCourseService.createOnlineCourseDiscuss(onlineCourseDiscussDTO);
 			responseDTO.setResult(StatusConstant.SUCCESS);
