@@ -15,12 +15,16 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
     private Integer onlineCourseId;
 
     //评价者的ID号
-    @JSONField(name = "elderId")
-    private String elderId;
+    @JSONField(name = "opendId")
+    private String opendId;
 
     //评价者的名字
-    @JSONField(name = "elderName")
-    private String elderName;
+    @JSONField(name = "wechatName")
+    private String wechatName;
+
+    //评价者的名字
+    @JSONField(name = "wechatHeadPhoto")
+    private String wechatHeadPhoto;
 
     //评论的内容
     @JSONField(name = "onlineCourseDiscussContent")
@@ -30,6 +34,15 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
     @JSONField(name = "onlineCourseDiscussDate")
     private Date onlineCourseDiscussDate;
 
+
+    public Integer getDiscussId() {
+        return discussId;
+    }
+
+    public void setDiscussId(Integer discussId) {
+        this.discussId = discussId;
+    }
+
     public Integer getOnlineCourseId() {
         return onlineCourseId;
     }
@@ -38,20 +51,28 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
         this.onlineCourseId = onlineCourseId;
     }
 
-    public String getElderId() {
-        return elderId;
+    public String getOpendId() {
+        return opendId;
     }
 
-    public void setElderId(String elderId) {
-        this.elderId = elderId;
+    public void setOpendId(String opendId) {
+        this.opendId = opendId;
     }
 
-    public String getElderName() {
-        return elderName;
+    public String getWechatName() {
+        return wechatName;
     }
 
-    public void setElderName(String elderName) {
-        this.elderName = elderName;
+    public void setWechatName(String wechatName) {
+        this.wechatName = wechatName;
+    }
+
+    public String getWechatHeadPhoto() {
+        return wechatHeadPhoto;
+    }
+
+    public void setWechatHeadPhoto(String wechatHeadPhoto) {
+        this.wechatHeadPhoto = wechatHeadPhoto;
     }
 
     public String getOnlineCourseDiscussContent() {
@@ -66,16 +87,7 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
         return onlineCourseDiscussDate;
     }
 
-    public Integer getDiscussId() {
-        return discussId;
-    }
-
-    public void setDiscussId(Integer discussId) {
-        this.discussId = discussId;
-    }
-
     public void setOnlineCourseDiscussDate(Date onlineCourseDiscussDate) {
         this.onlineCourseDiscussDate = onlineCourseDiscussDate;
     }
-
 }

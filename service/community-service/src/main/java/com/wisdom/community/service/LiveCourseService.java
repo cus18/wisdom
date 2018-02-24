@@ -1,6 +1,8 @@
 package com.wisdom.community.service;
 
 import com.wisdom.common.constant.StatusConstant;
+import com.wisdom.common.dto.basic.WeChatUserInfo;
+import com.wisdom.common.dto.community.activity.ActivityDiscussReplyDTO;
 import com.wisdom.common.dto.core.DictDTO;
 import com.wisdom.common.dto.core.Page;
 import com.wisdom.common.dto.core.PageParamDTO;
@@ -8,6 +10,7 @@ import com.wisdom.common.dto.community.course.*;
 import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.util.StringUtils;
 import com.wisdom.community.client.CoreServiceClient;
+import com.wisdom.community.client.WeChatServiceClient;
 import com.wisdom.community.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,9 @@ public class LiveCourseService{
 
     @Autowired
     CoreServiceClient coreServiceClient;
+
+    @Autowired
+    WeChatServiceClient weChatServiceClient;
 
     public Page getLiveCourseByInfo(PageParamDTO<String> pageParamDTO, String[] status) {
         LiveCourseDTO liveCourseDTO = new LiveCourseDTO();
@@ -126,7 +132,13 @@ public class LiveCourseService{
         OnlineCourseDiscussDTO dto = new OnlineCourseDiscussDTO();
         dto.setOnlineCourseId(Integer.parseInt(pageParamDTO.getRequestData()));
         Page page = new Page(Integer.parseInt(pageParamDTO.getPageNo()),Integer.parseInt(pageParamDTO.getPageSize()));
-        return courseMapper.getOnlineCourseDiscuss(dto,page);
+        List<OnlineCourseDiscussDTO> list= courseMapper.getOnlineCourseDiscuss(dto,page);
+//        for (OnlineCourseDiscussDTO o:list) {
+//            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(o.getOpendId());
+//            o.setWechatHeadPhoto(weChatUserInfo.getHeadimgurl());
+//            o.setWechatName(weChatUserInfo.getNickname());
+//        }
+        return list;
     }
 
     public void createOnlineCourseDiscuss(OnlineCourseDiscussDTO onlineCourseDiscussDTO) {
