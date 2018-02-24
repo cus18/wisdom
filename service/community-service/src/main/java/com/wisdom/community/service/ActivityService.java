@@ -70,18 +70,18 @@ public class ActivityService {
 
     public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
         List<ActivityDiscussDTO> activityDiscussDTOList=activityDiscussMapper.getActivityDiscussList(id,page);
-        for (ActivityDiscussDTO a:activityDiscussDTOList) {
-            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenId());
-            a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
-            a.setWechatNickName(weChatUserInfo.getNickname());
-            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
-            for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
-                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenId());
-                adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
-                adr.setWechatNickName(weChatUserInfos.getNickname());
-            }
-            a.setActivityDiscussReplyDTOList(activityDiscussReplyDTO);
-        }
+//        for (ActivityDiscussDTO a:activityDiscussDTOList) {
+//            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenId());
+//            a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
+//            a.setWechatNickName(weChatUserInfo.getNickname());
+//            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
+//            for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
+//                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenId());
+//                adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
+//                adr.setWechatNickName(weChatUserInfos.getNickname());
+//            }
+//            a.setActivityDiscussReplyDTOList(activityDiscussReplyDTO);
+//        }
         return activityDiscussDTOList;
     }
 
