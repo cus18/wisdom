@@ -209,7 +209,7 @@
     </select>
 
     <select id="getOnlineCourseDiscuss" resultMap="onlineCourseDiscuss">
-        SELECT * FROM online_course_discuss
+        SELECT openid,discussContent,discussDate,courseId FROM online_course_discuss
         <where>
             1=1
             <if test="onlineCourseId != null and onlineCourseId != ''">
