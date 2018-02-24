@@ -212,9 +212,6 @@
         SELECT * FROM online_course_discuss
         <where>
             1=1
-            <if test="elderName != null and elderName != ''">
-                and elderName = #{elderName}
-            </if>
             <if test="onlineCourseId != null and onlineCourseId != ''">
                 and courseId = #{onlineCourseId}
             </if>
