@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -227,7 +228,8 @@ public class CourseController {
 
         ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
         onlineCourseDiscussDTO.setOpendId(onlineCourseDiscussDTO.getOpendId());
-        onlineCourseDiscussDTO.setOnlineCourseDiscussDate(new Date());
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        onlineCourseDiscussDTO.setOnlineCourseDiscussDate(sdf.format(new Date()));
         liveCourseService.createOnlineCourseDiscuss(onlineCourseDiscussDTO);
         responseDTO.setResult(StatusConstant.SUCCESS);
         return responseDTO;

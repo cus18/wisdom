@@ -32,7 +32,7 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
 
     //评论的时间
     @JSONField(name = "onlineCourseDiscussDate")
-    private Date onlineCourseDiscussDate;
+    private String onlineCourseDiscussDate;
 
 
     public Integer getDiscussId() {
@@ -83,11 +83,11 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
         this.onlineCourseDiscussContent = onlineCourseDiscussContent;
     }
 
-    public Date getOnlineCourseDiscussDate() {
+    public String getOnlineCourseDiscussDate() {
         return onlineCourseDiscussDate;
     }
 
-    public void setOnlineCourseDiscussDate(Date onlineCourseDiscussDate) {
+    public void setOnlineCourseDiscussDate(String onlineCourseDiscussDate) {
         this.onlineCourseDiscussDate = onlineCourseDiscussDate;
     }
 }
