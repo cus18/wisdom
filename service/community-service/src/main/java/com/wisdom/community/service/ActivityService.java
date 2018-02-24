@@ -71,12 +71,12 @@ public class ActivityService {
     public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
         List<ActivityDiscussDTO> activityDiscussDTOList=activityDiscussMapper.getActivityDiscussList(id,page);
         for (ActivityDiscussDTO a:activityDiscussDTOList) {
-            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenID());
+            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenId());
             a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
             a.setWechatNickName(weChatUserInfo.getNickname());
             List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
             for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
-                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenID());
+                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenId());
                 adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
                 adr.setWechatNickName(weChatUserInfos.getNickname());
             }
@@ -119,7 +119,7 @@ public class ActivityService {
     public Integer addActivityDiscuss(ActivityDiscussDTO activityDiscussDTO) {
         ActivityDiscuss activityDiscuss = new ActivityDiscuss();
         activityDiscuss.setContent(activityDiscussDTO.getDiscussContent());
-        activityDiscuss.setOpenID(activityDiscussDTO.getOpenID());
+        activityDiscuss.setOpenID(activityDiscussDTO.getOpenId());
         activityDiscuss.setActivityID(activityDiscussDTO.getActivityId());
         return activityDiscussMapper.addActivityDiscuss(activityDiscuss);
     }
