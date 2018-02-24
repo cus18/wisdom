@@ -23,8 +23,8 @@ public class ActivityDiscussDTO {
     private String wechatNickName;
 
     //此条评论的评论者的ID号
-    @JSONField(name = "openID")
-    private String openID;
+    @JSONField(name = "openId")
+    private String openId;
 
     //此条评论的创建时间
     @JSONField(name = "discussDate")
@@ -71,12 +71,12 @@ public class ActivityDiscussDTO {
         this.wechatNickName = wechatNickName;
     }
 
-    public String getOpenID() {
-        return openID;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setOpenID(String openID) {
-        this.openID = openID;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public Date getDiscussDate() {

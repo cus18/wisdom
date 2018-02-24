@@ -4,7 +4,7 @@
 
     <insert id="addActivityDiscuss">
 		INSERT INTO
-		`laoyou`.`activity_discuss`
+		`activity_discuss`
 		(`activity_id`, `openID`, `content`)
 	  	VALUES (#{activityID},#{openID}, #{content})
 	</insert>
