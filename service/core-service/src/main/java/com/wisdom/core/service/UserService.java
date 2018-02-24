@@ -100,4 +100,10 @@ public class UserService {
         responseDTO.setResponseData(userInfoDTO);
         return responseDTO;
     }
+
+    public void deleteUserOpenIdInfo(String openid) {
+        UserInfoDTO userInfoDTO = new UserInfoDTO();
+        userInfoDTO.setOpenid(openid);
+        userMapper.deleteUserOpenIdInfo(userInfoDTO);
+    }
 }
