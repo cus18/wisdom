@@ -228,7 +228,7 @@ public class CourseController {
 
         ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
         onlineCourseDiscussDTO.setOpendId(onlineCourseDiscussDTO.getOpendId());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         onlineCourseDiscussDTO.setOnlineCourseDiscussDate(sdf.format(new Date()));
         liveCourseService.createOnlineCourseDiscuss(onlineCourseDiscussDTO);
         responseDTO.setResult(StatusConstant.SUCCESS);
