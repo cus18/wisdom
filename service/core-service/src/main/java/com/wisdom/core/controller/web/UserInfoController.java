@@ -107,5 +107,13 @@ public class UserInfoController {
 		}
 	}
 
+	/**
+	 * 与老友用户绑定
+	 * @return
+	 */
+	@RequestMapping(value = "getLaoyouUserByOpenId", method = {RequestMethod.POST, RequestMethod.GET})
+	public ResponseDTO getLaoyouUserByOpenId(@RequestParam String openid) throws  Exception{
+			return userService.getLaoyouUserByOpenId(openid);
+	}
 
 }

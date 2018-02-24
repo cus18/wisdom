@@ -16,6 +16,8 @@ public interface UserMapper extends CrudMapper<UserInfoDTO>{
 
 	UserInfoDTO getByLoginName(UserInfoDTO userInfoDTO);
 
+	UserInfoDTO getByOpenId(UserInfoDTO userInfoDTO);
+
 	long findAllCount(UserInfoDTO userInfoDTO);
 
 	int updatePasswordById(UserInfoDTO userInfoDTO);
@@ -27,6 +29,10 @@ public interface UserMapper extends CrudMapper<UserInfoDTO>{
 	int updateUserInfo(UserInfoDTO userInfoDTO);
 
 	int updateUser(UserInfoDTO userInfoDTO);
+
+	int updateUserOpenIdInfo(UserInfoDTO userInfoDTO);
+
+	int deleteUserOpenIdInfo(UserInfoDTO userInfoDTO);
 
 	List<UserInfoDTO> getUserByInfo(UserInfoDTO userInfoDTO);
 }
