@@ -1,8 +1,6 @@
 angular.module('controllers',[]).controller('subscribeServiceCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location','GetOpenID',
-        'ElderUtil','GetUserInfo','CommitOrder','openidUtil','$ionicPopup','$timeout','GetlivingServiceList',
-        function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,GetOpenID,
-                  ElderUtil,GetUserInfo,CommitOrder,openidUtil,$ionicPopup,$timeout,GetlivingServiceList) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global','$location','GetOpenID','GetUserInfo','CommitOrder','openidUtil','$ionicPopup','$timeout','GetlivingServiceList',
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,$location,GetOpenID,GetUserInfo,CommitOrder,openidUtil,$ionicPopup,$timeout,GetlivingServiceList) {
 
 
             $rootScope.pageTitle = '预约服务';
@@ -64,7 +62,7 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
 
 
             GetUserInfo.save(function(data){
-                ElderUtil.checkResponseData(data,'subscribeService/'+$stateParams.livingServiceId);
+
             })
 
             $scope.subscribeConfirm = function(){

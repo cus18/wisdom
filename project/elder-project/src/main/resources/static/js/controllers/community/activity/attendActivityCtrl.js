@@ -1,61 +1,51 @@
 angular.module('controllers',[]).controller('attendActivityCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','GetRelativeElderInfo',
-        'GetActivityDetail','JoinActivity','Global','ElderUtil',
-        function ($scope,$interval,$rootScope,$stateParams,$state,GetRelativeElderInfo,
-                  GetActivityDetail,JoinActivity,Global,ElderUtil) {
+    ['$scope','$interval','$rootScope','$stateParams','$state',
+        'GetActivityDetail','JoinActivity','Global','openidUtil',
+        function ($scope,$interval,$rootScope,$stateParams,$state,
+                  GetActivityDetail,JoinActivity,Global,openidUtil) {
+
 
             var activityId = $stateParams.activityId;
 
+            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            openidUtil.checkResponseData();
+
+            $scope.activity = {};
             $scope.param = {
                 attended : false
             };
+            if($scope.param.attended){
+                $rootScope.pageTitle = '报名成功';
+            }else{
+                $rootScope.pageTitle = '活动报名';
+            }
 
             $scope.confirmAttend = function(){
-                var attendElderList = [];
-                angular.forEach($scope.relativeElderList,function(value,index,array){
-                    if(value.checked)
-                    {
-                        attendElderList.push(value.elderID);
-                    }
-                })
-                if(attendElderList.length==0)
-                {
-                    alert("请选择要参加活动的人");
-                }
-                else
-                {
-                    JoinActivity.get({elderList:attendElderList,activityId:activityId},function(data){
-                        ElderUtil.checkResponseData(data);
+                if($scope.activity.name && $scope.activity.phone){
+                    JoinActivity.get({openId:$rootScope.openid,activityId:activityId},function(data){
                         if(data.result = Global.SUCCESS)
                         {
                             $scope.param.attended = true;
                             $scope.activityGroupId = data.responseData
                         }
                     })
+                }else{
+                    alert('请填写姓名和电话信息')
                 }
             };
 
             $scope.$on('$ionicView.enter', function(){
 
-                GetRelativeElderInfo.save({},function(data){
-                    ElderUtil.checkResponseData(data);
-                    $scope.relativeElderList = data.responseData;
-                    angular.forEach($scope.relativeElderList,function(value,index,array){
-                        value.checked = false;
-                    })
-                })
-
                 GetActivityDetail.get({activityId:activityId}, function(data){
-                    ElderUtil.checkResponseData(data);
                     $scope.detailActivityInfo = data.responseData;
                 })
 
             });
 
-            $scope.enterActivityGroupTalk = function(){
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
-                        $scope.activityGroupId+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
-                })
-            }
+            // $scope.enterActivityGroupTalk = function(){
+            //     connectWebViewJavascriptBridge(function() {
+            //         window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
+            //             $scope.activityGroupId+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
+            //     })
+            // }
         }])

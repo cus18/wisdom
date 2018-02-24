@@ -5,7 +5,8 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
             $rootScope.pageTitle = '华录老友';
             $scope.state = 'didNotBind';
             $scope.phone = {
-                codeText: '获取验证码'
+                codeText: '获取验证码',
+                canClick:false
             };
 
             $scope.bindPhone = function(){
@@ -26,6 +27,7 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
              *获取验证码
              */
             $scope.phone.getCode = function(){
+
                     var second = 3;
                     $scope.phone.codeText = second + '秒后重发';
                     var timer = $interval(function(){
@@ -33,9 +35,11 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
                             $interval.cancel(timer);
                             second = 3;
                             $scope.phone.codeText = '重发验证码';
+                            $scope.phone.canClick=false;
                         }else{
                             second--;
                             $scope.phone.codeText = second + '秒后重发';
+                            $scope.phone.canClick=true;
                         }
                     },1000);
 

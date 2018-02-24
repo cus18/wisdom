@@ -1,12 +1,15 @@
 angular.module('controllers',[]).controller('activityDetailCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityDetail',
-        'GetActivityAttendStatus','GetActivityDiscuss','CreateActivityDiscuss','ElderUtil',
+        'GetActivityAttendStatus','GetActivityDiscuss','CreateActivityDiscuss','openidUtil',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,
-                  GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,ElderUtil) {
+                  GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,openidUtil) {
 
 
             $rootScope.pageTitle = '活动详情';
             var activityId = $stateParams.activityId;
+
+            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            openidUtil.checkResponseData();
 
             $scope.param = {
                 activityAttendStatus : "0",
@@ -14,15 +17,14 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
                 page : {pageNo:1, pageSize:5, orderType:1},
                 activityId : activityId,
                 attendDiscuss: false,
-                discussContent: ""
+                discussContent: "",
+                discussInfinite:true
             }
 
             $scope.$on('$ionicView.enter', function(){
                 GetActivityDetail.get({activityId:activityId}, function(data){
-                    ElderUtil.checkResponseData(data);
                     $scope.detailActivityInfo = data.responseData;
-                    GetActivityAttendStatus.get({activityId:activityId},function(data){
-                        ElderUtil.checkResponseData(data);
+                    GetActivityAttendStatus.get({activityId:activityId,openId:$rootScope.openid},function(data){
                         $scope.param.activityAttendStatus = data.responseData;
                     })
                 })
@@ -31,9 +33,7 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
             $scope.discuss = function(){
                 $scope.param.operation = "discuss";
                 $scope.param.page.requestData = activityId;
-                console.log($scope.param.page);
                 GetActivityDiscuss.save($scope.param.page,function(data){
-                    ElderUtil.checkResponseData(data);
                     $scope.activityDiscussList = data.responseData;
                 })
             }
@@ -47,23 +47,30 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
 
 
 
-                // connectWebViewJavascriptBridge(function() {
-                //     window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
-                //         $scope.detailActivityInfo.activityEasemobGroupID+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
-                // })
+                connectWebViewJavascriptBridge(function() {
+                    window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
+                        $scope.detailActivityInfo.activityEasemobGroupID+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
+                })
             }
 
             $scope.doRefresh = function(){
-                $scope.param.page.pageSize = $scope.param.page.pageSize + 5;
+                $scope.param.page.pageSize = 10;
                 GetActivityDiscuss.save($scope.param.page,function(data){
-                    ElderUtil.checkResponseData(data);
                     $scope.activityDiscussList = data.responseData;
                     $scope.$broadcast('scroll.refreshComplete');
                 })
             }
 
+            $scope.loadMoreDiscuss = function(){
+                $scope.param.page.pageSize = $scope.param.page.pageSize + 5;
+                GetActivityDiscuss.save($scope.param.page,function(data){
+                    $scope.activityDiscussList = data.responseData;
+                })
+            }
+
             $scope.attendDiscuss = function(){
                 $scope.param.attendDiscuss = true;
+                $('.discussContainer textarea').focus();
             }
 
             $scope.cancelDiscuss = function(){
@@ -79,12 +86,12 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
                 }
                 else
                 {
-                    CreateActivityDiscuss.save({discussContent:$scope.param.discussContent,activityId:activityId},
-                        function(data){
-                        ElderUtil.checkResponseData(data);
+                    CreateActivityDiscuss.save({
+                            discussContent:$scope.param.discussContent,
+                            activityId:activityId,
+                            openId:$rootScope.openid},function(data){
                         $scope.param.discussContent="";
                         GetActivityDiscuss.save($scope.param.page,function(data){
-                            ElderUtil.checkResponseData(data);
                             $scope.activityDiscussList = data.responseData;
                         })
                     })
