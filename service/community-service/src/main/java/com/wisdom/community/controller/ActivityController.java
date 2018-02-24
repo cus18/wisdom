@@ -87,12 +87,12 @@ public class ActivityController {
 	@RequestMapping(value = "activityAttendStatus", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,@RequestParam String openID) {
+	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,@RequestParam String openId) {
 		ResponseDTO<String> responseDTO = new ResponseDTO<>();
 		/****
 		 根据活动的ID号，和用户的信息，判断此用户是否报名参加了此活动，"1"代表已经报名参加，如果为"0"，则代表没有报名参加
 		 *****/
-		responseDTO.setResponseData(activityService.getActivityAttendStatus(activityId,openID)>0?"1":"0");
+		responseDTO.setResponseData(activityService.getActivityAttendStatus(activityId,openId)>0?"1":"0");
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
