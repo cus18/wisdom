@@ -3,8 +3,10 @@ package com.wisdom.core.service;
 import com.google.gson.Gson;
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.ResponseDTO;
+import com.wisdom.common.dto.core.user.ElderUserDTO;
 import com.wisdom.common.dto.core.user.RelativeElderDTO;
 import com.wisdom.common.dto.core.user.UserInfoDTO;
+import com.wisdom.core.mapper.ElderUserMapper;
 import com.wisdom.core.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisUtils;
@@ -24,6 +26,9 @@ public class UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    ElderUserMapper elderUserMapper;
 
     /**
      * 获取当前登录的User
@@ -76,13 +81,21 @@ public class UserService {
         userInfoDTO.setLoginName(phoneNum);
         userInfoDTO = userMapper.getByLoginName(userInfoDTO);
         if (userInfoDTO != null) {
-            userInfoDTO.setOpenid(openid);
-            userMapper.deleteUserOpenIdInfo(userInfoDTO);
-            userMapper.updateUserOpenIdInfo(userInfoDTO);
-            responseDTO.setResult(StatusConstant.SUCCESS);
-            responseDTO.setErrorInfo("绑定成功");
-            responseDTO.setResponseData(userInfoDTO);
-            return responseDTO;
+            ElderUserDTO elderUserDTO = elderUserMapper.getSysElder(userInfoDTO.getId());
+            if (elderUserDTO != null) {
+                userInfoDTO.setOpenid(openid);
+                userMapper.deleteUserOpenIdInfo(userInfoDTO);
+                userMapper.updateUserOpenIdInfo(userInfoDTO);
+                userInfoDTO.setElderUserDTO(elderUserDTO);
+                responseDTO.setResult(StatusConstant.SUCCESS);
+                responseDTO.setErrorInfo("绑定成功");
+                responseDTO.setResponseData(userInfoDTO);
+                return responseDTO;
+            } else {
+                responseDTO.setResult(StatusConstant.SUCCESS);
+                responseDTO.setErrorInfo("手机号不存在");
+                return responseDTO;
+            }
         } else {
             responseDTO.setResult(StatusConstant.SUCCESS);
             responseDTO.setErrorInfo("手机号不存在");
@@ -92,12 +105,16 @@ public class UserService {
 
 
     public ResponseDTO getLaoyouUserByOpenId(String openid) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setResult(StatusConstant.SUCCESS);
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setOpenid(openid);
         userInfoDTO = userMapper.getByOpenId(userInfoDTO);
-        ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setResult(StatusConstant.SUCCESS);
-        responseDTO.setResponseData(userInfoDTO);
+        if (userInfoDTO != null) {
+            ElderUserDTO elderUserDTO = elderUserMapper.getSysElder(userInfoDTO.getId());
+            userInfoDTO.setElderUserDTO(elderUserDTO);
+            responseDTO.setResponseData(userInfoDTO);
+        }
         return responseDTO;
     }
 
