@@ -8,7 +8,7 @@
 	</insert>
 
 	<update id="updateNotificationUser">
-			UPDATE`notification_user` SET `status`=#{status} WHERE  `id`=#{id}
+			UPDATE`notification_user` SET `status`='1' WHERE  `id`=#{id}
 	</update>
 
 	<select id="getNotificationByUnread" resultType="java.lang.Integer">

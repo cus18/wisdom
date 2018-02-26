@@ -166,15 +166,14 @@ public class NotificationController {
         /****
          扩展运营等信息的消息列表，某条消息的详细信息
          *****/
-        extendMessageDTO.setExtendMessageName("房山区养老院老年歌舞交际会隆重举办");
-        extendMessageDTO.setExtendMessageDate(new Date());
-        extendMessageDTO.setExtendMessageLogo("http://yhllaoyou.oss-cn-beijing.aliyuncs.com/1499506426014.jpg");
-        extendMessageDTO.setExtendMessageContent("富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容," +
-                "富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容" +
-                "富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容");
+//        extendMessageDTO.setExtendMessageName("房山区养老院老年歌舞交际会隆重举办");
+//        extendMessageDTO.setExtendMessageDate(new Date());
+//        extendMessageDTO.setExtendMessageLogo("http://yhllaoyou.oss-cn-beijing.aliyuncs.com/1499506426014.jpg");
+//        extendMessageDTO.setExtendMessageContent("富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容," +
+//                "富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容" +
+//                "富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容");
 
 
-        responseDto.setResponseData(extendMessageDTO);
 //        responseDto.setResponseData(notificationService.getNotificationByID(extendMessageDTO.getExtendMessageId()));
         responseDto.setResult(StatusConstant.SUCCESS);
         return responseDto;
@@ -189,7 +188,6 @@ public class NotificationController {
      * response ResponseDTO<ExtendMessageDTO>
      *
      */
-    @LoginRequired
     @RequestMapping(value="/extendMessage/extendMessageUnreadNum",method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
     ResponseDTO extendMessageUnreadNum(HttpServletRequest request) {
@@ -208,7 +206,6 @@ public class NotificationController {
      * response ResponseDTO<ExtendMessageDTO>
      *
      */
-    @LoginRequired
     @RequestMapping(value="/extendMessage/updateExtendMessageStatus",method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
     ResponseDTO updateExtendMessageStatus(@RequestBody ExtendMessageDTO extendMessageDTO) {
