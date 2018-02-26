@@ -71,13 +71,14 @@ public class UserService {
     }
 
     public ResponseDTO bindLaoyouUser(String phoneNum, String openid) {
+        ResponseDTO responseDTO = new ResponseDTO();
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setLoginName(phoneNum);
         userInfoDTO = userMapper.getByLoginName(userInfoDTO);
-        userInfoDTO.setOpenid(openid);
-        ResponseDTO responseDTO = new ResponseDTO();
-        userMapper.deleteUserOpenIdInfo(userInfoDTO);
-        if (userMapper.updateUserOpenIdInfo(userInfoDTO) > 0) {
+        if (userInfoDTO != null) {
+            userInfoDTO.setOpenid(openid);
+            userMapper.deleteUserOpenIdInfo(userInfoDTO);
+            userMapper.updateUserOpenIdInfo(userInfoDTO);
             responseDTO.setResult(StatusConstant.SUCCESS);
             responseDTO.setErrorInfo("绑定成功");
             responseDTO.setResponseData(userInfoDTO);
