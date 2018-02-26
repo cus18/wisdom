@@ -127,26 +127,25 @@ public class NotificationController {
      */
     @RequestMapping(value="/extendMessage",method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
-    ResponseDTO<List<ExtendMessageDTO>> extendMessage(@RequestBody PageParamDTO pageParamDTO, HttpServletRequest request) {
+    ResponseDTO<List<ExtendMessageDTO>> extendMessage(@RequestBody PageParamDTO pageParamDTO) {
         ResponseDTO<List<ExtendMessageDTO>> responseDto = new ResponseDTO<>();
 
-        /****
-         扩展运营等信息的消息列表，每条信息的内容参考ExtendMessageDTO
-         *****/
-        List<ExtendMessageDTO> extendMessageDTOList = new ArrayList<>();
-        for(int i=0;i<10;i++)
-        {
-            ExtendMessageDTO extendMessageDTO = new ExtendMessageDTO();
-            extendMessageDTO.setExtendMessageId(UUID.randomUUID().toString());
-            extendMessageDTO.setExtendMessageLogo("http://yhllaoyou.oss-cn-beijing.aliyuncs.com/1499506426014.jpg");
-            extendMessageDTO.setExtendMessageDate(new Date());
-            extendMessageDTO.setExtendMessageName("房山区养老院老年歌舞交际会隆重举办");
-            extendMessageDTOList.add(extendMessageDTO);
-        }
-        responseDto.setResponseData(extendMessageDTOList);
+//        /****
+//         扩展运营等信息的消息列表，每条信息的内容参考ExtendMessageDTO
+//         *****/
+//        List<ExtendMessageDTO> extendMessageDTOList = new ArrayList<>();
+//        for(int i=0;i<10;i++)
+//        {
+//            ExtendMessageDTO extendMessageDTO = new ExtendMessageDTO();
+//            extendMessageDTO.setExtendMessageId(UUID.randomUUID().toString());
+//            extendMessageDTO.setExtendMessageLogo("http://yhllaoyou.oss-cn-beijing.aliyuncs.com/1499506426014.jpg");
+//            extendMessageDTO.setExtendMessageDate(new Date());
+//            extendMessageDTO.setExtendMessageName("房山区养老院老年歌舞交际会隆重举办");
+//            extendMessageDTOList.add(extendMessageDTO);
+//        }
+//        responseDto.setResponseData(extendMessageDTOList);
         Integer limit=Integer.parseInt(pageParamDTO.getPageNo())*Integer.parseInt(pageParamDTO.getPageSize());
-        notificationService.getNotificationListBySysElderUserID("",limit);
-        responseDto.setResponseData(extendMessageDTOList);
+        responseDto.setResponseData(notificationService.getNotificationListBySysElderUserID(pageParamDTO.getRequestData().toString(),limit));
         responseDto.setResult(StatusConstant.SUCCESS);
         return responseDto;
     }
@@ -159,13 +158,10 @@ public class NotificationController {
      * response ResponseDTO<ExtendMessageDTO>
      *
      */
-    @LoginRequired
     @RequestMapping(value="/extendMessage/detail",method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
-    ResponseDTO<ExtendMessageDTO> extendMessageDetail(@RequestBody ExtendMessageDTO extendMessageDTO,
-                                                      HttpServletRequest request) {
+    ResponseDTO<ExtendMessageDTO> extendMessageDetail(@RequestBody ExtendMessageDTO extendMessageDTO) {
         ResponseDTO<ExtendMessageDTO> responseDto = new ResponseDTO<>();
-        UserInfoDTO user = userService.getUserFromLoginToken(request.getHeader("loginToken"));
 
         /****
          扩展运营等信息的消息列表，某条消息的详细信息
@@ -179,7 +175,7 @@ public class NotificationController {
 
 
         responseDto.setResponseData(extendMessageDTO);
-        responseDto.setResponseData(notificationService.getNotificationByID(extendMessageDTO.getExtendMessageId()));
+//        responseDto.setResponseData(notificationService.getNotificationByID(extendMessageDTO.getExtendMessageId()));
         responseDto.setResult(StatusConstant.SUCCESS);
         return responseDto;
     }

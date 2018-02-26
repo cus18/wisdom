@@ -29,8 +29,8 @@ public class NotificationService {
     @Autowired
     private NotificationTemplateMapper notificationTemplateMapper;
 
-    public List<ExtendMessageDTO> getNotificationListBySysElderUserID(String sysElderUserID, Integer limit) {
-        return notificationMapper.getNotificationListBySysElderUserID(sysElderUserID,limit);
+    public List<ExtendMessageDTO> getNotificationListBySysElderUserID(String openid, Integer limit) {
+        return notificationMapper.getNotificationListBySysElderUserID(openid,limit);
     }
 
     public Integer getNotificationByUnread(String sysElderUserID) {

@@ -37,7 +37,6 @@ public class DetectionDiagnosisController {
 	 *
 	 */
 	@RequestMapping(value = "detection", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<DetectionDTO> detection(@RequestParam String detectionType,
@@ -124,7 +123,6 @@ public class DetectionDiagnosisController {
 	 *
 	 */
 	@RequestMapping(value = "testReport", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List> testReport(@RequestParam String startDate,

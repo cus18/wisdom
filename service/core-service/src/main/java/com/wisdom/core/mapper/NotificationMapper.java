@@ -19,7 +19,7 @@ public interface NotificationMapper {
 
     Integer addNotification(NotificationEntity notification);
 
-    List<ExtendMessageDTO> getNotificationListBySysElderUserID(@Param("sysElderUserID") String sysElderUserID, @Param("limit") Integer limit);
+    List<ExtendMessageDTO> getNotificationListBySysElderUserID(@Param("openid") String openid, @Param("limit") Integer limit);
 
     ExtendMessageDTO getNotificationByID(@Param("ID") String notificationID);
 
