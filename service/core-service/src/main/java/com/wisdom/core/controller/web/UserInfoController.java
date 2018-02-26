@@ -103,7 +103,7 @@ public class UserInfoController {
     public ResponseDTO bindLaoyouUser(@RequestParam String phone, @RequestParam String num, @RequestParam String openid) throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
         if (daHanTricomMessageMapper.searchIdentify(phone, num) > 0) {
-            return userService.bindLaoyouUser(phone, num);
+            return userService.bindLaoyouUser(phone, openid);
         } else {
             responseDTO.setResult(StatusConstant.SUCCESS);
             responseDTO.setErrorInfo("验证码不正确");
@@ -112,7 +112,7 @@ public class UserInfoController {
     }
 
     /**
-     * 与老友用户绑定
+     *  获取与老友用户绑定
      *
      * @return
      */

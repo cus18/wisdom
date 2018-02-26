@@ -35,7 +35,7 @@
     </select>
 
     <select id="getByOpenId" resultType="com.wisdom.common.dto.core.user.UserInfoDTO"
-            parameterType="com.wisdom.common.dto.core.user.UserInfoDTO">>
+            parameterType="com.wisdom.common.dto.core.user.UserInfoDTO">
         SELECT
         <include refid="userColumns"/>
         FROM sys_user a

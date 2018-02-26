@@ -93,8 +93,7 @@ public class UserService {
     public ResponseDTO getLaoyouUserByOpenId(String openid) {
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setOpenid(openid);
-        userInfoDTO = userMapper.getByLoginName(userInfoDTO);
-        userInfoDTO.setOpenid(openid);
+        userInfoDTO = userMapper.getByOpenId(userInfoDTO);
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setResult(StatusConstant.SUCCESS);
         responseDTO.setResponseData(userInfoDTO);
