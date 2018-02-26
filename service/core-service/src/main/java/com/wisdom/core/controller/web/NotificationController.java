@@ -174,7 +174,7 @@ public class NotificationController {
 //                "富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容,富文本编辑器编写的所有内容我是详细的通知内容");
 
 
-//        responseDto.setResponseData(notificationService.getNotificationByID(extendMessageDTO.getExtendMessageId()));
+        responseDto.setResponseData(notificationService.getNotificationByID(extendMessageDTO.getExtendMessageId()));
         responseDto.setResult(StatusConstant.SUCCESS);
         return responseDto;
     }
