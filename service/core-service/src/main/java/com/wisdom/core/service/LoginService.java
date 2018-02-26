@@ -39,11 +39,11 @@ public class LoginService {
 
     public String sendMessage(String phoneNum) {
         try {
-            String num = DaHanTricomSMSMessageUtil.sendIdentifying(phoneNum);
-            if(num==null){
-                return  StatusConstant.FAILURE;
-            }
-            daHanTricomMessageMapper.insertIdentifying(phoneNum, num);
+//            String num = DaHanTricomSMSMessageUtil.sendIdentifying(phoneNum);
+//            if(num==null){
+//                return  StatusConstant.FAILURE;
+//            }
+            daHanTricomMessageMapper.insertIdentifying(phoneNum, "1234");
             return StatusConstant.SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
