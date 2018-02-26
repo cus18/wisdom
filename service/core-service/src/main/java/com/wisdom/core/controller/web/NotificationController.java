@@ -125,12 +125,10 @@ public class NotificationController {
      *
      * response ResponseDTO<List<ExtendMessageDTO>
      */
-    @LoginRequired
     @RequestMapping(value="/extendMessage",method = {RequestMethod.POST, RequestMethod.GET})
     public @ResponseBody
     ResponseDTO<List<ExtendMessageDTO>> extendMessage(@RequestBody PageParamDTO pageParamDTO, HttpServletRequest request) {
         ResponseDTO<List<ExtendMessageDTO>> responseDto = new ResponseDTO<>();
-        UserInfoDTO user = userService.getUserFromLoginToken(request.getHeader("loginToken"));
 
         /****
          扩展运营等信息的消息列表，每条信息的内容参考ExtendMessageDTO
@@ -147,7 +145,8 @@ public class NotificationController {
         }
         responseDto.setResponseData(extendMessageDTOList);
         Integer limit=Integer.parseInt(pageParamDTO.getPageNo())*Integer.parseInt(pageParamDTO.getPageSize());
-        responseDto.setResponseData(notificationService.getNotificationListBySysElderUserID(user.getElderUserDTO().getId(),limit));
+        notificationService.getNotificationListBySysElderUserID("",limit);
+        responseDto.setResponseData(extendMessageDTOList);
         responseDto.setResult(StatusConstant.SUCCESS);
         return responseDto;
     }
@@ -445,5 +444,23 @@ public class NotificationController {
         }
         return responseDto;
     }
+
+
+    //意见反馈
+    @RequestMapping(value="/feedback",method = {RequestMethod.POST, RequestMethod.GET})
+    public @ResponseBody
+    ResponseDTO feedback(@RequestParam String text,@RequestParam String openid) {
+        ResponseDTO responseDto = new ResponseDTO<>();
+        try {
+            remindService.addFeedback(text,openid);
+            responseDto.setResult(StatusConstant.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseDto.setResult(StatusConstant.FAILURE);
+        }
+        return responseDto;
+    }
+
+
 
 }
