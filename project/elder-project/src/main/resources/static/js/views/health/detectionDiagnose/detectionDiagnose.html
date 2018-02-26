@@ -1,23 +1,20 @@
 <ion-view style="background:#f8f8f8">
-    <div page-loading></div>
-    <div class="bar bar-header">
+    <div ng-if="!hasData" class="bar bar-header">
         <div class="title">以下是数据示例</div>
-        <div class="tabs tabs-top tabs-striped" style="background:#fff;">
-            <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable']"
-               style="border-color: #ff8e01;"
-               ng-click="goMenu('detection','bloodSugarCurve')" class="tab-item active">
-                <p>血糖</p>
-            </a>
-            <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodPressureCurve'||secondMenu == 'bloodPressureTable']"
-               style="border-color: #ff8e01;"
-               ng-click="goMenu('detection','bloodPressureCurve')" class="tab-item">
-                <p>血压/心率</p>
-            </a>
-        </div>
+    </div>
+    <div class="tabs tabs-top tabs-striped" style="background:#fff;top:55px;">
+        <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable']"
+           ng-click="goMenu('detection','bloodSugarCurve')">
+            <p>血糖</p>
+        </a>
+        <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodPressureCurve'||secondMenu == 'bloodPressureTable']"
+           ng-click="goMenu('detection','bloodPressureCurve')">
+            <p>血压/心率</p>
+        </a>
     </div>
     <!--远程监测tab-->
-    <div ng-if="firstMenu == 'detection'" style="margin-top:-20px;">
-
+    <div ng-if="firstMenu == 'detection' && hasData" style="margin-top:115px;">
+        <div page-loading></div>
         <div ng-if="secondMenu == 'bloodSugarCurve'" style="overflow:auto;height:10rem;">
             <!--血糖content-->
             <div ng-if="dataLoad">
@@ -116,9 +113,9 @@
                     </highchart>
                 </section>
             </div>
-            <div class="empty10"></div>
+            <div style="height:200px;"></div>
             <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodSugarTable')"><img src="/images/Slice_1.png"/></a>
+                <a ng-click="goMenu('detection','bloodSugarTable')"><img src="images/slice_1.png"/></a>
                 <ul>
                     <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
                     <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
@@ -131,7 +128,7 @@
              style="overflow:scroll;height:9rem">
             <table border="0" cellspacing="0" cellpadding="0"
                    class="tableRecord tableSugar" ng-if="dataLoad"
-                   style="color:black;background:#f8f8f8;">
+                   style="color:black;background:#fff;">
                 <tr>
                     <th rowspan="2">日期</th>
                     <th rowspan="2">凌晨</th>
@@ -150,19 +147,19 @@
                 </tr>
                 <tr ng-repeat="item in healthDatas">
                     <td>{{item.date|date:'MM-dd'}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.dawn,'dawn',item.bloodSugar.dawnTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.dawn}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeBreakFast,'beforeBreakFast',item.bloodSugar.beforeBreakFastTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.beforeBreakFast}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.afterBreakFast,'afterBreakFast',item.bloodSugar.afterBreakFastTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.afterBreakFast}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeLunch,'beforeLunch',item.bloodSugar.beforeLunchTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.beforeLunch}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.afterLunch,'afterLunch',item.bloodSugar.afterLunchTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.afterLunch}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeDinner,'beforeDinner',item.bloodSugar.beforeDinnerTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.beforeDinner}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.afterDinner,'afterDinner',item.bloodSugar.afterDinnerTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.afterDinner}}</td>
-                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeSleep,'beforeSleep',item.bloodSugar.beforeSleepTime,'true',item.bloodSugar.remarks)">{{item.bloodSugar.beforeSleep}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.dawn,'dawn',item.bloodSugar.dawnTime,'true',item.bloodSugar.dawnRemark)">{{item.bloodSugar.dawn}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeBreakFast,'beforeBreakFast',item.bloodSugar.beforeBreakFastTime,'true',item.bloodSugar.beforeBreakFastRemark)">{{item.bloodSugar.beforeBreakFast}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.afterBreakFast,'afterBreakFast',item.bloodSugar.afterBreakFastTime,'true',item.bloodSugar.afterBreakFastRemark)">{{item.bloodSugar.afterBreakFast}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeLunch,'beforeLunch',item.bloodSugar.beforeLunchTime,'true',item.bloodSugar.beforeLunchRemark)">{{item.bloodSugar.beforeLunch}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.afterLunch,'afterLunch',item.bloodSugar.afterLunchTime,'true',item.bloodSugar.afterLunchRemark)">{{item.bloodSugar.afterLunch}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeDinner,'beforeDinner',item.bloodSugar.beforeDinnerTime,'true',item.bloodSugar.beforeDinnerRemark)">{{item.bloodSugar.beforeDinner}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.afterDinner,'afterDinner',item.bloodSugar.afterDinnerTime,'true',item.bloodSugar.afterDinnerRemark)">{{item.bloodSugar.afterDinner}}</td>
+                    <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeSleep,'beforeSleep',item.bloodSugar.beforeSleepTime,'true',item.bloodSugar.beforeSleepRemark)">{{item.bloodSugar.beforeSleep}}</td>
                 </tr>
             </table>
-            <div class="empty10"></div>
+            <div style="height:200px;"></div>
             <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodSugarCurve')"><img src="/images/Slice_2.png"/></a>
+                <a ng-click="goMenu('detection','bloodSugarCurve')"><img src="images/slice_2.png"/></a>
                 <ul>
                     <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
                     <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
@@ -196,9 +193,9 @@
             </section>
             <!--血糖content end-->
             <!--底部固定菜单开始-->
-            <div class="empty10"></div>
+            <div style="height:200px;"></div>
             <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodPressureTable')"><img src="/images/Slice_1.png"/></a>
+                <a ng-click="goMenu('detection','bloodPressureTable')"><img src="images/slice_1.png"/></a>
                 <ul>
                     <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
                     <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
@@ -216,16 +213,16 @@
                     <th>舒张压/低压</th>
                     <th>心率</th>
                 </tr>
-                <tr ng-repeat="item in healthDatas" ng-click="goBloodPressureRecord(item.measureTime,item.diastolic,item.systolic,item.heartRate,true)">
+                <tr ng-repeat="item in healthDatas" ng-click="goBloodPressureRecord(item.measureTime,item.diastolic,item.systolic,item.heartRate,true,item.remark)">
                     <td>{{item.measureTime|date:'MM-dd'}}</td>
                     <td>{{item.diastolic}}</td>
                     <td>{{item.systolic}}</td>
                     <td>{{item.heartRate}}</td>
                 </tr>
             </table>
-            <div class="empty10"></div>
+            <div style="height:200px;"></div>
             <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodPressureCurve')"><img src="/images/Slice_2.png"/></a>
+                <a ng-click="goMenu('detection','bloodPressureCurve')"><img src="images/slice_2.png"/></a>
                 <ul>
                     <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
                     <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
@@ -235,5 +232,8 @@
             </section>
         </div>
     </div>
-
+    <div ng-if="!hasData" class="list" style="padding-top:120px;">
+        <img src="images/dataShow.png" style="width:100%;margin-bottom:40px;">
+        <div class="item" style="overflow:inherit;white-space:inherit;line-height:28px;width:80%;margin:0 auto;">您目前还没有测量数据。健康监测属于养老机构提供的有偿服务，您暂时无法查看相关健康数据。</div>
+    </div>
 </ion-view>

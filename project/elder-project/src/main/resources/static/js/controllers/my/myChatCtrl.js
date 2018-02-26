@@ -2,6 +2,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','$ionicScrollDelegate',
         function ($scope,$interval,$rootScope,$stateParams,$state,$ionicScrollDelegate) {
 
+            $rootScope.pageTitle = '健康管理群';
             $scope.param = {
                 messageList : [],
                 chatMessage: '',
@@ -37,6 +38,9 @@ angular.module('controllers',[]).controller('myChatCtrl',
                     $scope.elderId = "0000";
                 }
             }
+            $scope.elderId = '165a351da0b442d8917924c6aac68b5d';
+            $scope.elderName = '讲对抗';
+            $scope.elderImg = 'http://yhlofficial.oss-cn-beijing.aliyuncs.com/image/%E6%B3%95%E5%9B%BD%E5%A4%9A%E6%85%B0.png';
 
             var conn = new WebIM.connection({
                 isMultiLoginSessions: WebIM.config.isMultiLoginSessions,

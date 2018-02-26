@@ -1,28 +1,36 @@
 <ion-view style="background:#f8f8f8;">
+    <goback-menu></goback-menu>
     <div>
         <div class="bar bar-header" style="height:92px;background:#f8f8f8;">
             <div ng-if="state == 'didNotBind'" class="title ng-binding" style="top:22px;">
                 您还未绑定手机号，请先进行绑定
             </div>
             <div ng-if="state == 'yetBind_update'" class="title ng-binding" style="top:22px;">
-                您已绑定姓名和手机号，请直接修改
+                您已绑定手机号，请直接修改
             </div>
             <div ng-if="state == 'yetBind'" class="title ng-binding" style="top:22px;">
-                您已绑定姓名和手机号。
+                您已绑定手机号。
             </div>
             <!--<div ng-if="false" class="title ng-binding" style="top:22px;height:auto;text-align:left;white-space:normal;line-height:24px;">-->
                 <!--您还未绑定手机号，后台无法识别您的健康数据。请先进行绑定。-->
             <!--</div>-->
         </div>
         <form class="list" style="margin-top:90px;" name="bindForm">
-            <label class="item item-input">
-                <input type="text" name="phoneNum" placeholder="请输入手机号" class="ng-pristine ng-untouched ng-valid ng-empty" ng-pattern="/^1[3|4|5|7|8]\d{9}$/" ng-model="phone.number">
-            </label>
-            <label class="item item-input">
-                <input type="text" name="phoneCode" placeholder="请输入验证码" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="phone.code">
-                <button type="button" class="button button-full button-energized subscribe-btn bindPhoneCode" ng-click="phone.getCode()" ng-disabled="phone.canClick">{{phone.codeText}}</button>
-            </label>
+            <div ng-if="state != 'yetBind'">
+                <div>
+                    <label class="item item-input">
+                        <input type="text" name="phoneNum" placeholder="请输入手机号" class="ng-pristine ng-untouched ng-valid ng-empty" ng-pattern="/^1[3|4|5|7|8]\d{9}$/" ng-model="phone.number">
+                    </label>
+                </div>
+                <div style="position:relative;">
+                    <label class="item item-input">
+                        <input type="text" name="phoneCode" placeholder="请输入验证码" class="ng-pristine ng-untouched ng-valid ng-empty" ng-model="phone.code">
+                    </label>
+                    <button class="button button-full button-energized subscribe-btn bindPhoneCode" ng-click="phone.getCode()" ng-disabled="phone.canClick || bindForm.phoneNum.$invalid">{{phone.codeText}}</button>
+                </div>
+            </div>
             <span style="margin-left:15px;line-height:40px;color:#f00;" ng-show="bindForm.phoneNum.$dirty && bindForm.phoneNum.$invalid">手机号输入有误，请重新输入</span>
+            <span style="margin-left:15px;line-height:40px;color:#f00;" ng-show="errorShow">{{errorInfo}}</span>
             <button ng-if="state == 'didNotBind'"
                     class="button button-full button-energized subscribe-btn"
                     style="margin-top:80px;"
@@ -40,8 +48,7 @@
                 </button>
                 <button class="button button-assertive"
                         style="width:38%;height:100%;margin-left:3%;background-color:#ff8e01;border-radius:23px;"
-                        ng-click="updatePhone()"
-                        ng-disabled="bindForm.$invalid">更改手机号码
+                        ng-click="updatePhone()">更改手机号码
                 </button>
             </div>
         </form>

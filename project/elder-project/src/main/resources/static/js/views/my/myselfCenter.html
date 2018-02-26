@@ -4,19 +4,22 @@
         <a class="tab-item" ui-sref="myService({type:'inReview'})">
             <img src="images/myself_icon01.png">
             <p>审核中</p>
-            <span class="flg">2</span>
+            <span ng-if="inReviewSize" class="flg">{{inReviewSize}}</span>
         </a>
         <a class="tab-item" ui-sref="myService({type:'inService'})">
             <img src="images/myself_icon02.png">
             <p>服务中</p>
+            <span ng-ig="inServiceSize" class="flg">{{inServiceSize}}</span>
         </a>
         <a class="tab-item" ui-sref="myService({type:'finished'})">
             <img src="images/myself_icon03.png">
             <p>已完成</p>
+            <!--<span ng-if="finishedSize" class="flg">{{finishedSize}}</span>-->
         </a>
         <a class="tab-item" ui-sref="myService({type:'failed'})">
             <img src="images/myself_icon04.png">
             <p>未成功</p>
+            <span ng-if="failedSize" class="flg">{{failedSize}}</span>
         </a>
     </div>
     <div class="list myselfList" style="margin-top:32%;color:black">
@@ -52,7 +55,8 @@
             意见反馈
             <i class="icon ion-ios-arrow-right"></i>
         </a>
-        <a class="item item-icon-left item-icon-right" style="margin-top:10px;">
+        <a class="item item-icon-left item-icon-right" style="margin-top:10px;"
+            ui-sref="aboutUs">
             <i class="icon">
                 <img src="images/laoyou_icon_01.png">
             </i>

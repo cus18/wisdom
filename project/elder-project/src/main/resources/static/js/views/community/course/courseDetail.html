@@ -1,5 +1,5 @@
 <ion-view style="background:#f8f8f8;">
-
+        <goback-menu></goback-menu>
         <div style="margin-top:10px;">
             <video ng-src="{{param.playURL}}" autoplay="true"
                    controls="controls" style="height:200px;width:100%;" />
@@ -46,7 +46,8 @@
                 <span>发布于{{item.onlineCourseDiscussDate}}</span>
                 <p>{{item.onlineCourseDiscussContent}}</p>
             </a>
-            <i class="icon ion-chevron-down" style="margin-left:50%;color:black;" ng-click="loadMoreDiscuss()"></i>
+            <i ng-if="param.discussInfinite" class="icon ion-chevron-down" style="margin-left:50%;color:black;" ng-click="loadMoreDiscuss()"></i>
+            <i ng-if="!param.discussInfinite" class="icon" style="margin-left:38%;color:black;">没有更多数据了</i>
         </div>
 	</ion-content>
     <div class="bar bar-footer" style="background:#f8f8f8;padding:0px;margin-bottom:10px;"

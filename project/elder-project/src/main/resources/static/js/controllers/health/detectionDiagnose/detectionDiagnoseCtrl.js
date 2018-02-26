@@ -1,13 +1,15 @@
 angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detectionDiagnoseCtrl',
-    ['$scope','$rootScope','$stateParams','$state','$filter',
-        'GetDetectionHealthData','ElderUtil',
-        'TestReportList','DiagnoseReportList','$timeout','Global','$window',
-        function ($scope,$rootScope,$stateParams,$state,$filter,
-                  GetDetectionHealthData,ElderUtil,
-                  TestReportList,DiagnoseReportList,$timeout,Global,$window) {
+    ['$scope','$rootScope','$stateParams','$state','$filter','openidUtil',
+        'GetDetectionHealthData','ElderUtil','GetLaoyouUserByOpenId','$timeout','Global','$window',
+        function ($scope,$rootScope,$stateParams,$state,$filter,openidUtil,
+                  GetDetectionHealthData,ElderUtil,GetLaoyouUserByOpenId,$timeout,Global,$window) {
 
             $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
+
+            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            openidUtil.checkResponseData();
+
 
             $scope.goMenu = function(firstMenuParam,secondMenuParam){
                 $state.go("detectionDiagnose", {firstMenu: firstMenuParam, secondMenu: secondMenuParam});
@@ -101,31 +103,6 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
 
             var loadDetectionDiagnose = function(){
-
-                if($rootScope.rootElderId!=undefined)
-                {
-                    $scope.elderId = $rootScope.rootElderId;
-                    $scope.elderName = $rootScope.rootElderName;
-                    $scope.elderImg = $rootScope.rootElderImg;
-                }
-                else
-                {
-                    //将用户信息放入$rootScope中
-                    $rootScope.rootElderId = window.localStorage.getItem("elderId");
-                    $rootScope.rootElderName = window.localStorage.getItem("elderName");
-                    $rootScope.rootElderImg = window.localStorage.getItem("elderImg");
-                    if($rootScope.rootElderId!=undefined)
-                    {
-                        $scope.elderId = $rootScope.rootElderId;
-                        $scope.elderName = $rootScope.rootElderName;
-                        $scope.elderImg = $rootScope.rootElderImg;
-                    }
-                    else
-                    {
-                        $scope.elderId = "0000";
-                    }
-                }
-
                if($scope.firstMenu=="detection")
                 {
                     $scope.chooseHealthDataTime('week');
@@ -485,6 +462,23 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
             };
 
-            loadDetectionDiagnose();
+
+            //判断是否绑定
+            GetLaoyouUserByOpenId.get({openid:$rootScope.openid},function(data){
+                if(data.result == Global.SUCCESS){
+                    if(data.responseData != null){
+                        //已绑定
+                        $scope.hasData = true;
+                        $scope.elderId = data.responseData.elderUserDTO.id;
+                        loadDetectionDiagnose();
+                    }else{
+                        //未绑定
+                        $scope.hasData = false;
+
+
+                    }
+                }
+
+            })
 
         }])

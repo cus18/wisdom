@@ -6,9 +6,9 @@
             </div>
         </div>
         <label class="item item-input" style="margin-top:75px;">
-            <textarea name="" cols="30" rows="20" placeholder="请输入…"></textarea>
+            <textarea name="" cols="30" rows="20" placeholder="请输入…" ng-model="content"></textarea>
         </label>
-        <button class="button button-full button-energized subscribe-btn" style="margin-top:80px;">确认提交</button>
+        <button class="button button-full button-energized subscribe-btn" style="margin-top:80px;" ng-click="submit()">确认提交</button>
     </div>
 
     <goback-menu></goback-menu>

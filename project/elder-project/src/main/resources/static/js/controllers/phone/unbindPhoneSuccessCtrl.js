@@ -4,7 +4,9 @@ angular.module('controllers',[]).controller('unbindPhoneSuccessCtrl',
 
 
             $rootScope.pageTitle = '华录老友';
-
+            $scope.goIndex = function(){
+                $state.go('communityIndex')
+            }
 
 
 

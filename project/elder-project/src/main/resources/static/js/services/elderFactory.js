@@ -72,6 +72,9 @@ define(['appElder'], function (app) {
         .factory('GetUserInfo',['$resource',function ($resource){
             return $resource(core + 'getUserInfo');
         }])
+        .factory('SendIdentifying',['$resource',function ($resource){
+            return $resource(core + 'sendIdentifying');
+        }])
         .factory('UserLogin',['$resource',function ($resource){
             return $resource(core + 'login');
         }])
@@ -83,6 +86,18 @@ define(['appElder'], function (app) {
         }])
         .factory('GetGroupChatData',['$resource',function ($resource){
             return $resource(core + 'groupChatData')
+        }])
+        /*绑定用户*/
+        .factory('BindLaoyouUser',['$resource',function ($resource){
+            return $resource(core + 'bindLaoyouUser');
+        }])
+        /*判断有没有绑定*/
+        .factory('GetLaoyouUserByOpenId',['$resource',function ($resource){
+            return $resource(core + 'getLaoyouUserByOpenId');
+        }])
+        /*解绑用户*/
+        .factory('DeleteLaoyouUserByOpenId',['$resource',function ($resource){
+            return $resource(core + 'deleteLaoyouUserByOpenId');
         }])
         .factory('GetMedicationPlan',['$resource',function ($resource){
             return $resource(healthMedication + 'getMedicationPlan')
@@ -131,6 +146,10 @@ define(['appElder'], function (app) {
         //获取老友提醒信息详情
         .factory('GetExtendMessageDetail',['$resource',function ($resource){
             return $resource(core + 'extendMessage/detail')
+        }])
+        //老友提醒信息是否查看
+        .factory('UpdateExtendMessageStatus',['$resource',function ($resource){
+            return $resource(core + 'extendMessage/updateExtendMessageStatus')
         }])
         //获取所有的活动列表
         .factory('GetActivityList',['$resource',function ($resource){

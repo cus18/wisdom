@@ -1,43 +1,35 @@
 angular.module('controllers',[]).controller('myselfCenterCtrl',
-    ['$scope','$rootScope','$stateParams','$state','GetRelativeElderInfo','GetActivityList','GetMyOnlineCourseList','ElderUtil',
-        'GetUserInfo',
-        function ($scope,$rootScope,$stateParams,$state,GetRelativeElderInfo,GetActivityList,GetMyOnlineCourseList,ElderUtil,
-                  GetUserInfo) {
+    ['$scope','$rootScope','$stateParams','$state','GetLivingServiceOrderStatus','openidUtil','Global',
+        function ($scope,$rootScope,$stateParams,$state,GetLivingServiceOrderStatus,openidUtil,Global) {
 
             $rootScope.pageTitle = '个人中心';
 
-            $scope.param = {
-                messageImg : "http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E6%88%91%E7%9A%84%E6%B6%88%E6%81%AFicon%E7%81%B0@2x.png",
-                activeImg : "http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E6%88%91%E7%9A%84%E6%B4%BB%E5%8A%A8icon%E7%81%B0@2x.png",
-                courseImg : "http://yhllaoyouactivity.oss-cn-beijing.aliyuncs.com/head/%E6%88%91%E7%9A%84%E8%AF%BE%E7%A8%8Bicon%E7%81%B0@2x.png"
-            }
+            openidUtil.checkResponseData();
+            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
-            if($rootScope.rootElderId!=undefined)
-            {
-                $scope.elderId = $rootScope.rootElderId;
-                $scope.elderName = $rootScope.rootElderName;
-            }
-            else
-            {
-                //将用户信息放入$rootScope中
-                $rootScope.rootElderId = window.localStorage.getItem("elderId");
-                $rootScope.rootElderName = window.localStorage.getItem("elderName");
-                $rootScope.rootElderImg = window.localStorage.getItem("elderImg");
-                if($rootScope.rootElderId!=undefined)
-                {
-                    $scope.elderId = $rootScope.rootElderId;
-                    $scope.elderName = $rootScope.rootElderName;
+            GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:''},function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.inReviewSize = data.responseData.length;
                 }
-                else
-                {
-                    $scope.elderId = "0000";
-                }
-            }
-
-            GetUserInfo.save(function(data){
-                ElderUtil.checkResponseData(data,'myselfCenter');
             })
 
+            GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'1'},function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.inServiceSize = data.responseData.length;
+                }
+            })
+
+            GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'3'},function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.finishedSize = data.responseData.length;
+                }
+            })
+
+            GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:'4'},function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.failedSize = data.responseData.length;
+                }
+            })
 
 
         }])

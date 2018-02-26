@@ -4,7 +4,12 @@ angular.module('controllers',[]).controller('bindPhoneSuccessCtrl',
 
 
             $rootScope.pageTitle = '华录老友';
-
+            $scope.goIndex = function(){
+                $state.go('community')
+            }
+            $scope.goHealth = function(){
+                $state.go('detectionDiagnose',{firstMenu:'detection',secondMenu:'bloodSugarCurve'})
+            }
 
 
 

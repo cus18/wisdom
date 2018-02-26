@@ -1,9 +1,11 @@
 <ion-view style="background:#f8f8f8;">
+    <goback-menu></goback-menu>
     <ion-content>
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <div class="list">
-            <a class="item item-text-wrap"
+            <a class="item item-text-wrap item-icon-left"
                ng-repeat="item in extendMessageList" ng-click="goDetail(item)">
+                <i class="icon ion-ios-email-outline" style="color:#ff8e01"></i>
                 <h2 style="margin-bottom:8px;">{{item.extendMessageName}}</h2>
                 <p>{{item.extendMessageDate|date:'yyyy/MM/dd HH:mm:ss'}}</p>
             </a>

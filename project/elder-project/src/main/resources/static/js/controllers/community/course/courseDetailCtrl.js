@@ -48,6 +48,7 @@ angular.module('controllers',[]).controller('courseDetailCtrl',
 
             $scope.doRefresh = function(){
                 $scope.param.discussPage.pageSize = 10;
+                $scope.param.discussInfinite = true;
                 GetOnlineCourseDiscuss.save($scope.param.discussPage,function(data){
                     $scope.onlineCourseDiscussData  = data.responseData;
                     $scope.$broadcast('scroll.refreshComplete');
@@ -58,6 +59,9 @@ angular.module('controllers',[]).controller('courseDetailCtrl',
                 $scope.param.discussPage.pageSize = $scope.param.discussPage.pageSize + 5;
                 GetOnlineCourseDiscuss.save($scope.param.discussPage,function(data){
                     $scope.onlineCourseDiscussData  = data.responseData;
+                    if(data.responseData.length < $scope.param.discussPage.pageSize){
+                        $scope.param.discussInfinite = false;
+                    }
                 })
             }
 

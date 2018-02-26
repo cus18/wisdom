@@ -233,7 +233,7 @@ define(['appElder'], function(app){
                             load: function($templateCache, $ocLazyLoad, $q, $http) {
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.AboutUs',
                                     ['js/controllers/my/AboutUsCtrl.js?ver='+elderVersion],
-                                    'js/views/my/AboutUs.html?ver='+elderVersion);
+                                    'js/views/my/aboutUs.html?ver='+elderVersion);
                             }
                         }
                     })
@@ -634,7 +634,7 @@ define(['appElder'], function(app){
                         }
                     })
                     .state('bindPhone', {
-                        url: '/bindPhone/:state',
+                        url: '/bindPhone',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'bindPhoneCtrl',
                         resolve: {
@@ -678,6 +678,18 @@ define(['appElder'], function(app){
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.feedback',
                                     ['js/controllers/my/feedbackCtrl.js?ver='+elderVersion],
                                     'js/views/my/feedback.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('aboutUs', {
+                        url: '/aboutUs',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'aboutUsCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.aboutUs',
+                                    ['js/controllers/my/aboutUsCtrl.js'],
+                                    'js/views/my/aboutUs.html?ver='+elderVersion);
                             }
                         }
                     })

@@ -1,5 +1,5 @@
 <ion-view style="background:#f8f8f8;">
-
+        <goback-menu></goback-menu>
         <div class="item" style="background:#fff;">
             <div class="list">
                 <div class="item item-image" style="border:0px;">
@@ -46,7 +46,8 @@
                 <span>发布于{{item.discussDate|date:'yyyy/MM/dd HH:mm:ss'}}</span>
                 <p>{{item.discussContent}}</p>
             </a>
-            <i class="icon ion-chevron-down" style="margin-left:50%;color:black;" ng-click="loadMoreDiscuss()"></i>
+            <i ng-if="param.discussInfinite" class="icon ion-chevron-down" style="margin-left:50%;color:black;" ng-click="loadMoreDiscuss()"></i>
+            <i ng-if="!param.discussInfinite" class="icon" style="margin-left:38%;color:black;">没有更多数据了</i>
         </div>
 	</ion-content>
     <div class="discussShade" ng-if="param.attendDiscuss">

@@ -1,15 +1,12 @@
-<ion-view style="background:#f8f8f8;">
-    <ion-content>
-        <div class="list">
-            <div class="item item-divider item-text-wrap">
-                <h2 style="line-height:36px;border-bottom:1px dashed #ddd;padding-bottom:7px;">{{extendMessageDetail.extendMessageName}}</h2>
-                <p style="line-height:38px;">{{extendMessageDetail.extendMessageDate|date:'yyyy/MM/dd HH:mm:ss'}}</p>
-            </div>
-            <div class="item item-body">
-                <p>
-                    {{extendMessageDetail.extendMessageContent}}
-                </p>
-            </div>
+<ion-view style="background:#fff;">
+    <goback-menu></goback-menu>
+    <div class="list">
+        <div class="item item-divider item-text-wrap" style="background:#f8f8f8;">
+            <h2 style="line-height:36px;border-bottom:1px dashed #ddd;padding-bottom:7px;">{{extendMessageDetail.extendMessageName}}</h2>
+            <p style="line-height:38px;">{{extendMessageDetail.extendMessageDate|date:'yyyy/MM/dd HH:mm:ss'}}</p>
         </div>
-    </ion-content>
+        <div class="item item-body" style="border:none;line-height:28px;">
+           {{extendMessageDetail.extendMessageContent}}
+        </div>
+    </div>
 </ion-view>

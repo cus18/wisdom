@@ -1,14 +1,4 @@
 <ion-view style="background:#f8f8f8;">
-	<ion-header-bar align-title="center" class="bar-energized">
-		<div class="buttons">
-			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
-		</div>
-		<h1 class="title">{{groupName}}</h1>
-		<div class="buttons">
-			<i class="icon ion-ios-people" ng-click="groupList()" style="font-size: 230%"></i>
-		</div>
-	</ion-header-bar>
-	<div class="empty10"></div>
 	<ion-scroll delegate-handle="chat-content" style="height:85%">
 		<div class="chat"
 			 ng-repeat="item in param.messageList"

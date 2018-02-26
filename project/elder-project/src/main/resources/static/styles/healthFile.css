@@ -531,6 +531,9 @@ p.clearfix>input{
 
 /*检测与诊疗内容开始*/
 /*血糖血压首页*/
+.tabs-striped .tab-item.activated, .tabs-striped .tab-item.active, .tabs-striped .tab-item.tab-item-active {
+    border-color:#ff8e01;
+}
 .tableRecord{
 	width:100%;
 	text-align: center;
@@ -540,17 +543,17 @@ p.clearfix>input{
 	color: black;
 }
 .tableRecord th{
-	background:#ff8e01;
-	color:#000;
+	background:#DCDCDC;
+	color:#494951;
 	font-weight: normal;
-	border:1px solid #262626;
+	border:1px solid #fff;
 	width:0.76rem;
 }
 .tableRecord tr{
 	line-height: 0.76rem;
 }
 .tableRecord td{
-	border:1px solid #262626;
+	border-color:#eee;
 }
 .tableSugar tr:first-child th:first-child{
 	width:1.26rem;
@@ -573,8 +576,8 @@ p.clearfix>input{
 	width:0.8rem;
 }
 .monitorTit{
-	background:#ff8e01;
-	color:#000;
+	background:#dcdcdc;
+	color:#494951;
 }
 .monitorCurve{
 	padding:0.2rem;
@@ -585,7 +588,7 @@ p.clearfix>input{
 	position: fixed;
 	left: 0;
 	bottom: 0;
-	background: #ff8e01;
+	background: #fff;
 	border-top: 1px solid #f8f8f8;
 }
 .footOptionTab img{
@@ -606,7 +609,7 @@ p.clearfix>input{
 	border-left:1px solid #4a4a4a;
 }
 .footOptionTab>ul>li.on{
-	color:white;
+	color:#ff8e01;
 }
 /*添加血糖*/
 

@@ -225,7 +225,10 @@ h2.myself_serviceTit{
     min-height:32px;
     line-height:32px;
     width:30%;
-    right:15px;
+    position:absolute;
+    right:10px;
+    top:6px;
+    z-index:2;
 }
 .button.subscribe-btn.bindPhoneCode.null{
     background:#ccc;

@@ -9,40 +9,11 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             $rootScope.pageTitle = '我的服务';
 
             openidUtil.checkResponseData();
+            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
             $scope.param = {
                 tabValue : $stateParams.type
             }
-
-            if($rootScope.rootElderId!=undefined)
-            {
-                $scope.elderId = $rootScope.rootElderId;
-                $scope.elderName = $rootScope.rootElderName;
-            }
-            else
-            {
-                //将用户信息放入$rootScope中
-                $rootScope.rootElderId = window.localStorage.getItem("elderId");
-                $rootScope.rootElderName = window.localStorage.getItem("elderName");
-                $rootScope.rootElderImg = window.localStorage.getItem("elderImg");
-                if($rootScope.rootElderId!=undefined)
-                {
-                    $scope.elderId = $rootScope.rootElderId;
-                    $scope.elderName = $rootScope.rootElderName;
-                }
-                else
-                {
-                    $scope.elderId = "0000";
-                }
-            }
-
-            GetUserInfo.save(function(data){
-                ElderUtil.checkResponseData(data,'myService/'+$stateParams.type);
-            })
-
-
-            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
-
 
             function tabChange(){
                 if($scope.param.tabValue=='inReview')

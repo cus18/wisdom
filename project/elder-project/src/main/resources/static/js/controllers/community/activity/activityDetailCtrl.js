@@ -55,6 +55,7 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
 
             $scope.doRefresh = function(){
                 $scope.param.page.pageSize = 10;
+                $scope.param.discussInfinite = true;
                 GetActivityDiscuss.save($scope.param.page,function(data){
                     $scope.activityDiscussList = data.responseData;
                     $scope.$broadcast('scroll.refreshComplete');
@@ -65,6 +66,9 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
                 $scope.param.page.pageSize = $scope.param.page.pageSize + 5;
                 GetActivityDiscuss.save($scope.param.page,function(data){
                     $scope.activityDiscussList = data.responseData;
+                    if(data.responseData.length < $scope.param.page.pageSize){
+                        $scope.param.discussInfinite = false;
+                    }
                 })
             }
 
