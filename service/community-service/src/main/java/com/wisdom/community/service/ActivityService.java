@@ -98,18 +98,18 @@ public class ActivityService {
         activityUser.setOpenID(openid);
         activityUserMapper.addActivityUser(activityUser);
 
-        boolean ifGroup=activity.getActivityEasemobGroupID()!=null && !activity.getActivityEasemobGroupID().equals("");
-        //将用户加入群组
-        if (ifGroup) {
-
-            coreServiceClient.signEasemobUser(openid,"123456");
-            boolean a = coreServiceClient.joinEasemobGroup(activity.getActivityEasemobGroupID(), openid);
-            if (a) {
-                ActivityEasemobGroup activityEasemobGroup = activityEasemobGroupMapper.searchActivityEasemobGroupByGroupID(activity.getActivityEasemobGroupID());
-                activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("") ? openid : activityEasemobGroup.getMembers() + "," + openid);
-                activityEasemobGroupMapper.updateActivityEasemobGroup(activityEasemobGroup);
-            }
-        }
+//        boolean ifGroup=activity.getActivityEasemobGroupID()!=null && !activity.getActivityEasemobGroupID().equals("");
+//        //将用户加入群组
+//        if (ifGroup) {
+//
+//            coreServiceClient.signEasemobUser(openid,"123456");
+//            boolean a = coreServiceClient.joinEasemobGroup(activity.getActivityEasemobGroupID(), openid);
+//            if (a) {
+//                ActivityEasemobGroup activityEasemobGroup = activityEasemobGroupMapper.searchActivityEasemobGroupByGroupID(activity.getActivityEasemobGroupID());
+//                activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("") ? openid : activityEasemobGroup.getMembers() + "," + openid);
+//                activityEasemobGroupMapper.updateActivityEasemobGroup(activityEasemobGroup);
+//            }
+//        }
 
         activity = activityMapper.getActivityList(activityID,null).get(0);
         return activity.getActivityEasemobGroupID();
@@ -132,6 +132,19 @@ public class ActivityService {
     public List<ActivityEasemobGroup> getUserActivityGroupInfo(String elderEasemobID) {
 
         return activityEasemobGroupMapper.getUserActivityEasemobGroupList(elderEasemobID);
+    }
+
+    public String joinActivityEasemobGroup(String activityID,String openid) {
+        coreServiceClient.signEasemobUser(weChatServiceClient.getWechatUserInfo(openid).getNickname(),openid,openid);
+        ActivityDTO activity = activityMapper.getActivityList(activityID,null).get(0);
+//        ActivityEasemobGroup activityEasemobGroup=activityEasemobGroupDao.searchActivityEasemobGroupByID(activity.getActivityEasemobGroupID());
+        boolean a=coreServiceClient.joinEasemobGroup(activity.getActivityEasemobGroupID(),openid);
+        if(a){
+            ActivityEasemobGroup activityEasemobGroup=new ActivityEasemobGroup();
+            activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("")?openid:activityEasemobGroup.getMembers()+","+openid);
+            activityEasemobGroupMapper.updateActivityEasemobGroup(activityEasemobGroup);
+        }
+        return activity.getActivityEasemobGroupID();
     }
 
 }

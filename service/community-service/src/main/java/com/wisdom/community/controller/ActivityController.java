@@ -185,6 +185,25 @@ public class ActivityController {
 		return responseDTO;
 	}
 
+	/**
+	 * 用户加入活动群聊
+	 * @param
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value = "activityDiscuss/joinActivityEasemobGroup", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO joinActivityEasemobGroup(@RequestParam String openId,
+										 @RequestParam String activityId) {
+		ResponseDTO<String> responseDTO = new ResponseDTO<>();
 
+		/****
+		 根据活动的ID号，用户对某个活动发表评论
+		 *****/
+		responseDTO.setResponseData(activityService.joinActivityEasemobGroup(openId,activityId));
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
 
 }
