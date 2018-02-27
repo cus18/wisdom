@@ -228,7 +228,7 @@ public class CourseController {
 
         ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
         onlineCourseDiscussDTO.setOpendId(onlineCourseDiscussDTO.getOpendId());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         onlineCourseDiscussDTO.setOnlineCourseDiscussDate(sdf.format(new Date()));
         liveCourseService.createOnlineCourseDiscuss(onlineCourseDiscussDTO);
         responseDTO.setResult(StatusConstant.SUCCESS);
@@ -245,21 +245,13 @@ public class CourseController {
     @RequestMapping(value = "getMyOnlineCourse", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    ResponseDTO<List<OnlineCourseMyCourseDTO>> collectionCourse(@RequestBody PageParamDTO<String> pageParamDTO, HttpServletRequest request) {
+    ResponseDTO<List<OnlineCourseMyCourseDTO>> collectionCourse(@RequestBody PageParamDTO<String> pageParamDTO) {
 
         ResponseDTO<List<OnlineCourseMyCourseDTO>> responseDTO = new ResponseDTO<>();
-        String loginToken = request.getHeader("loginToken");
-        ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
         OnlineCourseMyCourseDTO onlineCourseMyCourseDTO = new OnlineCourseMyCourseDTO();
-        if (userInfoValue.getResponseData() != null) {
-            onlineCourseMyCourseDTO.setElderId(userInfoValue.getResponseData().getElderUserDTO().getId());
-            List<OnlineCourseMyCourseDTO> list = liveCourseService.getMyOnlineCourse(onlineCourseMyCourseDTO, pageParamDTO);
-            responseDTO.setResponseData(list);
-            responseDTO.setResult(StatusConstant.SUCCESS);
-        } else {
-            responseDTO.setResult(StatusConstant.FAILURE);
-            responseDTO.setErrorInfo("没有获取到用户信息！");
-        }
+        List<OnlineCourseMyCourseDTO> list = liveCourseService.getMyOnlineCourse(onlineCourseMyCourseDTO, pageParamDTO);
+        responseDTO.setResponseData(list);
+        responseDTO.setResult(StatusConstant.SUCCESS);
         return responseDTO;
     }
 }
