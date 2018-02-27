@@ -43,13 +43,12 @@ public class ActivityController {
 	@RequestMapping(value = "activityList", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO,@RequestParam
-												 String openid) {
+	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO) {
 		ResponseDTO<List<ActivityDTO>> responseDTO = new ResponseDTO<>();
 		/****
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
-		responseDTO.setResponseData(activityService.getActivityList(openid,pageParamDTO.getPageNo(),
+		responseDTO.setResponseData(activityService.getActivityList(pageParamDTO.getOrderType(),pageParamDTO.getPageNo(),
 				pageParamDTO.getRequestData()));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
