@@ -191,7 +191,7 @@ public class ActivityController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(value = "/joinActivityEasemobGroup", method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = "joinActivityEasemobGroup", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
 	ResponseDTO joinActivityEasemobGroup(@RequestParam String openId,
