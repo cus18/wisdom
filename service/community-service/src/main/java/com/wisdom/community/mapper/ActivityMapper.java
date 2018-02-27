@@ -22,7 +22,7 @@ public interface ActivityMapper {
 
 	List<AttendedActivityDTO> getActivityListByElderID(@Param("elderID") String elderID);
 
-	List<ActivityDTO> getMyActivityListByElderID(@Param("elderID") String elderID, @Param("pageNo") Integer pageNo, @Param("activityType") String activityType);
+	List<ActivityDTO> getMyActivityListByElderID(@Param("openid") String elderID, @Param("pageNo") Integer pageNo, @Param("activityType") String activityType);
 
 	Integer updateActivityStatus(@Param("status") String Status, @Param("id") String id);
 
