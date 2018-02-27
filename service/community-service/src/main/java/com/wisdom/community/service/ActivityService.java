@@ -55,8 +55,8 @@ public class ActivityService {
         return list;
     }
 
-    public List<ActivityDTO> getActivityList(String elderID, String pageNo,String activityType) {
-        List<ActivityDTO> result = activityMapper.getMyActivityListByElderID(elderID,Integer.parseInt(pageNo)*10,activityType);
+    public List<ActivityDTO> getActivityList(String openid, String pageNo,String activityType) {
+        List<ActivityDTO> result = activityMapper.getMyActivityListByElderID(openid,Integer.parseInt(pageNo)*10,activityType);
         return result;
     }
 

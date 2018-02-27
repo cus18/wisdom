@@ -75,6 +75,8 @@ public class ActivityDTO {
 
     private String type;
 
+    private String openid;
+
     public String getType() {
         return type;
     }
@@ -201,5 +203,13 @@ public class ActivityDTO {
 
     public void setActivityEasemobGroupID(String activityEasemobGroupID) {
         this.activityEasemobGroupID = activityEasemobGroupID;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

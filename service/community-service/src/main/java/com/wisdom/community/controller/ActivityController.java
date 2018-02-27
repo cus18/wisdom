@@ -43,13 +43,13 @@ public class ActivityController {
 	@RequestMapping(value = "activityList", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO,
-												HttpServletRequest request) {
+	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO,@RequestParam
+												 String openid) {
 		ResponseDTO<List<ActivityDTO>> responseDTO = new ResponseDTO<>();
 		/****
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
-		responseDTO.setResponseData(activityService.getActivityList(null,pageParamDTO.getPageNo(),
+		responseDTO.setResponseData(activityService.getActivityList(openid,pageParamDTO.getPageNo(),
 				pageParamDTO.getRequestData()));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
@@ -131,8 +131,7 @@ public class ActivityController {
 	public
 	@ResponseBody
 	ResponseDTO<String> joinActivity(@RequestParam String openId,
-									 @RequestParam String activityId,
-									 HttpServletRequest request) {
+									 @RequestParam String activityId) {
 		ResponseDTO responseDTO = new ResponseDTO<>();
 		/****
 		 List<String>中放入的是报名参加活动的用户列表，为用户的elderId值，['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
