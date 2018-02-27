@@ -75,8 +75,7 @@ public class CourseController {
     @RequestMapping(value = "historyLiveBroadCast", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    ResponseDTO<List<LiveCourseDTO>> historyLiveBroadCast(@RequestBody PageParamDTO<String> pageParamDTO,
-                                                          HttpServletRequest request) {
+    ResponseDTO<List<LiveCourseDTO>> historyLiveBroadCast(@RequestBody PageParamDTO<String> pageParamDTO) {
 
         ResponseDTO<List<LiveCourseDTO>> responseDTO = new ResponseDTO<>();
         if ("page".equals(pageParamDTO.getRequestData())) {
@@ -101,14 +100,11 @@ public class CourseController {
     @LoginRequired
     public
     @ResponseBody
-    ResponseDTO<LiveCourseDTO> liveBroadCastDetail(@RequestBody LiveCourseDTO liveCourseDTO,
-                                                   HttpServletRequest request) {
+    ResponseDTO<LiveCourseDTO> liveBroadCastDetail(@RequestBody LiveCourseDTO liveCourseDTO) {
 
         ResponseDTO<LiveCourseDTO> responseDTO = new ResponseDTO<>();
-        String loginToken = request.getHeader("loginToken");
-        ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
-        if (userInfoValue.getResponseData() != null) {
-            liveCourseDTO = liveCourseService.getLiveBroadCastDetail(userInfoValue.getResponseData().getElderUserDTO().getId(), liveCourseDTO);
+        if (liveCourseDTO.getOpenid() != null) {
+            liveCourseDTO = liveCourseService.getLiveBroadCastDetail(liveCourseDTO.getOpenid(), liveCourseDTO);
             responseDTO.setResponseData(liveCourseDTO);
             responseDTO.setResult(StatusConstant.SUCCESS);
         } else {
@@ -129,15 +125,12 @@ public class CourseController {
     @LoginRequired
     public
     @ResponseBody
-    ResponseDTO<LiveCourseDTO> registerLiveBroadCast(@RequestBody LiveCourseDTO liveCourseDTO,
-                                                     HttpServletRequest request) {
+    ResponseDTO<LiveCourseDTO> registerLiveBroadCast(@RequestBody LiveCourseDTO liveCourseDTO) {
 
         ResponseDTO<LiveCourseDTO> responseDTO = new ResponseDTO<>();
-        String loginToken = request.getHeader("loginToken");
-        ResponseDTO<UserInfoDTO> userInfoValue = CoreServiceClient.getUserInfo(loginToken);
         LiveCourseRegisterDTO dto = new LiveCourseRegisterDTO();
-        if (userInfoValue.getResponseData() != null) {
-            dto.setElderId(userInfoValue.getResponseData().getElderUserDTO().getId());
+        if (liveCourseDTO.getOpenid() != null) {
+            dto.setOpenid(liveCourseDTO.getOpenid());
             dto.setLiveCourseId(liveCourseDTO.getLiveCourseId());
             liveCourseService.registerLiveBroadCast(dto);
             responseDTO.setResult(StatusConstant.SUCCESS);
@@ -161,8 +154,7 @@ public class CourseController {
     @RequestMapping(value = "onlineCourseList", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    ResponseDTO<List<OnlineCourseDTO>> onlineCourseList(@RequestBody PageParamDTO<String> pageParamDTO,
-                                                        HttpServletRequest request) {
+    ResponseDTO<List<OnlineCourseDTO>> onlineCourseList(@RequestBody PageParamDTO<String> pageParamDTO) {
 
         ResponseDTO<List<OnlineCourseDTO>> responseDTO = new ResponseDTO<>();
         List<OnlineCourseDTO> list = liveCourseService.getOnlineCourseList(pageParamDTO);
@@ -181,8 +173,7 @@ public class CourseController {
     @RequestMapping(value = "onlineCourseDetail", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    ResponseDTO<OnlineCourseDTO> onlineCourseDetail(@RequestBody OnlineCourseDTO onlineCourseDTO,
-                                                    HttpServletRequest request) {
+    ResponseDTO<OnlineCourseDTO> onlineCourseDetail(@RequestBody OnlineCourseDTO onlineCourseDTO) {
 
         ResponseDTO<OnlineCourseDTO> responseDTO = new ResponseDTO<>();
 
@@ -203,8 +194,7 @@ public class CourseController {
     @RequestMapping(value = "onlineCourseDiscuss", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    ResponseDTO<List<OnlineCourseDiscussDTO>> onlineCourseDiscuss(@RequestBody PageParamDTO<String> pageParamDTO,
-                                                                  HttpServletRequest request) {
+    ResponseDTO<List<OnlineCourseDiscussDTO>> onlineCourseDiscuss(@RequestBody PageParamDTO<String> pageParamDTO) {
 
         ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
         List<OnlineCourseDiscussDTO> onlineCourseDiscussDTOList = liveCourseService.getOnlineCourseDiscuss(pageParamDTO);
@@ -223,8 +213,7 @@ public class CourseController {
     @RequestMapping(value = "onlineCourseDiscuss/create", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    ResponseDTO<List<OnlineCourseDiscussDTO>> createOnlineCourseDiscuss(@RequestBody OnlineCourseDiscussDTO onlineCourseDiscussDTO,
-                                                                        HttpServletRequest request) {
+    ResponseDTO<List<OnlineCourseDiscussDTO>> createOnlineCourseDiscuss(@RequestBody OnlineCourseDiscussDTO onlineCourseDiscussDTO) {
 
         ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
         onlineCourseDiscussDTO.setOpendId(onlineCourseDiscussDTO.getOpendId());
@@ -249,6 +238,7 @@ public class CourseController {
 
         ResponseDTO<List<OnlineCourseMyCourseDTO>> responseDTO = new ResponseDTO<>();
         OnlineCourseMyCourseDTO onlineCourseMyCourseDTO = new OnlineCourseMyCourseDTO();
+        onlineCourseMyCourseDTO.setOpenid(pageParamDTO.getRequestData().toString());
         List<OnlineCourseMyCourseDTO> list = liveCourseService.getMyOnlineCourse(onlineCourseMyCourseDTO, pageParamDTO);
         responseDTO.setResponseData(list);
         responseDTO.setResult(StatusConstant.SUCCESS);

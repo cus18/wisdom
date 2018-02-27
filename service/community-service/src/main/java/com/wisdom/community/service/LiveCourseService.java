@@ -50,12 +50,12 @@ public class LiveCourseService{
         return courseMapper.getAllLiveCourseByInfo(liveCourseDTO);
     }
 
-    public LiveCourseDTO getLiveBroadCastDetail(String elderId,LiveCourseDTO dto) {
+    public LiveCourseDTO getLiveBroadCastDetail(String openid,LiveCourseDTO dto) {
         dto = courseMapper.getLiveBroadCastDetail(dto);
         LiveCourseRegisterDTO liveCourseRegisterDTO = new LiveCourseRegisterDTO();
         if(dto != null){
             liveCourseRegisterDTO.setLiveCourseId(dto.getLiveCourseId());
-            liveCourseRegisterDTO.setElderId(elderId);
+            liveCourseRegisterDTO.setOpenid(openid);
             liveCourseRegisterDTO = courseMapper.getLiveCourseRegister(liveCourseRegisterDTO);
         }
         dto.setLiveCourseRegisterStatus(liveCourseRegisterDTO != null?"yes":"no");

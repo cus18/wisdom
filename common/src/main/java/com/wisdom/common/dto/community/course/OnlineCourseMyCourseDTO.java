@@ -9,6 +9,8 @@ public class OnlineCourseMyCourseDTO {
 
     private String elderId;
 
+    private String openid;
+
     private Integer courseId;
 
     private String type;
@@ -54,5 +56,13 @@ public class OnlineCourseMyCourseDTO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

@@ -119,8 +119,8 @@
             parameterType="com.wisdom.common.dto.community.course.LiveCourseRegisterDTO"
             useGeneratedKeys="true"
             keyProperty="id">
-        insert into live_course_register (liveCourseId,elderId)
-        values (#{liveCourseId}, #{elderId})
+        insert into live_course_register (liveCourseId,openid)
+        values (#{liveCourseId}, #{openid})
     </insert>
 
     <select id="getLiveCourseRegister" resultMap="liveCourseRegister">
@@ -130,8 +130,8 @@
             <if test="liveCourseId != null and liveCourseId != ''">
                 and liveCourseId = #{liveCourseId}
             </if>
-            <if test="elderId != null and elderId != ''">
-                and elderId = #{elderId}
+            <if test="openid != null and openid != ''">
+                and openid = #{openid}
             </if>
         </where>
     </select>
@@ -248,8 +248,8 @@
         SELECT * FROM online_course_myCourse
         <where>
             1=1
-            <if test="elderId != null and elderId != ''">
-                and elderId = #{elderId}
+            <if test="openid != null and openid != ''">
+                and openid = #{openid}
             </if>
             <if test="type != null and type != ''">
                 and type = #{type}
