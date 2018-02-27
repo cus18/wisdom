@@ -7,32 +7,8 @@ angular.module('controllers',[]).controller('activityListCtrl',
             $scope.param = {
                 page:{
                     pageNo:1,
-                    orderType:1,
+                    orderType:'',
                     requestData:"0"
-                }
-            }
-
-            if($rootScope.rootElderId!=undefined)
-            {
-                $scope.elderId = $rootScope.rootElderId;
-                $scope.elderName = $rootScope.rootElderName;
-                $scope.elderImg = $rootScope.rootElderImg;
-            }
-            else
-            {
-                //将用户信息放入$rootScope中
-                $rootScope.rootElderId = window.localStorage.getItem("elderId");
-                $rootScope.rootElderName = window.localStorage.getItem("elderName");
-                $rootScope.rootElderImg = window.localStorage.getItem("elderImg");
-                if($rootScope.rootElderId!=undefined)
-                {
-                    $scope.elderId = $rootScope.rootElderId;
-                    $scope.elderName = $rootScope.rootElderName;
-                    $scope.elderImg = $rootScope.rootElderImg;
-                }
-                else
-                {
-                    $scope.elderId = "0000";
                 }
             }
 

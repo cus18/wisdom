@@ -1,8 +1,8 @@
 angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detectionDiagnoseCtrl',
-    ['$scope','$rootScope','$stateParams','$state','$filter','openidUtil',
-        'GetDetectionHealthData','ElderUtil','GetLaoyouUserByOpenId','$timeout','Global','$window',
-        function ($scope,$rootScope,$stateParams,$state,$filter,openidUtil,
-                  GetDetectionHealthData,ElderUtil,GetLaoyouUserByOpenId,$timeout,Global,$window) {
+    ['$scope','$rootScope','$stateParams','$state','$filter','openidUtil','GetLaoyouUserByOpenId',
+        'GetDetectionHealthData','ElderUtil','$timeout','Global','$window',
+        function ($scope,$rootScope,$stateParams,$state,$filter,openidUtil,GetLaoyouUserByOpenId,
+                  GetDetectionHealthData,ElderUtil,$timeout,Global,$window) {
 
             $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
@@ -10,16 +10,18 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
             $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
-
+            $scope.goHealthChat = function(){
+                $state.go('myChat',{'groupId':'111'})
+            }
             $scope.goMenu = function(firstMenuParam,secondMenuParam){
                 $state.go("detectionDiagnose", {firstMenu: firstMenuParam, secondMenu: secondMenuParam});
             }
             $scope.goBloodSugarRecord = function(bloodSugarNum,timeType,timeDate,readOnly,remark){
-                $state.go("bloodSugarRecord",{bloodSugarNum:bloodSugarNum,recorded:true,timeType:timeType,timeDate:timeDate,readOnly:readOnly});
+                $state.go("bloodSugarRecord",{bloodSugarNum:bloodSugarNum,recorded:true,timeType:timeType,timeDate:timeDate,readOnly:readOnly,remark:remark});
                 $rootScope.measureBloodSugarRemark = remark;
             }
             $scope.goBloodPressureRecord = function(measureTime,diastolic,systolic,heartRate,readOnly,remark){
-                $state.go("bloodPressureRecord",{emptyCont:true,measureTime:measureTime,diastolic:diastolic,systolic:systolic,heartRate:heartRate,readOnly:readOnly});
+                $state.go("bloodPressureRecord",{emptyCont:true,measureTime:measureTime,diastolic:diastolic,systolic:systolic,heartRate:heartRate,readOnly:readOnly,remark:remark});
                 $rootScope.measureBloodPressureRemark = remark;
             }
 
@@ -55,42 +57,42 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
             var arrangeHealthData = function(healthData, dataResponse){
                 if($scope.secondMenu=="bloodSugarCurve"||$scope.secondMenu=="bloodSugarTable"){
-                    if(dataResponse.period=='dawn')
+                    if(dataResponse.mealType=='dawn')
                     {
                         healthData.bloodSugar.dawn = dataResponse.result;
                         healthData.bloodSugar.dawnTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeBreakFast')
+                    else if(dataResponse.mealType=='beforeBreakFast')
                     {
                         healthData.bloodSugar.beforeBreakFast = dataResponse.result;
                         healthData.bloodSugar.beforeBreakFastTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='afterBreakFast')
+                    else if(dataResponse.mealType=='afterBreakFast')
                     {
                         healthData.bloodSugar.afterBreakFast = dataResponse.result;
                         healthData.bloodSugar.afterBreakFastTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeLunch')
+                    else if(dataResponse.mealType=='beforeLunch')
                     {
                         healthData.bloodSugar.beforeLunch = dataResponse.result;
                         healthData.bloodSugar.beforeLunchTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='afterLunch')
+                    else if(dataResponse.mealType=='afterLunch')
                     {
                         healthData.bloodSugar.afterLunch = dataResponse.result;
                         healthData.bloodSugar.afterLunchTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeDinner')
+                    else if(dataResponse.mealType=='beforeDinner')
                     {
                         healthData.bloodSugar.beforeDinner = dataResponse.result;
                         healthData.bloodSugar.beforeDinnerTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='afterDinner')
+                    else if(dataResponse.mealType=='afterDinner')
                     {
                         healthData.bloodSugar.afterDinner = dataResponse.result;
                         healthData.bloodSugar.afterDinnerTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeSleep')
+                    else if(dataResponse.mealType=='beforeSleep')
                     {
                         healthData.bloodSugar.beforeSleep = dataResponse.result;
                         healthData.bloodSugar.beforeSleepTime = dataResponse.measureTime;
@@ -98,12 +100,8 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
             }
 
-
-
-
-
             var loadDetectionDiagnose = function(){
-               if($scope.firstMenu=="detection")
+                if($scope.firstMenu=="detection")
                 {
                     $scope.chooseHealthDataTime('week');
                 }
@@ -144,7 +142,7 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
                         $scope.loadingStatus = false;
 
-                        ElderUtil.checkResponseData(data,'detectionDiagnose/detection,bloodSugarTable');
+                        ElderUtil.checkResponseData(data);
 
                         if(data.responseData!=undefined){
 
@@ -366,6 +364,8 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                                 $scope.charts.bloodPressure.heartRateSeries = [{type: 'area', name: '心率', data: []}];
 
                                 angular.forEach(data.responseData.detectionData,function(value,index,array){
+                                    // alert(value.measureTime.substring(0,16));
+                                    // alert(new Date(value.measureTime.substring(0,16)).getTime());
                                     $scope.charts.bloodPressure.pressureSeries[0].data.push([
                                         value.measureTime,
                                         parseFloat(value.diastolic)]);
@@ -462,7 +462,6 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
             };
 
-
             //判断是否绑定
             GetLaoyouUserByOpenId.get({openid:$rootScope.openid},function(data){
                 if(data.result == Global.SUCCESS){
@@ -480,5 +479,4 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
 
             })
-
         }])

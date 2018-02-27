@@ -484,7 +484,7 @@ define(['appElder'], function(app){
 
                     /*社区首页*/
                     .state('myChat', {
-                        url: '/myChat',
+                        url: '/myChat/:groupId',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'myChatCtrl',
                         resolve: {

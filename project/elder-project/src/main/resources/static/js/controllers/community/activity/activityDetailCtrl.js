@@ -44,13 +44,7 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
 
             $scope.attendActivityGroupTalk = function(){
                 //进入活动群聊圈
-
-
-
-                connectWebViewJavascriptBridge(function() {
-                    window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
-                        $scope.detailActivityInfo.activityEasemobGroupID+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
-                })
+                $state.go('myChat',{'groupId':'222'})
             }
 
             $scope.doRefresh = function(){

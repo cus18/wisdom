@@ -83,11 +83,11 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
                     SendIdentifying.save({phone:$scope.phone.number},function(data){
 
                     })
-                    var second = 59;
+                    var second = 60;
                     var timer = $interval(function(){
                         if(second <=0){
                             $interval.cancel(timer);
-                            second = 59;
+                            second = 60;
                             $scope.phone.codeText = '重发验证码';
                             $scope.phone.canClick=false;
                         }else{

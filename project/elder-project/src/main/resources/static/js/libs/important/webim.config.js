@@ -18,7 +18,7 @@ WebIM.config = {
     /*
      * Application AppKey
      */
-    appkey: 'easemob-demo#chatdemoui',
+    appkey: '1156170425115453#laoyoupractitioner',
 
     // xmppURL: '118.193.28.212:31093',
     /*

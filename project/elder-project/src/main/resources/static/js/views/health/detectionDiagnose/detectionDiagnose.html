@@ -1,8 +1,21 @@
 <ion-view style="background:#f8f8f8">
-    <div ng-if="!hasData" class="bar bar-header">
-        <div class="title">以下是数据示例</div>
+    <div class="bar bar-header" style="height:79px;">
+        <div ng-if="!hasData" class="title" style="line-height:78px;overflow:inherit;color:#060d25;">以下是数据示例</div>
+        <div ng-if="hasData" class="chatList" ng-click="goHealthChat()">
+            <div class="userPhoto">
+                <img src="images/user_photo.png" alt="">
+                <img src="images/user_photo.png" alt="">
+                <img src="images/user_photo.png" alt="">
+                <span>3</span>
+            </div>
+            <div class="chatTitle">
+                <p style="color:#060d25;font-size:18px;margin-bottom:6px;">健康管理群</p>
+                <p style="color:#494951;">群聊消息页面</p>
+            </div>
+            <div class="chatTime">09:00</div>
+        </div>
     </div>
-    <div class="tabs tabs-top tabs-striped" style="background:#fff;top:55px;">
+    <div class="tabs tabs-top tabs-striped" style="background:#fff;top:90px;">
         <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable']"
            ng-click="goMenu('detection','bloodSugarCurve')">
             <p>血糖</p>
@@ -13,7 +26,7 @@
         </a>
     </div>
     <!--远程监测tab-->
-    <div ng-if="firstMenu == 'detection' && hasData" style="margin-top:115px;">
+    <div ng-if="firstMenu == 'detection' && hasData" style="margin-top:155px;">
         <div page-loading></div>
         <div ng-if="secondMenu == 'bloodSugarCurve'" style="overflow:auto;height:10rem;">
             <!--血糖content-->
@@ -232,7 +245,7 @@
             </section>
         </div>
     </div>
-    <div ng-if="!hasData" class="list" style="padding-top:120px;">
+    <div ng-if="!hasData" class="list" style="padding-top:155px;">
         <img src="images/dataShow.png" style="width:100%;margin-bottom:40px;">
         <div class="item" style="overflow:inherit;white-space:inherit;line-height:28px;width:80%;margin:0 auto;">您目前还没有测量数据。健康监测属于养老机构提供的有偿服务，您暂时无法查看相关健康数据。</div>
     </div>

@@ -175,6 +175,10 @@ define(['appElder'], function (app) {
         .factory('JoinActivity',['$resource',function ($resource){
             return $resource(communityActivity + 'joinActivity')
         }])
+        //加入活动群
+        .factory('JoinActivityEasemobGroup',['$resource',function ($resource){
+            return $resource(communityActivity + 'joinActivityEasemobGroup')
+        }])
         //获取推荐的活动
         .factory('GetSuggestActivity',['$resource',function ($resource){
             return $resource(communityActivity + 'suggestActivity')
@@ -231,6 +235,10 @@ define(['appElder'], function (app) {
         .factory('GetCommunityBannerList',['$resource',function ($resource){
             return $resource(communityIndex + 'bannerList')
         }])
+        //获取用户的群聊信息
+        .factory('GetUserGroupChatInfo',['$resource',function ($resource){
+            return $resource(core + 'getUserGroupChatInfo')
+        }])
 
         //获取自己的亲友群中所有的亲友信息列表
         .factory('GetRelativeElderInfo',['$resource',function ($resource){
@@ -270,6 +278,10 @@ define(['appElder'], function (app) {
         //获取openid
         .factory('GetOpenID',['$resource',function ($resource){
             return $resource(wechat + 'getOpenID')
+        }])
+        //获取微信昵称、头像
+        .factory('GetWechatUserInfo',['$resource',function ($resource){
+            return $resource(wechat + 'getWechatUserInfo')
         }])
 
 

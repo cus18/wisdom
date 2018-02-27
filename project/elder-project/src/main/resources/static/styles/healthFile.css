@@ -1330,7 +1330,7 @@ div.inputItem>input{
 	word-wrap: break-word;
 	overflow: hidden;
 	margin-left: 90px;
-	background: #6d7;
+	background: #FFB900;
 	border-radius: 10px 10px 10px 10px;
 	display: inline-block;
 	max-width: 70%;
@@ -1340,14 +1340,59 @@ div.inputItem>input{
 /* Chat - Speech Bubble Arrow */
 .chat ul {
 	top: -32px;
-	content: '';
-	width: 18px;
-	height: 18px;
-	background-color: #6d7;
-	margin-left: 80px;
-	margin-top: 88px;
-	border-radius: 0px 10px 0px 25px;
+	width: 0px;
+	height: 0px;
 	z-index: 2;
 	position: absolute;
+    right:76px;
+    margin-top:90px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #FFB900;
+}
+/*健康数据-群聊列表*/
+.chatList{
+    position: relative;
+    padding: 11px 0 0 20px;
+    width: 100%;
+    background: #fff;
+}
+.chatList .userPhoto{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    border-radius: 8px;
+    padding: 2px 0 0 2px;
+}
+.chatList .userPhoto img{
+    width: 40%;
+    float: left;
+    margin: 2px;
+    position:relative;
+}
+.chatList .userPhoto span{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #f00;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    color: #fff;
+}
+.chatList .chatTitle{
+    position: absolute;
+    left: 24%;
+    width: 80%;
+    top: 14px;
+}
+.chatList .chatTime{
+    position: absolute;
+    right: 20px;
+    color: #9b9b9b;
+    top: 16px;
 }
 

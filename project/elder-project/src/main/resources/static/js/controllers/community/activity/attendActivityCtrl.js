@@ -1,7 +1,7 @@
 angular.module('controllers',[]).controller('attendActivityCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
+    ['$scope','$interval','$rootScope','$stateParams','$state','JoinActivityEasemobGroup',
         'GetActivityDetail','JoinActivity','Global','openidUtil',
-        function ($scope,$interval,$rootScope,$stateParams,$state,
+        function ($scope,$interval,$rootScope,$stateParams,$state,JoinActivityEasemobGroup,
                   GetActivityDetail,JoinActivity,Global,openidUtil) {
 
 
@@ -26,7 +26,7 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
                         if(data.result = Global.SUCCESS)
                         {
                             $scope.param.attended = true;
-                            $scope.activityGroupId = data.responseData
+                            $scope.activityGroupId = data.responseData;
                         }
                     })
                 }else{
@@ -42,10 +42,11 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
 
             });
 
-            // $scope.enterActivityGroupTalk = function(){
-            //     connectWebViewJavascriptBridge(function() {
-            //         window.WebViewJavascriptBridge.callHandler('attendActivityGroupTalk',
-            //             $scope.activityGroupId+";"+$scope.detailActivityInfo.activityName,function(responseData) {})
-            //     })
-            // }
+            //进入活动群聊
+            $scope.enterActivityGroupTalk = function(){
+                JoinActivityEasemobGroup.get({activityId:activityId,openId:$rootScope.openid},function(data){
+
+                })
+                // $state.go('myChat',{'groupId':})
+            }
         }])
