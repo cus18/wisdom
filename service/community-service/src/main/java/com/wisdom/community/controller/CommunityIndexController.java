@@ -66,4 +66,6 @@ public class CommunityIndexController {
 		return responseDTO;
 	}
 
+
+
 }

@@ -2,6 +2,8 @@ package com.wisdom.core.controller;
 
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.basic.BannerDTO;
+import com.wisdom.common.dto.basic.EasemobGroup;
+import com.wisdom.common.dto.community.activity.UserEasemobGroupDTO;
 import com.wisdom.common.dto.core.DictDTO;
 import com.wisdom.common.dto.core.ResponseDTO;
 import com.wisdom.common.dto.core.user.EasemobGroupDTO;
@@ -121,15 +123,23 @@ public class ServiceController {
 
 	@RequestMapping(value = "/getUserGroupChatInfo", method = {RequestMethod.POST, RequestMethod.GET})
 	public @ResponseBody
-	ResponseDTO<Object> getUserGroupChatInfo(HttpServletRequest request) {
-//		ResponseDTO<Object> responseDto = new ResponseDTO<>();
-//		UserEasemobGroupDTO userEasemobGroupDTO=new UserEasemobGroupDTO();
-//		userEasemobGroupDTO.setEasemobGroup(easemobService.getEasemobGroup(UserService.getUser(request).getSysElderUserDTO().getId()));
-//		userEasemobGroupDTO.setActivityEasemobGroupInfoList(activityService.getUserActivityEasemobGroupList(UserService.getUser(request).getSysElderUserDTO().getEasemobID()));
-//		responseDto.setResponseData(userEasemobGroupDTO);
-//		responseDto.setResult(StatusConstant.SUCCESS);
-//		return responseDto;
-		return null;
+	ResponseDTO<Object> getUserGroupChatInfo(@RequestParam String elderId,@RequestParam String easemobId) {
+		ResponseDTO<Object> responseDto = new ResponseDTO<>();
+		UserEasemobGroupDTO userEasemobGroupDTO=new UserEasemobGroupDTO();
+		EasemobGroupDTO easemobGroupDTO=easemobService.getEasemobGroup(elderId);
+		EasemobGroup easemobGroup=new EasemobGroup();
+		easemobGroup.setOwner(easemobGroupDTO.getOwner());
+		easemobGroup.setNurse(easemobGroupDTO.getNurse()==null?"":easemobGroupDTO.getNurse());
+		easemobGroup.setGroupName(easemobGroupDTO.getGroupName());
+		easemobGroup.setCreate_date(easemobGroupDTO.getCreate_date());
+		easemobGroup.setDoctorIDArray(easemobGroupDTO.getDoctorIDArray());
+		easemobGroup.setEasemobGroupID(easemobGroup.getEasemobGroupID());
+		easemobGroup.setElderEasemobID(easemobGroupDTO.getElderEasemobID());
+		userEasemobGroupDTO.setEasemobGroup(easemobGroup);
+		userEasemobGroupDTO.setActivityEasemobGroupInfoList(easemobService.getUserActivityGroupInfo(easemobId));
+		responseDto.setResponseData(userEasemobGroupDTO);
+		responseDto.setResult(StatusConstant.SUCCESS);
+		return responseDto;
 	}
 
 

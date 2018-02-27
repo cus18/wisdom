@@ -128,4 +128,10 @@ public class ActivityService {
         return activityDiscussMapper.addActivityDiscussReply(activityDiscussReplyDTO);
     }
 
+
+    public List<ActivityEasemobGroup> getUserActivityGroupInfo(String elderEasemobID) {
+
+        return activityEasemobGroupMapper.getUserActivityEasemobGroupList(elderEasemobID);
+    }
+
 }

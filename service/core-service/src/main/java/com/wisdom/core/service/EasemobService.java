@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wisdom.common.config.Global;
 import com.wisdom.common.constant.ConfigConstant;
+import com.wisdom.common.dto.basic.ActivityEasemobGroup;
 import com.wisdom.common.dto.health.BasicInfoDTO;
 import com.wisdom.common.dto.core.user.*;
 import com.wisdom.common.util.FileUtils;
@@ -54,9 +55,13 @@ public class EasemobService {
     private UserMapper userMapper;
 
     @Autowired
+    private ActivityEasemobGroupMapper activityEasemobGroupMapper;
+
+    @Autowired
     private PractitionerUserMapper practitionerMapper;
 
     private static EasemobMapper easemobMapper;
+
 
     @PostConstruct
     public void init(){
@@ -82,6 +87,7 @@ public class EasemobService {
         EasemobDTO easemob = easemobMapper.getEasemobToken();
         return easemob.getAccessToken();
     }
+
 
 
     /**
@@ -491,6 +497,10 @@ public class EasemobService {
         UserInfoDTO user = userMapper.get(sysPractitionerUserDTO.getSysUserID());
         user.setPractitionerUserDTO(sysPractitionerUserDTO);
         return user;
+    }
+
+    public List<ActivityEasemobGroup> getUserActivityGroupInfo(String elderEasemobID) {
+        return activityEasemobGroupMapper.getUserActivityEasemobGroupList(elderEasemobID);
     }
 
 }
