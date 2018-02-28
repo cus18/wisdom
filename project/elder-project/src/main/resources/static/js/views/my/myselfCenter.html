@@ -9,7 +9,7 @@
         <a class="tab-item" ui-sref="myService({type:'inService'})">
             <img src="images/myself_icon02.png">
             <p>服务中</p>
-            <span ng-ig="inServiceSize" class="flg">{{inServiceSize}}</span>
+            <span ng-if="inServiceSize" class="flg">{{inServiceSize}}</span>
         </a>
         <a class="tab-item" ui-sref="myService({type:'finished'})">
             <img src="images/myself_icon03.png">
