@@ -26,6 +26,11 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
 
             })
 
+            //输入
+            $scope.inputChange = function(){
+                $scope.errorShow = false;
+            }
+
             //绑定手机号
             $scope.bindPhone = function(){
                 if($scope.phone.code && $scope.phone.number){

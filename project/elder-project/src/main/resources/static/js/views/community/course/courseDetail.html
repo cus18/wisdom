@@ -38,7 +38,7 @@
                 </div>
 			</a>
 		</div>
-        <div class="list" style="margin-top:54px;" ng-if="param.operation=='discuss'">
+        <div class="list" style="margin-top:54px;padding-bottom:50px;" ng-if="param.operation=='discuss'">
             <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
             <a class="item item-discussList item-thumbnail-left" ng-repeat="item in onlineCourseDiscussData">
                 <img class="userPic" ng-src="{{item.weChatHeadPhoto}}">
