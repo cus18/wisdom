@@ -28,7 +28,7 @@ public class ActivityDiscussDTO {
 
     //此条评论的创建时间
     @JSONField(name = "discussDate")
-    private Date discussDate;
+    private String discussDate;
 
     //此条评论的创建时间
     @JSONField(name = "discussContent")
@@ -79,11 +79,11 @@ public class ActivityDiscussDTO {
         this.openId = openId;
     }
 
-    public Date getDiscussDate() {
+    public String getDiscussDate() {
         return discussDate;
     }
 
-    public void setDiscussDate(Date discussDate) {
+    public void setDiscussDate(String discussDate) {
         this.discussDate = discussDate;
     }
 
