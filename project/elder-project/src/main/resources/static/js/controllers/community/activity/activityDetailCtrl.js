@@ -88,10 +88,10 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
                             discussContent:$scope.param.discussContent,
                             activityId:activityId,
                             openId:$rootScope.openid},function(data){
-                        $scope.param.discussContent="";
-                        GetActivityDiscuss.save($scope.param.page,function(data){
-                            $scope.activityDiscussList = data.responseData;
-                        })
+                                $scope.param.discussContent="";
+                                GetActivityDiscuss.save($scope.param.page,function(data){
+                                    $scope.activityDiscussList = data.responseData;
+                                })
                     })
                     $scope.param.attendDiscuss = false;
                 }
