@@ -6,7 +6,7 @@ angular.module('controllers',[]).controller('courseDetailCtrl',
 
             $rootScope.pageTitle = '课堂详情';
 
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $scope.param = {

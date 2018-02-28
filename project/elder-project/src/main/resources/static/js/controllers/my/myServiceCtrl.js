@@ -9,7 +9,7 @@ angular.module('controllers',[]).controller('myServiceCtrl',
             $rootScope.pageTitle = '我的服务';
 
             openidUtil.checkResponseData();
-            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
             $scope.param = {
                 tabValue : $stateParams.type

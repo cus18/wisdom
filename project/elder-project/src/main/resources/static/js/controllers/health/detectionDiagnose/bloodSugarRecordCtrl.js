@@ -9,7 +9,7 @@ angular.module('controllers',[]).controller('bloodSugarRecordCtrl',
 
             $rootScope.pageTitle = '血糖数据';
 
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $scope.bloodSugar = {};

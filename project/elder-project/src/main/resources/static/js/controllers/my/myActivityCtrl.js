@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('myActivityCtrl',
             $rootScope.pageTitle = '我的活动';
 
             openidUtil.checkResponseData();
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
 
             $scope.param = {
                 recentPublishActive:[],

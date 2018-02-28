@@ -7,7 +7,7 @@ angular.module('controllers',[]).controller('bloodPressureRecordCtrl',
 
             $rootScope.pageTitle = '血压/心率数据';
 
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
 

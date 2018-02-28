@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
                   BindLaoyouUser,openidUtil,GetLaoyouUserByOpenId,DeleteLaoyouUserByOpenId) {
 
 
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $rootScope.pageTitle = '华录老友';

@@ -1,7 +1,8 @@
 <ion-view style="background:#f8f8f8">
     <div class="bar bar-header" style="height:79px;">
         <div ng-if="!hasData" class="title" style="line-height:78px;overflow:inherit;color:#060d25;">以下是数据示例</div>
-        <div ng-if="hasData" class="chatList" ng-click="goHealthChat()">
+        <div ng-if="noGroup" class="title" style="line-height:78px;overflow:inherit;color:#060d25;">以下是健康数据</div>
+        <div ng-if="hasData && !noGroup" class="chatList" ng-click="goHealthChat()">
             <div class="userPhoto">
                 <img src="images/user_photo.png" alt="">
                 <img src="images/user_photo.png" alt="">

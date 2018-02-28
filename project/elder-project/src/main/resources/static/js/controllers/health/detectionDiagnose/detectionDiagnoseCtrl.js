@@ -1,13 +1,13 @@
 angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detectionDiagnoseCtrl',
     ['$scope','$rootScope','$stateParams','$state','$filter','openidUtil','GetLaoyouUserByOpenId',
-        'GetDetectionHealthData','ElderUtil','$timeout','Global','$window',
+        'GetDetectionHealthData','ElderUtil','$timeout','Global','$window','GetUserGroupChatInfo',
         function ($scope,$rootScope,$stateParams,$state,$filter,openidUtil,GetLaoyouUserByOpenId,
-                  GetDetectionHealthData,ElderUtil,$timeout,Global,$window) {
+                  GetDetectionHealthData,ElderUtil,$timeout,Global,$window,GetUserGroupChatInfo) {
 
             $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
 
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $scope.goHealthChat = function(){
@@ -469,7 +469,19 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                         //已绑定
                         $scope.hasData = true;
                         $scope.elderId = data.responseData.elderUserDTO.id;
+                        $scope.easemobId = data.responseData.elderUserDTO.easemobID;
                         loadDetectionDiagnose();
+
+                        //获取群聊信息
+                        GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
+                            if(data.result == Global.SUCCESS){
+                                if(data.responseData.easemobGroup == null){
+                                    $scope.noGroup = true;
+                                }else{
+                                    $scope.noGroup = false;
+                                }
+                            }
+                        })
                     }else{
                         //未绑定
                         $scope.hasData = false;
@@ -479,4 +491,6 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
 
             })
+
+
         }])

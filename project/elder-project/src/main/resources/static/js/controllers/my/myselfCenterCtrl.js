@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('myselfCenterCtrl',
             $rootScope.pageTitle = '个人中心';
 
             openidUtil.checkResponseData();
-            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
             GetLivingServiceOrderStatus.get({openID:$rootScope.openid,status:''},function(data){
                 if(data.result == Global.SUCCESS){

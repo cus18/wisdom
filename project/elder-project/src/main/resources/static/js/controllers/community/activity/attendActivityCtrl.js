@@ -7,7 +7,7 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
 
             var activityId = $stateParams.activityId;
 
-            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $scope.activity = {};

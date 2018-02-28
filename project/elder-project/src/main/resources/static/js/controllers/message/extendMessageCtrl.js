@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('extendMessageCtrl',
             $rootScope.pageTitle = '消息';
 
             openidUtil.checkResponseData();
-            $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
             $scope.param = {
                 page:{
