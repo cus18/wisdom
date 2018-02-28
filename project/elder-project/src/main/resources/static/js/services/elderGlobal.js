@@ -27,7 +27,7 @@ angular.module('elderGlobal',[])
                         }
                         else
                         {
-                            window.location.href = "http://wechat.hlsenior.com/wechat/getOpenID?url=" + absUrl;
+                            // window.location.href = "http://wechat.hlsenior.com/wechat/getOpenID?url=" + absUrl;
                         }
                     }
                 }

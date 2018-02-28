@@ -8,7 +8,7 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
             $rootScope.pageTitle = '活动详情';
             var activityId = $stateParams.activityId;
 
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $scope.param = {

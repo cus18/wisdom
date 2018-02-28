@@ -7,7 +7,7 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
             $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
 
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
 
             $scope.goHealthChat = function(){
