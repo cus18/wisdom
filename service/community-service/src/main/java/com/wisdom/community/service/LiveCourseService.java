@@ -133,11 +133,11 @@ public class LiveCourseService{
         dto.setOnlineCourseId(Integer.parseInt(pageParamDTO.getRequestData()));
         Page page = new Page(Integer.parseInt(pageParamDTO.getPageNo()),Integer.parseInt(pageParamDTO.getPageSize()));
         List<OnlineCourseDiscussDTO> list= courseMapper.getOnlineCourseDiscuss(dto,page);
-//        for (OnlineCourseDiscussDTO o:list) {
-//            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(o.getOpendId());
-//            o.setWechatHeadPhoto(weChatUserInfo.getHeadimgurl());
-//            o.setWechatName(weChatUserInfo.getNickname());
-//        }
+        for (OnlineCourseDiscussDTO o:list) {
+            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(o.getOpendId());
+            o.setWechatHeadPhoto(weChatUserInfo.getHeadimgurl());
+            o.setWechatName(weChatUserInfo.getNickname());
+        }
         return list;
     }
 
