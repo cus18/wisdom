@@ -6,6 +6,7 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
 
 
             var activityId = $stateParams.activityId;
+            $scope.canClick = false;
 
             // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
             openidUtil.checkResponseData();
@@ -22,6 +23,7 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
 
             $scope.confirmAttend = function(){
                 if($scope.activity.name && $scope.activity.phone){
+                    $scope.canClick = true;
                     JoinActivity.get({openId:$rootScope.openid,activityId:activityId},function(data){
                         if(data.result = Global.SUCCESS)
                         {

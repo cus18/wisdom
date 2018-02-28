@@ -56,7 +56,7 @@ angular.module('controllers',[]).controller('subscribeServiceSuccessCtrl',
 
             $scope.enterLivingIndex = function()
             {
-                $state.go("livingIndex");
+                $state.go("livingServiceList",{'type':'short'});
             }
 
 

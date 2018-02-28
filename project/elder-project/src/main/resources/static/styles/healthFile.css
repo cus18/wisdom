@@ -591,24 +591,24 @@ p.clearfix>input{
 	background: #fff;
 	border-top: 1px solid #f8f8f8;
 }
-.footOptionTab img{
+.footOptionTab img,.healthFooter img{
 	float:left;
 	margin:0.2rem 0.35rem;
 	width:0.5rem;
 }
-.footOptionTab>ul{
+.footOptionTab>ul,.healthFooter>ul{
 	float:left;
 	text-align: center;
 	margin-top:0.24rem;
 	color:black;
 }
-.footOptionTab>ul>li{
+.footOptionTab>ul>li,.healthFooter>ul>li{
 	float: left;
 	width:1.5rem;
 	line-height:0.48rem;
 	border-left:1px solid #4a4a4a;
 }
-.footOptionTab>ul>li.on{
+.footOptionTab>ul>li.on,.healthFooter>ul>li.on{
 	color:#ff8e01;
 }
 /*添加血糖*/

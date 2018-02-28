@@ -6,6 +6,7 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
             $rootScope.pageTitle = '预约服务';
 
             openidUtil.checkResponseData();
+            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
 
             GetlivingServiceList.save({
                 id:$stateParams.livingServiceId,
@@ -24,6 +25,7 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
 
             })
 
+            $scope.canClick = false;
             $scope.subscribeInfo = {
                 livingservice_id:$stateParams.livingServiceId,
                 openid:$rootScope.openid
@@ -67,6 +69,7 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
 
             $scope.subscribeConfirm = function(){
                 $scope.submit = function(){
+                    $scope.canClick = true;
                     CommitOrder.save($scope.subscribeInfo,function(data){
                         if(data.result == Global.SUCCESS){
                             $state.go('subscribeServiceSuccess',{livingServiceId:$stateParams.livingServiceId})

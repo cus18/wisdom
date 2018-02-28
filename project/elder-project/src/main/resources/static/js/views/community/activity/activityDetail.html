@@ -24,7 +24,8 @@
                 <p>评论</p>
             </a>
         </div>
-        <div ng-if="param.operation == 'introduce'" class="list" style="margin:50px 0px;">
+    <ion-content style="top:242px;">
+        <div ng-if="param.operation == 'introduce'" class="list" style="margin-bottom:50px;">
             <a class="item item-avatar item-text-wrap serviceDetail_cont" style="border:none;background:#f8f8f8;padding-left:20px;">
                 <h2><span>活动信息</span></h2>
                 <p><i class="icon ion-location" style="margin:0 9px 0 3px;"></i>{{detailActivityInfo.activityAddress}}</p>
@@ -37,8 +38,7 @@
                 <p>{{detailActivityInfo.activityOwnerName}}</p>
             </a>
         </div>
-    <ion-content>
-        <div class="list" style="margin-top:252px;" ng-if="param.operation=='discuss'">
+        <div class="list" style="margin-bottom:50px;" ng-if="param.operation=='discuss'">
             <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
             <a class="item item-discussList item-thumbnail-left" ng-repeat="item in activityDiscussList">
                 <img class="userPic" ng-src="{{item.weChatHeadPhoto}}">

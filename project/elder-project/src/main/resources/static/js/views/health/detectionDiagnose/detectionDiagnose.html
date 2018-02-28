@@ -16,6 +16,7 @@
             <div class="chatTime">09:00</div>
         </div>
     </div>
+    <div style="width:100%;height:12px;background:#f8f8f8;position:absolute;left:0px;top:79px;z-index:2;"></div>
     <div class="tabs tabs-top tabs-striped" style="background:#fff;top:90px;">
         <a ng-class="{true:'tab-item active',false:'tab-item'}[secondMenu == 'bloodSugarCurve'||secondMenu == 'bloodSugarTable']"
            ng-click="goMenu('detection','bloodSugarCurve')">
@@ -26,10 +27,11 @@
             <p>血压/心率</p>
         </a>
     </div>
+    <ion-content>
     <!--远程监测tab-->
-    <div ng-if="firstMenu == 'detection' && hasData" style="margin-top:155px;">
+    <div ng-if="firstMenu == 'detection' && hasData" style="padding-top:155px;">
         <div page-loading></div>
-        <div ng-if="secondMenu == 'bloodSugarCurve'" style="overflow:auto;height:10rem;">
+        <div ng-if="secondMenu == 'bloodSugarCurve'">
             <!--血糖content-->
             <div ng-if="dataLoad">
                 <div class="contItemTit monitorTit">
@@ -127,19 +129,9 @@
                     </highchart>
                 </section>
             </div>
-            <div style="height:200px;"></div>
-            <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodSugarTable')"><img src="images/slice_1.png"/></a>
-                <ul>
-                    <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
-                    <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
-                    <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
-                    <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
-                </ul>
-            </section>
+            <div style="height:100px;"></div>
         </div>
-        <div ng-if="secondMenu == 'bloodSugarTable'"
-             style="overflow:scroll;height:9rem">
+        <div ng-if="secondMenu == 'bloodSugarTable'">
             <table border="0" cellspacing="0" cellpadding="0"
                    class="tableRecord tableSugar" ng-if="dataLoad"
                    style="color:black;background:#fff;">
@@ -171,19 +163,10 @@
                     <td ng-click="goBloodSugarRecord(item.bloodSugar.beforeSleep,'beforeSleep',item.bloodSugar.beforeSleepTime,'true',item.bloodSugar.beforeSleepRemark)">{{item.bloodSugar.beforeSleep}}</td>
                 </tr>
             </table>
-            <div style="height:200px;"></div>
-            <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodSugarCurve')"><img src="images/slice_2.png"/></a>
-                <ul>
-                    <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
-                    <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
-                    <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
-                    <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
-                </ul>
-            </section>
+            <div style="height:100px;"></div>
         </div>
 
-        <div ng-if="secondMenu == 'bloodPressureCurve'&&dataLoad" style="overflow:scroll;height:9rem;">
+        <div ng-if="secondMenu == 'bloodPressureCurve'&&dataLoad">
             <!--血糖content start-->
             <div class="contItemTit monitorTit">
                 血压
@@ -205,21 +188,9 @@
                            options="charts.bloodPressure.options">
                 </highchart>
             </section>
-            <!--血糖content end-->
-            <!--底部固定菜单开始-->
-            <div style="height:200px;"></div>
-            <section class="footOptionTab">
-                <a ng-click="goMenu('detection','bloodPressureTable')"><img src="images/slice_1.png"/></a>
-                <ul>
-                    <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
-                    <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
-                    <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
-                    <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
-                </ul>
-            </section>
-            <!--底部固定菜单结束-->
+            <div style="height:100px;"></div>
         </div>
-        <div ng-if="secondMenu == 'bloodPressureTable'" style="overflow:scroll;height:9rem;">
+        <div ng-if="secondMenu == 'bloodPressureTable'">
             <table border="0" cellspacing="0" cellpadding="0" class="tableRecord tablePressure">
                 <tr>
                     <th>日期</th>
@@ -234,8 +205,50 @@
                     <td>{{item.heartRate}}</td>
                 </tr>
             </table>
-            <div style="height:200px;"></div>
-            <section class="footOptionTab">
+            <div style="height:100px;"></div>
+        </div>
+    </div>
+    <div ng-if="!hasData" class="list" style="padding-top:155px;">
+        <img src="images/dataShow.png" style="width:100%;margin-bottom:40px;">
+        <div class="item" style="overflow:inherit;white-space:inherit;line-height:28px;width:80%;margin:0 auto;">您目前还没有测量数据。健康监测属于养老机构提供的有偿服务，您暂时无法查看相关健康数据。</div>
+    </div>
+    </ion-content>
+    <div ng-if="hasData" class="bar bar-footer">
+        <div ng-if="secondMenu == 'bloodSugarCurve'">
+            <div class="healthFooter">
+                <a ng-click="goMenu('detection','bloodSugarTable')"><img src="images/slice_1.png"/></a>
+                <ul>
+                    <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
+                    <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
+                    <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
+                    <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
+                </ul>
+            </div>
+        </div>
+        <div ng-if="secondMenu == 'bloodSugarTable'">
+            <div class="healthFooter">
+                <a ng-click="goMenu('detection','bloodSugarCurve')"><img src="images/slice_2.png"/></a>
+                <ul>
+                    <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
+                    <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
+                    <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
+                    <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
+                </ul>
+            </div>
+        </div>
+        <div ng-if="secondMenu == 'bloodPressureCurve'&&dataLoad">
+            <div class="healthFooter">
+                <a ng-click="goMenu('detection','bloodPressureTable')"><img src="images/slice_1.png"/></a>
+                <ul>
+                    <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
+                    <li ng-class="{'on': timeType == 'month'}" ng-click="chooseHealthDataTime('month')">月</li>
+                    <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
+                    <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
+                </ul>
+            </div>
+        </div>
+        <div ng-if="secondMenu == 'bloodPressureTable'">
+            <div class="healthFooter">
                 <a ng-click="goMenu('detection','bloodPressureCurve')"><img src="images/slice_2.png"/></a>
                 <ul>
                     <li ng-class="{'on': timeType == 'week'}" ng-click="chooseHealthDataTime('week')">周</li>
@@ -243,11 +256,7 @@
                     <li ng-class="{'on': timeType == 'threeMonth'}" ng-click="chooseHealthDataTime('threeMonth')">三个月</li>
                     <li ng-class="{'on': timeType == 'halfYear'}" ng-click="chooseHealthDataTime('halfYear')">半年</li>
                 </ul>
-            </section>
+            </div>
         </div>
-    </div>
-    <div ng-if="!hasData" class="list" style="padding-top:155px;">
-        <img src="images/dataShow.png" style="width:100%;margin-bottom:40px;">
-        <div class="item" style="overflow:inherit;white-space:inherit;line-height:28px;width:80%;margin:0 auto;">您目前还没有测量数据。健康监测属于养老机构提供的有偿服务，您暂时无法查看相关健康数据。</div>
     </div>
 </ion-view>

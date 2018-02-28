@@ -26,7 +26,7 @@
             </a>
             <ion-infinite-scroll ng-if="param.canMoreShort" on-infinite="loadMoreShort()" distance="1%" ></ion-infinite-scroll>
         </div>
-        <div class="list" ng-if="param.type=='long'">
+        <div class="list livingList" ng-if="param.type=='long'">
             <a class="item item-avatar item-text-wrap"
                ng-repeat="item in longResponse" ng-click="livingServiceDetail(item.id)">
                 <h2 class="serviceListTit">
