@@ -38,7 +38,7 @@
                 <p>{{detailActivityInfo.activityOwnerName}}</p>
             </a>
         </div>
-        <div class="list" style="padding-bottom:50px;" ng-if="param.operation=='discuss'">
+        <div class="list" style="padding-bottom:60px;" ng-if="param.operation=='discuss'">
             <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
             <a class="item item-discussList item-thumbnail-left" ng-repeat="item in activityDiscussList">
                 <img class="userPic" ng-src="{{item.weChatHeadPhoto}}">
