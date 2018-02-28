@@ -1,8 +1,8 @@
 angular.module('controllers',[]).controller('attendActivityCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','JoinActivityEasemobGroup',
-        'GetActivityDetail','JoinActivity','Global','openidUtil',
+        'GetActivityDetail','JoinActivity','Global','openidUtil','$ionicPopup','$timeout',
         function ($scope,$interval,$rootScope,$stateParams,$state,JoinActivityEasemobGroup,
-                  GetActivityDetail,JoinActivity,Global,openidUtil) {
+                  GetActivityDetail,JoinActivity,Global,openidUtil,$ionicPopup,$timeout) {
 
 
             var activityId = $stateParams.activityId;
@@ -32,7 +32,12 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
                         }
                     })
                 }else{
-                    alert('请填写姓名和电话信息')
+                    var alertPopup = $ionicPopup.show({
+                        title:'请填写姓名和电话信息'
+                    });
+                    $timeout(function() {
+                        alertPopup.close();
+                    }, 2000);
                 }
             };
 
