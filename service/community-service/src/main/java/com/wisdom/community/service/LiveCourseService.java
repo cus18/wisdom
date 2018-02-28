@@ -134,7 +134,7 @@ public class LiveCourseService{
         Page page = new Page(Integer.parseInt(pageParamDTO.getPageNo()),Integer.parseInt(pageParamDTO.getPageSize()));
         List<OnlineCourseDiscussDTO> list= courseMapper.getOnlineCourseDiscuss(dto,page);
         for (OnlineCourseDiscussDTO o:list) {
-            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(o.getOpendId());
+            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(o.getOpenId());
             o.setWechatHeadPhoto(weChatUserInfo.getHeadimgurl());
             o.setWechatName(weChatUserInfo.getNickname());
         }
