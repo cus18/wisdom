@@ -231,7 +231,7 @@
             useGeneratedKeys="true"
             keyProperty="id">
         insert into online_course_discuss (openID,discussContent,discussDate,courseId)
-        values (#{opendId},#{onlineCourseDiscussContent},#{onlineCourseDiscussDate},#{onlineCourseId})
+        values (#{openId},#{onlineCourseDiscussContent},#{onlineCourseDiscussDate},#{onlineCourseId})
     </insert>
 
     <update id="updateLiveCourse">
