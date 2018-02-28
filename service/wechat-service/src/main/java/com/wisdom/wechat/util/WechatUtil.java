@@ -1,5 +1,6 @@
 package com.wisdom.wechat.util;
 
+import com.alibaba.fastjson.JSON;
 import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.dto.basic.WeChatUserInfo;
 import com.wisdom.common.util.HttpRequestUtil;
@@ -76,7 +77,7 @@ public class WechatUtil {
     public static WeChatUserInfo getWechatUserInfo(String openid) throws Exception{
         String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + WechatService.getWechatToken() + "&openid=" + openid + "&lang=zh_CN";
         String json = HttpRequestUtil.getConnectionResult(url, "GET", "");
-        WeChatUserInfo weChatUserInfo=JsonUtil.getObjFromJsonStr(json, WeChatUserInfo.class);
+        WeChatUserInfo weChatUserInfo= JSON.parseObject(json, WeChatUserInfo.class);
         if(weChatUserInfo.getErrcode()!=null){
             throw new Exception(weChatUserInfo.getErrmsg());
         }
