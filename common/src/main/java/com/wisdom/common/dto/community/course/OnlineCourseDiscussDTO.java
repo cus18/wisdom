@@ -15,8 +15,8 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
     private Integer onlineCourseId;
 
     //评价者的ID号
-    @JSONField(name = "opendId")
-    private String opendId;
+    @JSONField(name = "openId")
+    private String openId;
 
     //评价者的名字
     @JSONField(name = "wechatName")
@@ -51,12 +51,12 @@ public class OnlineCourseDiscussDTO extends DataEntity<OnlineCourseDiscussDTO> {
         this.onlineCourseId = onlineCourseId;
     }
 
-    public String getOpendId() {
-        return opendId;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setOpendId(String opendId) {
-        this.opendId = opendId;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public String getWechatName() {
