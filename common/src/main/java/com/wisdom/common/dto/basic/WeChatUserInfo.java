@@ -23,7 +23,7 @@ public class WeChatUserInfo {
 
     private String headimgurl;  //用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。
 
-    private String subscribe_time; //用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
+//    private String subscribe_time; //用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
 
     private String unionid;     //只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
 
@@ -31,7 +31,7 @@ public class WeChatUserInfo {
 
     private String groupid;     //用户所在的分组ID（兼容旧的用户分组接口）
 
-    private String tagid_list;  //用户被打上的标签ID列表
+//    private String tagid_list;  //用户被打上的标签ID列表
 
     private Integer errcode;     //错误码
 
@@ -108,14 +108,14 @@ public class WeChatUserInfo {
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
     }
-
-    public String getSubscribe_time() {
-        return subscribe_time;
-    }
-
-    public void setSubscribe_time(String subscribe_time) {
-        this.subscribe_time = subscribe_time;
-    }
+//
+//    public String getSubscribe_time() {
+//        return subscribe_time;
+//    }
+//
+//    public void setSubscribe_time(String subscribe_time) {
+//        this.subscribe_time = subscribe_time;
+//    }
 
     public String getUnionid() {
         return unionid;
@@ -141,13 +141,13 @@ public class WeChatUserInfo {
         this.groupid = groupid;
     }
 
-    public String getTagid_list() {
-        return tagid_list;
-    }
-
-    public void setTagid_list(String tagid_list) {
-        this.tagid_list = tagid_list;
-    }
+//    public String getTagid_list() {
+//        return tagid_list;
+//    }
+//
+//    public void setTagid_list(String tagid_list) {
+//        this.tagid_list = tagid_list;
+//    }
 
     public Integer getErrcode() {
         return errcode;

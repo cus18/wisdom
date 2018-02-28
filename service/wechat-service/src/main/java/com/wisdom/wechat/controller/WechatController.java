@@ -106,7 +106,8 @@ public class WechatController {
 	 * @return
 	 */
 	@RequestMapping(value = "getWechatUserInfo", method = {RequestMethod.POST, RequestMethod.GET})
-	public WeChatUserInfo getWechatUserInfo(@RequestParam String openid) throws  Exception{
+	public
+	@ResponseBody WeChatUserInfo getWechatUserInfo(@RequestParam String openid) throws  Exception{
 		return WechatUtil.getWechatUserInfo(openid);
 	}
 
