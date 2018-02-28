@@ -70,18 +70,18 @@ public class ActivityService {
 
     public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
         List<ActivityDiscussDTO> activityDiscussDTOList=activityDiscussMapper.getActivityDiscussList(id,page);
-//        for (ActivityDiscussDTO a:activityDiscussDTOList) {
-//            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenId());
-//            a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
-//            a.setWechatNickName(weChatUserInfo.getNickname());
-//            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
-//            for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
-//                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenId());
-//                adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
-//                adr.setWechatNickName(weChatUserInfos.getNickname());
-//            }
-//            a.setActivityDiscussReplyDTOList(activityDiscussReplyDTO);
-//        }
+        for (ActivityDiscussDTO a:activityDiscussDTOList) {
+            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenId());
+            a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
+            a.setWechatNickName(weChatUserInfo.getNickname());
+            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
+            for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
+                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenId());
+                adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
+                adr.setWechatNickName(weChatUserInfos.getNickname());
+            }
+            a.setActivityDiscussReplyDTOList(activityDiscussReplyDTO);
+        }
         return activityDiscussDTOList;
     }
 
@@ -135,8 +135,8 @@ public class ActivityService {
     }
 
     public String joinActivityEasemobGroup(String openid,String activityID) {
-//        coreServiceClient.signEasemobUser(openid,openid,weChatServiceClient.getWechatUserInfo(openid).getNickname());
-        coreServiceClient.signEasemobUser(openid,openid);
+        coreServiceClient.signEasemobUser(openid,openid,weChatServiceClient.getWechatUserInfo(openid).getNickname());
+//        coreServiceClient.signEasemobUser(openid,openid);
         ActivityDTO activity = activityMapper.getActivityList(activityID,null).get(0);
 //        ActivityEasemobGroup activityEasemobGroup=activityEasemobGroupDao.searchActivityEasemobGroupByID(activity.getActivityEasemobGroupID());
         boolean a=coreServiceClient.joinEasemobGroup(activity.getActivityEasemobGroupID(),openid);
