@@ -26,6 +26,9 @@ public class ExtendMessageDTO {
     @JSONField(name = "extendMessageContent")
     private String extendMessageContent;
 
+    @JSONField(name = "extendMessageStatus")
+    private String extendMessageStatus;
+
     public String getExtendMessageId() {
         return extendMessageId;
     }
@@ -64,5 +67,13 @@ public class ExtendMessageDTO {
 
     public void setExtendMessageContent(String extendMessageContent) {
         this.extendMessageContent = extendMessageContent;
+    }
+
+    public String getExtendMessageStatus() {
+        return extendMessageStatus;
+    }
+
+    public void setExtendMessageStatus(String extendMessageStatus) {
+        this.extendMessageStatus = extendMessageStatus;
     }
 }
