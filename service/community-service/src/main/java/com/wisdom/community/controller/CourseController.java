@@ -215,7 +215,7 @@ public class CourseController {
     @ResponseBody
     ResponseDTO<List<OnlineCourseDiscussDTO>> createOnlineCourseDiscuss(@RequestBody OnlineCourseDiscussDTO onlineCourseDiscussDTO) {
         ResponseDTO<List<OnlineCourseDiscussDTO>> responseDTO = new ResponseDTO<>();
-        onlineCourseDiscussDTO.setOpendId(onlineCourseDiscussDTO.getOpendId());
+        onlineCourseDiscussDTO.setOpenId(onlineCourseDiscussDTO.getOpenId());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         onlineCourseDiscussDTO.setOnlineCourseDiscussDate(sdf.format(new Date()));
         liveCourseService.createOnlineCourseDiscuss(onlineCourseDiscussDTO);
