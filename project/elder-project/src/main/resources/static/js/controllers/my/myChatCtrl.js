@@ -15,9 +15,6 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 chatMessage: '',
                 elderMessage:{},
                 chatStyle: {
-                    // "position": "relative",
-                    // "margin-top": "0",
-                    // "border-bottom":"1px solid #ccc",
                     "padding-top":"0px",
                     "height":"60px"
                 },
@@ -46,9 +43,6 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 else
                 {
                     $scope.param.chatStyle = {
-                        // "position": "relative",
-                        // "margin-top": "0",
-                        // "border-bottom":"1px solid #ccc",
                         "padding-top":"0px",
                         "height":"60px"
                     }
@@ -61,10 +55,9 @@ angular.module('controllers',[]).controller('myChatCtrl',
             }
 
             GetWechatUserInfo.get({openid:$rootScope.openid},function(data){
-                if(data.result == Global.SUCCESS){
-                    $scope.elderName = data.responseData.nickname;
-                    $scope.elderImg = data.responseData.headimgurl;
-                }
+                $scope.elderName = data.nickname;
+                $scope.elderImg = data.headimgurl;
+
             })
 
             //判断是否已绑定
@@ -75,12 +68,6 @@ angular.module('controllers',[]).controller('myChatCtrl',
                         $scope.easemobId = data.responseData.elderUserDTO.easemobID;
                         $scope.easemobPassword = data.responseData.elderUserDTO.easemobPassword;
                         $scope.elderId = data.responseData.elderUserDTO.id;
-                        if(data.responseData.name){
-                            $scope.elderName = data.responseData.name;
-                        }
-                        if(data.responseData.photo){
-                            $scope.elderImg = data.responseData.photo;
-                        }
 
                         //获取群聊信息
                         GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){

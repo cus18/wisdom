@@ -1322,29 +1322,45 @@ div.inputItem>input{
 	overflow: hidden;
 	margin-top: 5%;
 	position: relative;
+    background:transparent;
+    border-color:transparent
 }
-
+.chat .chatContent{
+    margin-top:10px;
+    overflow:hidden;
+    position:relative;
+}
+.chat .chatContent>img{
+    margin-left:15px;
+    width:60px;
+    height:60px
+}
 .chat span{
 	word-break: normal;
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	overflow: hidden;
 	margin-left: 90px;
+	margin-top:-11px;
 	background: #FFB900;
 	border-radius: 10px 10px 10px 10px;
 	display: inline-block;
 	max-width: 70%;
 	padding: 15px 15px 15px 15px;
 }
+.chat h2{
+    font-size:16px;
+    color:#999;
+}
 
 /* Chat - Speech Bubble Arrow */
 .chat ul {
-	top: -32px;
+	top: -53px;
 	width: 0px;
 	height: 0px;
 	z-index: 2;
 	position: absolute;
-    right:76px;
+    right:64px;
     margin-top:90px;
     border-width: 8px;
     border-style: solid;
