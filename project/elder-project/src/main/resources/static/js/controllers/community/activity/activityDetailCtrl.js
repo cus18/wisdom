@@ -44,7 +44,7 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
 
             $scope.attendActivityGroupTalk = function(){
                 //进入活动群聊圈
-                $state.go('myChat',{'groupId':'222'})
+                $state.go('myChat',{'groupType':'activity','id':activityId})
             }
 
             $scope.doRefresh = function(){

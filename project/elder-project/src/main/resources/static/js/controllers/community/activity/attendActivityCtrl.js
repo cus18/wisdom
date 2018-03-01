@@ -54,6 +54,6 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
                 JoinActivityEasemobGroup.get({activityId:activityId,openId:$rootScope.openid},function(data){
 
                 })
-                // $state.go('myChat',{'groupId':})
+                $state.go('myChat',{'groupType':'activity','id':activityId})
             }
         }])

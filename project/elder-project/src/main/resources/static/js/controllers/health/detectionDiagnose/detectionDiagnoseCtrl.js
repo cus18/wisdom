@@ -11,7 +11,7 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
             openidUtil.checkResponseData();
 
             $scope.goHealthChat = function(){
-                $state.go('myChat',{'groupId':'111'})
+                $state.go('myChat',{'groupType':'healthData','id':'1'})
             }
             $scope.goMenu = function(firstMenuParam,secondMenuParam){
                 $state.go("detectionDiagnose", {firstMenu: firstMenuParam, secondMenu: secondMenuParam});

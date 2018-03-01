@@ -5,6 +5,8 @@ angular.module('controllers',[]).controller('myChatCtrl',
                   GetLaoyouUserByOpenId,Global,GetUserGroupChatInfo,GetWechatUserInfo) {
 
             $rootScope.pageTitle = '健康管理群';
+            $scope.groupType = $stateParams.groupType;
+            $scope.id = $stateParams.id;
             openidUtil.checkResponseData();
             // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
@@ -79,7 +81,21 @@ angular.module('controllers',[]).controller('myChatCtrl',
 
                         //获取群聊信息
                         GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
-
+                            if(data.result == Global.SUCCESS){
+                                if($scope.groupType == 'activity')
+                                {
+                                    angular.forEach(data.responseData.activityEasemobGroupInfoList,function(data){
+                                        if(data.id == $scope.id){
+                                            $scope.groupId = data.groupId;
+                                        }
+                                    })
+                                }
+                                else if($scope.groupType == 'healthData')
+                                {
+                                    // $scope.groupId = data.responseData.easemobGroup.groupId;
+                                    $scope.groupId = $scope.id;
+                                }
+                            }
                         })
 
                         var conn = new WebIM.connection({
@@ -180,7 +196,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             var options = {
                                 pageNum: pageNum,
                                 pageSize: pageSize,
-                                groupId: $rootScope.groupId,
+                                groupId: $scope.groupId,
                                 success: function (resp) {
                                     console.log("Group Info Response: ", resp)
                                 },
@@ -196,7 +212,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             var msg = new WebIM.message('txt', id); // 创建文本消息
                             var option = {
                                 msg: $scope.param.chatMessage,             // 消息内容
-                                to: $rootScope.groupId,                     // 接收消息对象(群组id)
+                                to: $scope.groupId,                     // 接收消息对象(群组id)
                                 roomType: false,
                                 chatType: 'chatRoom',
                                 ext :{"user_nice_name":$scope.elderName,"user_type":null,"user_img":$scope.elderImg},
@@ -238,7 +254,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                 var option = {
                                     apiUrl: WebIM.config.apiURL,
                                     file: file,
-                                    to: $rootScope.groupId,                       // 接收消息对象
+                                    to: $scope.groupId,                       // 接收消息对象
                                     roomType: false,
                                     chatType: 'chatRoom',
                                     ext :{"user_nice_name":$scope.elderName,"user_type":null,"user_img":$scope.elderImg},
