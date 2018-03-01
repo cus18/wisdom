@@ -41,8 +41,8 @@
         <div class="list" style="margin-top:54px;padding-bottom:60px;" ng-if="param.operation=='discuss'">
             <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
             <a class="item item-discussList item-thumbnail-left" ng-repeat="item in onlineCourseDiscussData">
-                <img class="userPic" ng-src="{{item.weChatHeadPhoto}}">
-                <h2>{{item.wechatNickName}}</h2>
+                <img class="userPic" ng-src="{{item.wechatHeadPhoto}}">
+                <h2>{{item.wechatName}}</h2>
                 <span>发布于{{item.onlineCourseDiscussDate}}</span>
                 <p>{{item.onlineCourseDiscussContent}}</p>
             </a>

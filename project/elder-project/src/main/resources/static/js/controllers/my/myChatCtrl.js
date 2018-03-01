@@ -6,7 +6,54 @@ angular.module('controllers',[]).controller('myChatCtrl',
 
             $rootScope.pageTitle = '健康管理群';
             openidUtil.checkResponseData();
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
+
+            $scope.param = {
+                messageList : [],
+                chatMessage: '',
+                elderMessage:{},
+                chatStyle: {
+                    "position": "relative",
+                    "margin-top": "0",
+                    "border-bottom":"1px solid #ccc",
+                    "padding-top":"0px"
+                },
+                scrollStyle:{
+                    "height":"93%"
+                }
+            }
+
+            var addPhoto = false;
+
+            $scope.addPhoto = function(){
+                if(!addPhoto)
+                {
+                    $scope.param.chatStyle = {
+                        "position": "relative",
+                        "margin-top": "-40%",
+                        "border-bottom":"1px solid #ccc",
+                        "padding-top":"0px"
+                    }
+                    $scope.param.scrollStyle = {
+                        "height":"70%"
+                    }
+                    $scope.addPhotoShow = true;
+                }
+                else
+                {
+                    $scope.param.chatStyle = {
+                        "position": "relative",
+                        "margin-top": "0",
+                        "border-bottom":"1px solid #ccc",
+                        "padding-top":"0px"
+                    }
+                    $scope.param.scrollStyle = {
+                        "height":"93%"
+                    }
+                    $scope.addPhotoShow = false;
+                }
+                addPhoto = !addPhoto;
+            }
 
             GetWechatUserInfo.get({openid:$rootScope.openid},function(data){
                 if(data.result == Global.SUCCESS){
@@ -32,26 +79,8 @@ angular.module('controllers',[]).controller('myChatCtrl',
 
                         //获取群聊信息
                         GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
-                            if(data.result == Global.SUCCESS){
-                                $scope.groupId = data.responseData.easemobGroup.groupId;
-                            }
+
                         })
-
-                        $scope.param = {
-                            messageList : [],
-                            chatMessage: '',
-                            elderMessage:{},
-                            chatStyle: {
-                                "position": "relative",
-                                "margin-top": "0",
-                                "border-bottom":"1px solid #ccc"
-                            },
-                            scrollStyle:{
-                                "height":"93%"
-                            }
-                        }
-
-                        var addPhoto = false;
 
                         var conn = new WebIM.connection({
                             isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
@@ -151,7 +180,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             var options = {
                                 pageNum: pageNum,
                                 pageSize: pageSize,
-                                groupId: $scope.groupId,
+                                groupId: $rootScope.groupId,
                                 success: function (resp) {
                                     console.log("Group Info Response: ", resp)
                                 },
@@ -167,7 +196,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             var msg = new WebIM.message('txt', id); // 创建文本消息
                             var option = {
                                 msg: $scope.param.chatMessage,             // 消息内容
-                                to: $scope.groupId,                     // 接收消息对象(群组id)
+                                to: $rootScope.groupId,                     // 接收消息对象(群组id)
                                 roomType: false,
                                 chatType: 'chatRoom',
                                 ext :{"user_nice_name":$scope.elderName,"user_type":null,"user_img":$scope.elderImg},
@@ -192,33 +221,6 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             conn.send(msg.body);
                         }
 
-                        $scope.addPhoto = function(){
-                            if(!addPhoto)
-                            {
-                                $scope.param.chatStyle = {
-                                    "position": "relative",
-                                    "margin-top": "-40%",
-                                    "border-bottom":"1px solid #ccc"
-                                }
-                                $scope.param.scrollStyle = {
-                                    "height":"70%"
-                                }
-                                $scope.addPhotoShow = true;
-                            }
-                            else
-                            {
-                                $scope.param.chatStyle = {
-                                    "position": "relative",
-                                    "margin-top": "0",
-                                    "border-bottom":"1px solid #ccc"
-                                }
-                                $scope.param.scrollStyle = {
-                                    "height":"93%"
-                                }
-                                $scope.addPhotoShow = false;
-                            }
-                            addPhoto = !addPhoto;
-                        }
 
                         // 发送图片消息
                         $scope.sendPrivateImg = function () {
@@ -236,7 +238,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                 var option = {
                                     apiUrl: WebIM.config.apiURL,
                                     file: file,
-                                    to: $scope.groupId,                       // 接收消息对象
+                                    to: $rootScope.groupId,                       // 接收消息对象
                                     roomType: false,
                                     chatType: 'chatRoom',
                                     ext :{"user_nice_name":$scope.elderName,"user_type":null,"user_img":$scope.elderImg},
@@ -266,7 +268,12 @@ angular.module('controllers',[]).controller('myChatCtrl',
                         };
                     }else{
                         //未绑定
-
+                        var alertPopup = $ionicPopup.show({
+                            title:'您未绑定手机号，请至[我的]-[绑定手机号]进行手机号绑定'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                        }, 2000);
 
 
                     }
