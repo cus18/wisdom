@@ -4,7 +4,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,$ionicScrollDelegate,openidUtil,
                   GetLaoyouUserByOpenId,Global,GetUserGroupChatInfo,GetWechatUserInfo) {
 
-            $rootScope.pageTitle = '健康管理群';
+
             $scope.groupType = $stateParams.groupType;
             $scope.id = $stateParams.id;
             openidUtil.checkResponseData();
@@ -15,10 +15,11 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 chatMessage: '',
                 elderMessage:{},
                 chatStyle: {
-                    "position": "relative",
-                    "margin-top": "0",
-                    "border-bottom":"1px solid #ccc",
-                    "padding-top":"0px"
+                    // "position": "relative",
+                    // "margin-top": "0",
+                    // "border-bottom":"1px solid #ccc",
+                    "padding-top":"0px",
+                    "height":"60px"
                 },
                 scrollStyle:{
                     "height":"93%"
@@ -34,7 +35,8 @@ angular.module('controllers',[]).controller('myChatCtrl',
                         "position": "relative",
                         "margin-top": "-40%",
                         "border-bottom":"1px solid #ccc",
-                        "padding-top":"0px"
+                        "padding-top":"0px",
+                        "height":"60px"
                     }
                     $scope.param.scrollStyle = {
                         "height":"70%"
@@ -44,10 +46,11 @@ angular.module('controllers',[]).controller('myChatCtrl',
                 else
                 {
                     $scope.param.chatStyle = {
-                        "position": "relative",
-                        "margin-top": "0",
-                        "border-bottom":"1px solid #ccc",
-                        "padding-top":"0px"
+                        // "position": "relative",
+                        // "margin-top": "0",
+                        // "border-bottom":"1px solid #ccc",
+                        "padding-top":"0px",
+                        "height":"60px"
                     }
                     $scope.param.scrollStyle = {
                         "height":"93%"
@@ -84,6 +87,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             if(data.result == Global.SUCCESS){
                                 if($scope.groupType == 'activity')
                                 {
+                                    $rootScope.pageTitle = '活动群';
                                     angular.forEach(data.responseData.activityEasemobGroupInfoList,function(data){
                                         if(data.id == $scope.id){
                                             $scope.groupId = data.groupId;
@@ -92,6 +96,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                 }
                                 else if($scope.groupType == 'healthData')
                                 {
+                                    $rootScope.pageTitle = '健康管理群';
                                     // $scope.groupId = data.responseData.easemobGroup.groupId;
                                     $scope.groupId = $scope.id;
                                 }

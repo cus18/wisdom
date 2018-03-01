@@ -4,17 +4,18 @@
 		<div class="chat"
 			 ng-repeat="item in param.messageList"
 			 style="background:transparent;border-color:transparent">
-			<div ng-if="item.from!='elder'" style="margin-top:10px">
+			<div ng-if="item.from=='elder'" style="margin-top:10px;overflow:hidden;position:relative;">
 				<img style="margin-left:15px;width:60px;height:60px"
 					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
 				<h2 style="margin-left:85px;margin-top:-60px;font-size:16px;">
 					{{item.ext.user_nice_name}}
 				</h2>
 				<br>
-				<ul style="left:76px;border-color:transparent #ffb900 transparent transparent;"></ul>
-				<span style="margin-top:-14px;">{{item.data}}</span>
+				<ul ng-if="!item.data.url" style="left:76px;border-color:transparent #ffb900 transparent transparent;"></ul>
+				<span ng-if="!item.data.url" style="margin-top:-14px;">{{item.data}}</span>
+				<b ng-if="item.data.url" style="float:left;margin-left:90px;margin-top:-10px;"><img src="{{item.data.url}}" alt="" style="max-width:150px;min-width:100px;"></b>
 			</div>
-			<div ng-if="item.from=='elder'" style="margin-top:10px">
+			<div ng-if="item.from=='elder'" style="margin-top:10px;overflow:hidden;position:relative;">
 				<img style="margin-right:15px;width:60px;height:60px;float:right;z-index:2"
 					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
 				<h2 style="margin-right:10px;margin-top:-1px;font-size:16px;float:right">
