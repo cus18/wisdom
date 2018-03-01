@@ -1,8 +1,8 @@
 angular.module('controllers',[]).controller('myChatCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','$ionicScrollDelegate','openidUtil',
-        'GetLaoyouUserByOpenId','Global','GetUserGroupChatInfo','GetWechatUserInfo',
+        'GetLaoyouUserByOpenId','Global','GetUserGroupChatInfo','GetWechatUserInfo','$ionicPopup','$timeout',
         function ($scope,$interval,$rootScope,$stateParams,$state,$ionicScrollDelegate,openidUtil,
-                  GetLaoyouUserByOpenId,Global,GetUserGroupChatInfo,GetWechatUserInfo) {
+                  GetLaoyouUserByOpenId,Global,GetUserGroupChatInfo,GetWechatUserInfo,$ionicPopup,$timeout) {
 
 
             $scope.groupType = $stateParams.groupType;

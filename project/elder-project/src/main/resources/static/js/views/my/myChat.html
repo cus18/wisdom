@@ -4,7 +4,7 @@
 		<div class="chat"
 			 ng-repeat="item in param.messageList"
 			 style="background:transparent;border-color:transparent">
-			<div ng-if="item.from=='elder'" style="margin-top:10px;overflow:hidden;position:relative;">
+			<div ng-if="item.from!='elder'" style="margin-top:10px;overflow:hidden;position:relative;">
 				<img style="margin-left:15px;width:60px;height:60px"
 					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
 				<h2 style="margin-left:85px;margin-top:-60px;font-size:16px;">

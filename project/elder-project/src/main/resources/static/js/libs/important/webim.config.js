@@ -18,7 +18,7 @@ WebIM.config = {
     /*
      * Application AppKey
      */
-    appkey: '1156170425115453#laoyoupractitioner',
+    appkey: '1156170425115453#laoyouelder',
 
     // xmppURL: '118.193.28.212:31093',
     /*
