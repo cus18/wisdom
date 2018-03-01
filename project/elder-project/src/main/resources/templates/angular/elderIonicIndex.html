@@ -6,7 +6,8 @@
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0">
-    <title>{{pageTitle}}</title>
+    <title ng-if="!pageTitle">华录老友</title>
+    <title ng-if="pageTitle">{{pageTitle}}</title>
     <link rel="stylesheet" href="styles/lib/ionic.min.css"/>
     <link rel="stylesheet" href="styles/lib/ionicons.min.css"/>
     <link rel="stylesheet" href="styles/lib/animate.min.css"/>
