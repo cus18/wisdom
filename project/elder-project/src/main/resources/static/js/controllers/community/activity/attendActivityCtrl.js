@@ -21,6 +21,14 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
                 $rootScope.pageTitle = '活动报名';
             }
 
+            //输入
+            $scope.inputFocus = function(){
+                $scope.blurInp = false;
+            }
+            $scope.inputBlur = function(){
+                $scope.blurInp = true;
+            }
+
             $scope.confirmAttend = function(){
                 if($scope.activity.name && $scope.activity.phone){
                     $scope.canClick = true;

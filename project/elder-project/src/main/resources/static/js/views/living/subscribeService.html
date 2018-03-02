@@ -23,11 +23,11 @@
                         <input type="text" placeholder="输入姓名" ng-model="subscribeInfo.name">
                     </label>
                     <label class="item item-input">
-                        <input name="phoneNum" type="text" placeholder="输入电话" ng-model="subscribeInfo.phone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
+                        <input name="phoneNum" type="text" placeholder="输入电话" ng-model="subscribeInfo.phone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/" ng-focus="inputFocus()" ng-blur="inputBlur()">
                     </label>
                 </div>
             </div>
-            <span ng-show="subscribeForm.phoneNum.$dirty && subscribeForm.phoneNum.$invalid" style="margin-left:15px;line-height:40px;color:#f00;">手机号输入有误，请重新输入</span>
+            <span ng-show="subscribeForm.phoneNum.$dirty && subscribeForm.phoneNum.$invalid && blurInp" style="margin-left:15px;line-height:40px;color:#f00;">手机号输入有误，请重新输入</span>
             <div ng-if="info.indexOf('3')>=0">
                 <h2>服务地点</h2>
                 <div class="list">

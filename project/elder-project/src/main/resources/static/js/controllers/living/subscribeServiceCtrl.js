@@ -31,6 +31,15 @@ angular.module('controllers',[]).controller('subscribeServiceCtrl',
                 openid:$rootScope.openid
             };
 
+            //输入
+            $scope.inputFocus = function(){
+                $scope.errorShow = false;
+                $scope.blurInp = false;
+            }
+            $scope.inputBlur = function(){
+                $scope.blurInp = true;
+            }
+
             if($rootScope.rootElderId!=undefined)
             {
                 $scope.elderId = $rootScope.rootElderId;

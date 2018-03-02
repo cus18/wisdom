@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
                   BindLaoyouUser,openidUtil,GetLaoyouUserByOpenId,DeleteLaoyouUserByOpenId) {
 
 
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
             openidUtil.checkResponseData();
 
             $rootScope.pageTitle = '华录老友';
@@ -27,8 +27,12 @@ angular.module('controllers',[]).controller('bindPhoneCtrl',
             })
 
             //输入
-            $scope.inputChange = function(){
+            $scope.inputFocus = function(){
                 $scope.errorShow = false;
+                $scope.blurInp = false;
+            }
+            $scope.inputBlur = function(){
+                $scope.blurInp = true;
             }
 
             //绑定手机号

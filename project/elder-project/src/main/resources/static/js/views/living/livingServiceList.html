@@ -39,10 +39,12 @@
         </div>
         <div style="height:88px;"></div>
     </ion-content>
-    <div class="bar bar-footer bar-stable" style="height:110px;">
-        <div class="title" ng-if="param.type == 'short'" style="font-size: 14px;">共为您加载{{shortResponse.length}}条数据</div>
-        <div class="title" ng-if="param.type == 'long'" style="font-size: 14px;">共为您加载{{longResponse.length}}条数据</div>
+    <div ng-if="param.type == 'short'" class="bar bar-footer bar-stable" style="height:110px;">
+        <div class="title" style="font-size: 14px;">共为您加载{{shortResponse.length}}条数据</div>
         <div class="filtrateBtn" ng-click="sortShow()">筛选</div>
+    </div>
+    <div ng-if="param.type == 'long'" class="bar bar-footer bar-stable">
+        <div class="title" style="font-size: 14px;">共为您加载{{longResponse.length}}条数据</div>
     </div>
 </ion-view>
 <div class="filtrateArea">
