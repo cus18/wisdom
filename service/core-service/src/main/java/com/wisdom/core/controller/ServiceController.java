@@ -163,7 +163,7 @@ public class ServiceController {
     @ResponseBody
     boolean joinEasemobGroup(@RequestParam String groupID, @RequestParam String easemobID) throws Exception {
         ResponseDTO responseDto = new ResponseDTO<>();
-        return easemobService.signEasemobUser(groupID, easemobID);
+        return EasemobService.joinEasemobGroup(groupID, easemobID);
     }
 
 }
