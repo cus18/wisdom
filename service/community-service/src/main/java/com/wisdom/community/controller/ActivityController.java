@@ -129,14 +129,14 @@ public class ActivityController {
 	@RequestMapping(value = "joinActivity", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO<String> joinActivity(@RequestParam String openId,
+	ResponseDTO<String> joinActivity(@RequestParam String easemobId,
 									 @RequestParam String activityId) {
 		ResponseDTO responseDTO = new ResponseDTO<>();
 		/****
 		 List<String>中放入的是报名参加活动的用户列表，为用户的elderId值，['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
 		 *****/
 		//responseData里面放入的是此次活动所对应的群组ID
-		responseDTO.setResponseData(activityService.addActivityUser(activityId,openId));
+		responseDTO.setResponseData(activityService.addActivityUser(activityId,easemobId));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
@@ -194,14 +194,14 @@ public class ActivityController {
 	@RequestMapping(value = "joinActivityEasemobGroup", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO joinActivityEasemobGroup(@RequestParam String openId,
+	ResponseDTO joinActivityEasemobGroup(@RequestParam String easemobId,
 										 @RequestParam String activityId) {
 		ResponseDTO<String> responseDTO = new ResponseDTO<>();
 
 		/****
 		 根据活动的ID号，用户对某个活动发表评论
 		 *****/
-		responseDTO.setResponseData(activityService.joinActivityEasemobGroup(openId,activityId));
+		responseDTO.setResponseData(activityService.joinActivityEasemobGroup(easemobId,activityId));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}

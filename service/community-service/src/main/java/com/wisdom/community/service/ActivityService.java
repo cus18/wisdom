@@ -135,7 +135,7 @@ public class ActivityService {
     }
 
     public String joinActivityEasemobGroup(String openid,String activityID) {
-        coreServiceClient.signEasemobUser(openid,openid,weChatServiceClient.getWechatUserInfo(openid).getNickname());
+//        coreServiceClient.signEasemobUser(openid,openid,weChatServiceClient.getWechatUserInfo(openid).getNickname());
 //        coreServiceClient.signEasemobUser(openid,openid);
         List<ActivityDTO> activity = activityMapper.getActivityList(activityID,null);
         ActivityEasemobGroup activityEasemobGroup=activityEasemobGroupMapper.searchActivityEasemobGroupByID(activity.get(0).getActivityEasemobGroupID());
