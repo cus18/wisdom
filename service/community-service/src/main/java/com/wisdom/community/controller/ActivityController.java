@@ -129,14 +129,14 @@ public class ActivityController {
 	@RequestMapping(value = "joinActivity", method = {RequestMethod.POST, RequestMethod.GET})
 	public
 	@ResponseBody
-	ResponseDTO<String> joinActivity(@RequestParam String easemobId,
+	ResponseDTO<String> joinActivity(@RequestParam String openId,
 									 @RequestParam String activityId) {
 		ResponseDTO responseDTO = new ResponseDTO<>();
 		/****
 		 List<String>中放入的是报名参加活动的用户列表，为用户的elderId值，['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
 		 *****/
 		//responseData里面放入的是此次活动所对应的群组ID
-		responseDTO.setResponseData(activityService.addActivityUser(activityId,easemobId));
+		responseDTO.setResponseData(activityService.addActivityUser(activityId,openId));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
