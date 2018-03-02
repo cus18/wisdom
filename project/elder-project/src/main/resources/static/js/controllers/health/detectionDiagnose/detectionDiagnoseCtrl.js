@@ -6,8 +6,12 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
             $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
+            $scope.chatCont = {
+                txt:'群聊消息',
+                from:'医护人员'
+            };
 
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
             openidUtil.checkResponseData();
 
             $scope.goHealthChat = function(){
@@ -476,11 +480,11 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                         //获取群聊信息
                         GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
                             if(data.result == Global.SUCCESS){
-                                if(data.responseData.easemobGroup == null){
+                                if(data.responseData.easemobGroup != null){
                                     $scope.noGroup = true;
                                 }else{
                                     $scope.noGroup = false;
-                                    $scope.groupId = data.responseData.easemobGroup.easemobGroupID;
+                                    // $scope.groupId = data.responseData.easemobGroup.easemobGroupID;
 
                                     var conn = new WebIM.connection({
                                         isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
@@ -508,27 +512,13 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                                             // 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
                                             // 则无需调用conn.setPresence();
                                             console.log("connection success");
-
-                                            options = {
-                                                success: function (resp) {
-
-                                                    angular.forEach(resp.data,function(value,index,array){
-                                                        if(value.groupname.indexOf('医护')!=-1)
-                                                        {
-                                                            $scope.groupId = value.groupid;
-                                                            $scope.groupName = value.groupname;
-                                                            // $scope.easemobId = $scope.relativeElderList[0].easemobID;
-                                                            // $scope.easemobPassword = $scope.relativeElderList[0].easemobPassword;
-                                                        }
-                                                    })
-                                                },
-                                                error: function (e) {
-                                                }
-                                            }
-                                            conn.getGroup(options);
                                         },
                                         onClosed: function ( message ) {},         //连接关闭回调
-                                        onTextMessage: function ( message ) {},    //收到文本消息
+                                        onTextMessage: function ( message ) {
+                                            console.log(message)
+                                            $scope.chatCont.txt = message.data;
+                                            $scope.chatCont.from = message.from;
+                                        },    //收到文本消息
                                         onEmojiMessage: function ( message ) {},   //收到表情消息
                                         onPictureMessage: function ( message ) {}, //收到图片消息
                                         onCmdMessage: function ( message ) {},     //收到命令消息

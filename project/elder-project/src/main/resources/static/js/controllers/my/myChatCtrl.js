@@ -55,9 +55,13 @@ angular.module('controllers',[]).controller('myChatCtrl',
             }
 
             GetWechatUserInfo.get({openid:$rootScope.openid},function(data){
-                $scope.elderName = data.nickname;
-                $scope.elderImg = data.headimgurl;
-
+                if(data){
+                    $scope.elderName = data.nickname;
+                    $scope.elderImg = data.headimgurl;
+                }else{
+                    $scope.elderName = '环信管理员';
+                    $scope.elderImg = 'images/user_photo.png';
+                }
             })
 
             //判断是否已绑定
@@ -94,7 +98,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                 }
                                 else if ($scope.groupType == 'healthData') {
                                     $rootScope.pageTitle = '健康管理群';
-                                    if (data.responseData.easemobGroup.easemobGroupID) {
+                                    if (data.responseData.easemobGroup) {
                                         $scope.groupId = data.responseData.easemobGroup.easemobGroupID;
                                     }else {
                                         var alertPopup = $ionicPopup.show({
@@ -102,7 +106,6 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                         });
                                         $timeout(function() {
                                             alertPopup.close();
-                                            $state.go('bindPhone');
                                         }, 2000);
                                     }
                                 }
@@ -146,7 +149,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             },
                             onClosed: function ( message ) {},         //连接关闭回调
                             onTextMessage: function ( message ) {
-                                console.log('text')
+                                console.log(message)
                                 // if(message[0].from != $scope.elderName){
                                     $scope.param.messageList.push(message);
                                 // }
