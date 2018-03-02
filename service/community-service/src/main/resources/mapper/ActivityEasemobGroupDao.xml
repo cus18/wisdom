@@ -13,7 +13,7 @@
 	</update>
 
 	<select id="searchActivityEasemobGroupByID" resultType="com.wisdom.common.dto.basic.ActivityEasemobGroup">
-		select * from`activity_easemob_group` WHERE  `id`=#{id}
+		select * from`activity_easemob_group` WHERE  `groupid`=#{id}
 	</select>
 
 	<select id="getUserActivityEasemobGroupList"  resultType="com.wisdom.common.dto.basic.ActivityEasemobGroup">
