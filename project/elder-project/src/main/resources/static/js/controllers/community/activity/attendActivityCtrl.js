@@ -57,24 +57,32 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
 
             });
 
-            //判断是否已绑定
-            GetLaoyouUserByOpenId.get({openid:$rootScope.openid},function(data) {
-                if (data.result == Global.SUCCESS) {
-                    if (data.responseData != null) {
-                        //已绑定
-                        $scope.easemobId = data.responseData.elderUserDTO.easemobID;
-                    }
-                }
-            })
-
             //进入活动群聊
             $scope.enterActivityGroupTalk = function(){
-                JoinActivityEasemobGroup.get({activityId:activityId,easemobId:$scope.easemobId},function(data){
-                    if(data.result == Global.SUCCESS){
-                        $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                //判断是否已绑定
+                GetLaoyouUserByOpenId.get({openid:$rootScope.openid},function(data) {
+                    if (data.result == Global.SUCCESS) {
+                        if (data.responseData != null) {
+                            //已绑定
+                            $scope.easemobId = data.responseData.elderUserDTO.easemobID;
+                            JoinActivityEasemobGroup.get({activityId:activityId,easemobId:$scope.easemobId},function(data){
+                                if(data.result == Global.SUCCESS){
+                                    $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                                }else{
+                                    alert(data.errorInfo)
+                                }
+                            })
+                        }
                     }else{
-                        alert(data.errorInfo)
+                        //未绑定
+                        var alertPopup = $ionicPopup.show({
+                            title:'您未绑定手机号，请至[我的]-[绑定手机号]进行手机号绑定'
+                        });
+                        $timeout(function() {
+                            alertPopup.close();
+                        }, 2000);
                     }
                 })
+
             }
         }])
