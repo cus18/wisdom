@@ -106,7 +106,7 @@ public class EasemobService {
         }
         System.out.println(content);
         System.out.println(SRC);
-        String result = HttpRequestUtil.httpsRequest(SRC + "users", "POST", content);
+        String result = HttpRequestUtil.post(SRC + "users",content)+"";
         if (result != null) {
             return true;
         } else {

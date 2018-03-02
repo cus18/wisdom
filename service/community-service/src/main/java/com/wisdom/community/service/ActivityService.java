@@ -137,15 +137,14 @@ public class ActivityService {
     public String joinActivityEasemobGroup(String openid,String activityID) {
         coreServiceClient.signEasemobUser(openid,openid,weChatServiceClient.getWechatUserInfo(openid).getNickname());
 //        coreServiceClient.signEasemobUser(openid,openid);
-        ActivityDTO activity = activityMapper.getActivityList(activityID,null).get(0);
-//        ActivityEasemobGroup activityEasemobGroup=activityEasemobGroupDao.searchActivityEasemobGroupByID(activity.getActivityEasemobGroupID());
-        boolean a=coreServiceClient.joinEasemobGroup(activity.getActivityEasemobGroupID(),openid);
+        List<ActivityDTO> activity = activityMapper.getActivityList(activityID,null);
+        ActivityEasemobGroup activityEasemobGroup=activityEasemobGroupMapper.searchActivityEasemobGroupByID(activity.get(0).getActivityEasemobGroupID());
+        boolean a=coreServiceClient.joinEasemobGroup(activity.get(0).getActivityEasemobGroupID(),openid);
         if(a){
-            ActivityEasemobGroup activityEasemobGroup=new ActivityEasemobGroup();
             activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("")?openid:activityEasemobGroup.getMembers()+","+openid);
             activityEasemobGroupMapper.updateActivityEasemobGroup(activityEasemobGroup);
         }
-        return activity.getActivityEasemobGroupID();
+        return activity.get(0).getActivityEasemobGroupID();
     }
 
 }
