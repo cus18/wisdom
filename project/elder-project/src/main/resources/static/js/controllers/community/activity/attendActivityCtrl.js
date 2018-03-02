@@ -8,7 +8,7 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
             var activityId = $stateParams.activityId;
             $scope.canClick = false;
 
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
             openidUtil.checkResponseData();
 
             $scope.activity = {};
@@ -52,8 +52,11 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
             //进入活动群聊
             $scope.enterActivityGroupTalk = function(){
                 JoinActivityEasemobGroup.get({activityId:activityId,openId:$rootScope.openid},function(data){
-
+                    if(data.result == Global.SUCCESS){
+                        $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                    }else{
+                        alert(data.errorInfo)
+                    }
                 })
-                $state.go('myChat',{'groupType':'activity','id':activityId})
             }
         }])

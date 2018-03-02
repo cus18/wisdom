@@ -1,14 +1,14 @@
 angular.module('controllers',[]).controller('activityDetailCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityDetail',
-        'GetActivityAttendStatus','GetActivityDiscuss','CreateActivityDiscuss','openidUtil',
-        function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,
-                  GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,openidUtil) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityDetail','Global',
+        'GetActivityAttendStatus','GetActivityDiscuss','CreateActivityDiscuss','openidUtil','JoinActivityEasemobGroup',
+        function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,Global,
+                  GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,openidUtil,JoinActivityEasemobGroup) {
 
 
             $rootScope.pageTitle = '活动详情';
             var activityId = $stateParams.activityId;
 
-            // $rootScope.openid = 'oRnVIxOypU0LiuavDpTl_xe10i7Y';
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
             openidUtil.checkResponseData();
 
             $scope.param = {
@@ -44,7 +44,13 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
 
             $scope.attendActivityGroupTalk = function(){
                 //进入活动群聊圈
-                $state.go('myChat',{'groupType':'activity','id':activityId})
+                JoinActivityEasemobGroup.get({activityId:activityId,openId:$rootScope.openid},function(data){
+                    if(data.result == Global.SUCCESS){
+                        $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                    }else{
+                        alert(data.errorInfo)
+                    }
+                })
             }
 
             $scope.doRefresh = function(){

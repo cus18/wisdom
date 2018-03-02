@@ -6,7 +6,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
 
 
             $scope.groupType = $stateParams.groupType;
-            $scope.id = $stateParams.id;
+            $scope.groupId = $stateParams.id;
             openidUtil.checkResponseData();
             // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
@@ -70,25 +70,35 @@ angular.module('controllers',[]).controller('myChatCtrl',
                         $scope.elderId = data.responseData.elderUserDTO.id;
 
                         //获取群聊信息
-                        GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
-                            if(data.result == Global.SUCCESS){
-                                if($scope.groupType == 'activity')
-                                {
-                                    $rootScope.pageTitle = '活动群';
-                                    angular.forEach(data.responseData.activityEasemobGroupInfoList,function(data){
-                                        if(data.id == $scope.id){
-                                            $scope.groupId = data.groupId;
-                                        }
-                                    })
-                                }
-                                else if($scope.groupType == 'healthData')
-                                {
-                                    $rootScope.pageTitle = '健康管理群';
-                                    // $scope.groupId = data.responseData.easemobGroup.groupId;
-                                    $scope.groupId = $scope.id;
-                                }
-                            }
-                        })
+                        // GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
+                        //     if(data.result == Global.SUCCESS){
+                        //         if($scope.groupType == 'activity')
+                        //         {
+                        //             $rootScope.pageTitle = '活动群';
+                        //             if(data.responseData.activityEasemobGroupInfoList){
+                        //                 console.log(4444)
+                        //                 angular.forEach(data.responseData.activityEasemobGroupInfoList,function(data){
+                        //                     if(data.id == $scope.id){
+                        //                         $scope.groupId = data.groupId;
+                        //                     }
+                        //                 })
+                        //             }else{
+                        //                 console.log(33333)
+                        //                 var alertPopup = $ionicPopup.show({
+                        //                     title:'该活动没有活动群，请联系机构方创建'
+                        //                 });
+                        //                 $timeout(function() {
+                        //                     alertPopup.close();
+                        //                 }, 2000);
+                        //             }
+                        //         }
+                        //         else if($scope.groupType == 'healthData')
+                        //         {
+                        //             $rootScope.pageTitle = '健康管理群';
+                        //             $scope.groupId = $scope.id;
+                        //         }
+                        //     }
+                        // })
 
                         var conn = new WebIM.connection({
                             isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
@@ -127,7 +137,10 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             },
                             onClosed: function ( message ) {},         //连接关闭回调
                             onTextMessage: function ( message ) {
-                                $scope.param.messageList.push(message);
+                                console.log('text')
+                                if(message[0].from != $scope.elderName){
+                                    $scope.param.messageList.push(message);
+                                }
                                 console.log($scope.param.messageList);
                                 $scope.$apply();
                                 $ionicScrollDelegate.$getByHandle('chat-content').scrollBottom();
@@ -138,15 +151,20 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                 console.log($scope.param.messageList);
                             },   //收到表情消息
                             onPictureMessage: function ( message ) {
+                                console.log('pic')
                                 $scope.param.messageList.push(message);
                                 console.log($scope.param.messageList);
+                                $scope.$apply();
+                                $ionicScrollDelegate.$getByHandle('chat-content').scrollBottom();
                             }, //收到图片消息
                             onCmdMessage: function ( message ) {},     //收到命令消息
                             onAudioMessage: function ( message ) {
                                 console.log(message);
                             },   //收到音频消息
                             onLocationMessage: function ( message ) {},//收到位置消息
-                            onFileMessage: function ( message ) {},    //收到文件消息
+                            onFileMessage: function ( message ) {
+                                console.log('file')
+                            },    //收到文件消息
                             onVideoMessage: function (message) {
                                 var node = document.getElementById('privateVideo');
                                 var option = {
@@ -212,7 +230,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                     console.log('send room text success');
                                     $scope.param.elderMessage.ext = option.ext;
                                     $scope.param.elderMessage.data = option.msg;
-                                    $scope.param.elderMessage.from = 'elder';
+                                    $scope.param.elderMessage.from = $scope.elderName;
                                     $scope.param.messageList.push(angular.copy($scope.param.elderMessage));
                                     $scope.param.chatMessage = '';
                                     $scope.param.elderMessage = {};
@@ -260,7 +278,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                         console.log('Success');
                                         $scope.param.elderMessage.ext = option.ext;
                                         $scope.param.elderMessage.data = option.file;
-                                        $scope.param.elderMessage.from = 'elder';
+                                        $scope.param.elderMessage.from = $scope.elderName;
                                         $scope.param.messageList.push(angular.copy($scope.param.elderMessage));
                                         $scope.param.chatMessage = '';
                                         $scope.param.elderMessage = {};
