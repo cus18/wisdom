@@ -1,7 +1,7 @@
 angular.module('controllers',[]).controller('activityDetailCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityDetail','Global',
+    ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityDetail','Global','GetLaoyouUserByOpenId',
         'GetActivityAttendStatus','GetActivityDiscuss','CreateActivityDiscuss','openidUtil','JoinActivityEasemobGroup',
-        function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,Global,
+        function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,Global,GetLaoyouUserByOpenId,
                   GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,openidUtil,JoinActivityEasemobGroup) {
 
 
@@ -42,9 +42,19 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
                 $scope.param.operation = "introduce";
             }
 
+            //判断是否已绑定
+            GetLaoyouUserByOpenId.get({openid:$rootScope.openid},function(data) {
+                if (data.result == Global.SUCCESS) {
+                    if (data.responseData != null) {
+                        //已绑定
+                        $scope.easemobId = data.responseData.elderUserDTO.easemobID;
+                    }
+                }
+            })
+
             $scope.attendActivityGroupTalk = function(){
                 //进入活动群聊圈
-                JoinActivityEasemobGroup.get({activityId:activityId,openId:$rootScope.openid},function(data){
+                JoinActivityEasemobGroup.get({activityId:activityId,easemobId:$scope.easemobId},function(data){
                     if(data.result == Global.SUCCESS){
                         $state.go('myChat',{'groupType':'activity','id':data.responseData})
                     }else{
