@@ -18,9 +18,9 @@
 
 	<select id="getUserActivityEasemobGroupList"  resultType="com.wisdom.common.dto.basic.ActivityEasemobGroup">
 		select * from`activity_easemob_group` WHERE
-			members like  CONCAT('%', #{elderEasemobID}), '%')
+			members like  CONCAT('%', #{elderEasemobID}, '%')
 			or
-			owner like  CONCAT('%', #{elderEasemobID}), '%')
+			owner like  CONCAT('%', #{elderEasemobID}, '%')
 	</select>
 
 
