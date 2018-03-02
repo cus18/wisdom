@@ -150,7 +150,7 @@ angular.module('controllers',[]).controller('myChatCtrl',
                                 // if(message[0].from != $scope.elderName){
                                     $scope.param.messageList.push(message);
                                 // }
-                                alert($scope.param.messageList);
+                                console.log($scope.param.messageList);
                                 $scope.$apply();
                                 $ionicScrollDelegate.$getByHandle('chat-content').scrollBottom();
                             },    //收到文本消息
