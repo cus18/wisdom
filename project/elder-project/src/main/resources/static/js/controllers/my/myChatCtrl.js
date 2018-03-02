@@ -147,9 +147,9 @@ angular.module('controllers',[]).controller('myChatCtrl',
                             onClosed: function ( message ) {},         //连接关闭回调
                             onTextMessage: function ( message ) {
                                 console.log('text')
-                                if(message[0].from != $scope.elderName){
+                                // if(message[0].from != $scope.elderName){
                                     $scope.param.messageList.push(message);
-                                }
+                                // }
                                 alert($scope.param.messageList);
                                 $scope.$apply();
                                 $ionicScrollDelegate.$getByHandle('chat-content').scrollBottom();
