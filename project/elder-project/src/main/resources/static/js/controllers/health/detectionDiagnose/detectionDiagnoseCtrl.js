@@ -495,9 +495,9 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
                                     var options = {
                                         apiUrl: WebIM.config.apiURL,
-                                        user: $scope.relativeElderList[0].easemobID,
-                                        pwd: $scope.relativeElderList[0].easemobPassword,
-                                        appKey: '1156170425115453#laoyoupractitioner'
+                                        user: $scope.easemobId,
+                                        pwd: $scope.easemobPassword,
+                                        appKey: WebIM.config.appkey,
                                     };
                                     conn.open(options);
 
