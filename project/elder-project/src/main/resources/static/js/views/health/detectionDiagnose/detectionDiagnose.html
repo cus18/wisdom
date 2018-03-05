@@ -11,7 +11,7 @@
             </div>
             <div class="chatTitle">
                 <p style="color:#060d25;font-size:18px;margin-bottom:6px;">健康管理群</p>
-                <p style="color:#494951;">群聊消息页面</p>
+                <p style="color:#494951;">{{chatCont.from}}:{{chatCont.txt}}</p>
             </div>
             <div class="chatTime">09:00</div>
         </div>
@@ -208,9 +208,9 @@
             <div style="height:100px;"></div>
         </div>
     </div>
-    <div ng-if="!hasData" class="list" style="padding-top:155px;">
+    <div ng-if="!hasData" class="list" style="padding:155px 0px 40px;">
         <img src="images/dataShow.png" style="width:100%;margin-bottom:40px;">
-        <div class="item" style="overflow:inherit;white-space:inherit;line-height:28px;width:80%;margin:0 auto;">您目前还没有测量数据。健康监测属于养老机构提供的有偿服务，您暂时无法查看相关健康数据。</div>
+        <div class="item" style="overflow:inherit;white-space:inherit;line-height:28px;width:80%;margin:0 auto;">您目前还没有测量数据。健康监测属于养老机构提供的有偿服务，您暂时无法查看相关健康数据。请前往[我的]-[绑定手机号]进行手机号绑定。</div>
     </div>
     </ion-content>
     <div ng-if="hasData" class="bar bar-footer" style="height:48px;background:#fff;border-top:1px solid #ccc;padding-top:0px;">
