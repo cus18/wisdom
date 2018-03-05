@@ -46,22 +46,22 @@ public class ActivityService {
 
     public List<ActivityDTO> activityListByFirstPage() {
         List<ActivityDTO> list = activityMapper.getMyHospitalActivityListByHospitalID();
-        if(list.size()==0){
-            list = activityMapper.getMyActivityListByElderID(null,2,null);
-        }else if(list.size()==1){
-            ActivityDTO activityDTO = activityMapper.getMyActivityListByElderID(null,2,null).get(1);
+        if (list.size() == 0) {
+            list = activityMapper.getMyActivityListByElderID(null, 2, null);
+        } else if (list.size() == 1) {
+            ActivityDTO activityDTO = activityMapper.getMyActivityListByElderID(null, 2, null).get(1);
             list.add(activityDTO);
         }
         return list;
     }
 
-    public List<ActivityDTO> getActivityList(String openid, String pageNo,String activityType) {
-        List<ActivityDTO> result = activityMapper.getMyActivityListByElderID(openid,Integer.parseInt(pageNo)*10,activityType);
+    public List<ActivityDTO> getActivityList(String openid, String pageNo, String activityType) {
+        List<ActivityDTO> result = activityMapper.getMyActivityListByElderID(openid, Integer.parseInt(pageNo) * 10, activityType);
         return result;
     }
 
     public ActivityDTO getActivity(String elderID) {
-        return activityMapper.getActivityList(elderID,null).get(0);
+        return activityMapper.getActivityList(elderID, null).get(0);
     }
 
     public Integer getActivityAttendStatus(String activityID, String openID) {
@@ -69,14 +69,14 @@ public class ActivityService {
     }
 
     public List<ActivityDiscussDTO> getActivityDiscuss(String id, Integer page) {
-        List<ActivityDiscussDTO> activityDiscussDTOList=activityDiscussMapper.getActivityDiscussList(id,page);
-        for (ActivityDiscussDTO a:activityDiscussDTOList) {
-            WeChatUserInfo weChatUserInfo=weChatServiceClient.getWechatUserInfo(a.getOpenId());
+        List<ActivityDiscussDTO> activityDiscussDTOList = activityDiscussMapper.getActivityDiscussList(id, page);
+        for (ActivityDiscussDTO a : activityDiscussDTOList) {
+            WeChatUserInfo weChatUserInfo = weChatServiceClient.getWechatUserInfo(a.getOpenId());
             a.setWeChatHeadPhoto(weChatUserInfo.getHeadimgurl());
             a.setWechatNickName(weChatUserInfo.getNickname());
-            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO=activityDiscussMapper.getActivityDiscussReplyList(a.getId());
-            for (ActivityDiscussReplyDTO adr:activityDiscussReplyDTO) {
-                WeChatUserInfo weChatUserInfos=weChatServiceClient.getWechatUserInfo(a.getOpenId());
+            List<ActivityDiscussReplyDTO> activityDiscussReplyDTO = activityDiscussMapper.getActivityDiscussReplyList(a.getId());
+            for (ActivityDiscussReplyDTO adr : activityDiscussReplyDTO) {
+                WeChatUserInfo weChatUserInfos = weChatServiceClient.getWechatUserInfo(a.getOpenId());
                 adr.setWeChatHeadPhoto(weChatUserInfos.getHeadimgurl());
                 adr.setWechatNickName(weChatUserInfos.getNickname());
             }
@@ -87,12 +87,12 @@ public class ActivityService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public String addActivityUser(String activityID,String openid) {
+    public String addActivityUser(String activityID, String openid) {
         ActivityUser activityUser = new ActivityUser();
         activityUser.setActivityID(activityID);
-        ActivityDTO activity = activityMapper.getActivityList(activityID,null).get(0);
-        Integer nums=activityUserMapper.getActivityCountByID(activityID, null);
-        if(nums!=0&&nums.equals(activity.getPeopleNum())){
+        ActivityDTO activity = activityMapper.getActivityList(activityID, null).get(0);
+        Integer nums = activityUserMapper.getActivityCountByID(activityID, null);
+        if (nums != 0 && nums.equals(activity.getPeopleNum())) {
             return "max";
         }
         activityUser.setOpenID(openid);
@@ -111,7 +111,7 @@ public class ActivityService {
 //            }
 //        }
 
-        activity = activityMapper.getActivityList(activityID,null).get(0);
+        activity = activityMapper.getActivityList(activityID, null).get(0);
         return activity.getActivityEasemobGroupID();
     }
 
@@ -134,14 +134,17 @@ public class ActivityService {
         return activityEasemobGroupMapper.getUserActivityEasemobGroupList(elderEasemobID);
     }
 
-    public String joinActivityEasemobGroup(String openid,String activityID) {
+    public String joinActivityEasemobGroup(String openid, String activityID) {
 //        coreServiceClient.signEasemobUser(openid,openid,weChatServiceClient.getWechatUserInfo(openid).getNickname());
 //        coreServiceClient.signEasemobUser(openid,openid);
-        List<ActivityDTO> activity = activityMapper.getActivityList(activityID,null);
-        ActivityEasemobGroup activityEasemobGroup=activityEasemobGroupMapper.searchActivityEasemobGroupByID(activity.get(0).getActivityEasemobGroupID());
-        boolean a=coreServiceClient.joinEasemobGroup(activity.get(0).getActivityEasemobGroupID(),openid);
-        if(a){
-            activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("")?openid:activityEasemobGroup.getMembers()+","+openid);
+        List<ActivityDTO> activity = activityMapper.getActivityList(activityID, null);
+        ActivityEasemobGroup activityEasemobGroup = activityEasemobGroupMapper.searchActivityEasemobGroupByID(activity.get(0).getActivityEasemobGroupID());
+        if (activityEasemobGroup == null) {
+            return "unEasemobGroup";
+        }
+        boolean a = coreServiceClient.joinEasemobGroup(activity.get(0).getActivityEasemobGroupID(), openid);
+        if (a) {
+            activityEasemobGroup.setMembers(activityEasemobGroup.getMembers().equals("") ? openid : activityEasemobGroup.getMembers() + "," + openid);
             activityEasemobGroupMapper.updateActivityEasemobGroup(activityEasemobGroup);
         }
         return activity.get(0).getActivityEasemobGroupID();
