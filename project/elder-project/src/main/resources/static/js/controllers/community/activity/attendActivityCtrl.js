@@ -67,22 +67,32 @@ angular.module('controllers',[]).controller('attendActivityCtrl',
                             $scope.easemobId = data.responseData.elderUserDTO.easemobID;
                             JoinActivityEasemobGroup.get({activityId:activityId,easemobId:$scope.easemobId},function(data){
                                 if(data.result == Global.SUCCESS){
-                                    $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                                    if(data.responseData != 'unEasemobGroup'){
+                                        //有活动群
+                                        $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                                    }else{
+                                        //没有活动群
+                                        var alertPopup = $ionicPopup.show({
+                                            title:'该活动未创建群聊'
+                                        });
+                                        $timeout(function() {
+                                            alertPopup.close();
+                                        }, 2000);
+                                    }
                                 }else{
                                     alert(data.errorInfo)
                                 }
                             })
+                        }else{
+                            //未绑定
+                            var alertPopup = $ionicPopup.show({
+                                title:'您未绑定手机号，请至[我的]-[绑定手机号]进行手机号绑定'
+                            });
+                            $timeout(function() {
+                                alertPopup.close();
+                            }, 2000);
                         }
-                    }else{
-                        //未绑定
-                        var alertPopup = $ionicPopup.show({
-                            title:'您未绑定手机号，请至[我的]-[绑定手机号]进行手机号绑定'
-                        });
-                        $timeout(function() {
-                            alertPopup.close();
-                        }, 2000);
                     }
                 })
-
             }
         }])

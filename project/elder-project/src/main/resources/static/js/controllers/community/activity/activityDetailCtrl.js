@@ -1,8 +1,10 @@
 angular.module('controllers',[]).controller('activityDetailCtrl',
     ['$scope','$interval','$rootScope','$stateParams','$state','GetActivityDetail','Global','GetLaoyouUserByOpenId',
         'GetActivityAttendStatus','GetActivityDiscuss','CreateActivityDiscuss','openidUtil','JoinActivityEasemobGroup',
+        '$ionicPopup','$timeout',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetActivityDetail,Global,GetLaoyouUserByOpenId,
-                  GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,openidUtil,JoinActivityEasemobGroup) {
+                  GetActivityAttendStatus,GetActivityDiscuss,CreateActivityDiscuss,openidUtil,JoinActivityEasemobGroup,
+                  $ionicPopup,$timeout) {
 
 
             $rootScope.pageTitle = '活动详情';
@@ -54,7 +56,18 @@ angular.module('controllers',[]).controller('activityDetailCtrl',
                             //进入活动群聊圈
                             JoinActivityEasemobGroup.get({activityId:activityId,easemobId:$scope.easemobId},function(data){
                                 if(data.result == Global.SUCCESS){
-                                    $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                                    if(data.responseData != 'unEasemobGroup'){
+                                        //有活动群
+                                        $state.go('myChat',{'groupType':'activity','id':data.responseData})
+                                    }else{
+                                        //没有活动群
+                                        var alertPopup = $ionicPopup.show({
+                                            title:'该活动未创建群聊'
+                                        });
+                                        $timeout(function() {
+                                            alertPopup.close();
+                                        }, 2000);
+                                    }
                                 }else{
                                     alert(data.errorInfo)
                                 }
