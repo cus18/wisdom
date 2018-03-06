@@ -93,7 +93,7 @@ public class WechatController {
 	}
 
 	/**
-	 * 获取微信 Token
+	 * 获取微信 Token 信息
 	 * @return
 	 */
 	@RequestMapping(value = "getWeChatToken", method = {RequestMethod.POST, RequestMethod.GET})
