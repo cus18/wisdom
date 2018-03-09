@@ -10,6 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
+
 	<groupId>com.wisdom</groupId>
 	<artifactId>common</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
@@ -191,5 +192,18 @@
 		</dependency>
 
     </dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!--配置为执行-->
+					<classifier>exec</classifier>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
