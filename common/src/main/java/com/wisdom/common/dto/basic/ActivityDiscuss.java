@@ -13,6 +13,8 @@ public class ActivityDiscuss {
 
     private String sysUserElderID;
 
+    private String openID;
+
     private Date createDate;
 
     private String content;
@@ -55,5 +57,13 @@ public class ActivityDiscuss {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getOpenID() {
+        return openID;
+    }
+
+    public void setOpenID(String openID) {
+        this.openID = openID;
     }
 }

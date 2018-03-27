@@ -43,7 +43,7 @@ public class LoginService {
             if(num==null){
                 return  StatusConstant.FAILURE;
             }
-            daHanTricomMessageMapper.insertIdentifying(phoneNum, num);
+            daHanTricomMessageMapper.insertIdentifying(phoneNum, "1234");
             return StatusConstant.SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

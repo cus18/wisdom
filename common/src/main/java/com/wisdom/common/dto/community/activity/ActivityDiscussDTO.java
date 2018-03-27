@@ -3,32 +3,49 @@ package com.wisdom.common.dto.community.activity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
+import java.util.List;
 
 public class ActivityDiscussDTO {
+
+    @JSONField(name = "id")
+    private String id;
 
     //此条评论的对应的活动ID
     @JSONField(name = "activityId")
     private String activityId;
 
     //此条评论的评论者的logo
-    @JSONField(name = "elderLogo")
-    private String elderLogo;
+    @JSONField(name = "weChatHeadPhoto")
+    private String weChatHeadPhoto;
 
     //此条评论的评论者的名称
-    @JSONField(name = "elderName")
-    private String elderName;
+    @JSONField(name = "weChatNickName")
+    private String wechatNickName;
 
     //此条评论的评论者的ID号
-    @JSONField(name = "elderId")
-    private String elderId;
+    @JSONField(name = "openId")
+    private String openId;
 
     //此条评论的创建时间
     @JSONField(name = "discussDate")
-    private Date discussDate;
+    private String discussDate;
 
     //此条评论的创建时间
     @JSONField(name = "discussContent")
     private String discussContent;
+
+
+    @JSONField(name = "activityDiscussReplyDTOList")
+    private List<ActivityDiscussReplyDTO> activityDiscussReplyDTOList;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getActivityId() {
         return activityId;
@@ -38,35 +55,35 @@ public class ActivityDiscussDTO {
         this.activityId = activityId;
     }
 
-    public String getElderLogo() {
-        return elderLogo;
+    public String getWeChatHeadPhoto() {
+        return weChatHeadPhoto;
     }
 
-    public void setElderLogo(String elderLogo) {
-        this.elderLogo = elderLogo;
+    public void setWeChatHeadPhoto(String weChatHeadPhoto) {
+        this.weChatHeadPhoto = weChatHeadPhoto;
     }
 
-    public String getElderName() {
-        return elderName;
+    public String getWechatNickName() {
+        return wechatNickName;
     }
 
-    public void setElderName(String elderName) {
-        this.elderName = elderName;
+    public void setWechatNickName(String wechatNickName) {
+        this.wechatNickName = wechatNickName;
     }
 
-    public String getElderId() {
-        return elderId;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setElderId(String elderId) {
-        this.elderId = elderId;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
-    public Date getDiscussDate() {
+    public String getDiscussDate() {
         return discussDate;
     }
 
-    public void setDiscussDate(Date discussDate) {
+    public void setDiscussDate(String discussDate) {
         this.discussDate = discussDate;
     }
 
@@ -76,5 +93,13 @@ public class ActivityDiscussDTO {
 
     public void setDiscussContent(String discussContent) {
         this.discussContent = discussContent;
+    }
+
+    public List<ActivityDiscussReplyDTO> getActivityDiscussReplyDTOList() {
+        return activityDiscussReplyDTOList;
+    }
+
+    public void setActivityDiscussReplyDTOList(List<ActivityDiscussReplyDTO> activityDiscussReplyDTOList) {
+        this.activityDiscussReplyDTOList = activityDiscussReplyDTOList;
     }
 }

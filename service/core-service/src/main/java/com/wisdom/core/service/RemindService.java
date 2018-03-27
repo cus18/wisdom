@@ -8,10 +8,15 @@ import com.wisdom.core.mapper.RemindMapper;
 import com.wisdom.core.mapper.RemindTemplateMapper;
 import com.wisdom.core.mapper.RemindUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zbm84 on 2017/8/17.
@@ -28,6 +33,9 @@ public class RemindService {
 
     @Autowired
     private RemindTemplateMapper remindTemplateMapper;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public List<NotificationMessageDTO> getRemindListBySysElderUserID(String sysElderUserID, Integer limit) {
         return remindMapper.getRemindListBySysElderUserID(sysElderUserID,limit);
@@ -64,5 +72,15 @@ public class RemindService {
 
     public Integer deleteRemindTemplate(String id) {
         return remindTemplateMapper.deleteRemindTemplate(id);
+    }
+
+
+    public void addFeedback(String text,String openid){
+        Map<String,String> map=new HashMap<>();
+        map.put("openid",openid);
+        map.put("text",text);
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        map.put("date",sdf.format(new Date()));
+        mongoTemplate.insert(map,"feedback");
     }
 }

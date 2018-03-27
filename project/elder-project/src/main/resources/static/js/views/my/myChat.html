@@ -1,64 +1,49 @@
 <ion-view style="background:#f8f8f8;">
-	<ion-header-bar align-title="center" class="bar-energized">
-		<div class="buttons">
-			<button class="button" ng-click="returnRootNative()">&lt;返回</button>
-		</div>
-		<h1 class="title">{{groupName}}</h1>
-		<div class="buttons">
-			<i class="icon ion-ios-people" ng-click="groupList()" style="font-size: 230%"></i>
-		</div>
-	</ion-header-bar>
-	<div class="empty10"></div>
-	<ion-scroll delegate-handle="chat-content" style="height:85%">
-		<div class="chat"
-			 ng-repeat="item in param.messageList"
-			 style="background:transparent;border-color:transparent">
-			<div ng-if="item.from!='elder'" style="margin-top:10px">
-				<img style="margin-left:15px;width:60px;height:60px"
-					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-				<h2 style="margin-left:85px;margin-top:-60px;font-size:16px;">
+	<!--<ion-scroll delegate-handle="chat-content" ng-style="param.scrollStyle">-->
+    <ion-scroll delegate-handle="chat-content" style="height:93%">
+		<div class="chat" ng-repeat="item in param.messageList">
+			<div class="chatContent" ng-if="item.from!=elderName">
+				<img ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
+				<h2 style="margin-left:85px;margin-top:-60px;">
 					{{item.ext.user_nice_name}}
 				</h2>
 				<br>
-				<ul></ul>
-				<span>{{item.data}}</span>
+				<ul ng-if="!item.data.url" style="left:77px;top:-50px;border-color:transparent #fff transparent transparent;"></ul>
+				<span ng-if="!item.data.url" style="margin-top:-20px;background:#fff;">{{item.data}}</span>
+				<b ng-if="item.data.url" style="float:left;margin-left:90px;margin-top:-16px;"><img src="{{item.data.url}}" alt="" style="max-width:150px;min-width:80px;"></b>
 			</div>
-			<div ng-if="item.from=='elder'" style="margin-top:10px">
-				<img style="margin-right:15px;width:60px;height:60px;float:right;z-index:2"
+			<div class="chatContent" ng-if="item.from==elderName">
+				<img style="float:right;z-index:2;margin-right:15px;"
 					 ng-src="{{item.ext.user_img}}?x-oss-process=image/resize,m_fill,h_50,w_50">
-				<h2 style="margin-right:10px;margin-top:-1px;font-size:16px;float:right">
+				<h2 style="margin-top:-1px;float:right;">
 					{{item.ext.user_nice_name}}
 				</h2>
 				<br><br>
-				<ul style="float:right;right:80px;border-radius: 0px 0px 25px 0px;margin-top:90px"></ul>
-				<span style="float:right;margin-right:15px;margin-left:0px;">{{item.data}}</span>
+				<ul ng-if="!item.data.url"></ul>
+				<span ng-if="!item.data.url" style="float:right;margin-right:3px;margin-left:0px;">{{item.data}}</span>
+                <b ng-if="item.data.url" style="float:right;margin-right:4px;margin-top:-7px;"><img src="{{item.data.url}}" alt="" style="max-width:150px;min-width:80px;"></b>
 			</div>
 		</div>
 	</ion-scroll>
 	<div class="tabs tabs-icon-top" ng-style="param.chatStyle">
-		<a class="tab-item" style="max-width:15%">
-			<i class="icon ion-volume-high"></i>
-		</a>
-		<a class="tab-item" style="max-width:70%">
-			<input ng-model="param.chatMessage" type="text" style="width:100%" placeholder="聊天内容">
+		<!--<a class="tab-item" style="max-width:15%">-->
+			<!--<i class="icon ion-volume-high"></i>-->
+		<!--</a>-->
+		<a class="tab-item" style="max-width:73%">
+			<input ng-model="param.chatMessage" type="text" style="width:100%;border:1px solid #ccc;border-radius:5px;margin-top:7px;padding:0px 10px;" placeholder="聊天内容">
 		</a>
 		<a class="tab-item" style="max-width:15%" ng-if="param.chatMessage==''" ng-click="addPhoto()">
-			<i class="icon ion-ios-plus-outline"></i>
+			<i class="icon ion-ios-plus-outline" style="margin-top:8px;"></i>
 		</a>
-		<a class="tab-item" style="max-width:15%" ng-if="param.chatMessage!=''">
-			<button class="button button-small button-balanced" ng-click="sendMessage()">发送</button>
+		<a class="tab-item" style="max-width:17%" ng-if="param.chatMessage!=''">
+			<button style="background-color:#ff8e01;margin-top:8px;padding:2px 12px;margin-left:8px;" class="button button-small button-balanced" ng-click="sendMessage()">发送</button>
 		</a>
 	</div>
-	<div class="row">
-		<div class="col" style="background:#ddd;max-width:60px;margin-left:5%;border-radius:10px 10px">
+	<div ng-if="addPhotoShow" class="row" style="width:100%;height:150px;background:#f8f8f8;position:relative;z-index:19;padding-top:20px;">
+		<div class="col" style="background:#ddd;max-width:60px;margin-left:5%;border-radius:10px 10px;position:relative;height:83px;">
 			<i class="icon ion-image" style="font-size:35px;margin-left:10px"></i>
-			<span style="margin-left:-32px;top:24px;position:relative;color:black">相册</span>
+			<span style="margin-left:-32px;top:32px;position:relative;color:black">图片</span>
+            <input id="image" type="file" accept="image/*" onchange="angular.element(this).scope().sendPrivateImg()" ng-model="image" style="width:100%;height:100%;position:absolute;left:0px;top:0px;opacity:0;"/>
 		</div>
-		<div class="col" style="background:#ddd;max-width:60px;margin-left:5%;border-radius:10px 10px">
-			<i class="icon ion-camera" style="font-size:35px;margin-left:10px"></i>
-			<span style="margin-left:-32px;top:24px;position:relative;color:black">拍摄</span>
-		</div>
-		<div class="col"></div>
-		<div class="col"></div>
 	</div>
 </ion-view>

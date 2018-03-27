@@ -11,9 +11,9 @@
 	<select id="getNotificationListBySysElderUserID"
 			resultType="com.wisdom.common.dto.core.notification.ExtendMessageDTO">
 		select nu.id as extendMessageId,n.title as extendMessageName,
-				nu.create_date as extendMessageDate ,n.content as  extendMessageContent from notification n
+				nu.create_date as extendMessageDate ,n.content as  extendMessageContent,nu.`status` as extendMessageStatus from notification n
 		inner join notification_user nu on n.id=nu.notification_id
-		where nu.sys_elder_user_id=#{sysElderUserID} limit #{limit}
+		where nu.openid=#{openid} limit #{limit}
 	</select>
 
 	<select id="getNotificationByID"

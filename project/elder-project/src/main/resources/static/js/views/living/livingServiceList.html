@@ -1,11 +1,5 @@
 <ion-view style="background:#f8f8f8;">
-    <ion-header-bar align-title="center" class="bar-energized">
-        <div class="buttons">
-            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
-        </div>
-        <h1 class="title">居家服务</h1>
-    </ion-header-bar>
-    <div class="tabs tabs-top tabs-striped">
+    <div class="tabs tabs-top tabs-striped" style="top:0px;background:#fff;">
         <a ng-class="{true:'tab-item active',false:'tab-item'}[param.type=='short']"
            style="border-color:#ff8e01"
            ng-click="chooseLivingService('short')">
@@ -17,41 +11,53 @@
             <p>长期照护</p>
         </a>
     </div>
-    <ion-content style="margin-top:47px">
-        <div class="list" ng-if="param.type=='short'">
+    <ion-content style="margin-top:62px">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="sortService()"></ion-refresher>
+        <div class="list livingList" ng-if="param.type=='short'">
             <a class="item item-avatar item-text-wrap"
-               ng-repeat="item in [1,2,3]"
-               style="min-height:95px">
-                <h2>
-                    <span style="margin-left:-15%;font-size:20px">驻家照护</span>
-                    <span style="float:right">¥4000-8000元/月</span>
+               ng-repeat="item in shortResponse" ng-click="livingServiceDetail(item.id)">
+                <h2 class="serviceListTit">
+                    <span>{{item.name}}</span>
+                    <span><em>¥{{item.price}}元</em><i>/{{item.priceUnit}}</i></span>
                 </h2>
-                <button class="button button-energized button-small item-note"
-                        style="margin-top:27px;min-width:55px"
-                        ng-click="livingServiceDetail(item.livingServiceId)">详情</button>
-                <p style="margin-left:-42px">带您练习手部肌肉完成一些列精细动作，提升您的独立生活能力和幸福感。</p>
-                <p style="margin-left:-42px">
-                    <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由阳光积善之家提供
-                </p>
+                <p>{{item.description}}</p>
+                <p><i class="icon"></i>{{item.officeName}}</p>
             </a>
+            <ion-infinite-scroll ng-if="param.canMoreShort" on-infinite="loadMoreShort()" distance="1%" ></ion-infinite-scroll>
         </div>
-        <div class="list" ng-if="param.type=='long'">
+        <div class="list livingList" ng-if="param.type=='long'">
             <a class="item item-avatar item-text-wrap"
-               ng-repeat="item in [1,2,3]"
-               style="min-height:95px">
-                <h2>
-                    <span style="margin-left:-15%;font-size:20px">驻家照护test</span>
-                    <span style="float:right">¥4000-8000元/月</span>
+               ng-repeat="item in longResponse" ng-click="livingServiceDetail(item.id)">
+                <h2 class="serviceListTit">
+                    <span>{{item.name}}</span>
+                    <span><em>¥{{item.price}}元</em><i>/{{item.priceUnit}}</i></span>
                 </h2>
-                <button class="button button-energized button-small item-note"
-                        style="margin-top:27px;min-width:55px"
-                        ng-click="livingServiceDetail(item.livingServiceId)">详情</button>
-                <p style="margin-left:-42px">带您练习手部肌肉完成一些列精细动作，提升您的独立生活能力和幸福感。</p>
-                <p style="margin-left:-42px">
-                    <i class="ion ion-record" style="color:red"></i>&nbsp;该服务由阳光积善之家提供
-                </p>
+                <p>{{item.description}}</p>
+                <p><i class="icon"></i>{{item.officeName}}</p>
             </a>
+            <ion-infinite-scroll ng-if="param.canMoreLong" on-infinite="loadMoreLong()" distance="1%" ></ion-infinite-scroll>
         </div>
+        <div style="height:88px;"></div>
     </ion-content>
+    <div ng-if="param.type == 'short'" class="bar bar-footer bar-stable" style="height:110px;">
+        <div class="title" style="font-size: 14px;">共为您加载{{shortResponse.length}}条数据</div>
+        <div class="filtrateBtn" ng-click="sortShow()">筛选</div>
+    </div>
+    <div ng-if="param.type == 'long'" class="bar bar-footer bar-stable">
+        <div class="title" style="font-size: 14px;">共为您加载{{longResponse.length}}条数据</div>
+    </div>
 </ion-view>
+<div class="filtrateArea">
+    <div class="bar bar-header">
+        <button class="button button-icon icon ion-ios-arrow-left" ng-click="sortHide()"></button>
+        <h1 class="title">服务筛选</h1>
+    </div>
+    <div style="margin-top:70px;">
+        <div ng-repeat="sortOption in sortList" class="sortDiv" ng-click="sortService()">
+            <input type="radio" name="sort" id="{{sortOption.id}}" value="{{sortOption.value}}" ng-model="param.sort" style="display:none;">
+            <label for="{{sortOption.id}}" class="button button-light" style="width:100%;">{{sortOption.name}}</label>
+        </div>
+    </div>
+</div>
+
 

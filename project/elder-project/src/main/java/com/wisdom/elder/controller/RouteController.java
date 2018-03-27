@@ -29,5 +29,11 @@ public class RouteController {
 		return "native/login";
 	}
 
-
+	/***
+	 * *原生登陆页
+	 ***/
+	@RequestMapping(value ="test",method = {RequestMethod.POST, RequestMethod.GET})
+	public String test(HttpServletResponse response) {
+		return "test";
+	}
 }

@@ -10,17 +10,40 @@ angular.module('elderGlobal',[])
             PARAM_ERROR: '0x00007',
             LOGIN_SUCCESS_SECOND : '0x00008',
         })
+    .factory('openidUtil',['Global','$rootScope','$location',
+        function(Global,$rootScope,$location){
+            return{
+                checkResponseData:function(){
+                    var absUrl = $location.absUrl().replace('#','@');
+                    if(window.localStorage.getItem('openid')){
+                        $rootScope.openid = window.localStorage.getItem('openid');
+                    }
+                    else
+                    {
+                        if($location.search().openid)
+                        {
+                            window.localStorage.setItem('openid',$location.search().openid);
+                            $rootScope.openid = window.localStorage.getItem('openid');
+                        }
+                        else
+                        {
+                            window.location.href = "http://wechat.hlsenior.com/wechat/getOpenID?url=" + absUrl;
+                        }
+                    }
+                }
+            }
+    }])
     .factory('ElderUtil', ['Global','$ionicPopup',
         function(Global,$ionicPopup) {
             return {
                 checkResponseData: function(data,redirectParam) {
-                    if(data.result==Global.FAILURE)
-                    {
-                        if(data.errorInfo==Global.TOKEN_ERROR){
-                            //如果登录token发生了问题，跳转到登录页面，且在登录成功后，跳转到之前页面去
-                            window.location.href = "login?redirectParam="+redirectParam;
-                        }
-                    }
+                    // if(data.result==Global.FAILURE)
+                    // {
+                    //     if(data.errorInfo==Global.TOKEN_ERROR){
+                    //         如果登录token发生了问题，跳转到登录页面，且在登录成功后，跳转到之前页面去
+                    //         window.location.href = "login?redirectParam="+redirectParam;
+                    //     }
+                    // }
                 },
                 getAddDate:function(date,days){
                     var d=new Date(date);

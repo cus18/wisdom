@@ -34,6 +34,14 @@
         WHERE a.id = #{id}
     </select>
 
+    <select id="getByOpenId" resultType="com.wisdom.common.dto.core.user.UserInfoDTO"
+            parameterType="com.wisdom.common.dto.core.user.UserInfoDTO">
+        SELECT
+        <include refid="userColumns"/>
+        FROM sys_user a
+        WHERE a.openid = #{openid} AND a.del_flag = "0"
+    </select>
+
     <!-- 根据登录名查询用户 -->
     <select id="getByLoginName"
             resultType="com.wisdom.common.dto.core.user.UserInfoDTO"
@@ -144,9 +152,24 @@
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},
-			photo = #{photo}
+			photo = #{photo},
 		WHERE id = #{id}
 	</update>
+
+
+    <!-- 更新用户 OpenId  -->
+       <update id="updateUserOpenIdInfo">
+        UPDATE sys_user SET
+        openid = #{openid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteUserOpenIdInfo">
+        UPDATE sys_user SET
+        openid = ''
+        WHERE openid = #{openid}
+    </update>
+
 
     <!-- 更新用户密码 -->
     <update id="updatePasswordById">

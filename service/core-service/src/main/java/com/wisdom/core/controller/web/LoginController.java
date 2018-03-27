@@ -26,7 +26,7 @@ public class LoginController {
 	ResponseDTO<UserInfoDTO> sendIdentifying(HttpServletRequest request,
 											 @RequestBody UserInfoDTO userInfoDTO) {
 		ResponseDTO<UserInfoDTO> result = new ResponseDTO<>();
-		result.setResult(loginService.sendMessage(userInfoDTO.getMobile()));
+		result.setResult(loginService.sendMessage(userInfoDTO.getPhone()));
 		return result;
 	}
 

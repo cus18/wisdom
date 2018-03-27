@@ -19,7 +19,7 @@ public interface ActivityUserMapper {
 	 * @param activityID
 	 * @return
 	 */
-	Integer getActivityCountByID(@Param("activityID") String activityID, @Param("elderID") String elderID);
+	Integer getActivityCountByID(@Param("activityID") String activityID, @Param("openID") String openID);
 
 	List<ActivityUser> getActivityUserList(@Param("activityID") String activityID);
 

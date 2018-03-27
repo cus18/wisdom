@@ -1,9 +1,10 @@
-package com.wisdom.community.interceptor;
+package com.wisdom.wechat.interceptor;
 
 import com.wisdom.common.constant.ConfigConstant;
 import com.wisdom.common.constant.StatusConstant;
 import com.wisdom.common.dto.core.ResponseDTO;
-import com.wisdom.community.service.RedisService;
+import com.wisdom.community.interceptor.LoginRequired;
+import com.wisdom.wechat.service.RedisService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,7 +28,7 @@ public class LoginRequiredInterceptor {
     /**
      * 定义拦截规则：拦截com.xjj.web.controller包下面的所有类中，有@RequestMapping注解的方法。
      */
-    @Pointcut("execution(* com.wisdom.community.controller..*(..)) && " +
+    @Pointcut("execution(* com.wisdom.wechat.controller..*(..)) && " +
             "@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void controllerMethodPointcut(){}
 

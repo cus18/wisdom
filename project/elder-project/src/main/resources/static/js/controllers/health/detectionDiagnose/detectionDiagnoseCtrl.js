@@ -1,28 +1,36 @@
 angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detectionDiagnoseCtrl',
-    ['$scope','$rootScope','$stateParams','$state','$filter',
-        'GetDetectionHealthData','ElderUtil',
-        'TestReportList','DiagnoseReportList','$timeout','Global','$window',
-        function ($scope,$rootScope,$stateParams,$state,$filter,
-                  GetDetectionHealthData,ElderUtil,
-                  TestReportList,DiagnoseReportList,$timeout,Global,$window) {
+    ['$scope','$rootScope','$stateParams','$state','$filter','openidUtil','GetLaoyouUserByOpenId',
+        'GetDetectionHealthData','ElderUtil','$timeout','Global','$window','GetUserGroupChatInfo',
+        function ($scope,$rootScope,$stateParams,$state,$filter,openidUtil,GetLaoyouUserByOpenId,
+                  GetDetectionHealthData,ElderUtil,$timeout,Global,$window,GetUserGroupChatInfo) {
 
+            $rootScope.pageTitle = '健康数据';
             $scope.loadingStatus = true;
+            $scope.chatCont = {
+                txt:'群聊消息',
+                from:'医护人员'
+            };
 
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
+            openidUtil.checkResponseData();
+
+            $scope.goHealthChat = function(){
+                $state.go('myChat',{'groupType':'healthData','id':'1'})
+            }
             $scope.goMenu = function(firstMenuParam,secondMenuParam){
                 $state.go("detectionDiagnose", {firstMenu: firstMenuParam, secondMenu: secondMenuParam});
             }
             $scope.goBloodSugarRecord = function(bloodSugarNum,timeType,timeDate,readOnly,remark){
-                $state.go("bloodSugarRecord",{bloodSugarNum:bloodSugarNum,recorded:true,timeType:timeType,timeDate:timeDate,readOnly:readOnly});
+                $state.go("bloodSugarRecord",{bloodSugarNum:bloodSugarNum,recorded:true,timeType:timeType,timeDate:timeDate,readOnly:readOnly,remark:remark});
                 $rootScope.measureBloodSugarRemark = remark;
             }
             $scope.goBloodPressureRecord = function(measureTime,diastolic,systolic,heartRate,readOnly,remark){
-                $state.go("bloodPressureRecord",{emptyCont:true,measureTime:measureTime,diastolic:diastolic,systolic:systolic,heartRate:heartRate,readOnly:readOnly});
+                $state.go("bloodPressureRecord",{emptyCont:true,measureTime:measureTime,diastolic:diastolic,systolic:systolic,heartRate:heartRate,readOnly:readOnly,remark:remark});
                 $rootScope.measureBloodPressureRemark = remark;
             }
 
             $scope.firstMenu = $stateParams.firstMenu;
             $scope.secondMenu = $stateParams.secondMenu;
-            $rootScope.h5Page = true;
 
             var initHealthData = function(num){
                 var date = new Date();
@@ -53,42 +61,42 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
             var arrangeHealthData = function(healthData, dataResponse){
                 if($scope.secondMenu=="bloodSugarCurve"||$scope.secondMenu=="bloodSugarTable"){
-                    if(dataResponse.period=='dawn')
+                    if(dataResponse.mealType=='dawn')
                     {
                         healthData.bloodSugar.dawn = dataResponse.result;
                         healthData.bloodSugar.dawnTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeBreakFast')
+                    else if(dataResponse.mealType=='beforeBreakFast')
                     {
                         healthData.bloodSugar.beforeBreakFast = dataResponse.result;
                         healthData.bloodSugar.beforeBreakFastTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='afterBreakFast')
+                    else if(dataResponse.mealType=='afterBreakFast')
                     {
                         healthData.bloodSugar.afterBreakFast = dataResponse.result;
                         healthData.bloodSugar.afterBreakFastTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeLunch')
+                    else if(dataResponse.mealType=='beforeLunch')
                     {
                         healthData.bloodSugar.beforeLunch = dataResponse.result;
                         healthData.bloodSugar.beforeLunchTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='afterLunch')
+                    else if(dataResponse.mealType=='afterLunch')
                     {
                         healthData.bloodSugar.afterLunch = dataResponse.result;
                         healthData.bloodSugar.afterLunchTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeDinner')
+                    else if(dataResponse.mealType=='beforeDinner')
                     {
                         healthData.bloodSugar.beforeDinner = dataResponse.result;
                         healthData.bloodSugar.beforeDinnerTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='afterDinner')
+                    else if(dataResponse.mealType=='afterDinner')
                     {
                         healthData.bloodSugar.afterDinner = dataResponse.result;
                         healthData.bloodSugar.afterDinnerTime = dataResponse.measureTime;
                     }
-                    else if(dataResponse.period=='beforeSleep')
+                    else if(dataResponse.mealType=='beforeSleep')
                     {
                         healthData.bloodSugar.beforeSleep = dataResponse.result;
                         healthData.bloodSugar.beforeSleepTime = dataResponse.measureTime;
@@ -96,148 +104,11 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
             }
 
-            var loadTestReport = function(){
-                $timeout(function() {
-                    $scope.testReportUiConfig = {
-                        calendar:{
-                            height: 400,
-                            editable: false,
-                            header:{
-                                left: '',
-                                center: 'prev title next',
-                                right: ''
-                            },
-                            events:function(start,end,timezone,callback){
-                                var startDate = $filter('date')(new Date(start).getTime(),'yyyy-MM-dd');
-                                var endDate = $filter('date')(new Date(end).getTime(),'yyyy-MM-dd');
-                                if(!$scope.secondMenu=="")
-                                {
-                                    startDate = $scope.secondMenu;
-                                    endDate = $scope.secondMenu;
-                                }
-
-                                $scope.loadingStatus = true;
-                                TestReportList.get({elderId:$scope.elderId, startDate:startDate, endDate:endDate},
-                                    function(data) {
-                                        $scope.loadingStatus = false;
-                                        $scope.testReportDatas = data.responseData;
-                                        $scope.testReportEvents = [];
-                                        angular.forEach(data.responseData, function (value, index, array) {
-                                            var year = $filter('date')(new Date(value.testDate).getTime(), 'yyyy');
-                                            var month = $filter('date')(new Date(value.testDate).getTime(), 'M');
-                                            var day = $filter('date')(new Date(value.testDate).getTime(), 'd');
-                                            var date = new Date(year, month - 1, day);
-                                            var reportEvent = {
-                                                title: '检验',
-                                                allDay: true,
-                                                start: date,
-                                                url: 'elder#/detectionDiagnose/testReport,' + value.testDate
-                                            }
-                                            if (JSON.stringify($scope.testReportEvents).indexOf($filter('date')(new Date(value.testDate).getTime(), 'yyyy-MM-dd')) == -1) {
-                                                $scope.testReportEvents.push(reportEvent);
-                                            }
-                                        });
-                                        callback($scope.testReportEvents);
-                                    })
-                            }
-                        }
-                    };
-                }, 10);
-            }
-
-            var loadDiagnoseReport = function(){
-                $timeout(function() {
-                    $scope.diagnoseReportUiConfig = {
-                        calendar:{
-                            height: 400,
-                            editable: false,
-                            header:{
-                                left: '',
-                                center: 'prev title next',
-                                right: ''
-                            },
-                            events:function(start,end,timezone,callback){
-
-                                var startDate = $filter('date')(new Date(start).getTime(),'yyyy-MM-dd');
-                                var endDate = $filter('date')(new Date(end).getTime(),'yyyy-MM-dd');
-                                if(!$scope.secondMenu=="")
-                                {
-                                    startDate = $filter('date')(new Date($scope.secondMenu).getTime(),'yyyy-MM-dd');
-                                    endDate = $filter('date')(new Date($scope.secondMenu).getTime(),'yyyy-MM-dd');
-                                }
-
-                                $scope.loadingStatus = true;
-                                DiagnoseReportList.get({elderId:$scope.elderId, startDate:startDate, endDate:endDate},
-                                    function(data) {
-                                        $scope.loadingStatus = false;
-                                        $scope.diagnoseReportDatas = data.responseData;
-                                        $scope.diagnoseReportEvents = [];
-                                        angular.forEach(data.responseData, function(value,index,array){
-                                            var year = $filter('date')(new Date(value.recordDate).getTime(),'yyyy');
-                                            var month = $filter('date')(new Date(value.recordDate).getTime(),'M');
-                                            var day = $filter('date')(new Date(value.recordDate).getTime(),'d');
-                                            var date = new Date(year,month-1,day);
-                                            var reportEvent = {
-                                                title: '诊疗',
-                                                allDay: true,
-                                                start: date,
-                                                url: 'elder#/detectionDiagnose/diagnoseReport,'+value.recordDate
-                                            }
-                                            if(JSON.stringify($scope.diagnoseReportEvents).indexOf($filter('date')(new Date(value.recordDate).getTime(),'yyyy-MM-dd'))==-1){
-                                                $scope.diagnoseReportEvents.push(reportEvent);
-                                            }
-                                        });
-                                        callback($scope.diagnoseReportEvents);
-                                    })
-                            }
-                        }
-                    };
-                }, 10);
-            }
-
             var loadDetectionDiagnose = function(){
-
-                if($rootScope.rootElderId!=undefined)
-                {
-                    $scope.elderId = $rootScope.rootElderId;
-                    $scope.elderName = $rootScope.rootElderName;
-                    $scope.elderImg = $rootScope.rootElderImg;
-                }
-                else
-                {
-                    //将用户信息放入$rootScope中
-                    $rootScope.rootElderId = window.localStorage.getItem("elderId");
-                    $rootScope.rootElderName = window.localStorage.getItem("elderName");
-                    $rootScope.rootElderImg = window.localStorage.getItem("elderImg");
-                    if($rootScope.rootElderId!=undefined)
-                    {
-                        $scope.elderId = $rootScope.rootElderId;
-                        $scope.elderName = $rootScope.rootElderName;
-                        $scope.elderImg = $rootScope.rootElderImg;
-                    }
-                    else
-                    {
-                        $scope.elderId = "0000";
-                    }
-                }
-
-                if($scope.firstMenu=="testReport")
-                {
-                    loadTestReport();
-                }
-                else if($scope.firstMenu=="diagnoseReport")
-                {
-                    loadDiagnoseReport();
-                }
-                else if($scope.firstMenu=="detection")
+                if($scope.firstMenu=="detection")
                 {
                     $scope.chooseHealthDataTime('week');
                 }
-            }
-
-            $scope.enterGroupTalk = function() {
-                window.WebViewJavascriptBridge.callHandler(
-                    'enterGroupTalk','',function(responseData){});
             }
 
             $scope.chooseHealthDataTime = function(time){
@@ -275,7 +146,7 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
 
                         $scope.loadingStatus = false;
 
-                        ElderUtil.checkResponseData(data,'detectionDiagnose/detection,bloodSugarTable');
+                        ElderUtil.checkResponseData(data);
 
                         if(data.responseData!=undefined){
 
@@ -595,6 +466,113 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('detecti
                 }
             };
 
-            loadDetectionDiagnose();
+            //判断是否绑定
+            GetLaoyouUserByOpenId.get({openid:$rootScope.openid},function(data){
+                if(data.result == Global.SUCCESS){
+                    if(data.responseData != null){
+                        //已绑定
+                        $scope.hasData = true;
+                        $scope.elderId = data.responseData.elderUserDTO.id;
+                        $scope.easemobId = data.responseData.elderUserDTO.easemobID;
+                        $scope.easemobPassword = data.responseData.elderUserDTO.easemobPassword;
+                        loadDetectionDiagnose();
+
+                        //获取群聊信息
+                        GetUserGroupChatInfo.get({elderId:$scope.elderId,easemobId:$scope.easemobId},function(data){
+                            if(data.result == Global.SUCCESS){
+                                if(data.responseData.easemobGroup != null){
+                                    $scope.noGroup = true;
+                                }else{
+                                    $scope.noGroup = false;
+                                    // $scope.groupId = data.responseData.easemobGroup.easemobGroupID;
+
+                                    var conn = new WebIM.connection({
+                                        isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
+                                        https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
+                                        url: WebIM.config.xmppURL,
+                                        heartBeatWait: WebIM.config.heartBeatWait,
+                                        autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
+                                        autoReconnectInterval: WebIM.config.autoReconnectInterval,
+                                        apiUrl: WebIM.config.apiURL,
+                                        isAutoLogin: true
+                                    });
+
+                                    var options = {
+                                        apiUrl: WebIM.config.apiURL,
+                                        user: $scope.easemobId,
+                                        pwd: $scope.easemobPassword,
+                                        appKey: WebIM.config.appkey,
+                                    };
+                                    conn.open(options);
+
+                                    conn.listen({
+                                        onOpened: function ( message ) {
+                                            //连接成功回调
+                                            // 如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
+                                            // 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
+                                            // 则无需调用conn.setPresence();
+                                            console.log("connection success");
+                                        },
+                                        onClosed: function ( message ) {},         //连接关闭回调
+                                        onTextMessage: function ( message ) {
+                                            console.log(message)
+                                            $scope.chatCont.txt = message.data;
+                                            $scope.chatCont.from = message.from;
+                                        },    //收到文本消息
+                                        onEmojiMessage: function ( message ) {},   //收到表情消息
+                                        onPictureMessage: function ( message ) {}, //收到图片消息
+                                        onCmdMessage: function ( message ) {},     //收到命令消息
+                                        onAudioMessage: function ( message ) {},   //收到音频消息
+                                        onLocationMessage: function ( message ) {},//收到位置消息
+                                        onFileMessage: function ( message ) {},    //收到文件消息
+                                        onVideoMessage: function (message) {
+                                            var node = document.getElementById('privateVideo');
+                                            var option = {
+                                                url: message.url,
+                                                headers: {
+                                                    'Accept': 'audio/mp4'
+                                                },
+                                                onFileDownloadComplete: function (response) {
+                                                    var objectURL = WebIM.utils.parseDownloadResponse.call(conn, response);
+                                                    node.src = objectURL;
+                                                },
+                                                onFileDownloadError: function () {
+                                                    console.log('File down load error.')
+                                                }
+                                            };
+                                            WebIM.utils.download.call(conn, option);
+                                        },   //收到视频消息
+                                        onPresence: function ( message ) {},       //处理“广播”或“发布-订阅”消息，如联系人订阅请求、处理群组、聊天室被踢解散等消息
+                                        onRoster: function ( message ) {},         //处理好友申请
+                                        onInviteMessage: function ( message ) {},  //处理群组邀请
+                                        onOnline: function () {},                  //本机网络连接成功
+                                        onOffline: function () {},                 //本机网络掉线
+                                        onError: function ( message ) {},          //失败回调
+                                        onBlacklistUpdate: function (list) {       //黑名单变动
+                                            // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
+                                            console.log(list);
+                                        },
+                                        onReceivedMessage: function(message){},    //收到消息送达服务器回执
+                                        onDeliveredMessage: function(message){},   //收到消息送达客户端回执
+                                        onReadMessage: function(message){},        //收到消息已读回执
+                                        onCreateGroup: function(message){},        //创建群组成功回执（需调用createGroupNew）
+                                        onMutedMessage: function(message){}        //如果用户在A群组被禁言，在A群发消息会走这个回调并且消息不会传递给群其它成员
+                                    });
+                                }
+                            }
+                        })
+                    }else{
+                        //未绑定
+                        $scope.hasData = false;
+
+
+                    }
+                }
+
+            })
+
+
+
+
 
         }])

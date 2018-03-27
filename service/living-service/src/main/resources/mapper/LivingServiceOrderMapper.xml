@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisdom.living.mapper.LivingServiceOrderMapper">
+
+
+    <insert id="insertLivingServiceOrder">
+        INSERT INTO `livingservice_order`
+        ( `livingservice_id`, `phone`, `name`, `openid`,`care`, `address`, `remarks`)
+        VALUES
+         (#{livingservice_id}, #{phone}, #{name},#{openid}, #{care}, #{address}, #{remarks})
+    </insert>
+
+    <select id="getLivingServiceOrder" resultType="com.wisdom.living.entity.LivingServiceOrder">
+        SELECT * FROM livingservice_order
+        where id=#{id}
+    </select>
+
+    <select id="getLivingServiceOrderStatus" resultType="com.wisdom.living.entity.LivingServiceOrderStatus">
+        select lo.id,loi.id as orderid,l.name,l.price,l.priceUnit,l.payment,lo.create_date,loi.nurse,loi.serviceTime,loi.`status`,loi.discountPrice,loi.discountPriceUnit,so.name as officeName,loi.unpaid,loi.refusal
+        ,loi.discountPrice,loi.discountPriceUnit from livingservice_order lo
+        inner join livingservice l on lo.livingservice_id=l.id
+        inner join sys_office so on l.sys_office_id=so.id
+        left join livingservice_order_information loi on loi.livingservice_order_id=lo.id
+        where lo.openid=#{openID}
+        <if test="status==''.toString() or status==null">
+            and loi.`status` is null
+        </if>
+        <if test="status!= ''.toString() and status!=null">
+            and loi.`status` = #{status}
+            and loi.del_flag='0'
+        </if>
+        order by lo.create_date desc
+    </select>
+
+    <update id="delLivingServiceOrder">
+        UPDATE `livingservice_order_information` SET `del_flag`='1' WHERE  `livingservice_order_id`=#{id}
+    </update>
+</mapper>

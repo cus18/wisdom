@@ -531,6 +531,9 @@ p.clearfix>input{
 
 /*检测与诊疗内容开始*/
 /*血糖血压首页*/
+.tabs-striped .tab-item.activated, .tabs-striped .tab-item.active, .tabs-striped .tab-item.tab-item-active {
+    border-color:#ff8e01;
+}
 .tableRecord{
 	width:100%;
 	text-align: center;
@@ -540,17 +543,17 @@ p.clearfix>input{
 	color: black;
 }
 .tableRecord th{
-	background:#ff8e01;
-	color:#000;
+	background:#DCDCDC;
+	color:#494951;
 	font-weight: normal;
-	border:1px solid #262626;
+	border:1px solid #fff;
 	width:0.76rem;
 }
 .tableRecord tr{
 	line-height: 0.76rem;
 }
 .tableRecord td{
-	border:1px solid #262626;
+	border-color:#eee;
 }
 .tableSugar tr:first-child th:first-child{
 	width:1.26rem;
@@ -573,8 +576,8 @@ p.clearfix>input{
 	width:0.8rem;
 }
 .monitorTit{
-	background:#ff8e01;
-	color:#000;
+	background:#dcdcdc;
+	color:#494951;
 }
 .monitorCurve{
 	padding:0.2rem;
@@ -585,28 +588,28 @@ p.clearfix>input{
 	position: fixed;
 	left: 0;
 	bottom: 0;
-	background: #ff8e01;
+	background: #fff;
 	border-top: 1px solid #f8f8f8;
 }
-.footOptionTab img{
+.footOptionTab img,.healthFooter img{
 	float:left;
 	margin:0.2rem 0.35rem;
 	width:0.5rem;
 }
-.footOptionTab>ul{
+.footOptionTab>ul,.healthFooter>ul{
 	float:left;
 	text-align: center;
 	margin-top:0.24rem;
 	color:black;
 }
-.footOptionTab>ul>li{
+.footOptionTab>ul>li,.healthFooter>ul>li{
 	float: left;
 	width:1.5rem;
 	line-height:0.48rem;
 	border-left:1px solid #4a4a4a;
 }
-.footOptionTab>ul>li.on{
-	color:white;
+.footOptionTab>ul>li.on,.healthFooter>ul>li.on{
+	color:#ff8e01;
 }
 /*添加血糖*/
 
@@ -1319,31 +1322,93 @@ div.inputItem>input{
 	overflow: hidden;
 	margin-top: 5%;
 	position: relative;
+    background:transparent;
+    border-color:transparent
 }
-
+.chat .chatContent{
+    margin-top:10px;
+    overflow:hidden;
+    position:relative;
+}
+.chat .chatContent>img{
+    margin-left:15px;
+    width:60px;
+    height:60px
+}
 .chat span{
 	word-break: normal;
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	overflow: hidden;
 	margin-left: 90px;
-	background: #6d7;
+	margin-top:-11px;
+	background: #FFB900;
 	border-radius: 10px 10px 10px 10px;
 	display: inline-block;
 	max-width: 70%;
 	padding: 15px 15px 15px 15px;
 }
+.chat h2{
+    font-size:16px;
+    color:#999;
+}
 
 /* Chat - Speech Bubble Arrow */
 .chat ul {
-	top: -32px;
-	content: '';
-	width: 18px;
-	height: 18px;
-	background-color: #6d7;
-	margin-left: 80px;
-	margin-top: 88px;
-	border-radius: 0px 10px 0px 25px;
+	top: -53px;
+	width: 0px;
+	height: 0px;
 	z-index: 2;
 	position: absolute;
+    right:79px;
+    margin-top:90px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #FFB900;
 }
+/*健康数据-群聊列表*/
+.chatList{
+    position: relative;
+    padding: 11px 0 0 20px;
+    width: 100%;
+    background: #fff;
+}
+.chatList .userPhoto{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    border-radius: 8px;
+    padding: 2px 0 0 2px;
+}
+.chatList .userPhoto img{
+    width: 40%;
+    float: left;
+    margin: 2px;
+    position:relative;
+}
+.chatList .userPhoto span{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #f00;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    color: #fff;
+}
+.chatList .chatTitle{
+    position: absolute;
+    left: 24%;
+    width: 80%;
+    top: 14px;
+}
+.chatList .chatTime{
+    position: absolute;
+    right: 20px;
+    color: #9b9b9b;
+    top: 16px;
+}
+

@@ -1,53 +1,43 @@
-<ion-view style="background:white">
-	<ion-header-bar align-title="center" class="bar-energized">
-		<div class="buttons">
-			<button class="button" onclick="window.history.go(-1)"><</button>
-		</div>
-		<h1 class="title" ng-if="!param.attended">活动报名</h1>
-		<h1 class="title" ng-if="param.attended">报名成功</h1>
-	</ion-header-bar>
+<ion-view style="background:#f8f8f8;">
+    <goback-menu></goback-menu>
 	<ion-content>
 		<div ng-if="!param.attended">
-			<style>
-				.talkEven {
-					background-color: white;
-				}
-				.talkOdd {
-					background-color: #f8f8f8;
-				}
-			</style>
-			<h1 style="font-size:15px;margin-top:20px;margin-left:15px;">请选择活动参与者</h1>
-			<div style="margin-top:10px">
-				<ion-list>
-					<ion-checkbox ng-model="item.checked"
-								  ng-repeat="item in relativeElderList"
-								  ng-checked="item.checked"
-								  ng-class-odd="'talkOdd'"
-								  ng-class-even="'talkEven'">
-						<p><span style="color:blue;font-size:16px;">{{item.elderName}}</span>&nbsp;&nbsp;{{item.gender}}&nbsp;&nbsp;{{item.age}}岁</p>
-					</ion-checkbox>
-				</ion-list>
+			<div class="bar bar-header" style="height:60px;border-bottom:1px solid #ddd;">
+				<div class="title" style="line-height:60px;">{{detailActivityInfo.activityName}}</div>
 			</div>
-			<h2 style="font-size:15px;margin-top:35px;margin-left:15px;">您报名的活动信息</h2>
-			<div class="list" style="margin-top: 15px;">
-				<a class="item item-avatar item-text-wrap" style="background: #f8f8f8">
-					<img ng-src="{{detailActivityInfo.activityLogo}}"
-						 style="max-width:50px;max-height:50px;border-radius:0;margin-left:-5px;">
-					<h2>{{detailActivityInfo.activityName}}</h2>
-					<p><i class="icon ion-ios-clock-outline"></i>&nbsp;&nbsp;
-						{{detailActivityInfo.activityStartDate|date:'yyyy/MM/dd: HH:mm'}} 至 {{detailActivityInfo.activityEndDate|date:'yyyy/MM/dd: HH:mm'}}</p>
-					<p><i class="icon ion-location"></i>&nbsp;&nbsp;{{detailActivityInfo.activityAddress}}</p>
-				</a>
-			</div>
+            <form name="activityForm" class="subscribeForm">
+                <h2>请输入活动参与者信息</h2>
+                <div class="list">
+                    <label class="item item-input">
+                        <input type="text" placeholder="输入姓名" ng-model="activity.name">
+                    </label>
+                    <label class="item item-input">
+                        <input type="text" name="phoneNum" placeholder="输入电话" ng-model="activity.phone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/"  ng-focus="inputFocus()" ng-blur="inputBlur()">
+                    </label>
+                    <span ng-show="activityForm.phoneNum.$dirty && activityForm.phoneNum.$invalid && blurInp" style="margin-left:15px;line-height:40px;color:#f00;">手机号输入有误，请重新输入</span>
+                </div>
+                <div style="background:#f8f8f8;padding-top:15px;">
+                    <h2>活动信息</h2>
+                    <p style="margin-left:15px;">
+                        <i class="icon ion-location" style="margin:0 9px 0 3px;"></i>
+                        {{detailActivityInfo.activityAddress}}
+                    </p>
+                    <p style="margin-left:15px;">
+                        <i class="icon ion-clock" style="margin-right:6px;"></i>
+                        {{detailActivityInfo.activityStartDate|date:'yyyy/MM/dd: HH:mm'}}&nbsp;
+                        至&nbsp;{{detailActivityInfo.activityEndDate|date:'yyyy/MM/dd: HH:mm'}}
+                    </p>
+                </div>
+            </form>
 		</div>
 		<div ng-if="param.attended">
-			<h1 style="font-size:15px;margin-top:90px;margin-left:15px;">恭喜您报名成功{{detailActivityInfo.activityName}}！</h1>
-			<button class="button button-positive" style="margin-left:25%;margin-top:70px;width:50%;" ng-click="enterActivityGroupTalk()">
-				进入活动群聊
-			</button>
+            <img src="images/success.png" alt="" style="width:140px;margin-left:31%;margin-top:56px;">
+            <button class="button button-full button-energized subscribe-btn"
+                    ng-click="enterActivityGroupTalk()" style="margin-top:200px;">进入活动群聊</button>
 		</div>
+        <div ng-if="!param.attended">
+            <button class="button button-full button-energized subscribe-btn"
+                    ng-click="confirmAttend()" style="margin-top:40px;" ng-disabled="canClick">立即报名</button>
+        </div>
 	</ion-content>
-	<div class="bar bar-footer bar-energized" ng-if="!param.attended">
-		<div class="title" ng-click="confirmAttend()">确认报名</div>
-	</div>
 </ion-view>

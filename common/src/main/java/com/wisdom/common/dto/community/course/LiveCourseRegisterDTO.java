@@ -11,6 +11,8 @@ public class LiveCourseRegisterDTO {
 
     private String elderId;
 
+    private String openid;
+
     public Integer getId() {
         return id;
     }
@@ -33,5 +35,13 @@ public class LiveCourseRegisterDTO {
 
     public void setElderId(String elderId) {
         this.elderId = elderId;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

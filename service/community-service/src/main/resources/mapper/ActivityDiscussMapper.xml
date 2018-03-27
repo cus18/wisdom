@@ -4,21 +4,31 @@
 
     <insert id="addActivityDiscuss">
 		INSERT INTO
-		`laoyou`.`activity_discuss`
-		(`activity_id`, `sys_elder_user_id`, `content`)
-	  	VALUES (#{activityID},#{sysUserElderID}, #{content})
+		`activity_discuss`
+		(`activity_id`, `openID`, `content`)
+	  	VALUES (#{activityID},#{openID}, #{content})
 	</insert>
 
 
     <select id="getActivityDiscussList" resultType="com.wisdom.common.dto.community.activity.ActivityDiscussDTO">
-		select ad.activity_id as activityId,su.photo as elderLogo,su.name as elderName,
-		ad.sys_elder_user_id as elderId,ad.create_date as discussDate,ad.content as discussContent
+		select ad.id,ad.activity_id as activityId,ad.create_date as discussDate,ad.content as discussContent,openID
 		 from activity_discuss ad
-		inner join sys_elder_user seu on ad.sys_elder_user_id=seu.id
-		inner join sys_user su on seu.sys_user_id=su.id
 		where ad.activity_id=#{id}
 		ORDER BY discussDate DESC
 		limit #{page}
+	</select>
+
+
+	<insert id="addActivityDiscussReply">
+		INSERT INTO `activity_discuss_reply` (`activity_discuss_id`, `openID`, `content`)
+		VALUES
+		(#{activityDiscussID}, #{openID}, #{discussContent})
+	</insert>
+
+	<select id="getActivityDiscussReplyList" resultType="com.wisdom.common.dto.community.activity.ActivityDiscussReplyDTO">
+		select adr.activity_discuss_id as activityDiscussID,adr.openID,adr.create_date as replyDate,adr.content as replyContent
+		from activity_discuss_reply adr
+		where adr.activity_discuss_id=#{activityDiscussID}
 	</select>
 
 </mapper>

@@ -1,42 +1,22 @@
 package com.wisdom.living.mapper;
 
-import com.wisdom.common.dto.core.Page;
-import com.wisdom.common.dto.community.course.*;
+import com.wisdom.living.entity.LivingService;
+import com.wisdom.living.entity.LivingServiceOffice;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by sunxiao on 2017/8/8.
- */
 @Repository
 public interface LivingMapper {
 
-    Page getLiveCourseByInfo(LiveCourseDTO liveCourseDTO, Page page);
 
-    List<LiveCourseDTO> getAllLiveCourseByInfo(LiveCourseDTO liveCourseDTO);
+     List<LivingService> getLivingService(LivingService livingService);
 
-    LiveCourseDTO getLiveBroadCastDetail(LiveCourseDTO dto);
+    Integer updateLivingService(LivingService livingService);
 
-    void saveLiveCourseRegister(LiveCourseRegisterDTO dto);
+    List<LivingServiceOffice> getLivingServiceOffice(LivingServiceOffice livingServiceOffice);
 
-    Page getOnlineCourseList(OnlineCourseDTO onlineCourseDTO, Page page);
+    String getLivingServiceOfficeCount(@Param("sysOfficeID")String sysOfficeID);
 
-    OnlineCourseDTO getOnlineCourse(OnlineCourseDTO onlineCourseDTO);
-
-    List<OnlineCourseDataDTO> getOnlineCourseDataList(OnlineCourseDataDTO onlineCourseDataDTO);
-
-    List<OnlineCourseDiscussDTO> getOnlineCourseDiscuss(OnlineCourseDiscussDTO dto, Page page);
-
-    void addOnlineCourseDiscuss(OnlineCourseDiscussDTO onlineCourseDiscussDTO);
-
-    void updateLiveCourse(LiveCourseDTO liveCourseDTO);
-
-    LiveCourseRegisterDTO getLiveCourseRegister(LiveCourseRegisterDTO liveCourseRegisterDTO);
-
-    List<OnlineCourseMyCourseDTO> getMyOnlineCourse(OnlineCourseMyCourseDTO dto);
-
-    List<OnlineCourseDTO> getAllOnlineCourseListByInfo(OnlineCourseDTO dto);
-
-    List<OnlineCourseMyCourseDTO> getAllMyOnlineCourseByInfo(OnlineCourseMyCourseDTO dto);
 }

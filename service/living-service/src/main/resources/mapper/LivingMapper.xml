@@ -2,272 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wisdom.living.mapper.LivingMapper">
 
-    <resultMap id="liveCourse" type="com.wisdom.common.dto.community.course.LiveCourseDTO">
-        <result column="id" property="liveCourseId" jdbcType="INTEGER" />
-        <result column="logo" property="liveCourseLogo" jdbcType="VARCHAR" />
-        <result column="label" property="liveCourseLabel" jdbcType="VARCHAR" />
-        <result column="start_date" property="liveCourseStartDate" jdbcType="DATE" />
-        <result column="title" property="liveCourseTitle" jdbcType="VARCHAR" />
-        <result column="address" property="liveCourseAddress" jdbcType="VARCHAR" />
-        <result column="speakerIntro" property="liveCourseSpeakerIntro" jdbcType="VARCHAR" />
-        <result column="speakerName" property="liveCourseSpeakerName" jdbcType="VARCHAR" />
-        <result column="duration" property="liveCourseDuration" jdbcType="VARCHAR" />
-        <result column="contentIntro" property="liveCourseContentIntro" jdbcType="VARCHAR" />
-        <result column="status" property="liveCourseStatus" jdbcType="VARCHAR" />
-        <result column="attendNum" property="liveCourseAttendNum" jdbcType="INTEGER" />
-        <result column="url" property="liveCourseURL" jdbcType="VARCHAR" />
-    </resultMap>
 
-    <resultMap id="onlineCourse" type="com.wisdom.common.dto.community.course.OnlineCourseDTO">
-        <result column="id" property="onlineCourseId" jdbcType="INTEGER" />
-        <result column="name" property="onlineCourseName" jdbcType="VARCHAR" />
-        <result column="provider" property="onlineCourseProvider" jdbcType="VARCHAR" />
-        <result column="logo" property="onlineCourseLogo" jdbcType="DATE" />
-        <result column="duration" property="onlineCourseDuration" jdbcType="VARCHAR" />
-        <result column="labelId" property="onlineCourseLabelId" jdbcType="VARCHAR" />
-        <result column="label" property="onlineCourseLabel" jdbcType="VARCHAR" />
-        <result column="teacherName" property="onlineCourseTeacherName" jdbcType="VARCHAR" />
-        <result column="teacherLevel" property="onlineCourseTeacherLevel" jdbcType="VARCHAR" />
-        <result column="outLine" property="onlineCourseOutline" jdbcType="VARCHAR" />
-        <result column="studyNum" property="onlineCourseStudyNum" jdbcType="INTEGER" />
-    </resultMap>
-
-    <resultMap id="onlineCourseData" type="com.wisdom.common.dto.community.course.OnlineCourseDataDTO">
-        <result column="id" property="id" jdbcType="INTEGER" />
-        <result column="url" property="onlineCourseURL" jdbcType="VARCHAR" />
-        <result column="duration" property="onlineCourseDuration" jdbcType="VARCHAR" />
-        <result column="name" property="onlineCourseName" jdbcType="VARCHAR" />
-        <result column="status" property="onlineCourseStatus" jdbcType="VARCHAR" />
-        <result column="courseId" property="onlineCourseId" jdbcType="INTEGER" />
-    </resultMap>
-
-    <resultMap id="onlineCourseDiscuss" type="com.wisdom.common.dto.community.course.OnlineCourseDiscussDTO">
-        <result column="id" property="discussId" jdbcType="INTEGER" />
-        <result column="elderId" property="elderId" jdbcType="VARCHAR" />
-        <result column="elderName" property="elderName" jdbcType="VARCHAR" />
-        <result column="discussContent" property="onlineCourseDiscussContent" jdbcType="VARCHAR" />
-        <result column="discussDate" property="onlineCourseDiscussDate" jdbcType="DATE" />
-        <result column="courseId" property="onlineCourseId" jdbcType="INTEGER" />
-    </resultMap>
-
-    <resultMap id="liveCourseRegister" type="com.wisdom.common.dto.community.course.LiveCourseRegisterDTO">
-        <result column="id" property="id" jdbcType="INTEGER" />
-        <result column="elderId" property="elderId" jdbcType="VARCHAR" />
-        <result column="liveCourseId" property="liveCourseId" jdbcType="INTEGER" />
-    </resultMap>
-
-    <resultMap id="onlineCourseMyCourse" type="com.wisdom.common.dto.community.course.OnlineCourseMyCourseDTO">
-        <result column="id" property="myid" jdbcType="INTEGER" />
-        <result column="elderId" property="elderId" jdbcType="VARCHAR" />
-        <result column="courseId" property="courseId" jdbcType="INTEGER" />
-        <result column="type" property="type" jdbcType="VARCHAR" />
-    </resultMap>
-
-    <select id="getLiveCourseByInfo" resultMap="liveCourse">
-        SELECT * FROM live_course
-        <where>
-            1=1
-            <if test="liveCourseStatusArray != null and liveCourseStatusArray.length>0">
-                and status in
-                <foreach item="item" index="index" collection="liveCourseStatusArray" open="(" separator="," close=")">
-                    #{item}
-                </foreach>
-            </if>
-            <if test="liveCourseStatus != null and liveCourseStatus != ''">
-                and status = #{liveCourseStatus}
-            </if>
-            <if test="liveCourseId != null and liveCourseId != ''">
-                and id = #{liveCourseId}
-            </if>
-        </where>
-        ORDER BY id DESC
-    </select>
-
-    <select id="getAllLiveCourseByInfo" resultMap="liveCourse">
-        SELECT * FROM live_course
-        <where>
-            1=1
-            <if test="liveCourseStatusArray != null and liveCourseStatusArray.length>0">
-                and status in
-                <foreach item="item" index="index" collection="liveCourseStatusArray" open="(" separator="," close=")">
-                    #{item}
-                </foreach>
-            </if>
-            <if test="liveCourseStatus != null and liveCourseStatus != ''">
-                and status = #{liveCourseStatus}
-            </if>
-            <if test="liveCourseId != null and liveCourseId != ''">
-                and id = #{liveCourseId}
-            </if>
-        </where>
-    </select>
-
-    <select id="getLiveBroadCastDetail" resultMap="liveCourse">
-        SELECT * FROM live_course
-        <where>
-            1=1
-            <if test="liveCourseStatus != null and liveCourseStatus != ''">
-                and status = #{liveCourseStatus}
-            </if>
-            <if test="liveCourseId != null and liveCourseId != ''">
-                and id = #{liveCourseId}
-            </if>
-        </where>
-    </select>
-
-    <insert id="saveLiveCourseRegister"
-            parameterType="com.wisdom.common.dto.community.course.LiveCourseRegisterDTO"
-            useGeneratedKeys="true"
-            keyProperty="id">
-        insert into live_course_register (liveCourseId,elderId)
-        values (#{liveCourseId}, #{elderId})
-    </insert>
-
-    <select id="getLiveCourseRegister" resultMap="liveCourseRegister">
-        select * from live_course_register
-        <where>
-            1=1
-            <if test="liveCourseId != null and liveCourseId != ''">
-                and liveCourseId = #{liveCourseId}
-            </if>
-            <if test="elderId != null and elderId != ''">
-                and elderId = #{elderId}
-            </if>
-        </where>
-    </select>
-
-    <select id="getOnlineCourseList" resultMap="onlineCourse">
-        SELECT * FROM online_course
-        <where>
-            1=1
-            <if test="onlineCourseTeacherName != null and onlineCourseTeacherName != ''">
-                and teacherName = #{onlineCourseTeacherName}
-            </if>
-            <if test="onlineCourseId != null and onlineCourseId != ''">
-                and id = #{onlineCourseId}
-            </if>
-            <if test="onlineCourseLabel != null and onlineCourseLabel != ''">
-                and label like '%${onlineCourseLabel}%'
-            </if>
-        </where>
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-                ORDER BY ${page.orderBy}
-            </when>
-            <otherwise>
-                ORDER BY id DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="getAllOnlineCourseListByInfo" resultMap="onlineCourse">
-        SELECT * FROM online_course
-        <where>
-            1=1
-            <if test="onlineCourseTeacherName != null and onlineCourseTeacherName != ''">
-                and teacherName = #{onlineCourseTeacherName}
-            </if>
-            <if test="onlineCourseId != null and onlineCourseId != ''">
-                and id = #{onlineCourseId}
-            </if>
-            <if test="onlineCourseLabel != null and onlineCourseLabel != ''">
-                and label like '%${onlineCourseLabel}%'
-            </if>
-            <if test="onlineCourseLabelIds != null and onlineCourseLabelIds.size()>0">
-                and labelId in
-                <foreach item="item" index="index" collection="onlineCourseLabelIds" open="(" separator="," close=")">
-                    #{item}
-                </foreach>
-            </if>
-        </where>
-    </select>
-
-    <select id="getOnlineCourse" resultMap="onlineCourse">
-        SELECT * FROM online_course
-        <where>
-            1=1
-            <if test="onlineCourseTeacherName != null and onlineCourseTeacherName != ''">
-                and teacherName = #{onlineCourseTeacherName}
-            </if>
-            <if test="onlineCourseId != null and onlineCourseId != ''">
-                and id = #{onlineCourseId}
-            </if>
-        </where>
-    </select>
-
-    <select id="getOnlineCourseDataList" resultMap="onlineCourseData">
-        SELECT * FROM online_course_data
-        <where>
-            1=1
-            <if test="onlineCourseName != null and onlineCourseName != ''">
-                and name = #{onlineCourseName}
-            </if>
-            <if test="onlineCourseId != null and onlineCourseId != ''">
-                and courseId = #{onlineCourseId}
-            </if>
-        </where>
-    </select>
-
-    <select id="getOnlineCourseDiscuss" resultMap="onlineCourseDiscuss">
-        SELECT * FROM online_course_discuss
-        <where>
-            1=1
-            <if test="elderName != null and elderName != ''">
-                and elderName = #{elderName}
-            </if>
-            <if test="onlineCourseId != null and onlineCourseId != ''">
-                and courseId = #{onlineCourseId}
-            </if>
-        </where>
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-                ORDER BY ${page.orderBy}
-            </when>
-            <otherwise>
-                ORDER BY id DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <insert id="addOnlineCourseDiscuss"
-            parameterType="com.wisdom.common.dto.community.course.OnlineCourseDiscussDTO"
-            useGeneratedKeys="true"
-            keyProperty="id">
-        insert into online_course_discuss (elderId,elderName,discussContent,discussDate,courseId)
-        values (#{elderId}, #{elderName},#{onlineCourseDiscussContent},#{onlineCourseDiscussDate},#{onlineCourseId})
-    </insert>
-
-    <update id="updateLiveCourse">
-        update live_course
-        <set>
-            <if test="liveCourseStatus != null and liveCourseStatus != ''">
-                status = #{liveCourseStatus},
-            </if>
-        </set>
-        where id = #{id}
+    <update id="updateLivingService">
+        UPDATE livingservice SET
+        update_date=now()
+        <if test="name!= ''and name!=null">
+            ,name=#{name}
+        </if>
+        <if test="description!= ''and description!=null">
+            ,description=#{description}
+        </if>
+        <if test="type!= '' and type!=null">
+            ,type=#{type}
+        </if>
+        <if test="status!= '' and status!=null">
+            ,status=#{status}
+        </if>
+        <if test="payment!= '' and payment!=null">
+            ,payment=#{payment}
+        </if>
+        <if test="price!= '' and price!=null">
+            ,price=#{price}
+        </if>
+        <if test="priceUnit!= '' and priceUnit!=null">
+            ,priceUnit=#{priceUnit}
+        </if>
+        <if test="special!= '' and special!=null">
+            ,special=#{special}
+        </if>
+        <if test="information!= '' and information!=null">
+            ,information=#{information}
+        </if>
+        <if test="sys_office_id!= '' and sys_office_id!=null">
+            ,sys_office_id=#{sys_office_id}
+        </if>
+        WHERE id = #{id}
     </update>
 
-    <select id="getMyOnlineCourse" resultMap="onlineCourseMyCourse">
-        SELECT * FROM online_course_myCourse
-        <where>
-            1=1
-            <if test="elderId != null and elderId != ''">
-                and elderId = #{elderId}
-            </if>
-            <if test="type != null and type != ''">
-                and type = #{type}
-            </if>
-        </where>
-        ORDER BY id DESC
+    <select id="getLivingService" resultType="com.wisdom.living.entity.LivingService">
+        SELECT ls.*,so.name as officeName,count(lo.id) as count FROM `livingservice` ls
+        inner join sys_office so on so.id=ls.sys_office_id
+        left join livingservice_order lo on lo.livingservice_id=ls.id
+        where ls.del_flag='0' and ls.status='0'
+        <if test="id!= ''and id!=null">
+            and ls.id=#{id}
+        </if>
+        <if test="name!= ''and name!=null">
+            and ls.name=#{name}
+        </if>
+        <if test="type!= ''and type!=null">
+            and ls.type=#{type}
+        </if>
+        <if test="flag!= ''and flag!=null">
+            and ls.flag=#{flag}
+        </if>
+        <if test="sys_office_id!= ''and sys_office_id!=null">
+            and so.id=#{sys_office_id}
+        </if>
+        group by ls.id
+        order by ls.update_date
+        limit #{lastNo},#{nextNo}
     </select>
 
-    <select id="getAllMyOnlineCourseByInfo" resultMap="onlineCourseMyCourse">
-        SELECT * FROM online_course_myCourse
-        <where>
-            1=1
-            <if test="elderId != null and elderId != ''">
-                and elderId = #{elderId}
-            </if>
-        </where>
+    <select id="getLivingServiceOffice" resultType="com.wisdom.living.entity.LivingServiceOffice">
+        select so.id,so.logo,so.name,lof.about,lof.announcement,count(l.id) as serviceCount,so.address from  sys_office so
+        inner join livingService_office lof on so.id=lof.sys_office_id
+        inner join livingservice l on so.id=l.sys_office_id
+        where l.del_flag='0'
+        <if test="id!= ''and id!=null">
+            and so.id=#{id}
+        </if>
+        group by so.id
     </select>
+
+    <select id="getLivingServiceOfficeCount" resultType="java.lang.String">
+        select count(loi.id) as count  from livingservice l
+        inner join livingservice_order lo on lo.livingservice_id=l.id
+        inner join livingservice_order_information loi on lo.id=loi.livingservice_order_id
+        where  loi.`status`='2'
+        <if test="sysOfficeID!= ''and sysOfficeID!=null">
+            and l.sys_office_id=#{sysOfficeID}
+        </if>
+        group by l.id
+    </select>
+
+
 </mapper>

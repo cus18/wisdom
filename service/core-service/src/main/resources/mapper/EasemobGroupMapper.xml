@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisdom.core.mapper.EasemobGroupMapper">
+
+
+	<insert id="insertEasemobGroup">
+		INSERT INTO `easemob_group` (`groupName`, `easemobGroupID`, `create_date`, `owner`,`elderEasemobID`,`doctorIDArray`,`nurse`) VALUES (#{groupName}, #{easemobGroupID}, now(), #{owner},#{elderEasemobID},#{doctorIDArray},#{nurse})
+	</insert>
+
+	<select id="getEasemobGroupByGroupID" resultType="com.wisdom.common.dto.core.user.EasemobGroupDTO">
+		SELECT * FROM `easemob_group` where easemobGroupID=#{easemobGroupID}		 and del_flag='0'
+	</select>
+
+
+	<select id="getEasemobGroupIDByElderID" resultType="com.wisdom.common.dto.core.user.EasemobGroupDTO">
+		SELECT * FROM `easemob_group` eg
+		inner join sys_elder_user seu on seu.easemobID=eg.elderEasemobID
+		where   eg.del_flag='0' and seu.id=#{elderEasemobID}
+	</select>
+
+	<select id="getEasemobGroupByDoctorEasemobID" resultType="com.wisdom.common.dto.core.user.EasemobGroupDTO">
+		select * from easemob_group eg
+		where (eg.owner=#{doctorEasemobID} or eg.doctorIDArray like CONCAT('%', #{doctorEasemobID, jdbcType=VARCHAR}, '%'))
+		 and del_flag='0'
+	</select>
+
+	<update id="updateEasemobGroup">
+		UPDATE`easemob_group`
+		SET `doctorIDArray`=#{doctorIDArray}
+		<if test="nurse != null and nurse!=''">
+		,`nurse`=#{nurse}
+		</if>
+		<if test="owner != null and owner!=''">
+			,`owner`=#{owner}
+		</if>
+		WHERE  `easemobGroupID`=#{easemobGroupID}
+	</update>
+
+	<update id="delEasemobGroup">
+		UPDATE`easemob_group`
+		SET del_flag='1'
+		WHERE  `easemobGroupID`=#{easemobGroupID}
+	</update>
+
+
+	<update id="updateEasemobGroupName">
+		UPDATE`easemob_group`
+		SET groupName=#{groupName}
+		WHERE  `easemobGroupID`=#{easemobGroupID}
+	</update>
+
+</mapper>

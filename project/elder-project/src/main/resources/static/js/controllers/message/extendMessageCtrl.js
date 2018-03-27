@@ -1,12 +1,18 @@
 angular.module('controllers',[]).controller('extendMessageCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state','GetExtendMessage',
-        function ($scope,$interval,$rootScope,$stateParams,$state,GetExtendMessage) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','GetExtendMessage','openidUtil',
+        function ($scope,$interval,$rootScope,$stateParams,$state,GetExtendMessage,openidUtil) {
+
+            $rootScope.pageTitle = '消息';
+
+            openidUtil.checkResponseData();
+            // $rootScope.openid = 'o1KHB1Sq5Okyu737zWGTQEHqmeJA';
 
             $scope.param = {
                 page:{
                     pageNo:1,
-                    pageSize:10,
-                    orderType:1
+                    pageSize:15,
+                    orderType:1,
+                    requestData:$rootScope.openid
                 }
             };
 
@@ -23,7 +29,7 @@ angular.module('controllers',[]).controller('extendMessageCtrl',
             }
 
             $scope.doRefresh = function(){
-                $scope.param.page.pageSize = $scope.param.page.pageSize+10;
+                $scope.param.page.pageSize = $scope.param.page.pageSize+8;
                 GetExtendMessage.save($scope.param.page,
                     function(data){
                         $scope.extendMessageList = data.responseData;

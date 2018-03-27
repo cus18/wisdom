@@ -72,6 +72,11 @@ public class LiveCourseDTO {
     @JSONField(name = "liveCourseURL")
     private String liveCourseURL;
 
+    @JSONField(name = "openid")
+    private String openid;
+
+
+
     public String getLiveCourseLogo() {
         return liveCourseLogo;
     }
@@ -190,5 +195,13 @@ public class LiveCourseDTO {
 
     public void setLiveCourseURL(String liveCourseURL) {
         this.liveCourseURL = liveCourseURL;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

@@ -35,7 +35,6 @@ public class CommunityIndexController {
 	 *
 	 */
 	@RequestMapping(value = "bannerList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<BannerDTO>> bannerList() {
@@ -52,7 +51,6 @@ public class CommunityIndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "activityListByFirstPage", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<ActivityDTO>> activityListByFirstPage(HttpServletRequest request) {
@@ -62,12 +60,12 @@ public class CommunityIndexController {
 		/****
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
-		String loginToken = request.getHeader("loginToken");
-		String hospitalID = coreServiceClient.getUserInfo(loginToken).getResponseData().getElderUserDTO().getSysHospitalID();
-		responseDTO.setResponseData(activityService.activityListByFirstPage(hospitalID));
+		responseDTO.setResponseData(activityService.activityListByFirstPage());
 
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
+
+
 
 }

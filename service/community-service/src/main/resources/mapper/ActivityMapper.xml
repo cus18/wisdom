@@ -70,15 +70,13 @@
 	<select id="getMyActivityListByElderID" resultType="com.wisdom.common.dto.community.activity.ActivityDTO">
 		select a.id as activityId,a.banner as activityLogo,a.title as activityName,
 		a.address as activityAddress, a.startDate as activityStartDate,
-		a.endDate as activityEndDate, a.status as activityStatus ,a.description as activityDetailInfo,
-		su.name as activityOwnerName,su.photo as activityOwnerLogo,su.remarks as activityOwnerIntro,a.status as activityStatus,
+		a.endDate as activityEndDate, a.status as activityStatus ,a.description as activityDetailInfo,a.status as activityStatus,
 		count(au.id) as activityAttendedNum
 		from activity a
 		left join activity_user au on a.id=au.activity_id
-		left join sys_user su on a.sys_user_id=su.id
 		where 1=1
-		<if test="elderID != null and elderID != '' ">
-			  and au.sys_elder_user_id=#{elderID}
+		<if test="openid != null and openid != '' ">
+			  and au.openid=#{openid}
 		</if>
 		group by a.id
 		<choose>
@@ -101,7 +99,7 @@
 		left join activity_user au on a.id=au.activity_id
 		left join sys_user su on a.sys_user_id=su.id
 		left join sys_hospital_user sh on su.id=sh.sys_user_id
-		where sh.id=#{hospitalID}  group by a.id  limit 2
+		 group by a.id  limit 2
 	</select>
 
 	<update id="updateActivityStatus">

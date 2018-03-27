@@ -233,7 +233,7 @@ define(['appElder'], function(app){
                             load: function($templateCache, $ocLazyLoad, $q, $http) {
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.AboutUs',
                                     ['js/controllers/my/AboutUsCtrl.js?ver='+elderVersion],
-                                    'js/views/my/AboutUs.html?ver='+elderVersion);
+                                    'js/views/my/aboutUs.html?ver='+elderVersion);
                             }
                         }
                     })
@@ -414,7 +414,7 @@ define(['appElder'], function(app){
 
                 /*系统中视频的播放列表，涵直播和点播的*/
                     .state('courseList', {
-                        url: '/courseList/:type',
+                        url: '/courseList',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'courseListCtrl',
                         resolve: {
@@ -428,7 +428,7 @@ define(['appElder'], function(app){
 
                 /*系统中视频点播视频的详细信息*/
                     .state('courseDetail', {
-                        url: '/courseDetail/:courseId,:courseType',
+                        url: '/courseDetail/:courseId',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'courseDetailCtrl',
                         resolve: {
@@ -484,7 +484,7 @@ define(['appElder'], function(app){
 
                     /*社区首页*/
                     .state('myChat', {
-                        url: '/myChat',
+                        url: '/myChat/:groupType,:id',
                         templateProvider: function() { return lazyDeferred.promise; },
                         controller: 'myChatCtrl',
                         resolve: {
@@ -518,6 +518,42 @@ define(['appElder'], function(app){
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
                                     ['js/controllers/my/myselfInfoCtrl.js?ver='+elderVersion],
                                     'js/views/my/myselfInfo.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('myActivity', {
+                        url: '/myActivity',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myActivityCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myActivityCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myActivity.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('myClass', {
+                        url: '/myClass',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myClassCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myClassCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myClass.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('myService', {
+                        url: '/myService/:type',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'myServiceCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.myselfInfo',
+                                    ['js/controllers/my/myServiceCtrl.js?ver='+elderVersion],
+                                    'js/views/my/myService.html?ver='+elderVersion);
                             }
                         }
                     })
@@ -594,6 +630,66 @@ define(['appElder'], function(app){
                                 loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.subscribeServiceSuccess',
                                     ['js/controllers/living/subscribeServiceSuccessCtrl.js?ver='+elderVersion],
                                     'js/views/living/subscribeServiceSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('bindPhone', {
+                        url: '/bindPhone',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'bindPhoneCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.bindPhone',
+                                    ['js/controllers/phone/bindPhoneCtrl.js?ver='+elderVersion],
+                                    'js/views/phone/bindPhone.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('unbindPhoneSuccess', {
+                        url: '/unbindPhoneSuccess',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'unbindPhoneSuccessCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.unbindPhoneSuccess',
+                                    ['js/controllers/phone/unbindPhoneSuccessCtrl.js?ver='+elderVersion],
+                                    'js/views/phone/unbindPhoneSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('bindPhoneSuccess', {
+                        url: '/bindPhoneSuccess',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'bindPhoneSuccessCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.bindPhoneSuccess',
+                                    ['js/controllers/phone/bindPhoneSuccessCtrl.js?ver='+elderVersion],
+                                    'js/views/phone/bindPhoneSuccess.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('feedback', {
+                        url: '/feedback',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'feedbackCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.feedback',
+                                    ['js/controllers/my/feedbackCtrl.js?ver='+elderVersion],
+                                    'js/views/my/feedback.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    .state('aboutUs', {
+                        url: '/aboutUs',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'aboutUsCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.aboutUs',
+                                    ['js/controllers/my/aboutUsCtrl.js'],
+                                    'js/views/my/aboutUs.html?ver='+elderVersion);
                             }
                         }
                     })

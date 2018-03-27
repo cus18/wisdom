@@ -75,6 +75,9 @@ public class UserInfoDTO implements java.io.Serializable{
 	@JSONField(name = "del_flag")
 	private char del_flag;
 
+	@JSONField(name = "openid")
+	private String openid;
+
 	private PractitionerUserDTO practitionerUserDTO;
 
 	private ElderUserDTO elderUserDTO;
@@ -290,5 +293,13 @@ public class UserInfoDTO implements java.io.Serializable{
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 }

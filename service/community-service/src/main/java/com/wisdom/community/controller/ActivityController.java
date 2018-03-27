@@ -1,14 +1,11 @@
 package com.wisdom.community.controller;
 
 import com.wisdom.common.constant.StatusConstant;
-import com.wisdom.common.dto.basic.BannerDTO;
 import com.wisdom.common.dto.community.activity.ActivityDTO;
 import com.wisdom.common.dto.community.activity.ActivityDiscussDTO;
+import com.wisdom.common.dto.community.activity.ActivityDiscussReplyDTO;
 import com.wisdom.common.dto.core.PageParamDTO;
 import com.wisdom.common.dto.core.ResponseDTO;
-import com.wisdom.common.dto.core.user.UserInfoDTO;
-import com.wisdom.community.client.CoreServiceClient;
-import com.wisdom.community.interceptor.LoginRequired;
 import com.wisdom.community.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * 直播板块
+ * 社区活动
  * @author frank
  * @date 2015-10-14
  */
@@ -27,8 +24,6 @@ import java.util.List;
 @RequestMapping(value = "activity")
 public class ActivityController {
 
-	@Autowired
-	CoreServiceClient coreServiceClient;
 
 	@Autowired
 	ActivityService activityService;
@@ -46,22 +41,14 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityList", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO,
-												HttpServletRequest request) {
-
+	ResponseDTO<List<ActivityDTO>> activityList(@RequestBody PageParamDTO<String> pageParamDTO) {
 		ResponseDTO<List<ActivityDTO>> responseDTO = new ResponseDTO<>();
-
-		String loginToken = request.getHeader("loginToken");
-		UserInfoDTO userInfoDTO = coreServiceClient.getUserInfo(loginToken).getResponseData();
-
 		/****
 		 获取系统中活动列表信息，每条信息的内容参考List<com.yhl.laoyou.modules.activityService.entity.ActivityDTO>
 		 *****/
-		String elderID = userInfoDTO.getElderUserDTO().getId();
-		responseDTO.setResponseData(activityService.getActivityList(elderID,pageParamDTO.getPageNo(),
+		responseDTO.setResponseData(activityService.getActivityList(pageParamDTO.getOrderType(),pageParamDTO.getPageNo(),
 				pageParamDTO.getRequestData()));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
@@ -76,12 +63,10 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityDetail", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<ActivityDTO> activityDetail(@RequestParam String activityId) {
 		ResponseDTO<ActivityDTO> responseDTO = new ResponseDTO<>();
-
 		/****
 		 根据活动的ID号，获取活动的详细信息，放入ActivityDTO中
 		 *****/
@@ -99,21 +84,14 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityAttendStatus", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
-	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,
-											 HttpServletRequest request) {
-
+	ResponseDTO<String> activityAttendStatus(@RequestParam String activityId,@RequestParam String openId) {
 		ResponseDTO<String> responseDTO = new ResponseDTO<>();
-
-		String loginToken = request.getHeader("loginToken");
-		UserInfoDTO userInfoDTO = coreServiceClient.getUserInfo(loginToken).getResponseData();
-
 		/****
 		 根据活动的ID号，和用户的信息，判断此用户是否报名参加了此活动，"1"代表已经报名参加，如果为"0"，则代表没有报名参加
 		 *****/
-		responseDTO.setResponseData(activityService.getActivityAttendStatus(activityId,userInfoDTO.getElderUserDTO().getId())>0?"1":"0");
+		responseDTO.setResponseData(activityService.getActivityAttendStatus(activityId,openId)>0?"1":"0");
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}
@@ -127,17 +105,103 @@ public class ActivityController {
 	 *
 	 */
 	@RequestMapping(value = "activityDiscuss", method = {RequestMethod.POST, RequestMethod.GET})
-	@LoginRequired
 	public
 	@ResponseBody
 	ResponseDTO<List<ActivityDiscussDTO>> activityDiscuss(@RequestBody PageParamDTO<String> pageParamDTO) {
-
 		ResponseDTO<List<ActivityDiscussDTO>> responseDTO = new ResponseDTO<>();
-
 		/****
 		 根据活动的ID号，获取活动的评论信息，放入List<ActivityDiscussDTO>中
 		 *****/
 		responseDTO.setResponseData(activityService.getActivityDiscuss(pageParamDTO.getRequestData(),Integer.parseInt(pageParamDTO.getPageNo())*Integer.parseInt(pageParamDTO.getPageSize())));
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
+
+
+	/**
+	 * 用户报名参加某个活动
+	 *
+	 *  input PageParamDTO<List<String>> String中放入的是报名的用户的elderId列表,['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
+	 *
+	 *  output ResponseDTO<String> 返回的String中，此次活动所对应的群组ID
+	 *
+	 */
+	@RequestMapping(value = "joinActivity", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO<String> joinActivity(@RequestParam String openId,
+									 @RequestParam String activityId) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+		/****
+		 List<String>中放入的是报名参加活动的用户列表，为用户的elderId值，['vjwioejgewoi','vwejoigjweoigj','fiweohgwng']
+		 *****/
+		//responseData里面放入的是此次活动所对应的群组ID
+		responseDTO.setResponseData(activityService.addActivityUser(activityId,openId));
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
+
+	/**
+	 * 用户针对对某个活动的发表评论
+	 *
+	 *  input activityDiscussDTO,
+	 *
+	 *  output ResponseDTO<List<ActivityDiscussDTO>>
+	 *
+	 */
+	@RequestMapping(value = "activityDiscuss/create", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO CreateActivityDiscuss(@RequestBody ActivityDiscussDTO activityDiscussDTO) {
+		ResponseDTO<List<ActivityDiscussDTO>> responseDTO = new ResponseDTO<>();
+		/****
+		 根据活动的ID号，用户对某个活动发表评论
+		 *****/
+		activityService.addActivityDiscuss(activityDiscussDTO);
+
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
+
+	/**
+	 * 用户针对对某个活动的发表评论
+	 *
+	 *  input activityDiscussDTO,
+	 *
+	 *  output ResponseDTO<List<ActivityDiscussDTO>>
+	 *
+	 */
+	@RequestMapping(value = "activityDiscuss/reply", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO replyActivityDiscuss(@RequestBody ActivityDiscussReplyDTO activityDiscussReplyDTO) {
+		ResponseDTO<List<ActivityDiscussDTO>> responseDTO = new ResponseDTO<>();
+		/****
+		 根据活动的ID号，用户对某个活动发表评论
+		 *****/
+		activityService.addActivityDiscussReply(activityDiscussReplyDTO);
+
+		responseDTO.setResult(StatusConstant.SUCCESS);
+		return responseDTO;
+	}
+
+	/**
+	 * 用户加入活动群聊
+	 * @param
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value = "joinActivityEasemobGroup", method = {RequestMethod.POST, RequestMethod.GET})
+	public
+	@ResponseBody
+	ResponseDTO joinActivityEasemobGroup(@RequestParam String easemobId,
+										 @RequestParam String activityId) {
+		ResponseDTO<String> responseDTO = new ResponseDTO<>();
+
+		/****
+		 根据活动的ID号，用户对某个活动发表评论
+		 *****/
+		responseDTO.setResponseData(activityService.joinActivityEasemobGroup(easemobId,activityId));
 		responseDTO.setResult(StatusConstant.SUCCESS);
 		return responseDTO;
 	}

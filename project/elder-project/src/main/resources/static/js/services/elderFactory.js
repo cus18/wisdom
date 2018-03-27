@@ -7,6 +7,8 @@ var core = 'core/';
 var communityCourse = 'community/course/';
 var communityActivity = 'community/activity/';
 var communityIndex = 'community/index/';
+var livingIndex = 'living/index/';
+var wechat = 'wechat/';
 
 define(['appElder'], function (app) {
     app
@@ -70,6 +72,9 @@ define(['appElder'], function (app) {
         .factory('GetUserInfo',['$resource',function ($resource){
             return $resource(core + 'getUserInfo');
         }])
+        .factory('SendIdentifying',['$resource',function ($resource){
+            return $resource(core + 'sendIdentifying');
+        }])
         .factory('UserLogin',['$resource',function ($resource){
             return $resource(core + 'login');
         }])
@@ -81,6 +86,18 @@ define(['appElder'], function (app) {
         }])
         .factory('GetGroupChatData',['$resource',function ($resource){
             return $resource(core + 'groupChatData')
+        }])
+        /*绑定用户*/
+        .factory('BindLaoyouUser',['$resource',function ($resource){
+            return $resource(core + 'bindLaoyouUser');
+        }])
+        /*判断有没有绑定*/
+        .factory('GetLaoyouUserByOpenId',['$resource',function ($resource){
+            return $resource(core + 'getLaoyouUserByOpenId');
+        }])
+        /*解绑用户*/
+        .factory('DeleteLaoyouUserByOpenId',['$resource',function ($resource){
+            return $resource(core + 'deleteLaoyouUserByOpenId');
         }])
         .factory('GetMedicationPlan',['$resource',function ($resource){
             return $resource(healthMedication + 'getMedicationPlan')
@@ -130,6 +147,10 @@ define(['appElder'], function (app) {
         .factory('GetExtendMessageDetail',['$resource',function ($resource){
             return $resource(core + 'extendMessage/detail')
         }])
+        //老友提醒信息是否查看
+        .factory('UpdateExtendMessageStatus',['$resource',function ($resource){
+            return $resource(core + 'extendMessage/updateExtendMessageStatus')
+        }])
         //获取所有的活动列表
         .factory('GetActivityList',['$resource',function ($resource){
             return $resource(communityActivity + 'activityList')
@@ -153,6 +174,10 @@ define(['appElder'], function (app) {
         //报名参加某个活动
         .factory('JoinActivity',['$resource',function ($resource){
             return $resource(communityActivity + 'joinActivity')
+        }])
+        //加入活动群
+        .factory('JoinActivityEasemobGroup',['$resource',function ($resource){
+            return $resource(communityActivity + 'joinActivityEasemobGroup')
         }])
         //获取推荐的活动
         .factory('GetSuggestActivity',['$resource',function ($resource){
@@ -210,11 +235,55 @@ define(['appElder'], function (app) {
         .factory('GetCommunityBannerList',['$resource',function ($resource){
             return $resource(communityIndex + 'bannerList')
         }])
+        //获取用户的群聊信息
+        .factory('GetUserGroupChatInfo',['$resource',function ($resource){
+            return $resource(core + 'getUserGroupChatInfo')
+        }])
 
         //获取自己的亲友群中所有的亲友信息列表
         .factory('GetRelativeElderInfo',['$resource',function ($resource){
             return $resource(core + 'relativeElderInfo')
         }])
+
+        //获取居家服务列表
+        .factory('GetlivingServiceList',['$resource',function ($resource){
+            return $resource(livingIndex + 'livingServiceList')
+        }])
+
+        //预约服务
+        .factory('CommitOrder',['$resource',function ($resource){
+            return $resource(livingIndex + 'commitOrder')
+        }])
+
+        //获取机构列表
+        .factory('GetLivingOfficeList',['$resource',function ($resource){
+            return $resource(livingIndex + 'getLivingOfficeList')
+        }])
+
+        //获取我的服务订单列表
+        .factory('GetLivingServiceOrderStatus',['$resource',function ($resource){
+            return $resource(livingIndex + 'getLivingServiceOrderStatus')
+        }])
+
+        //催审核
+        .factory('SendMessage',['$resource',function ($resource){
+            return $resource(livingIndex + 'sendMessage')
+        }])
+
+        //删除服务订单
+        .factory('DelLivingServiceOrder',['$resource',function ($resource){
+            return $resource(livingIndex + 'delLivingServiceOrder')
+        }])
+
+        //获取openid
+        .factory('GetOpenID',['$resource',function ($resource){
+            return $resource(wechat + 'getOpenID')
+        }])
+        //获取微信昵称、头像
+        .factory('GetWechatUserInfo',['$resource',function ($resource){
+            return $resource(wechat + 'getWechatUserInfo')
+        }])
+
 
 
 })

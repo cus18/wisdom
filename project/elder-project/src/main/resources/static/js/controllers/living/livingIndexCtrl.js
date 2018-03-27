@@ -1,8 +1,9 @@
 angular.module('controllers',[]).controller('livingIndexCtrl',
-    ['$scope','$interval','$rootScope','$stateParams','$state',
-        'ElderUtil','GetUserInfo','GetCommunityBannerList',
-        function ($scope,$interval,$rootScope,$stateParams,$state,
-                  ElderUtil,GetUserInfo,GetCommunityBannerList) {
+    ['$scope','$interval','$rootScope','$stateParams','$state','Global',
+        'ElderUtil','GetUserInfo','GetCommunityBannerList','GetLivingOfficeList',
+        function ($scope,$interval,$rootScope,$stateParams,$state,Global,
+                  ElderUtil,GetUserInfo,GetCommunityBannerList,GetLivingOfficeList) {
+
 
             $scope.param = {
                 bannerList : '',
@@ -39,8 +40,19 @@ angular.module('controllers',[]).controller('livingIndexCtrl',
                 });
             })
 
+            GetLivingOfficeList.save({},function(data){
+                if(data.result == Global.SUCCESS){
+                    $scope.officeList = data.responseData;
+                }
+                else
+                {
+                    console.log(data.errorInfo);
+                }
+            })
+
             $scope.reserveService = function(beadHouseId){
                 $state.go('beadHouseDetail',{beadHouseId:beadHouseId});
             }
+
 
         }])

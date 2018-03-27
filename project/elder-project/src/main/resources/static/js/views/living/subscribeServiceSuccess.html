@@ -1,28 +1,21 @@
 <ion-view style="background:#f8f8f8;">
-    <ion-header-bar align-title="center" class="bar-energized">
-        <div class="buttons">
-            <button class="button" ng-click="returnRootNative()">&lt;返回</button>
-        </div>
-        <h1 class="title">预约成功</h1>
-    </ion-header-bar>
     <ion-content>
-        <h2 style="font-size:30px;margin-left:32px;margin-top:120px;width:90%">
-            恭喜你成功提交预约"上下肢肌力训练"
-        </h2>
-        <p style="color:black;margin-top:30px;width:85%;margin-left:8%;font-size:18px">工作人员将在第一时间通过您留下的手机号码联系到您，请保持电话畅通</p>
-        <p style="color:black;margin-top:30px;width:85%;margin-left:8%;font-size:18px">服务站点将当面与您结算该项服务产生的费用。</p>
-        <div style="margin-top:10%">
+        <img src="images/success.png" alt="" style="width:140px;margin-left:31%;margin-top:56px;">
+        <div class="subscribeSuccessCont">
+            <p>工作人员将在第一时间通过您留下的手机号码联系到您，请保持电话畅通。</p>
+            <p>该项服务产生的费用将当面结算</p>
+        </div>
+        <div>
             <button class="button button-assertive"
-                    style="width:30%;height:100%;margin-left:17%;background-color:#b2b2b2"
-                    ng-click="enterSubscribeServiceList()">
-                &lt;查看订单
+                    style="width:38%;height:100%;margin-left:9%;background-color:#b2b2b2;border-radius:23px;"
+                    ng-click="enterSubscribeServiceList()">查看订单
             </button>
             <button class="button button-assertive"
-                    style="width:30%;height:100%;margin-left:5%;background-color:#ff8e01"
-                    ng-click="enterLivingIndex()">
-                居家首页&gt;
+                    style="width:38%;height:100%;margin-left:3%;background-color:#ff8e01;border-radius:23px;"
+                    ng-click="enterLivingIndex()">返回老友居家
             </button>
         </div>
     </ion-content>
 </ion-view>
+
 
