@@ -24,92 +24,93 @@ import java.util.Map;
 @RestController
 public class WechatController {
 
-	@Autowired
-	WechatService wechatService;
+    @Autowired
+    WechatService wechatService;
 
-	@Autowired
-	CoreServiceClient coreServiceClient;
-
-
-	/**
-	 * *用户校验是否是微信服务器发送的请求
-	 * */
-	@RequestMapping(value = "/wxChat", method = {RequestMethod.POST, RequestMethod.GET})
-	public
-	@ResponseBody
-	String wxPatientChat(HttpServletRequest request, HttpServletResponse response) {
-		String method = request.getMethod().toUpperCase();
-		if ("GET".equals(method)) {
-			// 微信加密签名
-			String signature = request.getParameter("signature");
-			// 时间戳
-			String timestamp = request.getParameter("timestamp");
-			// 随机数
-			String nonce = request.getParameter("nonce");
-			// 随机字符串
-			String echostr = request.getParameter("echostr");
-			// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-			if (SignUtil.checkSignature(signature, timestamp, nonce)) {
-				return echostr;
-			}
-			return "";
-		} else {
-			// 调用核心业务类接收消息、处理消息
-			String respMessage = null;
-			try {
-				respMessage = wechatService.processRequest(request,response);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return respMessage;
-		}
-	}
+    @Autowired
+    CoreServiceClient coreServiceClient;
 
 
-		/**
-		 * 微信授权
-		 * 1.客户端请求获取 OpenID
-		 *
-		 */
-		@RequestMapping(value = "getOpenID", method = {RequestMethod.POST, RequestMethod.GET})
-		public void getOpenID(@RequestParam String url,HttpServletRequest request,HttpServletResponse response) throws Exception {
-			String redirectUrl= URLEncoder.encode("http://wechat.hlsenior.com/wechat/returnCode?url="+url,"UTF-8");
-			String requestUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WechatService.appid+"&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-			response.sendRedirect(requestUrl);
-	}
+    /**
+     * *用户校验是否是微信服务器发送的请求
+     */
+    @RequestMapping(value = "/wxChat", method = {RequestMethod.POST, RequestMethod.GET})
+    public
+    @ResponseBody
+    String wxPatientChat(HttpServletRequest request, HttpServletResponse response) {
+        String method = request.getMethod().toUpperCase();
+        if ("GET".equals(method)) {
+            // 微信加密签名
+            String signature = request.getParameter("signature");
+            // 时间戳
+            String timestamp = request.getParameter("timestamp");
+            // 随机数
+            String nonce = request.getParameter("nonce");
+            // 随机字符串
+            String echostr = request.getParameter("echostr");
+            // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
+            if (SignUtil.checkSignature(signature, timestamp, nonce)) {
+                return echostr;
+            }
+            return "";
+        } else {
+            // 调用核心业务类接收消息、处理消息
+            String respMessage = null;
+            try {
+                respMessage = wechatService.processRequest(request, response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return respMessage;
+        }
+    }
 
-	/**
-	 * 微信授权
-	 * 2.获取微信授权，跳转回请求链接
-	 *
-	 */
-	@RequestMapping(value = "returnCode", method = {RequestMethod.POST, RequestMethod.GET})
-	public void returnCode(@RequestParam String url,@RequestParam String code, @RequestParam String state,HttpServletRequest request,HttpServletResponse response) throws Exception {
-		String uri="https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WechatService.appid+"&secret="+WechatService.secret+"&code="+code+"&grant_type=authorization_code";
-		String reulst=HttpRequestUtil.get(uri);
-		Map<String,String> map= JSONObject.parseObject(reulst,Map.class);
-		url=url.replace("@","#");
-		response.sendRedirect(url+"?openid="+map.get("openid"));
-	}
 
-	/**
-	 * 获取微信 Token 信息
-	 * @return
-	 */
-	@RequestMapping(value = "getWeChatToken", method = {RequestMethod.POST, RequestMethod.GET})
-	public String getWeChatToken(){
-		return WechatService.getWechatToken();
-	}
+    /**
+     * 微信授权
+     * 1.客户端请求获取 OpenID
+     */
+    @RequestMapping(value = "getOpenID", method = {RequestMethod.POST, RequestMethod.GET})
+    public void getOpenID(@RequestParam String url, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String redirectUrl = URLEncoder.encode("http://wechat.hlsenior.com/wechat/returnCode?url=" + url, "UTF-8");
+        String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WechatService.appid + "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        response.sendRedirect(requestUrl);
+    }
 
-	/**
-	 * 获取微信用户的基本信息
-	 * @return
-	 */
-	@RequestMapping(value = "getWechatUserInfo", method = {RequestMethod.POST, RequestMethod.GET})
-	public
-	@ResponseBody WeChatUserInfo getWechatUserInfo(@RequestParam String openid) throws  Exception{
-		return WechatUtil.getWechatUserInfo(openid);
-	}
+    /**
+     * 微信授权
+     * 2.获取微信授权，跳转回请求链接
+     */
+    @RequestMapping(value = "returnCode", method = {RequestMethod.POST, RequestMethod.GET})
+    public void returnCode(@RequestParam String url, @RequestParam String code, @RequestParam String state, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String uri = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WechatService.appid + "&secret=" + WechatService.secret + "&code=" + code + "&grant_type=authorization_code";
+        String reulst = HttpRequestUtil.get(uri);
+        Map<String, String> map = JSONObject.parseObject(reulst, Map.class);
+        url = url.replace("@", "#");
+        response.sendRedirect(url + "?openid=" + map.get("openid"));
+    }
+
+    /**
+     * 获取微信 Token 信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "getWeChatToken", method = {RequestMethod.POST, RequestMethod.GET})
+    public String getWeChatToken() {
+        return WechatService.getWechatToken();
+    }
+
+    /**
+     * 获取微信用户的基本信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "getWechatUserInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public
+    @ResponseBody
+    WeChatUserInfo getWechatUserInfo(@RequestParam String openid) throws Exception {
+        return WechatUtil.getWechatUserInfo(openid);
+    }
 
 
 }
