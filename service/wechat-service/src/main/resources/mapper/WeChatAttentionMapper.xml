@@ -10,4 +10,20 @@
     </insert>
 
 
+    <insert id="insertWeChatUserLocation" parameterType="com.wisdom.wechat.entity.WeChatUserLocation">
+        INSERT INTO `wechat_user_location`
+        (`openid`, `latitude`, `longitude`, `precision`,`create_time`)
+        VALUES
+        (#{openid}, #{latitude},#{longitude}, #{precision},#{create_time})
+    </insert>
+
+    <select id="getWeChatUserLocation" resultType="com.wisdom.wechat.entity.WeChatUserLocation">
+       SELECT * FROM `wechat_user_location` where openid=#{openid}
+    </select>
+
+    <update id="updateWeChatUserLocation" parameterType="com.wisdom.wechat.entity.WeChatUserLocation">
+        update wechat_user_location set latitude=#{latitude},longitude=#{longitude},precision=#{precision},create_time=#{create_time}
+        where openid=#{openid}
+    </update>
+
 </mapper>

@@ -112,5 +112,13 @@ public class WechatController {
         return WechatUtil.getWechatUserInfo(openid);
     }
 
+    @RequestMapping(value = "getWeChatUserLocation", method = {RequestMethod.POST, RequestMethod.GET})
+    public
+    @ResponseBody
+    String getWeChatUserLocation(@RequestParam String openid) throws Exception {
+        return wechatService.getWeChatUserLocation(openid);
+    }
 
 }
+
+
