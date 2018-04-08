@@ -283,6 +283,19 @@ public class WechatService {
 //		if(articleList.size() == 0){
 //			return "";
 //		}
+		if(EventKey.indexOf("YLBGXCK")>-1){
+			String officeName = "";
+			try {
+				officeName = HttpRequestUtil.get("http://123.57.49.178/jeeplus/web/wechat/user/getOfficeName?officeCode="+EventKey.replace("qrscene_", "").replace("YLBGXCK","") );
+			} catch (IOException e) {
+				System.out.println("没有找到该组织！");
+			}
+			article.setTitle("点击申请加入养老办公小窗口组织"+officeName);
+			article.setDescription("养老办公小窗口");
+			article.setPicUrl("");
+			article.setUrl("http://xck.hlsenior.com/hljk-xck/#/addOrgan/" +EventKey.replace("qrscene_", "").replace("YLBGXCK",""));
+			articleList.add(article);
+		}
 		// 设置图文消息个数
 		newsMessage.setArticleCount(articleList.size());
 		// 设置图文消息包含的图文集合
