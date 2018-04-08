@@ -115,8 +115,11 @@ public class WechatController {
     @RequestMapping(value = "getWeChatUserLocation", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    String getWeChatUserLocation(@RequestParam String openid) throws Exception {
-        return wechatService.getWeChatUserLocation(openid);
+    ResponseDTO getWeChatUserLocation(@RequestParam String openid) throws Exception {
+        ResponseDTO responseDTO=new ResponseDTO();
+        responseDTO.setResponseData(wechatService.getWeChatUserLocation(openid));
+        responseDTO.setResult(StatusConstant.SUCCESS);
+        return responseDTO;
     }
 
 }
