@@ -283,7 +283,10 @@ define(['appElder'], function (app) {
         .factory('GetWechatUserInfo',['$resource',function ($resource){
             return $resource(wechat + 'getWechatUserInfo')
         }])
-
+        //获取用户定位
+        .factory('GetWeChatUserLocation',['$resource',function ($resource){
+            return $resource(wechat + 'getWeChatUserLocation')
+        }])
 
 
 })

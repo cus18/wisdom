@@ -693,6 +693,32 @@ define(['appElder'], function(app){
                             }
                         }
                     })
+                    //微信首页
+                    .state('index', {
+                        url: '/index',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'indexCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.index',
+                                    ['js/controllers/indexCtrl.js'],
+                                    'js/views/index.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    //巡视探访方案
+                    .state('project', {
+                        url: '/project',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'projectCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.project',
+                                    ['js/controllers/projectCtrl.js'],
+                                    'js/views/project.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
