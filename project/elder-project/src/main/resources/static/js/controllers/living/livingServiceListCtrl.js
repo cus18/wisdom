@@ -5,7 +5,7 @@ angular.module('controllers',[]).controller('livingServiceListCtrl',
                   ElderUtil,GetUserInfo,GetlivingServiceList) {
 
 
-            $rootScope.pageTitle = '老友居家';
+            $rootScope.pageTitle = '老友助家';
             $scope.param = {
                 type:$stateParams.type,
                 lastNo:0,

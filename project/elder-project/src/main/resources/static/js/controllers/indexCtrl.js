@@ -9,7 +9,7 @@ angular.module('controllers',[]).controller('indexCtrl',
 
             $rootScope.pageTitle = '智慧养老';
             openidUtil.checkResponseData();
-            $rootScope.openid = 'ss';
+            // $rootScope.openid = 'ss';
 
             GetWeChatUserLocation.get({openid:$rootScope.openid},function(data){
                 if(data.result == Global.SUCCESS){
