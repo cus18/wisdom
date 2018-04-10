@@ -408,14 +408,14 @@ h2.myself_serviceTit{
     border-bottom:1px solid #ddd;
 }
 .healthContainer h3{
-    margin-bottom:12px;
+    margin-bottom:8px;
     font-size:18px;
 }
 .healthContainer p{
     color:#494951;
 }
 .healthIcon{
-    width:86px;
+    width:112px;
     position:absolute;
     right:16px;
     top:22px;
