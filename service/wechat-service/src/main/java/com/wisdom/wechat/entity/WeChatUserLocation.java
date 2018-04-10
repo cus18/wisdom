@@ -50,7 +50,7 @@ public class WeChatUserLocation {
     }
 
     public void setCreateTime(String createTime) {
-        this.createTime = new Date(Integer.parseInt(createTime) * 1000);
+        this.createTime = new Date(Long.parseLong(createTime) * 1000);
 
     }
 }
