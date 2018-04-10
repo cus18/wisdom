@@ -19,6 +19,10 @@ angular.module('controllers',[]).controller('indexCtrl',
                 }
             })
 
+            $scope.goHealth = function(){
+                window.location.href = "http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&url=%2fApp%2fIndex";
+            }
+
 
 
 

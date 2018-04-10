@@ -376,7 +376,7 @@ h2.myself_serviceTit{
     line-height:30px;
     color:#fff;
     padding-left:40px;
-    background:url(../images/index_location.png) 16px center no-repeat #ff8e01;
+    background:url(../images/index_wz.png) 16px center no-repeat #ff8e01;
     background-size:16px;
 }
 .indexIconList{
@@ -420,7 +420,7 @@ h2.myself_serviceTit{
     top:22px;
 }
 .indexImg{
-    padding:16px 16px 100px;
+    padding:16px 16px 50px;
     margin-bottom:20px;
     border-top:1px solid #ddd;
 }
