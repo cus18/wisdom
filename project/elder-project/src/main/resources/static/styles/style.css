@@ -382,12 +382,13 @@ h2.myself_serviceTit{
 .indexIconList{
     overflow:hidden;
     border-bottom:1px solid #ddd;
+    padding:8px 0px;
 }
 .indexIconList a{
     width:25%;
     float:left;
     text-align:center;
-    margin:12px 0px;
+    margin:8px 0px 0px;
     text-decoration:none;
     color:#060d25;
 }
