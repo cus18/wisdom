@@ -14,7 +14,7 @@
         INSERT INTO `wechat_user_location`
         (`openid`, `latitude`, `longitude`, `precision`,`create_time`)
         VALUES
-        (#{openid}, #{latitude},#{longitude}, #{precision},#{create_time})
+        (#{openid}, #{latitude},#{longitude}, #{precision},#{createTime})
     </insert>
 
     <select id="getWeChatUserLocation" resultType="com.wisdom.wechat.entity.WeChatUserLocation">
