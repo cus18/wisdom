@@ -14,6 +14,10 @@ require.config({
         "jquery":"libs/jquery/jquery-2.1.3.min",
         "highcharts":"libs/tool/highcharts",
         "highcharts-ng":"libs/tool/highcharts-ng",
+        "heatmap":"libs/tool/heatmap",
+        "histogram-bellcurve":'libs/tool/histogram-bellcurve.min',
+        "oldie":"libs/tool/oldie",
+        "variwide":'libs/tool/variwide',
         "ng-infinite-scroll":"libs/tool/ng-infinite-scroll.min",
         "moment":'libs/tool/moment.min',
         "fullCalendar" : "libs/tool/fullcalendar",
@@ -63,14 +67,26 @@ require.config({
         'highcharts-ng': {
             deps: ['highcharts'],   //依赖什么模块
         },
+        'heatmap': {
+            deps: ['highcharts'],   //依赖什么模块
+        },
+        'histogram-bellcurve': {
+            deps: ['highcharts'],   //依赖什么模块
+        },
+        'oldie': {
+            deps: ['highcharts'],   //依赖什么模块
+        },
+        'variwide': {
+            deps: ['highcharts'],   //依赖什么模块
+        },
         'elderGlobal': ['angular'],
         'app':['ocLazyLoad'],
     }
 });
 
 require(['angular','angular-resource','angular-sanitize','angular-ui-router','angular-locale_zh-cn',
-        'ocLazyLoad', 'jquery', 'highcharts','highcharts-ng','ng-infinite-scroll',
-        'moment','fullCalendar', 'calendar', 'gcal',
+        'ocLazyLoad', 'jquery', 'highcharts','highcharts-ng','heatmap','histogram-bellcurve','oldie','variwide',
+        'ng-infinite-scroll','moment','fullCalendar', 'calendar', 'gcal',
         'uiBootstrapTpls','elderFactory', 'elderGlobal',
         'elderDirective', 'elderRoute','appElder'],
     function (angular){

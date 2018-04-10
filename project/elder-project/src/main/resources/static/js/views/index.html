@@ -2,38 +2,24 @@
     <ion-content>
         <div class="userLocation">{{location}}</div>
         <img width="100%" src="/images/index_banner.png" alt="">
-        <div class="indexIconList iconList">
-            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&url=%2fApp%2fIndex">
-                <img src="/images/index_jkda.png" alt="">
-                <p>健康档案</p>
+        <div class="indexIconList">
+            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fLifeRadar">
+                <img src="/images/index_jkzs.png" alt="">
+                <p>健康指数</p>
             </a>
-            <a href="">
-                <img src="/images/index_jkpg.png" alt="">
-                <p>健康评估</p>
+            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fHealthDiaryList">
+                <img src="/images/index_mrjk.png" alt="">
+                <p>每日健康</p>
             </a>
-            <a href="">
-                <img src="/images/index_jkjc.png" alt="">
-                <p>健康监测</p>
+            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fQRiskList">
+                <img src="/images/index_fxpg.png" alt="">
+                <p>风险评估</p>
             </a>
-            <a href="">
-                <img src="/images/index_jkgy.png" alt="">
-                <p>健康干预</p>
-            </a>
-            <a href="">
-                <img src="/images/index_jkfa.png" alt="">
-                <p>健康方案</p>
-            </a>
-            <a href="">
+            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fAdvisor">
                 <img src="/images/index_zxys.png" alt="">
                 <p>咨询医生</p>
             </a>
-            <a href="">
-                <img src="/images/index_jsz.png" alt="">
-                <p>建设中</p>
-            </a>
-        </div>
-        <div class="indexIconList">
-            <a href="community/communityIndex.html">
+            <a ui-sref="communityIndex">
                 <img src="/images/index_lyzx.png" alt="">
                 <p>老友智学</p>
             </a>
@@ -42,16 +28,19 @@
                 <p>老友助家</p>
             </a>
             <a href="">
-                <img src="/images/index_lyjw.png" alt="">
-                <p>老友见闻</p>
-            </a>
-            <a href="">
                 <img src="/images/index_jsz.png" alt="">
                 <p>建设中</p>
             </a>
         </div>
+        <div class="marginCont"></div>
+       <div class="healthContainer" href="">
+           <h3>您的健康管理方案</h3>
+           <p>在这里能得到健康风险评估、健康监测<br/>干预和合理的健康指导</p>
+           <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&url=%2fApp%2fIndex"><img class="healthIcon" src="/images/index_jk.png" alt=""></a>
+       </div>
+        <div class="marginCont"></div>
         <div class="indexImg">
-            <a href="project.html"><img src="/images/index_banner2.png" alt=""></a>
+            <a ui-sref="project"><img src="/images/index_banner2.png" alt=""></a>
             <a href=""><img src="/images/index_banner3.png" alt=""></a>
             <a href="tel:120"><button class="button button-full button-energized button120">120 一键呼叫</button></a>
         </div>

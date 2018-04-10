@@ -4,7 +4,7 @@ angular.module('controllers',[]).controller('communityIndexCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,GetCommunityBannerList,
                   ElderUtil,GetActivityListByFirstPage,GetOnlineCourseList,GetRelativeElderInfo) {
 
-            $rootScope.pageTitle = '老友活动';
+            $rootScope.pageTitle = '老友智学';
 
             $scope.param = {
                 bannerList : '',
