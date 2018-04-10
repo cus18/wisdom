@@ -10,7 +10,7 @@ public class WeChatUserLocation {
     private String openid;
     private String latitude;
     private String longitude;
-    private String precision;
+    private String precisions;
     private Date createTime;
 
     public String getOpenid() {
@@ -37,12 +37,12 @@ public class WeChatUserLocation {
         this.longitude = longitude;
     }
 
-    public String getPrecision() {
-        return precision;
+    public String getPrecisions() {
+        return precisions;
     }
 
-    public void setPrecision(String precision) {
-        this.precision = precision;
+    public void setPrecisions(String precisions) {
+        this.precisions = precisions;
     }
 
     public Date getCreateTime() {
