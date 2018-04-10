@@ -22,7 +22,7 @@
     </select>
 
     <update id="updateWeChatUserLocation" parameterType="com.wisdom.wechat.entity.WeChatUserLocation">
-        update wechat_user_location set latitude=#{latitude},longitude=#{longitude},precision=#{precision},create_time=#{create_time}
+        update wechat_user_location set latitude=#{latitude},longitude=#{longitude},precision=#{precision},create_time=#{createTime}
         where openid=#{openid}
     </update>
 
