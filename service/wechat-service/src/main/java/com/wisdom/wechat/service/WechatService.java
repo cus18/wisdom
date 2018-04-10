@@ -524,7 +524,7 @@ public class WechatService {
         weChatUserLocation.setCreateTime(xmlEntity.getCreateTime());
         weChatUserLocation.setLatitude(xmlEntity.getLatitude());
         weChatUserLocation.setLongitude(xmlEntity.getLongitude());
-        weChatUserLocation.setPrecision(xmlEntity.getPrecision());
+        weChatUserLocation.setPrecisions(xmlEntity.getPrecision());
         weChatUserLocation.setOpenid(xmlEntity.getFromUserName());
 
         if (weChatAttentionMapper.updateWeChatUserLocation(weChatUserLocation) == 0) {

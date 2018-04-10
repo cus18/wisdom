@@ -12,9 +12,9 @@
 
     <insert id="insertWeChatUserLocation" parameterType="com.wisdom.wechat.entity.WeChatUserLocation">
         INSERT INTO `wechat_user_location`
-        (`openid`, `latitude`, `longitude`, `precision`,`create_time`)
+        (`openid`, `latitude`, `longitude`, `precisions`)
         VALUES
-        (#{openid}, #{latitude},#{longitude}, #{precision},#{create_time})
+        (#{openid}, #{latitude},#{longitude}, #{precisions})
     </insert>
 
     <select id="getWeChatUserLocation" resultType="com.wisdom.wechat.entity.WeChatUserLocation">
@@ -22,7 +22,7 @@
     </select>
 
     <update id="updateWeChatUserLocation" parameterType="com.wisdom.wechat.entity.WeChatUserLocation">
-        update wechat_user_location set latitude=#{latitude},longitude=#{longitude},precision=#{precision},create_time=#{create_time}
+        update wechat_user_location set latitude=#{latitude},longitude=#{longitude},precisions=#{precisions}
         where openid=#{openid}
     </update>
 
