@@ -373,7 +373,7 @@ h2.myself_serviceTit{
 /*首页开始*/
 .userLocation{
     width:100%;
-    line-height:30px;
+    line-height:32px;
     color:#fff;
     padding-left:40px;
     background:url(../images/index_wz.png) 16px center no-repeat #ff8e01;
@@ -421,7 +421,7 @@ h2.myself_serviceTit{
     top:22px;
 }
 .indexImg{
-    padding:16px 16px 0px;
+    padding:16px 16px 32px;
     border-top:1px solid #ddd;
 }
 .indexImg a{
@@ -433,7 +433,7 @@ h2.myself_serviceTit{
 }
 .button.button120{
     border-radius:23px;
-    margin:12px 0px 32px;
+    margin-top:12px;
     background: -webkit-linear-gradient(to right,#FE4600, #FF801F); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(to right,#FE4600, #FF801F); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(to right,#FE4600, #FF801F); /* Firefox 3.6 - 15 */
