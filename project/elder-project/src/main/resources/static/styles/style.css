@@ -421,8 +421,7 @@ h2.myself_serviceTit{
     top:22px;
 }
 .indexImg{
-    padding:16px 16px 50px;
-    margin-bottom:20px;
+    padding:16px 16px 0px;
     border-top:1px solid #ddd;
 }
 .indexImg a{
@@ -434,10 +433,22 @@ h2.myself_serviceTit{
 }
 .button.button120{
     border-radius:23px;
-    margin-top:40px;
+    margin:12px 0px 32px;
     background: -webkit-linear-gradient(to right,#FE4600, #FF801F); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(to right,#FE4600, #FF801F); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(to right,#FE4600, #FF801F); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right,#FE4600, #FF801F); /* 标准的语法 */
+}
+.project_cont{
+    width:90%;
+    height:300px;
+    margin:16px auto 0px;
+}
+.hc{
+    height:8px;
+    width:100%;
+    background:#f5f5f5;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
 }
 

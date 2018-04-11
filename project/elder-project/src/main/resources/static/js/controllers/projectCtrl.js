@@ -6,7 +6,7 @@ angular.module('controllers',[]).controller('projectCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,openidUtil) {
 
 
-            $rootScope.pageTitle = '巡防探视方案';
+            $rootScope.pageTitle = '寻访探视方案';
 
             //基础面积图
             $('#container1').highcharts({
@@ -16,6 +16,7 @@ angular.module('controllers',[]).controller('projectCtrl',
                 title: {
                     text: '年度医疗费用基础分析'
                 },
+                colors: ['#ff8e01', '#FE4600'],
                 xAxis: {
                     allowDecimals: false,
                     labels: {
@@ -76,6 +77,7 @@ angular.module('controllers',[]).controller('projectCtrl',
                 title: {
                     text: '收入消费金字塔图'
                 },
+                colors: ['#ff8f00', '#23beae'],
                 xAxis: [{
                     categories: categories,
                     reversed: false,
@@ -157,6 +159,8 @@ angular.module('controllers',[]).controller('projectCtrl',
                 exporting: { //去除右上角导出按钮
                     enabled: false
                 },
+                colors: ['#AA10C8', '#FA0CA2','#d0021b', '#ff402d','#ff8f00', '#ffbf09',
+                    '#f8e71c', '#8ad934','#23beae', '#136efe','#002cfe', '#2e01c2'],
                 series: [{
                     name: '失能失智老人',
                     data: [
@@ -204,9 +208,10 @@ angular.module('controllers',[]).controller('projectCtrl',
                 },
                 colorAxis: {
                     min: 0,
-                    minColor: '#FFFFFF',
-                    maxColor: Highcharts.getOptions().colors[0]
+                    minColor: '#f8e71c',
+                    maxColor: '#d0021b'
                 },
+                colors: ['#ccc'],
                 credits: { //去除右下角highcharts标志
                     enabled: false
                 },
@@ -298,6 +303,8 @@ angular.module('controllers',[]).controller('projectCtrl',
                     headerFormat: '{series.name}<br>',
                     pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
                 },
+                colors: ['#AA10C8', '#FA0CA2','#d0021b', '#ff402d','#ff8f00', '#ffbf09',
+                    '#f8e71c', '#8ad934','#23beae'],
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
@@ -325,13 +332,13 @@ angular.module('controllers',[]).controller('projectCtrl',
                         ['恶性肿瘤',1.7],
                         ['抑郁症',8.5],
                         ['精神疾病',6.2],
-                        ['冠心病',21.0],
                         {
-                            name: '认知障碍／痴呆／阿兹海默症',
-                            y: 2.1,
+                            name: '冠心病',
+                            y: 21.0,
                             sliced: true,
                             selected: true
-                        }
+                        },
+                        ['认知障碍／痴呆／阿兹海默症',2.1]
                     ]
                 }]
             });
@@ -366,6 +373,7 @@ angular.module('controllers',[]).controller('projectCtrl',
                 credits: { //去除右下角highcharts标志
                     enabled: false
                 },
+                colors: ['#ff8e00', '#002cfe'],
                 exporting: { //去除右上角导出按钮
                     enabled: false
                 },
