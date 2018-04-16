@@ -6,7 +6,7 @@ angular.module('controllers',[]).controller('projectCtrl',
         function ($scope,$interval,$rootScope,$stateParams,$state,Global,openidUtil) {
 
 
-            $rootScope.pageTitle = '寻访探视方案';
+            $rootScope.pageTitle = '巡访探视方案';
 
             //基础面积图
             $('#container1').highcharts({
