@@ -3,19 +3,19 @@
         <div class="userLocation">{{location}}</div>
         <img width="100%" src="/images/index_banner.jpg" alt="">
         <div class="indexIconList">
-            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fLifeRadar">
-                <img src="/images/index_jkzs.png" alt="">
-                <p>健康指数</p>
-            </a>
-            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fHealthDiaryList">
+            <!--<a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fLifeRadar">-->
+                <!--<img src="/images/index_jkzs.png" alt="">-->
+                <!--<p>健康指数</p>-->
+            <!--</a>-->
+            <a ui-sref="healthDemo">
                 <img src="/images/index_mrjk.png" alt="">
                 <p>每日健康</p>
             </a>
-            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fQRiskList">
-                <img src="/images/index_fxpg.png" alt="">
-                <p>风险评估</p>
-            </a>
-            <a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fAdvisor">
+            <!--<a href="http://www.wellsunny.net/API/LogOn?token=7d2b701756e841adb161d14a0534776c&medical_code=63799983&back_url=app&url=%2fApp%2fQRiskList">-->
+                <!--<img src="/images/index_fxpg.png" alt="">-->
+                <!--<p>风险评估</p>-->
+            <!--</a>-->
+            <a href="https://h5.dingdingyisheng.mobi/weixin/page/ask/new?_src=share&_platform=onMenuShareQQ&_userinfo_auth=1&_scope=snsapi_userinfo&code=081gAbxU0TRaXW10YAuU0ZMbxU0gAbxi&state=STATE">
                 <img src="/images/index_zxys.png" alt="">
                 <p>咨询医生</p>
             </a>
@@ -27,23 +27,94 @@
                 <img src="/images/index_lyzj.png" alt="">
                 <p>老友助家</p>
             </a>
-            <a href="">
-                <img src="/images/index_jsz.png" alt="">
-                <p>建设中</p>
+            <!--<a href="">-->
+                <!--<img src="/images/index_jsz.png" alt="">-->
+                <!--<p>建设中</p>-->
+            <!--</a>-->
+        </div>
+        <div class="marginCont"></div>
+       <!--<div class="healthContainer" ng-click="goHealth()">-->
+           <!--<h3>您的健康管理方案</h3>-->
+           <!--<p>在这里能得到健康风险评估、健康<br/>监测干预和合理的健康指导</p>-->
+           <!--<img class="healthIcon" src="/images/index_jk.png" alt="">-->
+       <!--</div>-->
+        <!--<div class="marginCont"></div>-->
+        <!--<div class="indexImg">-->
+            <!--<a ui-sref="project"><img src="/images/index_banner5.png" alt=""></a>-->
+            <!--<a href="https://b.eqxiu.com/s/dS5SofeY?eqrcode=1&share_level=2&from_user=9d3ce095-cac3-4a42-bcf2-b13228879961&from_id=f30c36bb-5211-4647-98a4-42a6871859e8&share_time=1523928768033&from=singlemessage&isappinstalled=0"><img src="/images/index_banner3.png" alt=""></a>-->
+            <!--<a href="tel:120"><button class="button button-full button-energized button120">120 一键呼叫</button></a>-->
+        <!--</div>-->
+        <div class="index_news_list">
+           <a ui-sref="article({id:'1'})">
+               <img src="/images/newsImg01.jpg" alt="">
+               <div>
+                   <h3>好心情对老人有多重要</h3>
+                   <p>在生活中，每一个人都会有变老的一天。所以我们一定要重视老年人朋友的一些问题，平时没有什么事情的时候也要多多关心老人……</p>
+               </div>
+           </a>
+            <a ui-sref="article({id:'2'})">
+                <img src="/images/newsImg08.jpg" alt="">
+                <div>
+                    <h3>“将就”镶牙后患多</h3>
+                    <p>近日发现各大医院口腔科门诊人满为患。据专家介绍，因为要过年了，大家每天都与美味相伴，牙齿的负担变重了，致使口腔科门诊……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'3'})">
+                <img src="/images/newsImg04.jpg" alt="">
+                <div>
+                    <h3>老人养生需要避开的四个误区</h3>
+                    <p>运动有益长寿，但要量力而行。有些老人喜欢在晨练时快跑，这并不值得提倡。因为，跑步时机体耗氧量会增加，易导致呼吸短促、……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'4'})">
+                <img src="/images/newsImg03.jpg" alt="">
+                <div>
+                    <h3>老年人腿脚无力怎么回事</h3>
+                    <p>生活中很多的老年人朋友经常出现腿脚无力的情况，给他们的生活和健康带来了极大的威胁。随着年龄大了，腿脚不灵活的老年人并……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'5'})">
+                <img src="/images/newsImg05.jpg" alt="">
+                <div>
+                    <h3>手麻是大病的征兆</h3>
+                    <p>在看门诊的时候，经常有手麻的患者来咨询，有的是一边，有的是两边。医生，是不是神经出问题了呀？这是手麻患者的第一直觉……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'6'})">
+                <img src="/images/newsImg11.jpg" alt="">
+                <div>
+                    <h3>糖尿病人易陷入的几个误区</h3>
+                    <p>良好的血糖控制会大大延缓和减轻糖尿病并发症，使得糖尿病人能够和正常人一样的生活，并不影响寿命。但也有些糖尿病患者不遵医……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'7'})">
+                <img src="/images/newsImg12.jpg" alt="">
+                <div>
+                    <h3>牙疼可能是心梗征兆</h3>
+                    <p>67岁的张大爷有烂牙，晚饭后突然觉得左侧牙痛，到医院口腔科检查，并没发现牙齿毛病。医生怀疑他是心梗，一查心电图，果真是……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'8'})">
+                <img src="/images/newsImg02.jpg" alt="">
+                <div>
+                    <h3>安度晚年离不开良好的心态</h3>
+                    <p>人退休之后，生活的主题与以前发生了很大的变化。而培养一门兴趣也成为了重要的事。无论在什么情况下，把握住热情，并与之为……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'9'})">
+                <img src="/images/newsImg14.jpg" alt="">
+                <div>
+                    <h3>老年人冬季晨练六不宜</h3>
+                    <p> 老年人冬季出去晨练，应注意：不宜“早”。早晨气温低、雾气重、温度大，易患感冒、气喘、“老慢支”和肺心病等，还会使病情加……</p>
+                </div>
+            </a>
+            <a ui-sref="article({id:'10'})">
+                <img src="/images/newsImg10.jpg" alt="">
+                <div>
+                    <h3>心衰的特殊表现应引起注意</h3>
+                    <p>随着年龄的增长，老年人群中心力衰竭的患病率也会升高。值得注意的是，相当一部分老年心脏病患者，心功能已经不全，却缺少心……</p>
+                </div>
             </a>
         </div>
-        <div class="marginCont"></div>
-       <div class="healthContainer" ng-click="goHealth()">
-           <h3>您的健康管理方案</h3>
-           <p>在这里能得到健康风险评估、健康<br/>监测干预和合理的健康指导</p>
-           <img class="healthIcon" src="/images/index_jk.png" alt="">
-       </div>
-        <div class="marginCont"></div>
-        <div class="indexImg">
-            <a ui-sref="project"><img src="/images/index_banner5.png" alt=""></a>
-            <a href="https://b.eqxiu.com/s/dS5SofeY?eqrcode=1&share_level=2&from_user=9d3ce095-cac3-4a42-bcf2-b13228879961&from_id=f30c36bb-5211-4647-98a4-42a6871859e8&share_time=1523928768033&from=singlemessage&isappinstalled=0"><img src="/images/index_banner3.png" alt=""></a>
-            <a href="tel:120"><button class="button button-full button-energized button120">120 一键呼叫</button></a>
-        </div>
-
     </ion-content>
 </ion-view>

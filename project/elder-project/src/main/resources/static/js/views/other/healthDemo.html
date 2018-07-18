@@ -1,0 +1,41 @@
+<style>
+    .div-container>div>div{min-width:400px;height:400px;margin-bottom:10px;padding-top:5px;background:#fff;}
+</style>
+<ion-view style="background:#f8f8f8">
+    <ion-content>
+    <div class="tabs-striped tabs-top tabs-color-assertive">
+        <div class="tabs" style="top:0px;">
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'xueya']" ng-click="changTab('xueya')">血压/心率</a>
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'xuetang']" ng-click="changTab('xuetang')">血糖</a>
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'tizhong']" ng-click="changTab('tizhong')">体重</a>
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'tiwen']" ng-click="changTab('tiwen')">体温</a>
+        </div>
+    </div>
+    <div style="padding-top:57px;" class="div-container">
+        <div ng-show="menu == 'xueya'">
+            <div id="xueya"></div>
+            <button class="button button-full button-assertive">添加血压/心率</button>
+        </div>
+        <div ng-show="menu == 'xuetang'">
+            <button class="button button-full button-assertive">添加血糖数据</button>
+            <div id="lingchenxuetang"></div>
+            <div id="kongfuxuetang"></div>
+            <div id="zaocanhou"></div>
+            <div id="wucanqian"></div>
+            <div id="wucanhou"></div>
+            <div id="wancanqian"></div>
+        </div>
+        <div ng-show="menu == 'tizhong'">
+            <div id="tizhong"></div>
+            <button class="button button-full button-assertive">添加体重记录</button>
+        </div>
+        <div ng-show="menu == 'tiwen'">
+            <div id="tiwen"></div>
+            <button class="button button-full button-assertive">添加体温记录</button>
+        </div>
+
+    </div>
+
+
+    </ion-content>
+</ion-view>

@@ -719,6 +719,32 @@ define(['appElder'], function(app){
                             }
                         }
                     })
+                    //丰台区信息化项目演示新闻demo
+                    .state('article', {
+                        url: '/article/:id',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'articleCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.article',
+                                    ['js/controllers/other/articleCtrl.js?ver='+elderVersion],
+                                    'js/views/other/article.html?ver='+elderVersion);
+                            }
+                        }
+                    })
+                    //丰台区信息化项目演示健康demo
+                    .state('healthDemo', {
+                        url: '/healthDemo',
+                        templateProvider: function() { return lazyDeferred.promise; },
+                        controller: 'healthDemoCtrl',
+                        resolve: {
+                            load: function($templateCache, $ocLazyLoad, $q, $http) {
+                                loadFunction($templateCache, $ocLazyLoad, $q, $http,'app.healthDemo',
+                                    ['js/controllers/other/healthDemoCtrl.js?ver='+elderVersion],
+                                    'js/views/other/healthDemo.html?ver='+elderVersion);
+                            }
+                        }
+                    })
 
                 $urlRouterProvider.otherwise('/healthIndex')
             }])
