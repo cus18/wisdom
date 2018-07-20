@@ -668,6 +668,384 @@ angular.module('controllers',['ui.calendar','ui.bootstrap']).controller('healthD
                         }]
                     });
 
+                }else if(menu == 'xuezhi'){
+                    $scope.menu = 'xuezhi';
+                    var zongdanguchun = new Highcharts.Chart('zongdanguchun', {
+                        chart: {
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: '总胆固醇/TC'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%Y-%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            }
+                        },
+                        legend: {
+                            floating:true,
+                            enabled:false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            },
+                            line:{
+                                dataLabels:{
+                                    enabled:true
+                                }
+                            }
+                        },
+                        credits: {		//去除右下角highcharts标志
+                            enabled: false
+                        },
+                        exporting: {	//去除右上角导出按钮
+                            enabled: false
+                        },
+                        series: [{
+                            type: 'area',
+                            name: '总胆固醇/(mmol/L)',
+                            data: [
+                                [1532275200000, 3.6],
+                                [1532361600000, 3.8],
+                                [1532448000000,4],
+                                [1532534400000,3.3],
+                                [1532620800000,3.8],
+                                [1532707200000,3.7],
+                                [1532793600000,4.2],
+                                [1532880000000,4.1],
+                                [1532966400000,4.5]
+                            ]
+                        }]
+                    });
+                    var ganyousanzhi = new Highcharts.Chart('ganyousanzhi', {
+                        chart: {
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: '甘油三酯/TG'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%Y-%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            }
+                        },
+                        legend: {
+                            floating:true,
+                            enabled:false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            },
+                            line:{
+                                dataLabels:{
+                                    enabled:true
+                                }
+                            }
+                        },
+                        credits: {		//去除右下角highcharts标志
+                            enabled: false
+                        },
+                        exporting: {	//去除右上角导出按钮
+                            enabled: false
+                        },
+                        series: [{
+                            type: 'area',
+                            name: '甘油三酯(mmol/L)',
+                            data: [
+                                [1532275200000, 0.52],
+                                [1532361600000, 0.59],
+                                [1532448000000,0.62],
+                                [1532534400000,0.84],
+                                [1532620800000,0.81],
+                                [1532707200000,0.86],
+                                [1532793600000,0.89],
+                                [1532880000000,0.85],
+                                [1532966400000,0.89]
+                            ]
+                        }]
+                    });
+                    var gaomiduzhidanbai = new Highcharts.Chart('gaomiduzhidanbai', {
+                        chart: {
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: '高密度脂蛋白/HDL-C'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%Y-%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            }
+                        },
+                        legend: {
+                            floating:true,
+                            enabled:false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            },
+                            line:{
+                                dataLabels:{
+                                    enabled:true
+                                }
+                            }
+                        },
+                        credits: {		//去除右下角highcharts标志
+                            enabled: false
+                        },
+                        exporting: {	//去除右上角导出按钮
+                            enabled: false
+                        },
+                        series: [{
+                            type: 'area',
+                            name: '高密度脂蛋白(mmol/L)',
+                            data: [
+                                [1532275200000, 0.99],
+                                [1532361600000, 0.97],
+                                [1532448000000,1.05],
+                                [1532534400000,1.08],
+                                [1532620800000,1.03],
+                                [1532707200000,1.05],
+                                [1532793600000,1.01],
+                                [1532880000000,1.07],
+                                [1532966400000,1.05]
+                            ]
+                        }]
+                    });
+                    var dimiduzhidanbai = new Highcharts.Chart('dimiduzhidanbai', {
+                        chart: {
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: '低密度脂蛋白/LDL-C'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%Y-%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            }
+                        },
+                        legend: {
+                            floating:true,
+                            enabled:false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            },
+                            line:{
+                                dataLabels:{
+                                    enabled:true
+                                }
+                            }
+                        },
+                        credits: {		//去除右下角highcharts标志
+                            enabled: false
+                        },
+                        exporting: {	//去除右上角导出按钮
+                            enabled: false
+                        },
+                        series: [{
+                            type: 'area',
+                            name: '低密度脂蛋白(mmol/L)',
+                            data: [
+                                [1532275200000, 1.4],
+                                [1532361600000, 1.4],
+                                [1532448000000,1.2],
+                                [1532534400000,1.7],
+                                [1532620800000,1.3],
+                                [1532707200000,1.8],
+                                [1532793600000,1.2],
+                                [1532880000000,1.6],
+                                [1532966400000,1.5]
+                            ]
+                        }]
+                    });
                 }else if(menu == 'tizhong'){
                     $scope.menu = 'tizhong';
                     var tizhong = Highcharts.chart('tizhong', {

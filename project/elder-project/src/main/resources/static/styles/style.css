@@ -465,14 +465,14 @@ h2.myself_serviceTit{
 }
 .index_news_list img{
     float: left;
-    width: 80px;
+    width: 24%;
     height: 80px;
-    margin-right: 13px;
+    margin-right: 3%;
     margin-top: 3px;
 }
 .index_news_list div{
     float:left;
-    width:290px;
+    width:70%;
 }
 .index_news_list h3{
     font-size: 18px;

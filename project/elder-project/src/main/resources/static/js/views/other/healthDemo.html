@@ -1,5 +1,5 @@
 <style>
-    .div-container>div>div{min-width:400px;height:400px;margin-bottom:10px;padding-top:5px;background:#fff;}
+    .div-container>div>div{width:100%;height:400px;margin-bottom:10px;padding-top:5px;background:#fff;}
 </style>
 <ion-view style="background:#f8f8f8">
     <ion-content>
@@ -8,6 +8,7 @@
             <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'xueya']" ng-click="changTab('xueya')">血压/心率</a>
             <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'xuetang']" ng-click="changTab('xuetang')">血糖</a>
             <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'tizhong']" ng-click="changTab('tizhong')">体重</a>
+            <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'xuezhi']" ng-click="changTab('xuezhi')">血脂</a>
             <a ng-class="{true:'tab-item active',false:'tab-item'}[menu == 'tiwen']" ng-click="changTab('tiwen')">体温</a>
         </div>
     </div>
@@ -28,6 +29,13 @@
         <div ng-show="menu == 'tizhong'">
             <div id="tizhong"></div>
             <button class="button button-full button-assertive">添加体重记录</button>
+        </div>
+        <div ng-show="menu == 'xuezhi'">
+            <button class="button button-full button-assertive">添加血脂数据</button>
+            <div id="zongdanguchun"></div>
+            <div id="ganyousanzhi"></div>
+            <div id="gaomiduzhidanbai"></div>
+            <div id="dimiduzhidanbai"></div>
         </div>
         <div ng-show="menu == 'tiwen'">
             <div id="tiwen"></div>
